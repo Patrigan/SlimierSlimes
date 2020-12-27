@@ -2,6 +2,7 @@ package mod.patrigan.slimierslimes.client.entity.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import mod.patrigan.slimierslimes.entities.projectile.AmethystProjectileEntity;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -9,11 +10,10 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
 
-import static mod.patrigan.slimierslimes.init.ModBlocks.AMETHYST_CLUSTER;
+import static mod.patrigan.slimierslimes.init.ModBlocks.*;
 
 public class AmethystProjectileRenderer extends EntityRenderer<AmethystProjectileEntity> {
 
-    //private static final ResourceLocation EVOKER_ILLAGER_FANGS = new ResourceLocation("textures/entity/illager/evoker_fangs.png");
 
     public AmethystProjectileRenderer(EntityRendererManager renderManager) {
         super(renderManager);
@@ -26,9 +26,19 @@ public class AmethystProjectileRenderer extends EntityRenderer<AmethystProjectil
 
     @Override
     public void render(AmethystProjectileEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        matrixStackIn.push();
-        Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(AMETHYST_CLUSTER.get().getDefaultState(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
-        matrixStackIn.pop();
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        float f = entityIn.getAnimationProgress(partialTicks);
+        if (f != 0.0F) {
+            matrixStackIn.push();
+            Block block = AMETHYST_CLUSTER.get();
+            if(f <= 0.1F){
+                block = SMALL_AMETHYST_BUD.get();
+            }else if(f <= 0.2F){
+                block = MEDIUM_AMETHYST_BUD.get();
+            }else if(f <= 0.3F){
+                block = LARGE_AMETHYST_BUD.get();
+            }
+            Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(block.getDefaultState(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
+            matrixStackIn.pop();
+        }
     }
 }

@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 public class ModEntityLootTablesProvider extends LootTableProvider {
 
-    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> entity_loot_tables = ImmutableList.of(Pair.of(ModEntityLootTables::new, LootParameterSets.ENTITY));
+    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> ENTITY_LOOT_TABLES = ImmutableList.of(Pair.of(ModEntityLootTables::new, LootParameterSets.ENTITY));
 
     public ModEntityLootTablesProvider(DataGenerator dataGeneratorIn) {
         super(dataGeneratorIn);
@@ -26,10 +26,11 @@ public class ModEntityLootTablesProvider extends LootTableProvider {
 
     @Override
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
-        return this.entity_loot_tables;
+        return this.ENTITY_LOOT_TABLES;
     }
 
     @Override
     protected void validate(Map<ResourceLocation, LootTable> map, ValidationTracker validationtracker) {
+        // No validation needed
     }
 }

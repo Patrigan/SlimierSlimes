@@ -6,7 +6,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
-import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvents;
@@ -14,6 +13,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
@@ -26,24 +26,25 @@ public class AmethystProjectileEntity extends Entity {
     private LivingEntity caster;
     private UUID casterUuid;
 
-    public AmethystProjectileEntity(EntityType<? extends AmethystProjectileEntity> p_i501Entity70_1_, World p_i50170_2_) {
-        super(p_i501Entity70_1_, p_i50170_2_);
+    public AmethystProjectileEntity(EntityType<? extends AmethystProjectileEntity> entityType, World worldIn) {
+        super(entityType, worldIn);
     }
 
-    public AmethystProjectileEntity(World worldIn, double x, double y, double z, float p_i47276_8_, int p_i47276_9_, LivingEntity casterIn) {
+    public AmethystProjectileEntity(World worldIn, double x, double y, double z, float rotationYaw, int warmupDelayTicks, LivingEntity casterIn) {
         this(ModEntityTypes.AMETYST_PROJECTILE.get(), worldIn);
-        this.warmupDelayTicks = p_i47276_9_;
+        this.warmupDelayTicks = warmupDelayTicks;
         this.setCaster(casterIn);
-        this.rotationYaw = p_i47276_8_ * (180F / (float)Math.PI);
+        this.rotationYaw = rotationYaw * (180F / (float)Math.PI);
         this.setPosition(x, y, z);
     }
 
     protected void registerData() {
+        //No Data to register
     }
 
-    public void setCaster(@Nullable LivingEntity p_190549_1_) {
-        this.caster = p_190549_1_;
-        this.casterUuid = p_190549_1_ == null ? null : p_190549_1_.getUniqueID();
+    public void setCaster(@Nullable LivingEntity livingEntity) {
+        this.caster = livingEntity;
+        this.casterUuid = livingEntity == null ? null : livingEntity.getUniqueID();
     }
 
     @Nullable
@@ -80,6 +81,7 @@ public class AmethystProjectileEntity extends Entity {
     /**
      * Called to update the entity's position/logic.
      */
+    @Override
     public void tick() {
         super.tick();
         if (this.world.isRemote) {
@@ -135,6 +137,7 @@ public class AmethystProjectileEntity extends Entity {
     /**
      * Handler for {@link World#setEntityState}
      */
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
         super.handleStatusUpdate(id);
@@ -144,7 +147,6 @@ public class AmethystProjectileEntity extends Entity {
                 this.world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_EVOKER_FANGS_ATTACK, this.getSoundCategory(), 1.0F, this.rand.nextFloat() * 0.2F + 0.85F, false);
             }
         }
-
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -158,6 +160,6 @@ public class AmethystProjectileEntity extends Entity {
     }
 
     public IPacket<?> createSpawnPacket() {
-        return new SSpawnObjectPacket(this);
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

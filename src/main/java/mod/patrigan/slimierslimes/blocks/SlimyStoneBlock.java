@@ -9,7 +9,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.particles.BasicParticleType;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -30,7 +29,7 @@ import static mod.patrigan.slimierslimes.init.ModParticleTypes.DRIPPING_SLIME;
 
 public class SlimyStoneBlock extends BreakableBlock {
 
-    private static float SPAWN_CHANCE = 0.4F;
+    private static final float SPAWN_CHANCE = 0.4F;
 
     public SlimyStoneBlock() {
         super(Properties.create(Material.ROCK)
@@ -71,6 +70,7 @@ public class SlimyStoneBlock extends BreakableBlock {
 
     }
 
+    @Override
     @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         for(int i = 0; i < rand.nextInt(1) + 1; ++i) {

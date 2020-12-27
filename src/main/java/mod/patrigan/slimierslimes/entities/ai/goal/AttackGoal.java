@@ -28,7 +28,7 @@ public class AttackGoal  extends Goal {
         } else if (!livingentity.isAlive()) {
             return false;
         } else {
-            return livingentity instanceof PlayerEntity && ((PlayerEntity)livingentity).abilities.disableDamage ? false : this.slime.getMoveHelper() instanceof MoveHelperController;
+            return (!(livingentity instanceof PlayerEntity) || !((PlayerEntity) livingentity).abilities.disableDamage) && this.slime.getMoveHelper() instanceof MoveHelperController;
         }
     }
 

@@ -9,13 +9,9 @@ import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import static mod.patrigan.slimierslimes.init.ModParticleTypes.FALLING_SLIME;
 import static mod.patrigan.slimierslimes.init.ModParticleTypes.LANDING_SLIME;
 
 @OnlyIn(Dist.CLIENT)

@@ -42,7 +42,8 @@ public class ModEntityTypes {
         ENTITY_IDS.add(key);
         return ENTITY_TYPES.register(key,
                 () -> EntityType.Builder.create(sup, EntityClassification.MISC)
-                        .size(0.05f, 0.08f) // Hitbox Size
+                        .size(0.05f, 0.08f)
+                        .func_233608_b_(2)// Hitbox Size
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
     }
 }

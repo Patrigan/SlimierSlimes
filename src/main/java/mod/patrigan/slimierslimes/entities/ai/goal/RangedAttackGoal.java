@@ -1,12 +1,13 @@
 package mod.patrigan.slimierslimes.entities.ai.goal;
 
-import java.util.EnumSet;
-
 import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
+import mod.patrigan.slimierslimes.entities.ai.controller.MoveHelperController;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.MathHelper;
+
+import java.util.EnumSet;
 
 public class RangedAttackGoal extends Goal {
     private final AbstractSlimeEntity slimeEntity;
@@ -56,13 +57,15 @@ public class RangedAttackGoal extends Goal {
     /**
      * Returns whether an in-progress EntityAIBase should continue executing
      */
+    @Override
     public boolean shouldContinueExecuting() {
-        return this.shouldExecute() || !this.slimeEntity.getNavigator().noPath();
+        return this.shouldExecute();
     }
 
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
+    @Override
     public void resetTask() {
         this.attackTarget = null;
         this.notSeeTime = 0;
@@ -72,6 +75,7 @@ public class RangedAttackGoal extends Goal {
     /**
      * Keep ticking a continuous task that has already been started
      */
+    @Override
     public void tick() {
         double d0 = this.slimeEntity.getDistanceSq(this.attackTarget.getPosX(), this.attackTarget.getPosY(), this.attackTarget.getPosZ());
         boolean flag = this.slimeEntity.getEntitySenses().canSee(this.attackTarget);
@@ -81,20 +85,32 @@ public class RangedAttackGoal extends Goal {
             this.notSeeTime = 0;
         }
         this.slimeEntity.faceEntity(this.attackTarget, 10.0F, 10.0F);
+        MoveHelperController moveHelper = (MoveHelperController) this.slimeEntity.getMoveHelper();
+        moveHelper.setDirection(this.slimeEntity.rotationYaw, this.slimeEntity.canDamagePlayer());
+        if(!isFacingTarget()){
+            return;
+        }
         if (--this.rangedAttackTime == 0) {
             if (!flag) {
                 return;
             }
 
             float f = MathHelper.sqrt(d0) / this.attackRadius;
-            float lvt_5_1_ = MathHelper.clamp(f, 0.1F, 1.0F);
-            this.rangedAttackEntityHost.attackEntityWithRangedAttack(this.attackTarget, lvt_5_1_);
+            float distanceFactor = MathHelper.clamp(f, 0.1F, 1.0F);
+            this.rangedAttackEntityHost.attackEntityWithRangedAttack(this.attackTarget, distanceFactor);
             this.rangedAttackTime = MathHelper.floor(f * (float)(this.maxRangedAttackTime - this.attackIntervalMin) + (float)this.attackIntervalMin);
         } else if (this.rangedAttackTime < 0) {
             float f2 = MathHelper.sqrt(d0) / this.attackRadius;
             this.rangedAttackTime = MathHelper.floor(f2 * (float)(this.maxRangedAttackTime - this.attackIntervalMin) + (float)this.attackIntervalMin);
         }
 
+    }
+
+    private boolean isFacingTarget() {
+        double dx = this.attackTarget.getPosX() - this.slimeEntity.getPosX();
+        double dz = this.attackTarget.getPosZ() - this.slimeEntity.getPosZ();
+        float targetRotation = (float)(MathHelper.atan2(dz, dx) * (double)(180F / (float)Math.PI)) - 90.0F;
+        return (MathHelper.wrapDegrees(targetRotation - slimeEntity.rotationYaw) + 5F) < 10F;
     }
 }
 

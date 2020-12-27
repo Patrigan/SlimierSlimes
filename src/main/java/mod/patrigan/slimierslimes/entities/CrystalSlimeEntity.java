@@ -11,7 +11,6 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.EvokerFangsEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ItemParticleData;
@@ -32,7 +31,7 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity implements IRangedAt
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 20, 4.0F));
+        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 20, 20.0F));
         this.goalSelector.addGoal(3, new AttackGoal(this));
         this.goalSelector.addGoal(4, new FaceRandomGoal(this));
         this.goalSelector.addGoal(5, new HopGoal(this));
@@ -42,9 +41,10 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity implements IRangedAt
     }
 
     //Slime Size is determined as follows: A random number is determined between 0 and 2. 1 is then bitshift equal to this number, resulting in either 1, 2 or 4.
+    @Override
     protected void setSlimeSize(int size, boolean resetHealth) {
         super.setSlimeSize(size, resetHealth);
-        this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(1000D);
+        this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(12D);
     }
 
     @Override
@@ -56,20 +56,26 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity implements IRangedAt
     protected void land(){
         super.land();
         if (!this.world.isRemote) {
-            fireCrystals();
+            hopCrystals();
         }
     }
 
     // On standard slime sizes: fires 1 / 1 / 4 snowballs
-    public void fireCrystals() {
-        int amount = this.isSmallSlime() ? 1 : (getSlimeSize() * 2);
-        for(int x = 1; x <= amount; x++) {
-            SlimeSnowballEntity snowballentity = new SlimeSnowballEntity(this.world, this);
-            float rotationPitch = this.rotationPitch - 45F;
-            float rotationYaw = this.rotationYaw + (360F/amount)*(x-1);
-            float velocity = 0.3F + getSlimeSize() * 0.1F;
-            snowballentity.func_234612_a_(this, rotationPitch, rotationYaw, 0.0F, velocity , 5.0F);
-            this.world.addEntity(snowballentity);
+    public void hopCrystals() {
+        if(this.rand.nextFloat() <= 0.4F) {
+            double d0 = this.getPosY();
+            double d1 = this.getPosY() + 1.0D;
+            float f = -2.5F;
+            for(int i = 0; i < 5; ++i) {
+                float f1 = f + (float)i * (float)Math.PI * 0.4F;
+                this.spawnCrystals(this.getPosX() + (double) MathHelper.cos(f1) * 1.5D, this.getPosZ() + (double)MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
+            }
+            if(!this.isSmallSlime()){
+                for(int k = 0; k < 8; ++k) {
+                    float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
+                    this.spawnCrystals(this.getPosX() + (double)MathHelper.cos(f2) * 2.5D, this.getPosZ() + (double)MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
+                }
+            }
         }
     }
 

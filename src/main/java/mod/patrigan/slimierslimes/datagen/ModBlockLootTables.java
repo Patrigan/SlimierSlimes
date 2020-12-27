@@ -21,8 +21,10 @@ public class ModBlockLootTables extends BlockLootTables {
     protected void addTables() {
         this.registerLootTable(ModBlocks.SLIMY_STONE_BLOCK.get(), slimyStoneBlock ->
             droppingWithSilkTouch(slimyStoneBlock, withSurvivesExplosion(slimyStoneBlock, ItemLootEntry.builder(ModItems.GREEN_JELLY.get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.COBBLESTONE)))));
-        //this.registerLootTable(ModBlocks.LIGHT_AIR.get(), block -> blockNoDrop());
         this.registerLootTable(ModBlocks.AMETHYST_CLUSTER.get(), block -> blockNoDrop());
+        this.registerLootTable(ModBlocks.SMALL_AMETHYST_BUD.get(), block -> blockNoDrop());
+        this.registerLootTable(ModBlocks.MEDIUM_AMETHYST_BUD.get(), block -> blockNoDrop());
+        this.registerLootTable(ModBlocks.LARGE_AMETHYST_BUD.get(), block -> blockNoDrop());
     }
 
     @Override

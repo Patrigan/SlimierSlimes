@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "slimier-slimes:block/medium_amethyst_bud"
+  }
+}

@@ -4,7 +4,7 @@ import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
 
-public class MoveHelperController  extends MovementController {
+public class MoveHelperController extends MovementController {
     private float yRot;
     private int jumpDelay;
     private final AbstractSlimeEntity slime;

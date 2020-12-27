@@ -1,7 +1,10 @@
 {
   "block.slimier-slimes.amethyst_cluster": "Amethyst Cluster",
+  "block.slimier-slimes.large_amethyst_bud": "Large Amethyst Bud",
   "block.slimier-slimes.light_air": "Light Air",
+  "block.slimier-slimes.medium_amethyst_bud": "Medium Amethyst Bud",
   "block.slimier-slimes.slimy_stone": "Slimy Stone",
+  "block.slimier-slimes.small_amethyst_bud": "Small Amethyst Bud",
   "entity.slimier-slimes.amethyst_projectile": "Amethyst Projectile",
   "entity.slimier-slimes.common_slime": "Common Slime",
   "entity.slimier-slimes.creeper_slime": "Creeper Slime",

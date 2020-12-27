@@ -14,7 +14,7 @@ import static net.minecraft.item.Items.*;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class DataGenerators {
 
-    public static List<Item> DYE_ITEMS = Arrays.asList(WHITE_DYE, LIGHT_GRAY_DYE, GRAY_DYE, BLACK_DYE, RED_DYE, ORANGE_DYE, YELLOW_DYE, LIME_DYE, GREEN_DYE, LIGHT_BLUE_DYE, CYAN_DYE, BLUE_DYE, PURPLE_DYE, MAGENTA_DYE, PINK_DYE, BROWN_DYE);
+    public static final List<Item> DYE_ITEMS = Arrays.asList(WHITE_DYE, LIGHT_GRAY_DYE, GRAY_DYE, BLACK_DYE, RED_DYE, ORANGE_DYE, YELLOW_DYE, LIME_DYE, GREEN_DYE, LIGHT_BLUE_DYE, CYAN_DYE, BLUE_DYE, PURPLE_DYE, MAGENTA_DYE, PINK_DYE, BROWN_DYE);
 
     @SubscribeEvent
     public static void gatherData(GatherDataEvent event) {
@@ -31,6 +31,5 @@ public class DataGenerators {
             generator.addProvider(new ModEntityLootTablesProvider(generator));
             generator.addProvider(new ModBlockLootTablesProvider(generator));
         }
-        //generator.addProvider(new LootTables(generator));
     }
 }

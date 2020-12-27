@@ -22,7 +22,6 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        //List<Item> allElements = Tags.Items.DYES.getAllElements();
         DYE_ITEMS.forEach(dye -> ShapelessRecipeBuilder.shapelessRecipe(dye)
                 .addIngredient(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, ((DyeItem) dye).getDyeColor().getTranslationKey() + "_jelly")))
                 .addCriterion("has_jelly", hasItem(GREEN_JELLY.get()))

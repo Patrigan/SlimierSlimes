@@ -20,12 +20,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         registerSlimyStone();
         registerBlock(AMETHYST_CLUSTER);
+        registerBlock(SMALL_AMETHYST_BUD);
+        registerBlock(MEDIUM_AMETHYST_BUD);
+        registerBlock(LARGE_AMETHYST_BUD);
     }
 
     private void registerSlimyStone() {
         ResourceLocation slimyStoneTexture = modBlockTexture(SLIMY_STONE_BLOCK.getId().getPath());
-        //ResourceLocation stoneTexture = STONE.get;
-        //simpleBlock(SLIMY_STONE_BLOCK.get());
         BlockModelBuilder slimyStoneModel = models().withExistingParent("slimy_stone", "block/block").texture("outer", slimyStoneTexture).texture("inner", slimyStoneTexture)
                 .element().from(3F, 3F, 3F).to(12F,12F,12F).allFaces((d, f) -> f.texture("#inner")).allFaces((d, f) -> f.uvs(3, 3, 13, 13)).end()
                 .element().from(0F, 0F, 0F).to(16F,16F,16F).allFaces((d, f) -> f.texture("#outer")).allFaces((d, f) -> f.uvs(0, 0, 16, 16))

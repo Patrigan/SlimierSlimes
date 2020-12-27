@@ -1,0 +1,2 @@
+Attributes.MOVEMENT_SPEED = How far it will jump.
+Use getJumpUpwardsMotion() for jump height

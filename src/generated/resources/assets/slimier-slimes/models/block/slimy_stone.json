@@ -1,0 +1,115 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "outer": "slimier-slimes:block/slimy_stone",
+    "inner": "slimier-slimes:block/slimy_stone"
+  },
+  "elements": [
+    {
+      "from": [
+        3,
+        3,
+        3
+      ],
+      "to": [
+        12,
+        12,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#inner",
+          "uv": [
+            3.0,
+            3.0,
+            13.0,
+            13.0
+          ]
+        },
+        "up": {
+          "texture": "#inner",
+          "uv": [
+            3.0,
+            3.0,
+            13.0,
+            13.0
+          ]
+        },
+        "north": {
+          "texture": "#inner",
+          "uv": [
+            3.0,
+            3.0,
+            13.0,
+            13.0
+          ]
+        },
+        "south": {
+          "texture": "#inner",
+          "uv": [
+            3.0,
+            3.0,
+            13.0,
+            13.0
+          ]
+        },
+        "west": {
+          "texture": "#inner",
+          "uv": [
+            3.0,
+            3.0,
+            13.0,
+            13.0
+          ]
+        },
+        "east": {
+          "texture": "#inner",
+          "uv": [
+            3.0,
+            3.0,
+            13.0,
+            13.0
+          ]
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#outer",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#outer",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#outer",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#outer",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#outer",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#outer",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

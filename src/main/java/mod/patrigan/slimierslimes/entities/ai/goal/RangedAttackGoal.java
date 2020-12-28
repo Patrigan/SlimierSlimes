@@ -107,10 +107,14 @@ public class RangedAttackGoal extends Goal {
     }
 
     private boolean isFacingTarget() {
-        double dx = this.attackTarget.getPosX() - this.slimeEntity.getPosX();
-        double dz = this.attackTarget.getPosZ() - this.slimeEntity.getPosZ();
-        float targetRotation = (float)(MathHelper.atan2(dz, dx) * (double)(180F / (float)Math.PI)) - 90.0F;
-        return (MathHelper.wrapDegrees(targetRotation - slimeEntity.rotationYaw) + 5F) < 10F;
+        double d0 = this.attackTarget.getPosX() - this.slimeEntity.getPosX();
+        double d2 = this.attackTarget.getPosZ() - this.slimeEntity.getPosZ();
+        float f = MathHelper.wrapDegrees((float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F);
+        if (f<0F){
+            f = f+360F;
+        }
+        return this.slimeEntity.renderYawOffset -5F < f && f < this.slimeEntity.renderYawOffset + 5F;
     }
+
 }
 

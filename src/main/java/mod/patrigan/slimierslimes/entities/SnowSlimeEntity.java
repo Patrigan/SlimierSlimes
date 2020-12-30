@@ -1,5 +1,6 @@
 package mod.patrigan.slimierslimes.entities;
 
+import mod.patrigan.slimierslimes.entities.projectile.SlimeSnowballEntity;
 import mod.patrigan.slimierslimes.init.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;

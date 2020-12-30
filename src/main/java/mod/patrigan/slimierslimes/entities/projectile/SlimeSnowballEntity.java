@@ -1,4 +1,4 @@
-package mod.patrigan.slimierslimes.entities;
+package mod.patrigan.slimierslimes.entities.projectile;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;

@@ -51,6 +51,7 @@ public class DiamondSlimeEntity extends AbstractSlimeEntity {
     protected void setSlimeSize(int size, boolean resetHealth) {
         super.setSlimeSize(size, resetHealth);
         this.getAttribute(Attributes.ARMOR).setBaseValue((double)(size * 2F));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue((double) (0.3F + 0.1F * (float) size));
     }
 
     @Override

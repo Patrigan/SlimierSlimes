@@ -29,7 +29,7 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<CreeperSlimeEntity>> CREEPER_SLIME = getSlimeRegistryObject("creeper_slime", CreeperSlimeEntity::new);
     public static final RegistryObject<EntityType<SnowSlimeEntity>> SNOW_SLIME = getSlimeRegistryObject("snow_slime", SnowSlimeEntity::new);
     public static final RegistryObject<EntityType<CamoSlimeEntity>> CAMO_SLIME = getSlimeRegistryObject("camo_slime", CamoSlimeEntity::new);
-    public static final RegistryObject<EntityType<AmethystProjectileEntity>> AMETYST_PROJECTILE = getMiscRegistryObject("amethyst_projectile", AmethystProjectileEntity::new);
+    public static final RegistryObject<EntityType<AmethystProjectileEntity>> AMETYST_PROJECTILE = getAmethystProjectileRegistryObject("amethyst_projectile", AmethystProjectileEntity::new);
 
     private static <T extends AbstractSlimeEntity> RegistryObject<EntityType<T>> getSlimeRegistryObject(String key, final EntityType.IFactory<T> sup) {
         ENTITY_IDS.add(key);
@@ -39,13 +39,13 @@ public class ModEntityTypes {
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
     }
 
-    private static <T extends Entity> RegistryObject<EntityType<T>> getMiscRegistryObject(String key, final EntityType.IFactory<T> sup) {
+    private static <T extends Entity> RegistryObject<EntityType<T>> getAmethystProjectileRegistryObject(String key, final EntityType.IFactory<T> sup) {
         ENTITY_IDS.add(key);
         return ENTITY_TYPES.register(key,
                 () -> EntityType.Builder.create(sup, EntityClassification.MISC)
                         .size(0.05f, 0.08f)
-                        .func_233608_b_(20) // updateInterval
-                        .trackingRange(120) // trackingRange
+                        .setUpdateInterval(20)
+                        .setTrackingRange(120)
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
     }
 }

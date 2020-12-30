@@ -2,7 +2,6 @@ package mod.patrigan.slimierslimes.entities.ai.goal;
 
 import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
 import mod.patrigan.slimierslimes.entities.ai.controller.MoveHelperController;
-import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.util.math.MathHelper;

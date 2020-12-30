@@ -19,6 +19,9 @@ import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class AmethystProjectileEntity extends Entity {
+
+    private static final float DAMAGE = 4.0F;
+
     private int warmupDelayTicks;
     private boolean sentSpikeEvent;
     private int lifeTicks = 22;
@@ -118,17 +121,17 @@ public class AmethystProjectileEntity extends Entity {
 
     }
 
-    private void damage(LivingEntity livingEntity) {
-        LivingEntity livingentity = this.getCaster();
-        if (livingEntity.isAlive() && !livingEntity.isInvulnerable() && livingEntity != livingentity) {
-            if (livingentity == null) {
-                livingEntity.attackEntityFrom(DamageSource.MAGIC, 6.0F);
+    private void damage(LivingEntity target) {
+        LivingEntity attacker = this.getCaster();
+        if (target.isAlive() && !target.isInvulnerable() && target != attacker) {
+            if (attacker == null) {
+                target.attackEntityFrom(DamageSource.MAGIC, DAMAGE);
             } else {
-                if (livingentity.isOnSameTeam(livingEntity)) {
+                if (attacker.isOnSameTeam(target)) {
                     return;
                 }
 
-                livingEntity.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, livingentity), 6.0F);
+                target.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, attacker), DAMAGE);
             }
 
         }
@@ -144,7 +147,7 @@ public class AmethystProjectileEntity extends Entity {
         if (id == 4) {
             this.clientSideAttackStarted = true;
             if (!this.isSilent()) {
-                this.world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.ENTITY_EVOKER_FANGS_ATTACK, this.getSoundCategory(), 1.0F, this.rand.nextFloat() * 0.2F + 0.85F, false);
+                this.world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.BLOCK_NOTE_BLOCK_CHIME, this.getSoundCategory(), 1.0F, this.rand.nextFloat() , false);
             }
         }
     }

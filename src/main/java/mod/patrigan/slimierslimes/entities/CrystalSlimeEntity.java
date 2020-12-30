@@ -5,7 +5,6 @@ import mod.patrigan.slimierslimes.entities.projectile.AmethystProjectileEntity;
 import mod.patrigan.slimierslimes.init.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
@@ -62,18 +61,16 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity {
 
     // On standard slime sizes: fires 1 / 1 / 4 snowballs
     public void hopCrystals() {
-        if(this.rand.nextFloat() <= 0.4F) {
-            double d0 = this.getPosY();
-            double d1 = this.getPosY() + 1.0D;
-            for(int i = 0; i < 5; ++i) {
-                float f1 = (float)i * (float)Math.PI * 0.4F;
-                this.spawnCrystals(this.getPosX() + (double) MathHelper.cos(f1) * 1.5D, this.getPosZ() + (double)MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
-            }
-            if(!this.isSmallSlime()){
-                for(int k = 0; k < 8; ++k) {
-                    float f2 = (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                    this.spawnCrystals(this.getPosX() + (double)MathHelper.cos(f2) * 2.5D, this.getPosZ() + (double)MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
-                }
+        double d0 = this.getPosY();
+        double d1 = this.getPosY() + 1.0D;
+        for(int i = 0; i < 5; ++i) {
+            float f1 = (float)i * (float)Math.PI * 0.4F;
+            this.spawnCrystals(this.getPosX() + (double) MathHelper.cos(f1) * 1.5D, this.getPosZ() + (double)MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
+        }
+        if(!this.isSmallSlime()){
+            for(int k = 0; k < 8; ++k) {
+                float f2 = (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
+                this.spawnCrystals(this.getPosX() + (double)MathHelper.cos(f2) * 2.5D, this.getPosZ() + (double)MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
             }
         }
     }
@@ -91,6 +88,10 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity {
                     double d2 = 1.25D * (double) (l + 1);
                     this.spawnCrystals(this.getPosX() + (double) MathHelper.cos(f) * d2, this.getPosZ() + (double) MathHelper.sin(f) * d2, d0, d1, f, l);
                 }
+            }
+        }else {
+            if (this.rand.nextFloat() <= 0.4F) {
+                hopCrystals();
             }
         }
     }

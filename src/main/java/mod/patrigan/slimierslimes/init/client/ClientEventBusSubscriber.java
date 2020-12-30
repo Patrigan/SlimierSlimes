@@ -21,6 +21,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.GLOW_SLIME.get(), GlowSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.CREEPER_SLIME.get(), CreeperSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.SNOW_SLIME.get(), SnowSlimeRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.AMETYST_PROJECTILE.get(), AmethystProjectileRenderer::new);
     }

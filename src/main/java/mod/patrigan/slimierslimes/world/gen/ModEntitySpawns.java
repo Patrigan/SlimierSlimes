@@ -22,6 +22,7 @@ import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
 import static net.minecraft.entity.EntityClassification.MONSTER;
 import static net.minecraft.entity.EntitySpawnPlacementRegistry.PlacementType.ON_GROUND;
 import static net.minecraft.entity.EntityType.SLIME;
+import static net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING;
 import static net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING_NO_LEAVES;
 
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -39,7 +40,8 @@ public class ModEntitySpawns {
             SLIME_BASE_WEIGHTS.put(CRYSTAL_SLIME.get(), 20);
             SLIME_BASE_WEIGHTS.put(GLOW_SLIME.get(), 30);
             SLIME_BASE_WEIGHTS.put(CREEPER_SLIME.get(), 75);
-            SLIME_BASE_WEIGHTS.put(SNOW_SLIME.get(), 100);
+            SLIME_BASE_WEIGHTS.put(CAMO_SLIME.get(), 50);
+            SLIME_BASE_WEIGHTS.put(SNOW_SLIME.get(), 80);
             SLIME_BASE_WEIGHTS.put(DIAMOND_SLIME.get(), 1);
         });
     }
@@ -52,6 +54,7 @@ public class ModEntitySpawns {
         EntitySpawnPlacementRegistry.register(GLOW_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, GlowSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(CREEPER_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, CreeperSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(SNOW_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, SnowSlimeEntity::spawnable);
+        EntitySpawnPlacementRegistry.register(CAMO_SLIME.get(), ON_GROUND, MOTION_BLOCKING, CamoSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(DIAMOND_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, DiamondSlimeEntity::spawnable);
     }
 
@@ -60,12 +63,12 @@ public class ModEntitySpawns {
     public static void biomeLoading(final BiomeLoadingEvent event)
     {
         RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
-
         removeSlime(event);
 
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         Map<EntityType<? extends AbstractSlimeEntity>, Integer> slimeWeights = null;
+
         if(types.contains(BiomeDictionary.Type.OVERWORLD)) {
             slimeWeights = new HashMap<>(SLIME_BASE_WEIGHTS);
         }else{
@@ -73,17 +76,23 @@ public class ModEntitySpawns {
         }
         if(types.contains(BiomeDictionary.Type.SWAMP)){
             slimeWeights = boundWeights(slimeWeights, SLIME_TOTAL_WEIGHT*3);
-        }else if (!types.contains(BiomeDictionary.Type.COLD)
+            addSlimeSpawners(event, slimeWeights);
+            return;
+        }
+        if (!types.contains(BiomeDictionary.Type.COLD)
                 && !types.contains(BiomeDictionary.Type.OCEAN)
                 && types.contains(BiomeDictionary.Type.OVERWORLD)) {
             slimeWeights.remove(SNOW_SLIME.get());
-            slimeWeights = boundWeights(slimeWeights, SLIME_TOTAL_WEIGHT);
         }else if(types.contains(BiomeDictionary.Type.COLD)
                 && !types.contains(BiomeDictionary.Type.OCEAN)
                 && types.contains(BiomeDictionary.Type.OVERWORLD)) {
             slimeWeights.put(COMMON_SLIME.get(), SLIME_BASE_WEIGHTS.get(COMMON_SLIME.get())/2);
-            slimeWeights = boundWeights(slimeWeights, SLIME_TOTAL_WEIGHT);
+            slimeWeights.put(SNOW_SLIME.get(), SLIME_BASE_WEIGHTS.get(SNOW_SLIME.get())*2);
         }
+        if(!types.contains(BiomeDictionary.Type.FOREST) && !types.contains(BiomeDictionary.Type.JUNGLE)){
+            slimeWeights.remove(CAMO_SLIME.get());
+        }
+        slimeWeights = boundWeights(slimeWeights, SLIME_TOTAL_WEIGHT);
         addSlimeSpawners(event, slimeWeights);
     }
 

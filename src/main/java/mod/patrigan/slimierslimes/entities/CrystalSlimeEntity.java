@@ -22,7 +22,7 @@ import net.minecraft.world.World;
 
 import static net.minecraft.particles.ParticleTypes.ITEM;
 
-public class CrystalSlimeEntity extends AbstractSlimeEntity implements IRangedAttackMob {
+public class CrystalSlimeEntity extends AbstractSlimeEntity {
 
     public CrystalSlimeEntity(EntityType<? extends AbstractSlimeEntity> type, World worldIn) {
         super(type, worldIn);
@@ -31,7 +31,7 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity implements IRangedAt
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 20, 20.0F));
+        this.goalSelector.addGoal(2, new CastingAttackGoal(this, 20, 20.0F));
         this.goalSelector.addGoal(3, new AttackGoal(this));
         this.goalSelector.addGoal(4, new FaceRandomGoal(this));
         this.goalSelector.addGoal(5, new HopGoal(this));
@@ -56,7 +56,7 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity implements IRangedAt
     protected void land(){
         super.land();
         if (!this.world.isRemote) {
-            hopCrystals();
+            fireCrystals();
         }
     }
 
@@ -65,41 +65,32 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity implements IRangedAt
         if(this.rand.nextFloat() <= 0.4F) {
             double d0 = this.getPosY();
             double d1 = this.getPosY() + 1.0D;
-            float f = -2.5F;
             for(int i = 0; i < 5; ++i) {
-                float f1 = f + (float)i * (float)Math.PI * 0.4F;
+                float f1 = (float)i * (float)Math.PI * 0.4F;
                 this.spawnCrystals(this.getPosX() + (double) MathHelper.cos(f1) * 1.5D, this.getPosZ() + (double)MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
             }
             if(!this.isSmallSlime()){
                 for(int k = 0; k < 8; ++k) {
-                    float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
+                    float f2 = (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
                     this.spawnCrystals(this.getPosX() + (double)MathHelper.cos(f2) * 2.5D, this.getPosZ() + (double)MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
                 }
             }
         }
     }
 
-    @Override
-    public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
-        LivingEntity livingentity = this.getAttackTarget();
-        double d0 = Math.min(livingentity.getPosY(), this.getPosY());
-        double d1 = Math.max(livingentity.getPosY(), this.getPosY()) + 1.0D;
-        float f = (float)MathHelper.atan2(livingentity.getPosZ() - this.getPosZ(), livingentity.getPosX() - this.getPosX());
-        if (this.getDistanceSq(target) < 9.0D) {
-            for(int i = 0; i < 5; ++i) {
-                float f1 = f + (float)i * (float)Math.PI * 0.4F;
-                this.spawnCrystals(this.getPosX() + (double) MathHelper.cos(f1) * 1.5D, this.getPosZ() + (double)MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
-            }
-
-            for(int k = 0; k < 8; ++k) {
-                float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-                this.spawnCrystals(this.getPosX() + (double)MathHelper.cos(f2) * 2.5D, this.getPosZ() + (double)MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
-            }
-        } else {
-            for(int l = 0; l < 16; ++l) {
-                double d2 = 1.25D * (double)(l + 1);
-                int j = 1 * l;
-                this.spawnCrystals(this.getPosX() + (double)MathHelper.cos(f) * d2, this.getPosZ() + (double)MathHelper.sin(f) * d2, d0, d1, f, j);
+    public void fireCrystals() {
+        LivingEntity target = this.getAttackTarget();
+        if(target != null) {
+            double d0 = Math.min(target.getPosY(), this.getPosY());
+            double d1 = Math.max(target.getPosY(), this.getPosY()) + 1.0D;
+            float f = (float) MathHelper.atan2(target.getPosZ() - this.getPosZ(), target.getPosX() - this.getPosX());
+            if (this.getDistanceSq(target) < 9.0D) {
+                hopCrystals();
+            } else {
+                for (int l = 0; l < 16; ++l) {
+                    double d2 = 1.25D * (double) (l + 1);
+                    this.spawnCrystals(this.getPosX() + (double) MathHelper.cos(f) * d2, this.getPosZ() + (double) MathHelper.sin(f) * d2, d0, d1, f, l);
+                }
             }
         }
     }
@@ -108,7 +99,6 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity implements IRangedAt
         BlockPos blockpos = new BlockPos(posX, posY, posZ);
         boolean flag = false;
         double d0 = 0.0D;
-
         do {
             BlockPos blockpos1 = blockpos.down();
             BlockState blockstate = this.world.getBlockState(blockpos1);
@@ -124,15 +114,12 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity implements IRangedAt
                 flag = true;
                 break;
             }
-
             blockpos = blockpos.down();
         } while(blockpos.getY() >= MathHelper.floor(yDifference) - 1);
 
         if (flag) {
             this.world.addEntity(new AmethystProjectileEntity(this.world, posX, (double)blockpos.getY() + d0, posZ, yaw, warmupDelay, this));
         }
-
     }
-
 
 }

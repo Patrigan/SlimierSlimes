@@ -9,9 +9,8 @@ import net.minecraft.util.math.MathHelper;
 
 import java.util.EnumSet;
 
-public class RangedAttackGoal extends Goal {
+public class CastingAttackGoal extends Goal {
     private final AbstractSlimeEntity slimeEntity;
-    private final IRangedAttackMob rangedAttackEntityHost;
     private LivingEntity attackTarget;
     private int rangedAttackTime = -1;
     private int notSeeTime;
@@ -20,22 +19,17 @@ public class RangedAttackGoal extends Goal {
     private final float attackRadius;
     private final float maxAttackDistance;
 
-    public RangedAttackGoal(IRangedAttackMob attacker, int maxAttackTime, float maxAttackDistanceIn) {
+    public CastingAttackGoal(AbstractSlimeEntity attacker, int maxAttackTime, float maxAttackDistanceIn) {
         this(attacker,  maxAttackTime, maxAttackTime, maxAttackDistanceIn);
     }
 
-    public RangedAttackGoal(IRangedAttackMob attacker, int attackIntervalMin, int maxAttackTime, float maxAttackDistanceIn) {
-        if (!(attacker instanceof LivingEntity)) {
-            throw new IllegalArgumentException("Ranged AttackGoal requires Mob implements RangedAttackMob");
-        } else {
-            this.rangedAttackEntityHost = attacker;
-            this.slimeEntity = (AbstractSlimeEntity) attacker;
-            this.attackIntervalMin = attackIntervalMin;
-            this.maxRangedAttackTime = maxAttackTime;
-            this.attackRadius = maxAttackDistanceIn;
-            this.maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
-            this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
-        }
+    public CastingAttackGoal(AbstractSlimeEntity attacker, int castingIntervalMin, int maxCastingTime, float maxAttackDistanceIn) {
+        this.slimeEntity = attacker;
+        this.attackIntervalMin = castingIntervalMin;
+        this.maxRangedAttackTime = maxCastingTime;
+        this.attackRadius = maxAttackDistanceIn;
+        this.maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
+        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
     /**
@@ -87,33 +81,17 @@ public class RangedAttackGoal extends Goal {
         this.slimeEntity.faceEntity(this.attackTarget, 10.0F, 10.0F);
         MoveHelperController moveHelper = (MoveHelperController) this.slimeEntity.getMoveHelper();
         moveHelper.setDirection(this.slimeEntity.rotationYaw, this.slimeEntity.canDamagePlayer());
-        if(!isFacingTarget()){
-            return;
-        }
+        moveHelper.setSpeed(0.1D);
         if (--this.rangedAttackTime == 0) {
             if (!flag) {
                 return;
             }
-
             float f = MathHelper.sqrt(d0) / this.attackRadius;
-            float distanceFactor = MathHelper.clamp(f, 0.1F, 1.0F);
-            this.rangedAttackEntityHost.attackEntityWithRangedAttack(this.attackTarget, distanceFactor);
             this.rangedAttackTime = MathHelper.floor(f * (float)(this.maxRangedAttackTime - this.attackIntervalMin) + (float)this.attackIntervalMin);
         } else if (this.rangedAttackTime < 0) {
             float f2 = MathHelper.sqrt(d0) / this.attackRadius;
             this.rangedAttackTime = MathHelper.floor(f2 * (float)(this.maxRangedAttackTime - this.attackIntervalMin) + (float)this.attackIntervalMin);
         }
-
-    }
-
-    private boolean isFacingTarget() {
-        double d0 = this.attackTarget.getPosX() - this.slimeEntity.getPosX();
-        double d2 = this.attackTarget.getPosZ() - this.slimeEntity.getPosZ();
-        float f = MathHelper.wrapDegrees((float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F);
-        if (f<0F){
-            f = f+360F;
-        }
-        return this.slimeEntity.renderYawOffset -5F < f && f < this.slimeEntity.renderYawOffset + 5F;
     }
 
 }

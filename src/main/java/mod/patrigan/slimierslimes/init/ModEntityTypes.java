@@ -7,12 +7,15 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.network.FMLPlayMessages;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
 
 public class ModEntityTypes {
 
@@ -43,7 +46,7 @@ public class ModEntityTypes {
         ENTITY_IDS.add(key);
         return ENTITY_TYPES.register(key,
                 () -> EntityType.Builder.create(sup, EntityClassification.MISC)
-                        .size(0.05f, 0.08f)
+                        .size(0.6f, 0.6f)
                         .setUpdateInterval(20)
                         .setTrackingRange(120)
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));

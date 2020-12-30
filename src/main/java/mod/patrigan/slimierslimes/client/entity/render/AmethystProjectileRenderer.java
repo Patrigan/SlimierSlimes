@@ -5,6 +5,7 @@ import mod.patrigan.slimierslimes.entities.projectile.AmethystProjectileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -23,6 +24,13 @@ public class AmethystProjectileRenderer extends EntityRenderer<AmethystProjectil
     public ResourceLocation getEntityTexture(AmethystProjectileEntity entity) {
         return null;
     }
+
+   /* @Override
+    public boolean shouldRender(AmethystProjectileEntity livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
+        if(super.shouldRender(livingEntityIn, camera, camX, camY, camZ){
+            return true;
+        }
+    }*/
 
     @Override
     public void render(AmethystProjectileEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {

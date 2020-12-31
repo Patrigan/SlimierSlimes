@@ -7,17 +7,22 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.EnumSet;
+import java.util.function.BooleanSupplier;
 
 public class FleeGoal extends Goal {
     private final AbstractSlimeEntity slime;
 
     private int fleeTimer;
     private int baseFleeTime;
+    private BooleanSupplier predicate;
+    private Runnable action;
 
-    public FleeGoal(AbstractSlimeEntity slimeIn, int fleeTime) {
+    public FleeGoal(AbstractSlimeEntity slimeIn, int fleeTime, BooleanSupplier predicate, Runnable action) {
         this.slime = slimeIn;
         this.setMutexFlags(EnumSet.of(Flag.LOOK));
         this.baseFleeTime = fleeTime;
+        this.action = action;
+        this.predicate = predicate;
     }
 
     /**
@@ -31,7 +36,8 @@ public class FleeGoal extends Goal {
         } else if (!livingentity.isAlive()) {
             return false;
         } else {
-            return (!(livingentity instanceof PlayerEntity) || !((PlayerEntity) livingentity).abilities.disableDamage) && this.slime.getMoveHelper() instanceof MoveHelperController;
+            return (!(livingentity instanceof PlayerEntity) || !((PlayerEntity) livingentity).abilities.disableDamage) && this.slime.getMoveHelper() instanceof MoveHelperController
+                    && predicate.getAsBoolean();
         }
     }
 
@@ -56,8 +62,9 @@ public class FleeGoal extends Goal {
             return false;
         } else if (livingentity instanceof PlayerEntity && ((PlayerEntity)livingentity).abilities.disableDamage) {
             return false;
+        } else if (fleeTimer < 0) {
+            return false;
         } else {
-            fleeTimer--;
             return true;
         }
     }
@@ -68,7 +75,11 @@ public class FleeGoal extends Goal {
     @Override
     public void tick() {
         this.slime.faceAwayFromEntity(this.slime.getAttackTarget(), 10.0F, 10.0F);
-        ((MoveHelperController)this.slime.getMoveHelper()).setDirection(this.slime.rotationYaw, this.slime.canDamagePlayer());
+        ((MoveHelperController)this.slime.getMoveHelper()).setDirection(this.slime.rotationYaw, true);
+        fleeTimer--;
+        if(fleeTimer == 0){
+            action.run();
+        }
     }
 
     public int getFleeTimer() {

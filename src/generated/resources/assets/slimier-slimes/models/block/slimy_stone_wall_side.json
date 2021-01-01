@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/template_wall_side",
+  "textures": {
+    "wall": "slimier-slimes:block/slimy_stone"
+  }
+}

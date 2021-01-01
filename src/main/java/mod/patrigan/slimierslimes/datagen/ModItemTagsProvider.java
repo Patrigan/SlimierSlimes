@@ -2,6 +2,7 @@ package mod.patrigan.slimierslimes.datagen;
 
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.init.ModItems;
+import mod.patrigan.slimierslimes.init.ModTags;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;

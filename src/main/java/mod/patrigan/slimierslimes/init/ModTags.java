@@ -1,4 +1,4 @@
-package mod.patrigan.slimierslimes.datagen;
+package mod.patrigan.slimierslimes.init;
 
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import net.minecraft.item.Item;

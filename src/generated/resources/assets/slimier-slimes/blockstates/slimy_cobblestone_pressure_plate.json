@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "slimier-slimes:block/slimy_cobblestone_pressure_plate"
+    },
+    "powered=true": {
+      "model": "slimier-slimes:block/slimy_cobblestone_pressure_plate_down"
+    }
+  }
+}

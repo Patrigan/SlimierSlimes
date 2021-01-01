@@ -27,6 +27,7 @@ public class ModBlocks {
 
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SlimierSlimes.MOD_ID);
     public static final List<String> BLOCK_IDS = new ArrayList<>();
+    public static final List<BuildingBlockHelper> BLOCK_HELPERS = new ArrayList<>();
 
     public static final RegistryObject<Block> LIGHT_AIR = registerBlockWithoutItem("light_air",  LightAirBlock::new);
     public static final BuildingBlockHelper SLIMY_COBBLESTONE_BLOCK = registerBuildingBlock("slimy_cobblestone", SlimyStoneBlock::new);
@@ -49,13 +50,15 @@ public class ModBlocks {
     }
 
     private static BuildingBlockHelper registerBuildingBlock(String id, Supplier<Block> sup) {
-        return new BuildingBlockHelper(id,
+        BuildingBlockHelper buildingBlockHelper = new BuildingBlockHelper(id,
                 registerBlock(id, sup),
                 registerBlock(id + SLAB_ID, () -> new SlabBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(1F))),
                 registerBlock(id + STAIRS_ID, () -> new StairsBlock(() -> sup.get().getDefaultState(), AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(1F))),
                 registerBlock(id + BUTTON_ID, () -> new StoneButtonBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).doesNotBlockMovement().hardnessAndResistance(0.5F))),
                 registerBlock(id + PLATE_ID, () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).doesNotBlockMovement().hardnessAndResistance(0.5F).slipperiness(1F))),
                 registerBlock(id + WALL_ID, () -> new WallBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE))));
+        BLOCK_HELPERS.add(buildingBlockHelper);
+        return buildingBlockHelper;
     }
 
     public static void initRenderTypes(){

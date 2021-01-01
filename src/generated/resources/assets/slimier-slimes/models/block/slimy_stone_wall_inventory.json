@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/wall_inventory",
+  "textures": {
+    "wall": "slimier-slimes:block/slimy_stone"
+  }
+}

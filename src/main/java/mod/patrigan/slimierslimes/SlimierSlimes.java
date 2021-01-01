@@ -5,8 +5,6 @@ import mod.patrigan.slimierslimes.entities.*;
 import mod.patrigan.slimierslimes.init.*;
 import mod.patrigan.slimierslimes.world.gen.ModEntitySpawns;
 import mod.patrigan.slimierslimes.world.gen.feature.ModFeatures;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -19,8 +17,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import static mod.patrigan.slimierslimes.init.ModBlocks.SLIMY_STONE_BLOCK;
 
 @Mod(SlimierSlimes.MOD_ID)
 public class SlimierSlimes {
@@ -35,8 +31,8 @@ public class SlimierSlimes {
         modEventBus.addListener(this::doClientStuff);
         modEventBus.addListener(DataGenerators::gatherData);
 
-        ModItems.ITEMS.register(modEventBus);
         ModBlocks.BLOCKS.register(modEventBus);
+        ModItems.ITEMS.register(modEventBus);
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
         ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
         ModParticleTypes.PARTICLES.register(modEventBus);
@@ -47,7 +43,7 @@ public class SlimierSlimes {
         LOGGER.log(Level.INFO, "Slimier Slimes Loaded.");
     }
 
-    public static final ItemGroup TAB = new ItemGroup("SlimierSlimesTab") {
+    public static final ItemGroup TAB = new ItemGroup("slimier-slimes") {
         @Override
         public ItemStack createIcon(){
             return new ItemStack(ModItems.GREEN_JELLY.get());
@@ -74,7 +70,7 @@ public class SlimierSlimes {
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        RenderTypeLookup.setRenderLayer(SLIMY_STONE_BLOCK.get(), RenderType.getTranslucent());
+        ModBlocks.initRenderTypes();
     }
 
 }

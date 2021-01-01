@@ -1,6 +1,7 @@
 package mod.patrigan.slimierslimes.init;
 
 import mod.patrigan.slimierslimes.SlimierSlimes;
+import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
@@ -10,9 +11,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static mod.patrigan.slimierslimes.init.ModBlocks.AMETHYST_CLUSTER;
-import static mod.patrigan.slimierslimes.init.ModBlocks.SLIMY_STONE_BLOCK;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class ModItems {
 
@@ -37,14 +37,14 @@ public class ModItems {
     public static final RegistryObject<Item> PINK_JELLY = registerJelly(DyeColor.PINK);
     public static final RegistryObject<Item> BROWN_JELLY = registerJelly(DyeColor.BROWN);
 
-    //BlockItems
-    public static final RegistryObject<Item> SLIMY_STONE_BLOCK_ITEM = ITEMS.register("slimy_stone",  () -> new BlockItem(SLIMY_STONE_BLOCK.get(), new Item.Properties().group(SlimierSlimes.TAB)));
-    public static final RegistryObject<Item> AMETHYST_BLOCK_ITEM = ITEMS.register("amethyst_cluster",  () -> new BlockItem(AMETHYST_CLUSTER.get(), new Item.Properties().group(SlimierSlimes.TAB)));
-
     private static RegistryObject<Item> registerJelly(DyeColor dyeColorin){
         String itemId = dyeColorin.getTranslationKey() + "_jelly";
         ITEM_IDS.add(itemId);
         return ITEMS.register(itemId,  () -> new Item(new Item.Properties().group(SlimierSlimes.TAB)));
+    }
+
+    public static RegistryObject<BlockItem> registerBlockItem(String id, RegistryObject<Block> block, Function<Supplier<Block>, BlockItem> itemCreatorFunction){
+        return ITEMS.register(id,  () -> itemCreatorFunction.apply(block));
     }
 
 }

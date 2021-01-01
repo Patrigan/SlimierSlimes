@@ -16,19 +16,19 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModFeatures {
 
-    private static ConfiguredFeature<?,?> SLIMY_STONE;
+    private static ConfiguredFeature<?,?> SLIMY_STONE_FEATURE;
 
     public static void registerConfiguredFeatures(){
-        SLIMY_STONE = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, ModBlocks.SLIMY_STONE_BLOCK.get().getDefaultState(), 8)).range(128).square().func_242731_b(7);
+        SLIMY_STONE_FEATURE = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, ModBlocks.SLIMY_STONE_BLOCK.getBlock().get().getDefaultState(), 8)).range(128).square().func_242731_b(7);
 
-        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(SlimierSlimes.MOD_ID, "slimy_stone"), SLIMY_STONE);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(SlimierSlimes.MOD_ID, "slimy_stone"), SLIMY_STONE_FEATURE);
     }
 
 
     @SubscribeEvent
     public static void biomeLoading(final BiomeLoadingEvent event)
     {
-        event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> SLIMY_STONE);
+        event.getGeneration().getFeatures(GenerationStage.Decoration.UNDERGROUND_ORES).add(() -> SLIMY_STONE_FEATURE);
     }
 
 

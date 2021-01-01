@@ -1,6 +1,7 @@
 {
   "parent": "minecraft:block/block",
   "textures": {
+    "particle": "slimier-slimes:block/slimy_stone",
     "outer": "slimier-slimes:block/slimy_stone",
     "inner": "slimier-slimes:block/slimy_stone"
   },

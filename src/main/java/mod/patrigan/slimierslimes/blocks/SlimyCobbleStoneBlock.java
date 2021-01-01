@@ -1,18 +1,15 @@
 package mod.patrigan.slimierslimes.blocks;
 
 import mod.patrigan.slimierslimes.entities.RockSlimeEntity;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BreakableBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.BooleanProperty;
-import net.minecraft.state.StateContainer;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -31,22 +28,21 @@ import java.util.Random;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.ROCK_SLIME;
 import static mod.patrigan.slimierslimes.init.ModParticleTypes.DRIPPING_SLIME;
 
-public class SlimyStoneBlock extends BreakableBlock {
+public class SlimyCobbleStoneBlock extends BreakableBlock {
 
     private static final float SPAWN_CHANCE = 0.4F;
-    public static final BooleanProperty CAN_SPAWN = BooleanProperty.create("can_spawn");
 
-    public SlimyStoneBlock() {
-        super(Properties.create(Material.ROCK)
+    public SlimyCobbleStoneBlock() {
+        super(Properties.create(Material.ROCK, MaterialColor.STONE)
                 .setRequiresTool()
                 .harvestLevel(1)
                 .harvestTool(ToolType.PICKAXE)
                 .slipperiness(0.9F)
                 .sound(SoundType.SLIME)
-                .setRequiresTool().hardnessAndResistance(3.0F, 4.0F)
+                .setRequiresTool()
+                .hardnessAndResistance(2.0F, 4.0F)
                 .notSolid()
         );
-        this.setDefaultState(this.stateContainer.getBaseState().with(CAN_SPAWN, Boolean.TRUE));
     }
 
     @Override
@@ -70,7 +66,7 @@ public class SlimyStoneBlock extends BreakableBlock {
     @Override
     public void spawnAdditionalDrops(BlockState state, ServerWorld worldIn, BlockPos pos, ItemStack stack) {
         super.spawnAdditionalDrops(state, worldIn, pos, stack);
-        if (Boolean.TRUE.equals(state.get(CAN_SPAWN)) && worldIn.getGameRules().getBoolean(GameRules.DO_TILE_DROPS) && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 && worldIn.rand.nextFloat() <= SPAWN_CHANCE) {
+        if (worldIn.getGameRules().getBoolean(GameRules.DO_TILE_DROPS) && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 && worldIn.rand.nextFloat() <= SPAWN_CHANCE) {
             this.spawnRockSlime(worldIn, pos);
         }
 
@@ -115,15 +111,5 @@ public class SlimyStoneBlock extends BreakableBlock {
     @OnlyIn(Dist.CLIENT)
     private void addSlimeParticle(World world, double x1, double x2, double z1, double z2, double y) {
         world.addParticle(DRIPPING_SLIME.get(), MathHelper.lerp(world.rand.nextDouble(), x1, x2), y, MathHelper.lerp(world.rand.nextDouble(), z1, z2), 0.0D, 0.0D, 0.0D);
-    }
-
-    @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(CAN_SPAWN);
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(CAN_SPAWN, Boolean.FALSE);
     }
 }

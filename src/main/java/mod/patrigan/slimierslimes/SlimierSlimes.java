@@ -18,12 +18,14 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static mod.patrigan.slimierslimes.init.ModEntityTypes.registerAdditionalEntityInformation;
+
 @Mod(SlimierSlimes.MOD_ID)
 public class SlimierSlimes {
 
     public static final String MOD_ID = "slimier-slimes";
 
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public SlimierSlimes() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -34,8 +36,10 @@ public class SlimierSlimes {
         ModBlocks.BLOCKS.register(modEventBus);
         ModItems.ITEMS.register(modEventBus);
         ModEntityTypes.ENTITY_TYPES.register(modEventBus);
+        ModEntityTypes.SPAWN_EGGS.register(modEventBus);
         ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
         ModParticleTypes.PARTICLES.register(modEventBus);
+        ModStructures.STRUCTURES.register(modEventBus);
 
         modEventBus.addListener(ModEntitySpawns::initBaseWeights);
 
@@ -53,19 +57,14 @@ public class SlimierSlimes {
     private void setup(final FMLCommonSetupEvent event)
     {
         event.enqueueWork(() -> {
-            //Register Entities
-            GlobalEntityTypeAttributes.put(ModEntityTypes.COMMON_SLIME.get(), CommonSlimeEntity.getMutableAttributes().create());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.SNOW_SLIME.get(), SnowSlimeEntity.getMutableAttributes().create());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.PINK_SLIME.get(), PinkSlimeEntity.getMutableAttributes().create());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.ROCK_SLIME.get(), RockSlimeEntity.getMutableAttributes().create());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.CRYSTAL_SLIME.get(), CrystalSlimeEntity.getMutableAttributes().create());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.GLOW_SLIME.get(), GlowSlimeEntity.getMutableAttributes().create());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.CREEPER_SLIME.get(), CreeperSlimeEntity.getMutableAttributes().create());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeEntity.getMutableAttributes().create());
-            GlobalEntityTypeAttributes.put(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().create());
-            ModEntitySpawns.init();
             //Register Features
             ModFeatures.registerConfiguredFeatures();
+            ModStructures.setupStructures();
+            ModConfiguredStructures.registerConfiguredStructures();
+            //Entity Spawning
+            ModEntitySpawns.init();
+            //Register Entities
+            registerAdditionalEntityInformation();
         });
     }
 

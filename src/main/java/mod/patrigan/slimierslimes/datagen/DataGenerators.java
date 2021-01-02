@@ -31,6 +31,7 @@ public class DataGenerators {
             generator.addProvider(new ModRecipeProvider(generator));
             generator.addProvider(new ModEntityLootTablesProvider(generator));
             generator.addProvider(new ModBlockLootTablesProvider(generator));
+            generator.addProvider(new ModChestLootTablesProvider(generator));
         }
     }
 }

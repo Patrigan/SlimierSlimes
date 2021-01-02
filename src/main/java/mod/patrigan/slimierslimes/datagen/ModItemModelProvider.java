@@ -3,6 +3,7 @@ package mod.patrigan.slimierslimes.datagen;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.blocks.BuildingBlockHelper;
 import mod.patrigan.slimierslimes.init.ModBlocks;
+import mod.patrigan.slimierslimes.init.ModEntityTypes;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.DyeItem;
@@ -30,6 +31,7 @@ public class ModItemModelProvider extends ItemModelProvider {
             generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColor + "_jelly")).getRegistryName().getPath(), modLoc("item/jelly/"+dyeColor));
         });
         registerBlockItems();
+        registerSpawnEggItems();
     }
 
     private void registerBlockItems() {
@@ -54,6 +56,12 @@ public class ModItemModelProvider extends ItemModelProvider {
     private void blockInventoryModel(Block block) {
         String name = block.getRegistryName().getPath();
         getBuilder(name).parent(new ModelFile.UncheckedModelFile(modLoc(ModelProvider.BLOCK_FOLDER + "/" + name + "_inventory")));
+    }
+
+    private void registerSpawnEggItems() {
+        ModEntityTypes.ENTITY_IDS.forEach(key ->
+                getBuilder(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, key + "_spawn_egg")).getRegistryName().getPath())
+                        .parent(new ModelFile.UncheckedModelFile(mcLoc("item/template_spawn_egg"))));
     }
 
     private void generated(String path, ResourceLocation texture) {

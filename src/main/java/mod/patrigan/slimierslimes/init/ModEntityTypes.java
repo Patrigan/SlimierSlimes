@@ -3,9 +3,13 @@ package mod.patrigan.slimierslimes.init;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.entities.*;
 import mod.patrigan.slimierslimes.entities.projectile.AmethystProjectileEntity;
+import mod.patrigan.slimierslimes.world.gen.ModEntitySpawns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
+import net.minecraft.item.Item;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
@@ -20,6 +24,7 @@ import java.util.function.BiFunction;
 public class ModEntityTypes {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, SlimierSlimes.MOD_ID);
+    public static final DeferredRegister<Item> SPAWN_EGGS = DeferredRegister.create(ForgeRegistries.ITEMS, SlimierSlimes.MOD_ID);
     public static final List<String> ENTITY_IDS = new ArrayList<>();
 
     // Entity Types
@@ -36,10 +41,14 @@ public class ModEntityTypes {
 
     private static <T extends AbstractSlimeEntity> RegistryObject<EntityType<T>> getSlimeRegistryObject(String key, final EntityType.IFactory<T> sup) {
         ENTITY_IDS.add(key);
-        return ENTITY_TYPES.register(key,
-                () -> EntityType.Builder.create(sup, EntityClassification.MONSTER)
-                        .size(2.04f, 2.04f) // Hitbox Size
-                        .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
+
+        EntityType<T> entityType = EntityType.Builder.create(sup, EntityClassification.MONSTER)
+                .size(2.04f, 2.04f) // Hitbox Size
+                .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString());
+
+        SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 0xFFCC00, 0xFCA800, new Item.Properties().group(SlimierSlimes.TAB)));
+
+        return ENTITY_TYPES.register(key, () -> entityType);
     }
 
     private static <T extends Entity> RegistryObject<EntityType<T>> getAmethystProjectileRegistryObject(String key, final EntityType.IFactory<T> sup) {
@@ -51,4 +60,21 @@ public class ModEntityTypes {
                         .setTrackingRange(120)
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
     }
+
+    public static void registerAdditionalEntityInformation() {
+        registerEntityAttributes();
+    }
+
+    private static void registerEntityAttributes() {
+        GlobalEntityTypeAttributes.put(ModEntityTypes.COMMON_SLIME.get(), CommonSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.SNOW_SLIME.get(), SnowSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.PINK_SLIME.get(), PinkSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.ROCK_SLIME.get(), RockSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.CRYSTAL_SLIME.get(), CrystalSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.GLOW_SLIME.get(), GlowSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.CREEPER_SLIME.get(), CreeperSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().create());
+    }
+
 }

@@ -10,6 +10,7 @@ import net.minecraftforge.common.data.LanguageProvider;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_IDS;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.ENTITY_IDS;
+import static mod.patrigan.slimierslimes.init.ModEntityTypes.SPAWN_EGGS;
 import static mod.patrigan.slimierslimes.init.ModItems.ITEM_IDS;
 import static net.minecraftforge.registries.ForgeRegistries.*;
 
@@ -40,6 +41,9 @@ public class ModLanguageProvider extends LanguageProvider {
     private void addEntity(String entityId) {
         EntityType<?> entityType = ENTITIES.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, entityId));
         add(entityType, getNameFromId(entityId));
+        String entitySpawnEggItem = entityId + "_spawn_egg";
+        Item spawnEgg = ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, entitySpawnEggItem));
+        add(spawnEgg, getNameFromId(entitySpawnEggItem));
     }
 
     private String getNameFromId(String idString) {

@@ -48,7 +48,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
         BlockModelBuilder model = models().withExistingParent(path, "block/block").texture("particle", texture).texture("outer", texture).texture("inner", texture)
                 .element().from(3F, 3F, 3F).to(12F,12F,12F).allFaces((d, f) -> f.texture("#inner")).allFaces((d, f) -> f.uvs(3, 3, 13, 13)).end()
                 .element().from(0F, 0F, 0F).to(16F,16F,16F).allFaces((d, f) -> f.texture("#outer")).allFaces((d, f) -> f.uvs(0, 0, 16, 16))
-                .faces((d, f) -> f.cullface(d)).end();
+                /*.faces((d, f) -> f.cullface(d))*/.end()
+                .element().from(0F, 0F, 0F).to(16F,0F,16F).face(Direction.UP).texture("#outer").end().end()
+                .element().from(0F, 16F, 0F).to(16F,16F,16F).face(Direction.DOWN).texture("#outer").end().end()
+                .element().from(0F, 0F, 0F).to(16F,16F,0F).face(Direction.SOUTH).texture("#outer").end().end()
+                .element().from(0F, 0F, 0F).to(0F,16F,16F).face(Direction.EAST).texture("#outer").end().end()
+                .element().from(0F, 0F, 16F).to(16F,16F,16F).face(Direction.NORTH).texture("#outer").end().end()
+                .element().from(16F, 0F, 0F).to(16F,16F,16F).face(Direction.WEST).texture("#outer").end().end();
         getVariantBuilder(blockHelper.getBlock().get())
                 .partialState().setModels(new ConfiguredModel(model));
         slabBlock((SlabBlock) blockHelper.getSlab().get(), blockHelper.getSlab().get().getRegistryName(), texture);

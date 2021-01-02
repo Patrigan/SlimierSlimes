@@ -87,28 +87,124 @@
       ],
       "faces": {
         "down": {
-          "texture": "#outer",
-          "cullface": "down"
+          "texture": "#outer"
         },
         "up": {
-          "texture": "#outer",
-          "cullface": "up"
+          "texture": "#outer"
         },
         "north": {
-          "texture": "#outer",
-          "cullface": "north"
+          "texture": "#outer"
         },
         "south": {
-          "texture": "#outer",
-          "cullface": "south"
+          "texture": "#outer"
         },
         "west": {
-          "texture": "#outer",
-          "cullface": "west"
+          "texture": "#outer"
         },
         "east": {
-          "texture": "#outer",
-          "cullface": "east"
+          "texture": "#outer"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        0,
+        16
+      ],
+      "faces": {
+        "up": {
+          "texture": "#outer"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        16,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#outer"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        0
+      ],
+      "faces": {
+        "south": {
+          "texture": "#outer"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        0,
+        16,
+        16
+      ],
+      "faces": {
+        "east": {
+          "texture": "#outer"
+        }
+      }
+    },
+    {
+      "from": [
+        0,
+        0,
+        16
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "north": {
+          "texture": "#outer"
+        }
+      }
+    },
+    {
+      "from": [
+        16,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "west": {
+          "texture": "#outer"
         }
       }
     }

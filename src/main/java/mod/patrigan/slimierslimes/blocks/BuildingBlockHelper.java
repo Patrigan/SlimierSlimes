@@ -1,11 +1,8 @@
 package mod.patrigan.slimierslimes.blocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
-
-import javax.annotation.Resource;
 
 import static mod.patrigan.slimierslimes.SlimierSlimes.MOD_ID;
 

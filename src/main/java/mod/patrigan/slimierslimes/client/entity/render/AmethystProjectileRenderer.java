@@ -25,13 +25,6 @@ public class AmethystProjectileRenderer extends EntityRenderer<AmethystProjectil
         return null;
     }
 
-   /* @Override
-    public boolean shouldRender(AmethystProjectileEntity livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
-        if(super.shouldRender(livingEntityIn, camera, camX, camY, camZ){
-            return true;
-        }
-    }*/
-
     @Override
     public void render(AmethystProjectileEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         float f = entityIn.getAnimationProgress(partialTicks);

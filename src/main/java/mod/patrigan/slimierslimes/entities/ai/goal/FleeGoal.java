@@ -62,11 +62,7 @@ public class FleeGoal extends Goal {
             return false;
         } else if (livingentity instanceof PlayerEntity && ((PlayerEntity)livingentity).abilities.disableDamage) {
             return false;
-        } else if (fleeTimer < 0) {
-            return false;
-        } else {
-            return true;
-        }
+        } else return fleeTimer >= 0;
     }
 
     /**

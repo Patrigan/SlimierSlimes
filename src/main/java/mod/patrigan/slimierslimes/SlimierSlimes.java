@@ -45,7 +45,7 @@ public class SlimierSlimes {
         LOGGER.log(Level.INFO, "Slimier Slimes Loaded.");
     }
 
-    public static final ItemGroup TAB = new ItemGroup("slimier-slimes") {
+    public static final ItemGroup TAB = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon(){
             return new ItemStack(ModItems.GREEN_JELLY.get());

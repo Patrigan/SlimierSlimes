@@ -3,8 +3,6 @@ package mod.patrigan.slimierslimes.datagen;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.blocks.BuildingBlockHelper;
 import mod.patrigan.slimierslimes.init.ModBlocks;
-import mod.patrigan.slimierslimes.init.ModItems;
-import mod.patrigan.slimierslimes.init.ModTags;
 import net.minecraft.block.material.Material;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;

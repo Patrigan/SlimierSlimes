@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 public class ModBlockLootTablesProvider extends LootTableProvider {
 
-    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> BLOCK_LOOT_TABLES = ImmutableList.of(Pair.of(ModBlockLootTables::new, LootParameterSets.BLOCK));
+    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> blockLootTables = ImmutableList.of(Pair.of(ModBlockLootTables::new, LootParameterSets.BLOCK));
 
     public ModBlockLootTablesProvider(DataGenerator dataGeneratorIn) {
         super(dataGeneratorIn);
@@ -26,7 +26,7 @@ public class ModBlockLootTablesProvider extends LootTableProvider {
 
     @Override
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
-        return this.BLOCK_LOOT_TABLES;
+        return this.blockLootTables;
     }
 
     @Override

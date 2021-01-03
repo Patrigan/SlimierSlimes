@@ -10,7 +10,6 @@ import net.minecraftforge.common.data.LanguageProvider;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_IDS;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.ENTITY_IDS;
-import static mod.patrigan.slimierslimes.init.ModEntityTypes.SPAWN_EGGS;
 import static mod.patrigan.slimierslimes.init.ModItems.ITEM_IDS;
 import static net.minecraftforge.registries.ForgeRegistries.*;
 

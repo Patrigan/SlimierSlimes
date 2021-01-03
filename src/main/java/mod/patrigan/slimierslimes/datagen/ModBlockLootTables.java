@@ -11,12 +11,12 @@ import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.conditions.TableBonus;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static mod.patrigan.slimierslimes.init.ModBlocks.*;
+import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCKS;
+import static mod.patrigan.slimierslimes.init.ModBlocks.LIGHT_AIR;
 
 public class ModBlockLootTables extends BlockLootTables {
 

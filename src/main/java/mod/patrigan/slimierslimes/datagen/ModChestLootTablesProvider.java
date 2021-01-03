@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 public class ModChestLootTablesProvider extends LootTableProvider {
 
-    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> CHEST_LOOT_TABLES = ImmutableList.of(Pair.of(ModChestLootTables::new, LootParameterSets.CHEST));
+    private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> chestLootTables = ImmutableList.of(Pair.of(ModChestLootTables::new, LootParameterSets.CHEST));
 
     public ModChestLootTablesProvider(DataGenerator dataGeneratorIn) {
         super(dataGeneratorIn);
@@ -26,7 +26,7 @@ public class ModChestLootTablesProvider extends LootTableProvider {
 
     @Override
     protected List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {
-        return this.CHEST_LOOT_TABLES;
+        return this.chestLootTables;
     }
 
     @Override

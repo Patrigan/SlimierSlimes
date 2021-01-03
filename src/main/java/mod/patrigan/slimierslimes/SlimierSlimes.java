@@ -1,11 +1,9 @@
 package mod.patrigan.slimierslimes;
 
 import mod.patrigan.slimierslimes.datagen.DataGenerators;
-import mod.patrigan.slimierslimes.entities.*;
 import mod.patrigan.slimierslimes.init.*;
 import mod.patrigan.slimierslimes.world.gen.ModEntitySpawns;
 import mod.patrigan.slimierslimes.world.gen.feature.ModFeatures;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;

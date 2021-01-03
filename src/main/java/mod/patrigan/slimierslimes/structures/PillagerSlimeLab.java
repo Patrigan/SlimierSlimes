@@ -62,9 +62,9 @@ public class PillagerSlimeLab extends Structure<NoFeatureConfig> {
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
             new MobSpawnInfo.Spawners(EntityType.PILLAGER, 100, 4, 9),
             new MobSpawnInfo.Spawners(EntityType.EVOKER, 25, 4, 9),
-            new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 25, 4, 9),
+            new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 5, 4, 9),
             new MobSpawnInfo.Spawners(EntityType.VINDICATOR, 75, 4, 9),
-            new MobSpawnInfo.Spawners(ModEntityTypes.COMMON_SLIME.get(), 75, 4, 9)
+            new MobSpawnInfo.Spawners(ModEntityTypes.COMMON_SLIME.get(), 80, 4, 9)
     );
 
     @Override
@@ -180,8 +180,8 @@ public class PillagerSlimeLab extends Structure<NoFeatureConfig> {
             //
             // By lifting the house up by 1 and lowering the bounding box, the land at bottom of house will now be
             // flush with the surrounding terrain without blocking off the doorstep.
-            this.components.forEach(piece -> piece.offset(0, 0, 0));
-            this.components.forEach(piece -> piece.getBoundingBox().minY -= 2);
+            this.components.forEach(piece -> piece.offset(0, 1, 0));
+            this.components.forEach(piece -> piece.getBoundingBox().minY += 1);
 
 
             // Sets the bounds of the structure once you are finished.

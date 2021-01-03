@@ -1,6 +1,6 @@
 
 {
-  "name": "slimier_slimes:pillager_slime_lab/start_pool",
+  "name": "slimier-slimes:pillager_slime_lab/start_pool",
 
   "fallback": "minecraft:empty",
 
@@ -9,7 +9,7 @@
 
       "weight": 1,
       "element": {
-        "location": "slimier_slimes:pillager_slime_lab",
+        "location": "slimier-slimes:pillager_slime_lab",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

@@ -22,9 +22,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import static net.minecraftforge.common.BiomeDictionary.Type.*;
+
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModStructureSpawns {
-
 
     @SubscribeEvent
     public static void biomeLoading(final BiomeLoadingEvent event)
@@ -33,9 +34,11 @@ public class ModStructureSpawns {
 
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
-        //if(types.contains(BiomeDictionary.Type.OVERWORLD) && types.contains(BiomeDictionary.Type.SPOOKY)) {
+        if(types.contains(OVERWORLD)
+                && !types.contains(OCEAN)
+                && types.contains(DENSE)) {
             event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_PILLAGER_SLIME_LAB);
-        //}
+        }
     }
 
     /**
@@ -50,7 +53,8 @@ public class ModStructureSpawns {
      * Basically use this to make absolutely sure the chunkgenerator
      * can or cannot spawn your structure.
      */
-    public void addDimensionalSpacing(final WorldEvent.Load event) {
+    @SubscribeEvent
+    public static void addDimensionalSpacing(final WorldEvent.Load event) {
         if(event.getWorld() instanceof ServerWorld){
             ServerWorld serverWorld = (ServerWorld)event.getWorld();
 

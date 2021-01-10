@@ -40,6 +40,9 @@ import java.util.Optional;
 import java.util.Random;
 
 public class AbstractSlimeEntity extends MobEntity implements IMob {
+
+    private static final float SWARM_CHANCE = 0.1F;
+
     private static final DataParameter<Integer> SLIME_SIZE = EntityDataManager.createKey(AbstractSlimeEntity.class, DataSerializers.VARINT);
     public float squishAmount;
     public float squishFactor;
@@ -217,8 +220,32 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
                 this.world.addEntity(slimeentity);
             }
         }
-
         super.remove(keepData);
+    }
+
+    protected void spawnSwarm(){
+        if (!this.world.isRemote) {
+            ITextComponent itextcomponent = this.getCustomName();
+            int i = 1;
+            int k = 6 + this.rand.nextInt(5);
+            float f = (float) i / 4.0F;
+
+            for (int l = 0; l < k; ++l) {
+                float f1 = ((float) (l % 2) - 0.5F) * f;
+                float f2 = ((float) (l / 2D) - 0.5F) * f;
+                AbstractSlimeEntity slimeentity = this.getType().create(this.world);
+                if (this.isNoDespawnRequired()) {
+                    slimeentity.enablePersistence();
+                }
+
+                slimeentity.setCustomName(itextcomponent);
+                slimeentity.setNoAI(this.isAIDisabled());
+                slimeentity.setInvulnerable(this.isInvulnerable());
+                slimeentity.setSlimeSize(i, true);
+                slimeentity.setLocationAndAngles(this.getPosX() + (double) f1, this.getPosY() + 0.5D, this.getPosZ() + (double) f2, this.rand.nextFloat() * 360.0F, 0.0F);
+                this.world.addEntity(slimeentity);
+            }
+        }
     }
 
     /**
@@ -348,13 +375,20 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         int i = this.rand.nextInt(3);
-        if (i < 2 && this.rand.nextFloat() < 0.5F * difficultyIn.getClampedAdditionalDifficulty()) {
+        boolean swarm = false;
+        if(i < 2 && this.rand.nextFloat() < SWARM_CHANCE){
+            swarm = true;
+        }else if (i < 2 && this.rand.nextFloat() < 0.5F * difficultyIn.getClampedAdditionalDifficulty()) {
             ++i;
         }
 
         int j = 1 << i;
         this.setSlimeSize(j, true);
-        return super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        ILivingEntityData iLivingEntityData = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        if(swarm){
+            spawnSwarm();
+        }
+        return iLivingEntityData;
     }
 
     @Override
@@ -413,5 +447,10 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
         }
 
         return angle + f;
+    }
+
+    @Override
+    public int getMaxSpawnedInChunk() {
+        return 6;
     }
 }

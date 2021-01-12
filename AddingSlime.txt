@@ -1,9 +1,9 @@
 Add an Entity
 Add a Renderer
 Add to ModEntityTypes
+Add to ModEntityTypes::registerEntityAttributes
 Add Entity to ModEntitySpawns init
 Add exception to BiomeLoadingEvent (if necessary)
-Add Entity to SlimierSlimes setup
 Add Renderer to ClientEventBusSubscriber
 Add Loottable to ModEntityLootTables
 Add English translation (if not like title)

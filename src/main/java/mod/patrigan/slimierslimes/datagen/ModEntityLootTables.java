@@ -27,6 +27,7 @@ public class ModEntityLootTables extends EntityLootTables {
         this.registerLootTable(CREEPER_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(GREEN_JELLY.get())).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(GUNPOWDER).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
         this.registerLootTable(SNOW_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(WHITE_JELLY.get())).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(SNOWBALL).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
         this.registerLootTable(CAMO_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(GREEN_JELLY.get())).addLootPool(getJellyLootPool(GREEN_JELLY.get())));
+        this.registerLootTable(LAVA_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(RED_JELLY.get())).addLootPool(getJellyLootPool(RED_JELLY.get())));
     }
 
     @Override

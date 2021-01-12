@@ -4,7 +4,6 @@ package mod.patrigan.slimierslimes.world.gen;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.entities.*;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EntityType;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -20,6 +19,7 @@ import java.util.stream.Collectors;
 
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
 import static net.minecraft.entity.EntityClassification.MONSTER;
+import static net.minecraft.entity.EntitySpawnPlacementRegistry.PlacementType.IN_LAVA;
 import static net.minecraft.entity.EntitySpawnPlacementRegistry.PlacementType.ON_GROUND;
 import static net.minecraft.entity.EntityType.SLIME;
 import static net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING;
@@ -28,21 +28,22 @@ import static net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING_NO_LEAVES;
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEntitySpawns {
 
-    private static final Map<EntityType<? extends AbstractSlimeEntity>, Integer> SLIME_BASE_WEIGHTS = new HashMap<>();
+    private static final List<MobSpawnInfo.Spawners> SLIME_BASE_SPAWNERS = new ArrayList<>();
     private static final int SLIME_TOTAL_WEIGHT = 400;
 
     public static void initBaseWeights(final FMLCommonSetupEvent event)
     {
         event.enqueueWork(() -> {
-            SLIME_BASE_WEIGHTS.put(COMMON_SLIME.get(), 100);
-            SLIME_BASE_WEIGHTS.put(PINK_SLIME.get(), 10);
-            SLIME_BASE_WEIGHTS.put(ROCK_SLIME.get(), 75);
-            SLIME_BASE_WEIGHTS.put(CRYSTAL_SLIME.get(), 20);
-            SLIME_BASE_WEIGHTS.put(GLOW_SLIME.get(), 30);
-            SLIME_BASE_WEIGHTS.put(CREEPER_SLIME.get(), 75);
-            SLIME_BASE_WEIGHTS.put(CAMO_SLIME.get(), 50);
-            SLIME_BASE_WEIGHTS.put(SNOW_SLIME.get(), 80);
-            SLIME_BASE_WEIGHTS.put(DIAMOND_SLIME.get(), 1);
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(COMMON_SLIME.get(), 100, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(PINK_SLIME.get(), 10, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(ROCK_SLIME.get(), 75, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(CRYSTAL_SLIME.get(), 20, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(GLOW_SLIME.get(), 30, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(CREEPER_SLIME.get(), 75, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(CAMO_SLIME.get(), 50, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(SNOW_SLIME.get(), 80, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(LAVA_SLIME.get(), 80, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(DIAMOND_SLIME.get(), 1, 1, 1));
         });
     }
 
@@ -56,6 +57,7 @@ public class ModEntitySpawns {
         EntitySpawnPlacementRegistry.register(SNOW_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, SnowSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(CAMO_SLIME.get(), ON_GROUND, MOTION_BLOCKING, CamoSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(DIAMOND_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, DiamondSlimeEntity::spawnable);
+        EntitySpawnPlacementRegistry.register(LAVA_SLIME.get(), IN_LAVA, MOTION_BLOCKING_NO_LEAVES, LavaSlimeEntity::spawnable);
     }
 
 
@@ -67,12 +69,14 @@ public class ModEntitySpawns {
 
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
-        Map<EntityType<? extends AbstractSlimeEntity>, Integer> slimeWeights = null;
+        List<MobSpawnInfo.Spawners> slimeWeights = null;
 
         if(types.contains(BiomeDictionary.Type.OVERWORLD)) {
-            slimeWeights = new HashMap<>(SLIME_BASE_WEIGHTS);
-        }else{
-            slimeWeights = new HashMap<>();
+            slimeWeights = SLIME_BASE_SPAWNERS.stream().map(spawner -> new MobSpawnInfo.Spawners(spawner.type, spawner.itemWeight, spawner.minCount, spawner.maxCount)).collect(Collectors.toList());
+        }else if(types.contains(BiomeDictionary.Type.NETHER)){
+            slimeWeights = SLIME_BASE_SPAWNERS.stream().filter(spawner -> spawner.type.equals(LAVA_SLIME.get())).map(spawner -> new MobSpawnInfo.Spawners(spawner.type, spawner.itemWeight, spawner.minCount, spawner.maxCount)).collect(Collectors.toList());
+        }else {
+            slimeWeights = new ArrayList<>();
         }
         if(types.contains(BiomeDictionary.Type.SWAMP)){
             slimeWeights = boundWeights(slimeWeights, SLIME_TOTAL_WEIGHT*3);
@@ -82,15 +86,14 @@ public class ModEntitySpawns {
         if (!types.contains(BiomeDictionary.Type.COLD)
                 && !types.contains(BiomeDictionary.Type.OCEAN)
                 && types.contains(BiomeDictionary.Type.OVERWORLD)) {
-            slimeWeights.remove(SNOW_SLIME.get());
+            slimeWeights = slimeWeights.stream().filter(spawner -> !spawner.type.equals(SNOW_SLIME.get())).collect(Collectors.toList());
         }else if(types.contains(BiomeDictionary.Type.COLD)
                 && !types.contains(BiomeDictionary.Type.OCEAN)
                 && types.contains(BiomeDictionary.Type.OVERWORLD)) {
-            slimeWeights.put(COMMON_SLIME.get(), SLIME_BASE_WEIGHTS.get(COMMON_SLIME.get())/2);
-            slimeWeights.put(SNOW_SLIME.get(), SLIME_BASE_WEIGHTS.get(SNOW_SLIME.get())*2);
+            slimeWeights = slimeWeights.stream().map(ModEntitySpawns::biomeOverworldColdNotOcean).collect(Collectors.toList());
         }
         if(!types.contains(BiomeDictionary.Type.FOREST) && !types.contains(BiomeDictionary.Type.JUNGLE)){
-            slimeWeights.remove(CAMO_SLIME.get());
+            slimeWeights = slimeWeights.stream().filter(spawner -> !spawner.type.equals(CAMO_SLIME.get())).collect(Collectors.toList());
         }
         slimeWeights = boundWeights(slimeWeights, SLIME_TOTAL_WEIGHT);
         addSlimeSpawners(event, slimeWeights);
@@ -102,8 +105,8 @@ public class ModEntitySpawns {
         event.getSpawns().getSpawner(SLIME.getClassification()).addAll(spawners.stream().filter(spawner -> !spawner.type.equals(SLIME)).collect(Collectors.toList()));
     }
 
-    private static void addSlimeSpawners(BiomeLoadingEvent event, Map<EntityType<? extends AbstractSlimeEntity>, Integer> slimeWeights) {
-        slimeWeights.forEach((slimeEntity, weight) -> event.getSpawns().withSpawner(MONSTER, new MobSpawnInfo.Spawners(slimeEntity, weight, 1, 1)));
+    private static void addSlimeSpawners(BiomeLoadingEvent event, List<MobSpawnInfo.Spawners> slimeWeights) {
+        slimeWeights.forEach(slimeSpawner -> event.getSpawns().withSpawner(MONSTER, slimeSpawner));
     }
 
     /**
@@ -113,9 +116,19 @@ public class ModEntitySpawns {
      * @return Map of bounded weights
      *
      */
-    private static Map<EntityType<? extends AbstractSlimeEntity>, Integer> boundWeights(Map<EntityType<? extends AbstractSlimeEntity>, Integer> slimeWeights, final int totalWeight) {
-        final double totalOriginal = slimeWeights.values().stream().reduce(0, (x, y) -> x+y);
-        return slimeWeights.entrySet().stream()
-                .collect(Collectors.<Map.Entry<EntityType<? extends AbstractSlimeEntity>, Integer>, EntityType<? extends AbstractSlimeEntity>, Integer>toMap(Map.Entry::getKey, e -> (int) Math.ceil((e.getValue()/totalOriginal)*totalWeight)));
+    private static List<MobSpawnInfo.Spawners> boundWeights(List<MobSpawnInfo.Spawners> slimeWeights, final int totalWeight) {
+        final double totalOriginal = slimeWeights.stream().map(spawner -> spawner.itemWeight).reduce(0, Integer::sum);
+        return slimeWeights.stream().map(spawner -> new MobSpawnInfo.Spawners(spawner.type, (int) Math.ceil((spawner.itemWeight/totalOriginal)*totalWeight), spawner.minCount, spawner.maxCount)).collect(Collectors.toList());
+    }
+
+    //Biome Specific Mappings
+    private static MobSpawnInfo.Spawners biomeOverworldColdNotOcean(MobSpawnInfo.Spawners spawner){
+        if(spawner.type.equals(COMMON_SLIME.get())){
+            return new MobSpawnInfo.Spawners(spawner.type, spawner.itemWeight/2, spawner.minCount, spawner.maxCount);
+        }else if(spawner.type.equals(SNOW_SLIME.get())){
+            return new MobSpawnInfo.Spawners(spawner.type, spawner.itemWeight*3, spawner.minCount, spawner.maxCount);
+        }else{
+            return new MobSpawnInfo.Spawners(spawner.type, spawner.itemWeight, spawner.minCount, spawner.maxCount);
+        }
     }
 }

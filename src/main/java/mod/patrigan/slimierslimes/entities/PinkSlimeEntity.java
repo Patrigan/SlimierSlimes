@@ -18,9 +18,4 @@ public class PinkSlimeEntity extends AbstractSlimeEntity {
     protected IParticleData getSquishParticle() {
         return new ItemParticleData(ITEM, new ItemStack(ModItems.PINK_JELLY.get()));
     }
-
-    @Override
-    protected void alterSquishAmount() {
-        this.squishAmount *= 0.5F;
-    }
 }

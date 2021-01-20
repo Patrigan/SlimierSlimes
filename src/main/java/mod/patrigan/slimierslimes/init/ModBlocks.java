@@ -37,6 +37,7 @@ public class ModBlocks {
     //Colored Blocks
     public static final Map<DyeColor, BuildingBlockHelper> SLIMY_COBBLESTONE_BLOCK = registerColoredBuildingBlock("slimy_cobblestone", SlimyStoneBlock::new, true);
     public static final Map<DyeColor, BuildingBlockHelper> SLIMY_STONE_BLOCK = registerColoredBuildingBlock("slimy_stone", SlimyStoneBlock::new, true);
+    public static final Map<DyeColor, BuildingBlockHelper> SLIMY_NETHERRACK_BLOCK = registerColoredBuildingBlock("slimy_netherrack", SlimyStoneBlock::new, true);
 
     public static final RegistryObject<Block> LIGHT_AIR = registerBlockWithoutItem("light_air",  LightAirBlock::new);
     public static final RegistryObject<Block> AMETHYST_CLUSTER = registerBlockWithoutItem("amethyst_cluster", AmethystClusterBlock::new);
@@ -90,9 +91,10 @@ public class ModBlocks {
     }
 
     public static void initRenderTypes(){
-        Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
-            initBuildingBlockRenderTypes(SLIMY_STONE_BLOCK.get(dyeColor), RenderType.getTranslucent());
-            initBuildingBlockRenderTypes(SLIMY_COBBLESTONE_BLOCK.get(dyeColor), RenderType.getTranslucent());
+        BLOCK_HELPERS.forEach(buildingBlockHelper -> {
+            if(buildingBlockHelper.isSlimy()){
+                initBuildingBlockRenderTypes(buildingBlockHelper, RenderType.getTranslucent());
+            }
         });
     }
 

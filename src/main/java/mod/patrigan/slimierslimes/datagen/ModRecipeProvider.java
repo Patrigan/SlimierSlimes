@@ -11,8 +11,7 @@ import java.util.Arrays;
 import java.util.function.Consumer;
 
 import static mod.patrigan.slimierslimes.datagen.DataGenerators.DYE_ITEMS;
-import static mod.patrigan.slimierslimes.init.ModBlocks.SLIMY_COBBLESTONE_BLOCK;
-import static mod.patrigan.slimierslimes.init.ModBlocks.SLIMY_STONE_BLOCK;
+import static mod.patrigan.slimierslimes.init.ModBlocks.*;
 import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
 
 public class ModRecipeProvider extends RecipeProvider {
@@ -27,10 +26,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .addIngredient(JELLY.get(((DyeItem) dye).getDyeColor()).get())
                 .addCriterion("has_jelly", hasItem(ModTags.Items.JELLY))
                 .build(consumer));
-        Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
-            buildingBlockRecipes(SLIMY_STONE_BLOCK.get(dyeColor), consumer);
-            buildingBlockRecipes(SLIMY_COBBLESTONE_BLOCK.get(dyeColor), consumer);
-        });
+        BLOCK_HELPERS.forEach(buildingBlockHelper -> buildingBlockRecipes(buildingBlockHelper, consumer));
     }
 
     private void buildingBlockRecipes(BuildingBlockHelper blockHelper, Consumer<IFinishedRecipe> consumer){

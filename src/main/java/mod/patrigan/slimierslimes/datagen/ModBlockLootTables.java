@@ -36,6 +36,8 @@ public class ModBlockLootTables extends BlockLootTables {
                 droppingWithSilkTouch(slimyStoneBlock, withSurvivesExplosion(slimyStoneBlock, ItemLootEntry.builder(ModItems.JELLY.get(dyeColor).get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.COBBLESTONE)))));
         this.registerBuildingBlockLootTable(ModBlocks.SLIMY_STONE_BLOCK.get(dyeColor), slimyStoneBlock ->
                 droppingWithSilkTouch(slimyStoneBlock, withSurvivesExplosion(slimyStoneBlock, ItemLootEntry.builder(ModItems.JELLY.get(dyeColor).get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.COBBLESTONE)))));
+        this.registerBuildingBlockLootTable(ModBlocks.SLIMY_NETHERRACK_BLOCK.get(dyeColor), slimyStoneBlock ->
+                droppingWithSilkTouch(slimyStoneBlock, withSurvivesExplosion(slimyStoneBlock, ItemLootEntry.builder(ModItems.JELLY.get(dyeColor).get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.NETHERRACK)))));
 
     }
 

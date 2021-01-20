@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "slimier-slimes:red_slimy_netherrack"
+    }
+  },
+  "result": {
+    "item": "slimier-slimes:red_slimy_netherrack_pressure_plate"
+  }
+}

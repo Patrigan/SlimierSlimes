@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "slimier-slimes:red_slimy_netherrack_button"
+    ]
+  },
+  "criteria": {
+    "has_red_slimy_netherrack": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "slimier-slimes:red_slimy_netherrack"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "slimier-slimes:red_slimy_netherrack_button"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_red_slimy_netherrack",
+      "has_the_recipe"
+    ]
+  ]
+}

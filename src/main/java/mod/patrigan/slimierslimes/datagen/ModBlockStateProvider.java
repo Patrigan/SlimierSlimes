@@ -26,14 +26,22 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-        Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
-            registerSlimyBlock(SLIMY_STONE_BLOCK.get(dyeColor));
-            registerSlimyBlock(SLIMY_COBBLESTONE_BLOCK.get(dyeColor));
-        });
+        BLOCK_HELPERS.forEach(this::registerBuildingBlockHelper
+        );
         registerBlock(AMETHYST_CLUSTER);
         registerBlock(SMALL_AMETHYST_BUD);
         registerBlock(MEDIUM_AMETHYST_BUD);
         registerBlock(LARGE_AMETHYST_BUD);
+    }
+
+    private void registerBuildingBlockHelper(BuildingBlockHelper buildingBlockHelper){
+        if(buildingBlockHelper.getDyeColor() == null){
+            registerBuildingBlock(buildingBlockHelper);
+        }else if(buildingBlockHelper.isSlimy()){
+            registerSlimyBlock(buildingBlockHelper);
+        }else{
+            throw new RuntimeException("No method for non slimy coloured blocks");
+        }
     }
 
     private void registerBlock(RegistryObject<Block> block) {

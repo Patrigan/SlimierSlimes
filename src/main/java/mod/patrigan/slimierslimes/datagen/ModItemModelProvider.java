@@ -16,8 +16,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import java.util.Arrays;
 
 import static mod.patrigan.slimierslimes.datagen.DataGenerators.DYE_ITEMS;
-import static mod.patrigan.slimierslimes.init.ModBlocks.SLIMY_COBBLESTONE_BLOCK;
-import static mod.patrigan.slimierslimes.init.ModBlocks.SLIMY_STONE_BLOCK;
+import static mod.patrigan.slimierslimes.init.ModBlocks.*;
 import static net.minecraftforge.registries.ForgeRegistries.ITEMS;
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -37,10 +36,7 @@ public class ModItemModelProvider extends ItemModelProvider {
     }
 
     private void registerBlockItems() {
-        Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
-            registerBuildingBlockItems(SLIMY_STONE_BLOCK.get(dyeColor));
-            registerBuildingBlockItems(SLIMY_COBBLESTONE_BLOCK.get(dyeColor));
-        });
+        BLOCK_HELPERS.forEach(this::registerBuildingBlockItems);
     }
 
     private void registerBuildingBlockItems(BuildingBlockHelper blockHelper) {

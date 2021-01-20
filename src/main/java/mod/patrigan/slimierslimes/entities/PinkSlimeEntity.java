@@ -2,6 +2,7 @@ package mod.patrigan.slimierslimes.entities;
 
 import mod.patrigan.slimierslimes.init.ModItems;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ItemParticleData;
@@ -16,6 +17,6 @@ public class PinkSlimeEntity extends AbstractSlimeEntity {
 
     @Override
     protected IParticleData getSquishParticle() {
-        return new ItemParticleData(ITEM, new ItemStack(ModItems.PINK_JELLY.get()));
+        return new ItemParticleData(ITEM, new ItemStack(ModItems.JELLY.get(DyeColor.PINK).get()));
     }
 }

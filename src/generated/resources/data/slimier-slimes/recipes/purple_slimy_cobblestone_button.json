@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "slimier-slimes:purple_slimy_cobblestone"
+    }
+  ],
+  "result": {
+    "item": "slimier-slimes:purple_slimy_cobblestone_button"
+  }
+}

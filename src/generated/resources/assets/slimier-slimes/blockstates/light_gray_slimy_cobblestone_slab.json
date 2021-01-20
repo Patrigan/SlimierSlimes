@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "slimier-slimes:block/light_gray_slimy_cobblestone_slab_top"
+    },
+    "type=bottom": {
+      "model": "slimier-slimes:block/light_gray_slimy_cobblestone_slab"
+    },
+    "type=double": {
+      "model": "slimier-slimes:block/light_gray_slimy_cobblestone"
+    }
+  }
+}

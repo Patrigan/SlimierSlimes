@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "slimier-slimes:orange_slimy_cobblestone"
+  },
+  "result": "slimier-slimes:orange_slimy_cobblestone_slab",
+  "count": 2
+}

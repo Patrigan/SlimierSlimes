@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "slimier-slimes:pink_slimy_stone"
+    }
+  },
+  "result": {
+    "item": "slimier-slimes:pink_slimy_stone_pressure_plate"
+  }
+}

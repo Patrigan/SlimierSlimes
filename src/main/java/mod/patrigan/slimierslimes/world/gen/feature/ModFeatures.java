@@ -2,6 +2,7 @@ package mod.patrigan.slimierslimes.world.gen.feature;
 
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.init.ModBlocks;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -19,8 +20,7 @@ public class ModFeatures {
     private static ConfiguredFeature<?,?> SLIMY_STONE_FEATURE;
 
     public static void registerConfiguredFeatures(){
-        SLIMY_STONE_FEATURE = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, ModBlocks.SLIMY_STONE_BLOCK.getBlock().get().getDefaultState(), 8)).range(128).square().func_242731_b(7);
-
+        SLIMY_STONE_FEATURE = Feature.ORE.withConfiguration(new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD, ModBlocks.SLIMY_STONE_BLOCK.get(DyeColor.GREEN).getBlock().get().getDefaultState(), 8)).range(128).square().func_242731_b(7);
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(SlimierSlimes.MOD_ID, "slimy_stone"), SLIMY_STONE_FEATURE);
     }
 

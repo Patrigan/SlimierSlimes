@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "slimier-slimes:lime_slimy_cobblestone"
+    }
+  },
+  "result": {
+    "item": "slimier-slimes:lime_slimy_cobblestone_pressure_plate"
+  }
+}

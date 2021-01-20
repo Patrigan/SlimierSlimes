@@ -2,20 +2,20 @@
   "replace": false,
   "values": [
     "slimier-slimes:white_jelly",
-    "slimier-slimes:light_gray_jelly",
-    "slimier-slimes:gray_jelly",
-    "slimier-slimes:black_jelly",
-    "slimier-slimes:red_jelly",
     "slimier-slimes:orange_jelly",
+    "slimier-slimes:magenta_jelly",
+    "slimier-slimes:light_blue_jelly",
     "slimier-slimes:yellow_jelly",
     "slimier-slimes:lime_jelly",
-    "slimier-slimes:green_jelly",
-    "slimier-slimes:light_blue_jelly",
-    "slimier-slimes:cyan_jelly",
-    "slimier-slimes:blue_jelly",
-    "slimier-slimes:purple_jelly",
-    "slimier-slimes:magenta_jelly",
     "slimier-slimes:pink_jelly",
-    "slimier-slimes:brown_jelly"
+    "slimier-slimes:gray_jelly",
+    "slimier-slimes:light_gray_jelly",
+    "slimier-slimes:cyan_jelly",
+    "slimier-slimes:purple_jelly",
+    "slimier-slimes:blue_jelly",
+    "slimier-slimes:brown_jelly",
+    "slimier-slimes:green_jelly",
+    "slimier-slimes:red_jelly",
+    "slimier-slimes:black_jelly"
   ]
 }

@@ -69,22 +69,6 @@ public class LavaSlimeEntity  extends AbstractSlimeEntity {
         this.remove(false);
     }
 
-    public static boolean spawnable(EntityType<? extends AbstractSlimeEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
-        if (world.getDifficulty() != Difficulty.PEACEFUL) {
-            BlockPos.Mutable blockpos$mutable = pos.toMutable();
-            if (world.getFluidState(blockpos$mutable).isTagged(FluidTags.LAVA)) {
-                do {
-                    blockpos$mutable.move(Direction.UP);
-                } while (world.getFluidState(blockpos$mutable).isTagged(FluidTags.LAVA));
-                BlockState blockState = world.getBlockState(blockpos$mutable);
-                return world.getBlockState(blockpos$mutable).isAir();
-            }else {
-                return AbstractSlimeEntity.spawnable(entityType, world, reason, pos, randomIn);
-            }
-        }
-        return false;
-    }
-
     @Override
     public boolean isNotColliding(IWorldReader worldIn) {
         return worldIn.checkNoEntityCollision(this);

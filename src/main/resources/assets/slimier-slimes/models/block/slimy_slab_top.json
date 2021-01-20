@@ -1,0 +1,128 @@
+{
+  "parent": "minecraft:block/block",
+  "textures": {
+    "particle": "#primary",
+    "slime": "slimier-slimes:block/slimy_slime"
+  },
+  "elements": [
+    {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "up": {
+          "texture": "#primary"
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "down": {
+          "texture": "#primary"
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "south": {
+          "texture": "#primary"
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "east": {
+          "texture": "#primary"
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {
+          "texture": "#primary"
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "west": {
+          "texture": "#primary"
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "up": {
+          "texture": "#slimeTexture",
+          "tintindex": 0
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "down": {
+          "texture": "#slimeTexture",
+          "tintindex": 0
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "south": {
+          "texture": "#slimeTexture",
+          "tintindex": 0
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "east": {
+          "texture": "#slimeTexture",
+          "tintindex": 0
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "north": {
+          "texture": "#slimeTexture",
+          "tintindex": 0
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "west": {
+          "texture": "#slimeTexture",
+          "tintindex": 0
+        }
+      }
+    }, {
+      "from": [0, 8, 0],
+      "to": [16, 8, 16],
+      "faces": {
+        "up": {
+          "texture": "#primary"
+        }
+      }
+    }, {
+      "from": [0, 16, 0],
+      "to": [16, 16, 16],
+      "faces": {
+        "down": {
+          "texture": "#primary"
+        }
+      }
+    }
+  ]
+}

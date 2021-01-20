@@ -5,6 +5,7 @@ import mod.patrigan.slimierslimes.init.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ItemParticleData;
@@ -23,7 +24,7 @@ public class SnowSlimeEntity extends AbstractSlimeEntity {
 
     @Override
     protected IParticleData getSquishParticle() {
-        return new ItemParticleData(ITEM, new ItemStack(ModItems.WHITE_JELLY.get()));
+        return new ItemParticleData(ITEM, new ItemStack(ModItems.JELLY.get(DyeColor.WHITE).get()));
     }
 
     @Override

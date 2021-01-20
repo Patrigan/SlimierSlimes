@@ -44,4 +44,4 @@ Underground, blocks will spawn that relate to jelly. Not only in the slimier str
 The old slime block has received friends in all colours, but every colour has its own impact. Parkour builders will be able to use these to create new challenges on their tracks. The other builders will have some new slimy colours at their disposal to make interesting constructions.
 
 ## Resources for Development
-- [Adding a Slime]
+- [Adding a Slime](doc/AddingSlime.md)

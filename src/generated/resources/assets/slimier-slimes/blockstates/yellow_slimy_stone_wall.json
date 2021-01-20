@@ -1,0 +1,90 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "slimier-slimes:block/yellow_slimy_stone_wall"
+      }
+    },
+    {
+      "when": {
+        "east": "low"
+      },
+      "apply": {
+        "model": "slimier-slimes:block/yellow_slimy_stone_wall_inner",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "east": "tall"
+      },
+      "apply": {
+        "model": "slimier-slimes:block/yellow_slimy_stone_wall_outer",
+        "y": 90,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "north": "low"
+      },
+      "apply": {
+        "model": "slimier-slimes:block/yellow_slimy_stone_wall_inner",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "north": "tall"
+      },
+      "apply": {
+        "model": "slimier-slimes:block/yellow_slimy_stone_wall_outer",
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "low"
+      },
+      "apply": {
+        "model": "slimier-slimes:block/yellow_slimy_stone_wall_inner",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "south": "tall"
+      },
+      "apply": {
+        "model": "slimier-slimes:block/yellow_slimy_stone_wall_outer",
+        "y": 180,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "low"
+      },
+      "apply": {
+        "model": "slimier-slimes:block/yellow_slimy_stone_wall_inner",
+        "y": 270,
+        "uvlock": true
+      }
+    },
+    {
+      "when": {
+        "west": "tall"
+      },
+      "apply": {
+        "model": "slimier-slimes:block/yellow_slimy_stone_wall_outer",
+        "y": 270,
+        "uvlock": true
+      }
+    }
+  ]
+}

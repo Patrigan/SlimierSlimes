@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "slimier-slimes:brown_slimy_stone"
+  },
+  "result": "slimier-slimes:brown_slimy_stone_slab",
+  "count": 2
+}

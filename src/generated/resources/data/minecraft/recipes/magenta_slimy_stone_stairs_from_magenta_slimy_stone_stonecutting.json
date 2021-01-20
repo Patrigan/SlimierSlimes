@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "slimier-slimes:magenta_slimy_stone"
+  },
+  "result": "slimier-slimes:magenta_slimy_stone_stairs",
+  "count": 1
+}

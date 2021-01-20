@@ -5,12 +5,15 @@ import mod.patrigan.slimierslimes.blocks.BuildingBlockHelper;
 import mod.patrigan.slimierslimes.init.ModEntityTypes;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+
+import java.util.Arrays;
 
 import static mod.patrigan.slimierslimes.datagen.DataGenerators.DYE_ITEMS;
 import static mod.patrigan.slimierslimes.init.ModBlocks.SLIMY_COBBLESTONE_BLOCK;
@@ -27,15 +30,17 @@ public class ModItemModelProvider extends ItemModelProvider {
     protected void registerModels() {
         DYE_ITEMS.forEach(dyeItem -> {
             String dyeColor = ((DyeItem) dyeItem).getDyeColor().getTranslationKey();
-            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColor + "_jelly")).getRegistryName().getPath(), modLoc("item/jelly/"+dyeColor));
+            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColor + "_jelly")).getRegistryName().getPath(), modLoc("item/jelly"));
         });
         registerBlockItems();
         registerSpawnEggItems();
     }
 
     private void registerBlockItems() {
-        registerBuildingBlockItems(SLIMY_STONE_BLOCK);
-        registerBuildingBlockItems(SLIMY_COBBLESTONE_BLOCK);
+        Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
+            registerBuildingBlockItems(SLIMY_STONE_BLOCK.get(dyeColor));
+            registerBuildingBlockItems(SLIMY_COBBLESTONE_BLOCK.get(dyeColor));
+        });
     }
 
     private void registerBuildingBlockItems(BuildingBlockHelper blockHelper) {

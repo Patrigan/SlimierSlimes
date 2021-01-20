@@ -4,6 +4,7 @@ import mod.patrigan.slimierslimes.datagen.DataGenerators;
 import mod.patrigan.slimierslimes.init.*;
 import mod.patrigan.slimierslimes.world.gen.ModEntitySpawns;
 import mod.patrigan.slimierslimes.world.gen.feature.ModFeatures;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -48,7 +49,7 @@ public class SlimierSlimes {
     public static final ItemGroup TAB = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon(){
-            return new ItemStack(ModItems.GREEN_JELLY.get());
+            return new ItemStack(ModItems.JELLY.get(DyeColor.GREEN).get());
         }
     };
 

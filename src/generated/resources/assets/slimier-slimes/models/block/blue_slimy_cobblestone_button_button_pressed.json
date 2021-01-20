@@ -1,0 +1,6 @@
+{
+  "parent": "slimier-slimes:block/slimy_button_pressed",
+  "textures": {
+    "texture": "slimier-slimes:block/slimy_cobblestone"
+  }
+}

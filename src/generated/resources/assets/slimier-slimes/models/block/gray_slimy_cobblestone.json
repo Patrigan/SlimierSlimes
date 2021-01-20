@@ -1,0 +1,7 @@
+{
+  "parent": "slimier-slimes:block/slimy_block",
+  "textures": {
+    "outer": "slimier-slimes:block/slimy_cobblestone",
+    "inner": "slimier-slimes:block/slimy_cobblestone"
+  }
+}

@@ -10,6 +10,7 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ItemParticleData;
@@ -48,7 +49,7 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity {
 
     @Override
     protected IParticleData getSquishParticle() {
-        return new ItemParticleData(ITEM, new ItemStack(ModItems.MAGENTA_JELLY.get()));
+        return new ItemParticleData(ITEM, new ItemStack(ModItems.JELLY.get(DyeColor.MAGENTA).get()));
     }
 
     @Override

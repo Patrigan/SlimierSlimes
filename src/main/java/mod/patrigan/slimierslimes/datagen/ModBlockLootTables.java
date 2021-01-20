@@ -7,11 +7,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.item.DyeColor;
 import net.minecraft.loot.ItemLootEntry;
 import net.minecraft.loot.LootTable;
 import net.minecraft.loot.conditions.TableBonus;
 import net.minecraftforge.fml.RegistryObject;
 
+import java.util.Arrays;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -22,14 +24,19 @@ public class ModBlockLootTables extends BlockLootTables {
 
     @Override
     protected void addTables() {
-        this.registerBuildingBlockLootTable(ModBlocks.SLIMY_STONE_BLOCK, slimyStoneBlock ->
-                droppingWithSilkTouch(slimyStoneBlock, withSurvivesExplosion(slimyStoneBlock, ItemLootEntry.builder(ModItems.GREEN_JELLY.get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.COBBLESTONE)))));
-        this.registerBuildingBlockLootTable(ModBlocks.SLIMY_COBBLESTONE_BLOCK, slimyStoneBlock ->
-                droppingWithSilkTouch(slimyStoneBlock, withSurvivesExplosion(slimyStoneBlock, ItemLootEntry.builder(ModItems.GREEN_JELLY.get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.COBBLESTONE)))));
+        Arrays.stream(DyeColor.values()).forEach(this::registerBuildingBlocks);
         this.registerLootTable(ModBlocks.AMETHYST_CLUSTER.get(), block -> blockNoDrop());
         this.registerLootTable(ModBlocks.SMALL_AMETHYST_BUD.get(), block -> blockNoDrop());
         this.registerLootTable(ModBlocks.MEDIUM_AMETHYST_BUD.get(), block -> blockNoDrop());
         this.registerLootTable(ModBlocks.LARGE_AMETHYST_BUD.get(), block -> blockNoDrop());
+    }
+
+    private void registerBuildingBlocks(DyeColor dyeColor){
+        this.registerBuildingBlockLootTable(ModBlocks.SLIMY_COBBLESTONE_BLOCK.get(dyeColor), slimyStoneBlock ->
+                droppingWithSilkTouch(slimyStoneBlock, withSurvivesExplosion(slimyStoneBlock, ItemLootEntry.builder(ModItems.JELLY.get(dyeColor).get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.COBBLESTONE)))));
+        this.registerBuildingBlockLootTable(ModBlocks.SLIMY_STONE_BLOCK.get(dyeColor), slimyStoneBlock ->
+                droppingWithSilkTouch(slimyStoneBlock, withSurvivesExplosion(slimyStoneBlock, ItemLootEntry.builder(ModItems.JELLY.get(dyeColor).get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.COBBLESTONE)))));
+
     }
 
     @Override

@@ -6,10 +6,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.BreakableBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -20,23 +23,26 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.GameRules;
+import net.minecraft.world.IBlockDisplayReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 
+import javax.annotation.Nullable;
 import java.util.Random;
 
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.ROCK_SLIME;
 import static mod.patrigan.slimierslimes.init.ModParticleTypes.DRIPPING_SLIME;
 
-public class SlimyStoneBlock extends BreakableBlock {
+public class SlimyStoneBlock extends BreakableBlock implements IBlockColor, IItemColor {
+    private DyeColor dyeColor;
 
     private static final float SPAWN_CHANCE = 0.4F;
     public static final BooleanProperty CAN_SPAWN = BooleanProperty.create("can_spawn");
 
-    public SlimyStoneBlock() {
+    public SlimyStoneBlock(DyeColor dyeColor) {
         super(Properties.create(Material.ROCK)
                 .setRequiresTool()
                 .harvestLevel(1)
@@ -47,6 +53,7 @@ public class SlimyStoneBlock extends BreakableBlock {
                 .notSolid()
         );
         this.setDefaultState(this.stateContainer.getBaseState().with(CAN_SPAWN, Boolean.TRUE));
+        this.dyeColor = dyeColor;
     }
 
     @Override
@@ -125,5 +132,19 @@ public class SlimyStoneBlock extends BreakableBlock {
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         return this.getDefaultState().with(CAN_SPAWN, Boolean.FALSE);
+    }
+
+    @Override
+    public int getColor(BlockState blockState, @Nullable IBlockDisplayReader iBlockDisplayReader, @Nullable BlockPos blockPos, int tintIndex) {
+        return getColor(tintIndex);
+    }
+
+    @Override
+    public int getColor(ItemStack itemStack, int tintIndex) {
+        return getColor(tintIndex);
+    }
+
+    public int getColor(int tintIndex) {
+        return tintIndex == 0 ? dyeColor.getColorValue() : -1;
     }
 }

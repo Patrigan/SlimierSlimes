@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "slimier-slimes:magenta_slimy_cobblestone_stairs"
+    ]
+  },
+  "criteria": {
+    "has_magenta_slimy_cobblestone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "slimier-slimes:magenta_slimy_cobblestone"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "slimier-slimes:magenta_slimy_cobblestone_stairs"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_magenta_slimy_cobblestone",
+      "has_the_recipe"
+    ]
+  ]
+}

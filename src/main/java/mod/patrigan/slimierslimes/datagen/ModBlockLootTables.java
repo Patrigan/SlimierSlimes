@@ -29,7 +29,7 @@ public class ModBlockLootTables extends BlockLootTables {
         this.registerLootTable(ModBlocks.MEDIUM_AMETHYST_BUD.get(), block -> blockNoDrop());
         this.registerLootTable(ModBlocks.LARGE_AMETHYST_BUD.get(), block -> blockNoDrop());
         this.registerLootTable(STONE_LAVA_SLIME_SPAWNER.get(), block -> droppingWithSilkTouch(SLIMY_STONE_BLOCK.get(DyeColor.RED).getBlock().get(), withSurvivesExplosion(SLIMY_STONE_BLOCK.get(DyeColor.RED).getBlock().get(), ItemLootEntry.builder(ModItems.JELLY.get(DyeColor.RED).get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.COBBLESTONE)))));
-        this.registerLootTable(STONE_LAVA_SLIME_SPAWNER.get(), block -> droppingWithSilkTouch(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getBlock().get(), withSurvivesExplosion(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getBlock().get(), ItemLootEntry.builder(ModItems.JELLY.get(DyeColor.RED).get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.NETHERRACK)))));
+        this.registerLootTable(NETHERRACK_LAVA_SLIME_SPAWNER.get(), block -> droppingWithSilkTouch(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getBlock().get(), withSurvivesExplosion(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getBlock().get(), ItemLootEntry.builder(ModItems.JELLY.get(DyeColor.RED).get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.NETHERRACK)))));
     }
 
     private void registerBuildingBlocks(DyeColor dyeColor){

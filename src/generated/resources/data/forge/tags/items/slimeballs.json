@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "slimier-slimes:white_slime_ball",
+    "slimier-slimes:orange_slime_ball",
+    "slimier-slimes:magenta_slime_ball",
+    "slimier-slimes:light_blue_slime_ball",
+    "slimier-slimes:yellow_slime_ball",
+    "slimier-slimes:lime_slime_ball",
+    "slimier-slimes:pink_slime_ball",
+    "slimier-slimes:gray_slime_ball",
+    "slimier-slimes:light_gray_slime_ball",
+    "slimier-slimes:cyan_slime_ball",
+    "slimier-slimes:purple_slime_ball",
+    "slimier-slimes:blue_slime_ball",
+    "slimier-slimes:brown_slime_ball",
+    "slimier-slimes:green_slime_ball",
+    "slimier-slimes:red_slime_ball",
+    "slimier-slimes:black_slime_ball"
+  ]
+}

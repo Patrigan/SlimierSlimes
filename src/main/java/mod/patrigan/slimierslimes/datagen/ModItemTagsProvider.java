@@ -11,6 +11,8 @@ import javax.annotation.Nullable;
 import java.util.Arrays;
 
 import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
+import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
+import static net.minecraftforge.common.Tags.Items.SLIMEBALLS;
 
 public class ModItemTagsProvider extends net.minecraft.data.ItemTagsProvider {
 
@@ -21,5 +23,6 @@ public class ModItemTagsProvider extends net.minecraft.data.ItemTagsProvider {
     @Override
     protected void registerTags() {
         Arrays.stream(DyeColor.values()).forEach(dyeColor -> this.getOrCreateBuilder(ModTags.Items.JELLY).add(JELLY.get(dyeColor).get()));
+        Arrays.stream(DyeColor.values()).forEach(dyeColor -> this.getOrCreateBuilder(SLIMEBALLS).add(SLIME_BALL.get(dyeColor).get()));
     }
 }

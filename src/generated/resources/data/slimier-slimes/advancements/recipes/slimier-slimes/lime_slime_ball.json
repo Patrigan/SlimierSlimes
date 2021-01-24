@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "slimier-slimes:lime_slime_ball"
+    ]
+  },
+  "criteria": {
+    "has_jelly": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "slimier-slimes:jelly"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "slimier-slimes:lime_slime_ball"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_jelly",
+      "has_the_recipe"
+    ]
+  ]
+}

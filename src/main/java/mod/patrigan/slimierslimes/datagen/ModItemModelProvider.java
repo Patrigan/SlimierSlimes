@@ -5,14 +5,15 @@ import mod.patrigan.slimierslimes.blocks.BuildingBlockHelper;
 import mod.patrigan.slimierslimes.init.ModEntityTypes;
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.DyeItem;
+import net.minecraft.item.DyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import static mod.patrigan.slimierslimes.datagen.DataGenerators.DYE_ITEMS;
+import java.util.Arrays;
+
 import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
 import static net.minecraftforge.registries.ForgeRegistries.ITEMS;
 
@@ -24,9 +25,10 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        DYE_ITEMS.forEach(dyeItem -> {
-            String dyeColor = ((DyeItem) dyeItem).getDyeColor().getTranslationKey();
-            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColor + "_jelly")).getRegistryName().getPath(), modLoc("item/jelly"));
+        Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
+            String dyeColorId = dyeColor.getTranslationKey();
+            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColorId + "_jelly")).getRegistryName().getPath(), modLoc("item/jelly"));
+            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColorId + "_slime_ball")).getRegistryName().getPath(), modLoc("item/slime_ball"));
         });
         registerBlockItems();
         registerSpawnEggItems();

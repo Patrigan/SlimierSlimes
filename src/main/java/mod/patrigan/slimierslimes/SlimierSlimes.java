@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import static mod.patrigan.slimierslimes.VanillaSlimeCleanup.WanderingTraderCleanup;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.registerAdditionalEntityInformation;
 
 @Mod(SlimierSlimes.MOD_ID)
@@ -49,7 +50,7 @@ public class SlimierSlimes {
     public static final ItemGroup TAB = new ItemGroup(MOD_ID) {
         @Override
         public ItemStack createIcon(){
-            return new ItemStack(ModItems.JELLY.get(DyeColor.GREEN).get());
+            return new ItemStack(ModItems.JELLY.get(DyeColor.LIME).get());
         }
     };
 
@@ -64,6 +65,7 @@ public class SlimierSlimes {
             ModEntitySpawns.init();
             //Register Entities
             registerAdditionalEntityInformation();
+            WanderingTraderCleanup();
         });
     }
 

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "slimier-slimes:brown_jelly"
+    }
+  },
+  "result": {
+    "item": "slimier-slimes:brown_slime_ball",
+    "count": 4
+  }
+}

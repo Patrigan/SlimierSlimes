@@ -10,13 +10,15 @@ import java.util.Arrays;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
 import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
+import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
 
 public class ModItemColors {
     public static void init(){
         Arrays.stream(DyeColor.values()).forEach(dyeColor ->
             Minecraft.getInstance().getItemColors().register(
-                    (stack, tintIndex) -> ((IItemColor) stack.getItem()).getColor(stack, tintIndex),
-                    JELLY.get(dyeColor).get())
+                    (stack, tintIndex) -> dyeColor.getColorValue(),
+                    JELLY.get(dyeColor).get(),
+                    SLIME_BALL.get(dyeColor).get())
         );
         BLOCK_HELPERS.forEach(buildingBlockHelper -> {
             if(buildingBlockHelper.isSlimy()) {

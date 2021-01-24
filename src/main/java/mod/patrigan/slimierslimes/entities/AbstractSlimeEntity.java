@@ -13,6 +13,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -44,6 +45,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     private static final float SWARM_CHANCE = 0.1F;
 
     private static final DataParameter<Integer> SLIME_SIZE = EntityDataManager.createKey(AbstractSlimeEntity.class, DataSerializers.VARINT);
+
     public float squishAmount;
     public float squishFactor;
     public float prevSquishFactor;
@@ -452,5 +454,9 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     @Override
     public int getMaxSpawnedInChunk() {
         return 6;
+    }
+
+    public static DyeColor getPrimaryColor() {
+        return DyeColor.LIME;
     }
 }

@@ -3,15 +3,13 @@ package mod.patrigan.slimierslimes.datagen;
 import mod.patrigan.slimierslimes.blocks.BuildingBlockHelper;
 import mod.patrigan.slimierslimes.init.ModTags;
 import net.minecraft.data.*;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.crafting.Ingredient;
 
-import java.util.Arrays;
 import java.util.function.Consumer;
 
 import static mod.patrigan.slimierslimes.datagen.DataGenerators.DYE_ITEMS;
-import static mod.patrigan.slimierslimes.init.ModBlocks.*;
+import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
 import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
 
 public class ModRecipeProvider extends RecipeProvider {

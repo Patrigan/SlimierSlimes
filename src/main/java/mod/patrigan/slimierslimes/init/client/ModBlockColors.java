@@ -3,11 +3,15 @@ package mod.patrigan.slimierslimes.init.client;
 import mod.patrigan.slimierslimes.util.ColorUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.item.DyeColor;
 
-import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
+import static mod.patrigan.slimierslimes.init.ModBlocks.*;
 
 public class ModBlockColors {
     public static void init(){
+        Minecraft.getInstance().getBlockColors().register(
+                (state, reader, pos, color) -> DyeColor.RED.getColorValue(),
+                STONE_LAVA_SLIME_SPAWNER.get(), NETHERRACK_LAVA_SLIME_SPAWNER.get());
         BLOCK_HELPERS.forEach(buildingBlockHelper -> {
             if(buildingBlockHelper.isSlimy()) {
                 Minecraft.getInstance().getBlockColors().register(

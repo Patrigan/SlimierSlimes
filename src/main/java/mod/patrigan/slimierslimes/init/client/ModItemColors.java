@@ -13,11 +13,11 @@ import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
 
 public class ModItemColors {
     public static void init(){
-        Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
+        Arrays.stream(DyeColor.values()).forEach(dyeColor ->
             Minecraft.getInstance().getItemColors().register(
                     (stack, tintIndex) -> ((IItemColor) stack.getItem()).getColor(stack, tintIndex),
-                    JELLY.get(dyeColor).get());
-        });
+                    JELLY.get(dyeColor).get())
+        );
         BLOCK_HELPERS.forEach(buildingBlockHelper -> {
             if(buildingBlockHelper.isSlimy()) {
                 Minecraft.getInstance().getItemColors().register(

@@ -12,8 +12,6 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 
-import java.util.Arrays;
-
 import static mod.patrigan.slimierslimes.init.ModBlocks.*;
 import static net.minecraft.block.HorizontalBlock.HORIZONTAL_FACING;
 import static net.minecraft.block.HorizontalFaceBlock.FACE;
@@ -28,10 +26,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
     protected void registerStatesAndModels() {
         BLOCK_HELPERS.forEach(this::registerBuildingBlockHelper
         );
-        registerBlock(AMETHYST_CLUSTER);
-        registerBlock(SMALL_AMETHYST_BUD);
-        registerBlock(MEDIUM_AMETHYST_BUD);
-        registerBlock(LARGE_AMETHYST_BUD);
+        registerLavaSlimeSpawnerBlock(STONE_LAVA_SLIME_SPAWNER, modLoc(SLIMY_STONE_BLOCK.get(DyeColor.RED).getId()));
+        registerLavaSlimeSpawnerBlock(NETHERRACK_LAVA_SLIME_SPAWNER, modLoc(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getId()));
+        registerCrossBlock(AMETHYST_CLUSTER);
+        registerCrossBlock(SMALL_AMETHYST_BUD);
+        registerCrossBlock(MEDIUM_AMETHYST_BUD);
+        registerCrossBlock(LARGE_AMETHYST_BUD);
     }
 
     private void registerBuildingBlockHelper(BuildingBlockHelper buildingBlockHelper){
@@ -44,7 +44,14 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
     }
 
-    private void registerBlock(RegistryObject<Block> block) {
+    private void registerLavaSlimeSpawnerBlock(RegistryObject<Block> block, ResourceLocation parent) {
+        String id = block.getId().getPath();
+        BlockModelBuilder blockModel = models().withExistingParent(id, parent);
+        getVariantBuilder(block.get())
+                .partialState().setModels(new ConfiguredModel(blockModel));
+    }
+
+    private void registerCrossBlock(RegistryObject<Block> block) {
         String id = block.getId().getPath();
         ResourceLocation texture = modBlockTexture(id);
         BlockModelBuilder blockModel = models().withExistingParent(id, "block/cross").texture("cross", texture);

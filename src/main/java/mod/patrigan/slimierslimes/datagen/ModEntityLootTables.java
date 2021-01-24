@@ -6,13 +6,12 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.loot.*;
 import net.minecraft.loot.functions.LootingEnchantBonus;
 import net.minecraft.loot.functions.SetCount;
-import net.minecraft.util.IItemProvider;
 import net.minecraftforge.fml.RegistryObject;
 
 import java.util.stream.Collectors;
 
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
-import static mod.patrigan.slimierslimes.init.ModItems.*;
+import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
 import static net.minecraft.item.DyeColor.*;
 import static net.minecraft.item.Items.*;
 
@@ -40,14 +39,4 @@ public class ModEntityLootTables extends EntityLootTables {
     private LootPool.Builder getJellyLootPool(DyeColor dyeColor){
         return LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(JELLY.get(dyeColor).get()).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))));
     }
-
-    /*private LootPool.Builder getJellyLootPool(DyeColor dyeColor){
-        CompoundNBT compoundNBT = new CompoundNBT();
-        compoundNBT.putInt("colorId", dyeColor.getId());
-        return LootPool.builder().rolls(ConstantRange.of(1)).addEntry(
-                ItemLootEntry.builder(JELLY.get())
-                        .acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F)))
-                        .acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F)))
-                        .acceptFunction(SetNBT.builder(compoundNBT)));
-    }*/
 }

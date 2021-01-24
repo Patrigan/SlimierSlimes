@@ -14,12 +14,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
 import static net.minecraft.entity.EntityClassification.MONSTER;
-import static net.minecraft.entity.EntitySpawnPlacementRegistry.PlacementType.IN_LAVA;
 import static net.minecraft.entity.EntitySpawnPlacementRegistry.PlacementType.ON_GROUND;
 import static net.minecraft.entity.EntityType.SLIME;
 import static net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING;
@@ -73,8 +74,6 @@ public class ModEntitySpawns {
 
         if(types.contains(BiomeDictionary.Type.OVERWORLD)) {
             slimeWeights = SLIME_BASE_SPAWNERS.stream().map(spawner -> new MobSpawnInfo.Spawners(spawner.type, spawner.itemWeight, spawner.minCount, spawner.maxCount)).collect(Collectors.toList());
-        }else if(types.contains(BiomeDictionary.Type.NETHER)){
-            slimeWeights = SLIME_BASE_SPAWNERS.stream().filter(spawner -> spawner.type.equals(LAVA_SLIME.get())).map(spawner -> new MobSpawnInfo.Spawners(spawner.type, spawner.itemWeight, spawner.minCount, spawner.maxCount)).collect(Collectors.toList());
         }else {
             slimeWeights = new ArrayList<>();
         }
@@ -82,6 +81,8 @@ public class ModEntitySpawns {
             slimeWeights = boundWeights(slimeWeights, SLIME_TOTAL_WEIGHT*3);
             addSlimeSpawners(event, slimeWeights);
             return;
+        }else{
+            slimeWeights = slimeWeights.stream().filter(spawner -> !spawner.type.equals(LAVA_SLIME.get())).collect(Collectors.toList());
         }
         if (!types.contains(BiomeDictionary.Type.COLD)
                 && !types.contains(BiomeDictionary.Type.OCEAN)

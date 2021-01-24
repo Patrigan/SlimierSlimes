@@ -34,17 +34,19 @@ public class ModBlocks {
     public static final List<String> BLOCK_IDS = new ArrayList<>();
     public static final List<BuildingBlockHelper> BLOCK_HELPERS = new ArrayList<>();
 
-    //Colored Blocks
+    //Slimy Blocks
     public static final Map<DyeColor, BuildingBlockHelper> SLIMY_COBBLESTONE_BLOCK = registerColoredBuildingBlock("slimy_cobblestone", SlimyStoneBlock::new, true);
     public static final Map<DyeColor, BuildingBlockHelper> SLIMY_STONE_BLOCK = registerColoredBuildingBlock("slimy_stone", SlimyStoneBlock::new, true);
     public static final Map<DyeColor, BuildingBlockHelper> SLIMY_NETHERRACK_BLOCK = registerColoredBuildingBlock("slimy_netherrack", SlimyStoneBlock::new, true);
 
+    //Utility Blocks
     public static final RegistryObject<Block> LIGHT_AIR = registerBlockWithoutItem("light_air",  LightAirBlock::new);
     public static final RegistryObject<Block> AMETHYST_CLUSTER = registerBlockWithoutItem("amethyst_cluster", AmethystClusterBlock::new);
     public static final RegistryObject<Block> SMALL_AMETHYST_BUD = registerBlockWithoutItem("small_amethyst_bud", SmallAmethystBudBlock::new);
     public static final RegistryObject<Block> MEDIUM_AMETHYST_BUD = registerBlockWithoutItem("medium_amethyst_bud", MediumAmethystBudBlock::new);
     public static final RegistryObject<Block> LARGE_AMETHYST_BUD = registerBlockWithoutItem("large_amethyst_bud", LargeAmethystBudBlock::new);
-    //public static final RegistryObject<Block> LAVA_SLIME_SPAWNER = registerBlockWithoutItem("LavaSlimeSpawner", LavaSlimeSpawner::new);
+    public static final RegistryObject<Block> STONE_LAVA_SLIME_SPAWNER = registerBlockWithoutItem("stone_lava_slime_spawner_block", LavaSlimeSpawnerBlock::new);
+    public static final RegistryObject<Block> NETHERRACK_LAVA_SLIME_SPAWNER = registerBlockWithoutItem("netherrack_lava_slime_spawner_block", LavaSlimeSpawnerBlock::new);
 
     private static RegistryObject<Block> registerBlock(String id, Supplier<Block> sup) {
         BLOCK_IDS.add(id);
@@ -96,6 +98,7 @@ public class ModBlocks {
                 initBuildingBlockRenderTypes(buildingBlockHelper, RenderType.getTranslucent());
             }
         });
+        RenderTypeLookup.setRenderLayer(STONE_LAVA_SLIME_SPAWNER.get(), RenderType.getTranslucent());
     }
 
     private static void initBuildingBlockRenderTypes(BuildingBlockHelper blockHelper, RenderType renderType) {

@@ -15,9 +15,6 @@ public class LavaSlimeRenderer extends MobRenderer<LavaSlimeEntity, SlimeModel<L
 
     protected static final ResourceLocation[] TEXTURES = new ResourceLocation[38];
 
-    private boolean textureUp = true;
-    private int textureIndex = 0;
-
     public LavaSlimeRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new SlimeModel<>(16), 0.7f);
         this.addLayer(new SlimeGelLayer<>(this));

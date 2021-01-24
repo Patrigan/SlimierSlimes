@@ -8,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.entity.projectile.SnowballEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
@@ -97,7 +96,7 @@ public class ModEntityTypes {
         GlobalEntityTypeAttributes.put(ModEntityTypes.CREEPER_SLIME.get(), CreeperSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.LAVA_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeEntity.getMutableAttributes().create());
     }
 
 }

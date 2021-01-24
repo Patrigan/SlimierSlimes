@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
+import static mod.patrigan.slimierslimes.init.ModEntityTypes.OBSIDIAN_SLIME;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.ROCK_SLIME;
 import static net.minecraft.block.Blocks.CAVE_AIR;
 import static net.minecraft.particles.ParticleTypes.LAVA;
@@ -119,7 +120,7 @@ public class LavaSlimeEntity extends AbstractSlimeEntity {
     }
 
     private void hardenInWater() {
-        RockSlimeEntity slimeentity = ROCK_SLIME.get().create(this.world);
+        ObsidianSlimeEntity slimeentity = OBSIDIAN_SLIME.get().create(this.world);
         if (this.isNoDespawnRequired()) {
             slimeentity.enablePersistence();
         }

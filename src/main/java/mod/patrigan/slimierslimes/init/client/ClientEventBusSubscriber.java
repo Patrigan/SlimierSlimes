@@ -24,6 +24,7 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.OBSIDIAN_SLIME.get(), ObsidianSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.AMETYST_PROJECTILE.get(), AmethystProjectileRenderer::new);
         ModItemColors.init();
         ModBlockColors.init();

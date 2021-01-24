@@ -287,7 +287,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     }
 
     public boolean canDamagePlayer() {
-        return !this.isSmallSlime() && this.isServerWorld();
+        return this.isServerWorld();
     }
 
     protected float getAttackDamage() {

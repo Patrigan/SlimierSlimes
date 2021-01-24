@@ -19,7 +19,7 @@ public class ModEntityLootTables extends EntityLootTables {
 
     @Override
     protected void addTables() {
-        this.registerLootTable(COMMON_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(GREEN)));
+        this.registerLootTable(COMMON_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(LIME)));
         this.registerLootTable(PINK_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(PINK)).addLootPool(getJellyLootPool(PINK)));
         this.registerLootTable(DIAMOND_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(CYAN)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(DIAMOND).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
         this.registerLootTable(ROCK_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(BLUE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(COBBLESTONE).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
@@ -29,6 +29,7 @@ public class ModEntityLootTables extends EntityLootTables {
         this.registerLootTable(SNOW_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(WHITE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(SNOWBALL).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
         this.registerLootTable(CAMO_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(GREEN)).addLootPool(getJellyLootPool(GREEN)));
         this.registerLootTable(LAVA_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(RED)).addLootPool(getJellyLootPool(RED)));
+        this.registerLootTable(OBSIDIAN_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(BLACK)).addLootPool(getJellyLootPool(PURPLE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(OBSIDIAN).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));;
     }
 
     @Override

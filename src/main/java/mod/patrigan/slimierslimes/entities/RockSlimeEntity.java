@@ -64,11 +64,6 @@ public class RockSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    public boolean canDamagePlayer() {
-        return this.isServerWorld();
-    }
-
-    @Override
     protected float getAttackDamage() {
         return super.getAttackDamage() + 1.0F;
     }

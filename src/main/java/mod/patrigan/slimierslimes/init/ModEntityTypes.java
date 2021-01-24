@@ -36,6 +36,7 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<SnowSlimeEntity>> SNOW_SLIME = getSlimeRegistryObject("snow_slime", SnowSlimeEntity::new);
     public static final RegistryObject<EntityType<CamoSlimeEntity>> CAMO_SLIME = getSlimeRegistryObject("camo_slime", CamoSlimeEntity::new);
     public static final RegistryObject<EntityType<LavaSlimeEntity>> LAVA_SLIME = getFireResistantSlimeRegistryObject("lava_slime", LavaSlimeEntity::new);
+    public static final RegistryObject<EntityType<ObsidianSlimeEntity>> OBSIDIAN_SLIME = getFireResistantSlimeRegistryObject("obsidian_slime", ObsidianSlimeEntity::new);
     //Projectiles
     public static final RegistryObject<EntityType<AmethystProjectileEntity>> AMETYST_PROJECTILE = getAmethystProjectileRegistryObject("amethyst_projectile", AmethystProjectileEntity::new);
     public static final RegistryObject<EntityType<SlimeballProjectileEntity>> SLIMEBALL_PROJECTILE = getSlimeballProjectileRegistryObject("slimeball_projectile", SlimeballProjectileEntity::new);
@@ -97,6 +98,7 @@ public class ModEntityTypes {
         GlobalEntityTypeAttributes.put(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.OBSIDIAN_SLIME.get(), ObsidianSlimeEntity.getMutableAttributes().create());
     }
 
 }

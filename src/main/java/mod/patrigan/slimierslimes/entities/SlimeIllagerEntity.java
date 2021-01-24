@@ -29,10 +29,10 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
+public class SlimeIllagerEntity extends SpellcastingIllagerEntity {
    private SheepEntity wololoTarget;
 
-   public SlimerIllagerEntity(EntityType<? extends SlimerIllagerEntity> type, World worldIn) {
+   public SlimeIllagerEntity(EntityType<? extends SlimeIllagerEntity> type, World worldIn) {
       super(type, worldIn);
       this.experienceValue = 10;
    }
@@ -40,11 +40,11 @@ public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
    protected void registerGoals() {
       super.registerGoals();
       this.goalSelector.addGoal(0, new SwimGoal(this));
-      this.goalSelector.addGoal(1, new SlimerIllagerEntity.CastingSpellGoal());
+      this.goalSelector.addGoal(1, new SlimeIllagerEntity.CastingSpellGoal());
       this.goalSelector.addGoal(2, new AvoidEntityGoal<>(this, PlayerEntity.class, 8.0F, 0.6D, 1.0D));
-      this.goalSelector.addGoal(4, new SlimerIllagerEntity.SummonSpellGoal());
+      this.goalSelector.addGoal(4, new SlimeIllagerEntity.SummonSpellGoal());
       //this.goalSelector.addGoal(5, new SlimerIllagerEntity.AttackSpellGoal());
-      this.goalSelector.addGoal(6, new SlimerIllagerEntity.WololoSpellGoal());
+      this.goalSelector.addGoal(6, new SlimeIllagerEntity.WololoSpellGoal());
       this.goalSelector.addGoal(8, new RandomWalkingGoal(this, 0.6D));
       this.goalSelector.addGoal(9, new LookAtGoal(this, PlayerEntity.class, 3.0F, 1.0F));
       this.goalSelector.addGoal(10, new LookAtGoal(this, MobEntity.class, 8.0F));
@@ -141,25 +141,25 @@ public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
       }
 
       protected void castSpell() {
-         LivingEntity livingentity = SlimerIllagerEntity.this.getAttackTarget();
-         double d0 = Math.min(livingentity.getPosY(), SlimerIllagerEntity.this.getPosY());
-         double d1 = Math.max(livingentity.getPosY(), SlimerIllagerEntity.this.getPosY()) + 1.0D;
-         float f = (float)MathHelper.atan2(livingentity.getPosZ() - SlimerIllagerEntity.this.getPosZ(), livingentity.getPosX() - SlimerIllagerEntity.this.getPosX());
-         if (SlimerIllagerEntity.this.getDistanceSq(livingentity) < 9.0D) {
+         LivingEntity livingentity = SlimeIllagerEntity.this.getAttackTarget();
+         double d0 = Math.min(livingentity.getPosY(), SlimeIllagerEntity.this.getPosY());
+         double d1 = Math.max(livingentity.getPosY(), SlimeIllagerEntity.this.getPosY()) + 1.0D;
+         float f = (float)MathHelper.atan2(livingentity.getPosZ() - SlimeIllagerEntity.this.getPosZ(), livingentity.getPosX() - SlimeIllagerEntity.this.getPosX());
+         if (SlimeIllagerEntity.this.getDistanceSq(livingentity) < 9.0D) {
             for(int i = 0; i < 5; ++i) {
                float f1 = f + (float)i * (float)Math.PI * 0.4F;
-               this.spawnFangs(SlimerIllagerEntity.this.getPosX() + (double)MathHelper.cos(f1) * 1.5D, SlimerIllagerEntity.this.getPosZ() + (double)MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
+               this.spawnFangs(SlimeIllagerEntity.this.getPosX() + (double)MathHelper.cos(f1) * 1.5D, SlimeIllagerEntity.this.getPosZ() + (double)MathHelper.sin(f1) * 1.5D, d0, d1, f1, 0);
             }
 
             for(int k = 0; k < 8; ++k) {
                float f2 = f + (float)k * (float)Math.PI * 2.0F / 8.0F + 1.2566371F;
-               this.spawnFangs(SlimerIllagerEntity.this.getPosX() + (double)MathHelper.cos(f2) * 2.5D, SlimerIllagerEntity.this.getPosZ() + (double)MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
+               this.spawnFangs(SlimeIllagerEntity.this.getPosX() + (double)MathHelper.cos(f2) * 2.5D, SlimeIllagerEntity.this.getPosZ() + (double)MathHelper.sin(f2) * 2.5D, d0, d1, f2, 3);
             }
          } else {
             for(int l = 0; l < 16; ++l) {
                double d2 = 1.25D * (double)(l + 1);
                int j = 1 * l;
-               this.spawnFangs(SlimerIllagerEntity.this.getPosX() + (double)MathHelper.cos(f) * d2, SlimerIllagerEntity.this.getPosZ() + (double)MathHelper.sin(f) * d2, d0, d1, f, j);
+               this.spawnFangs(SlimeIllagerEntity.this.getPosX() + (double)MathHelper.cos(f) * d2, SlimeIllagerEntity.this.getPosZ() + (double)MathHelper.sin(f) * d2, d0, d1, f, j);
             }
          }
 
@@ -172,11 +172,11 @@ public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
 
          do {
             BlockPos blockpos1 = blockpos.down();
-            BlockState blockstate = SlimerIllagerEntity.this.world.getBlockState(blockpos1);
-            if (blockstate.isSolidSide(SlimerIllagerEntity.this.world, blockpos1, Direction.UP)) {
-               if (!SlimerIllagerEntity.this.world.isAirBlock(blockpos)) {
-                  BlockState blockstate1 = SlimerIllagerEntity.this.world.getBlockState(blockpos);
-                  VoxelShape voxelshape = blockstate1.getCollisionShape(SlimerIllagerEntity.this.world, blockpos);
+            BlockState blockstate = SlimeIllagerEntity.this.world.getBlockState(blockpos1);
+            if (blockstate.isSolidSide(SlimeIllagerEntity.this.world, blockpos1, Direction.UP)) {
+               if (!SlimeIllagerEntity.this.world.isAirBlock(blockpos)) {
+                  BlockState blockstate1 = SlimeIllagerEntity.this.world.getBlockState(blockpos);
+                  VoxelShape voxelshape = blockstate1.getCollisionShape(SlimeIllagerEntity.this.world, blockpos);
                   if (!voxelshape.isEmpty()) {
                      d0 = voxelshape.getEnd(Direction.Axis.Y);
                   }
@@ -190,7 +190,7 @@ public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
          } while(blockpos.getY() >= MathHelper.floor(p_190876_5_) - 1);
 
          if (flag) {
-            SlimerIllagerEntity.this.world.addEntity(new EvokerFangsEntity(SlimerIllagerEntity.this.world, p_190876_1_, (double)blockpos.getY() + d0, p_190876_3_, p_190876_9_, p_190876_10_, SlimerIllagerEntity.this));
+            SlimeIllagerEntity.this.world.addEntity(new EvokerFangsEntity(SlimeIllagerEntity.this.world, p_190876_1_, (double)blockpos.getY() + d0, p_190876_3_, p_190876_9_, p_190876_10_, SlimeIllagerEntity.this));
          }
 
       }
@@ -212,10 +212,10 @@ public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
        * Keep ticking a continuous task that has already been started
        */
       public void tick() {
-         if (SlimerIllagerEntity.this.getAttackTarget() != null) {
-            SlimerIllagerEntity.this.getLookController().setLookPositionWithEntity(SlimerIllagerEntity.this.getAttackTarget(), (float) SlimerIllagerEntity.this.getHorizontalFaceSpeed(), (float) SlimerIllagerEntity.this.getVerticalFaceSpeed());
-         } else if (SlimerIllagerEntity.this.getWololoTarget() != null) {
-            SlimerIllagerEntity.this.getLookController().setLookPositionWithEntity(SlimerIllagerEntity.this.getWololoTarget(), (float) SlimerIllagerEntity.this.getHorizontalFaceSpeed(), (float) SlimerIllagerEntity.this.getVerticalFaceSpeed());
+         if (SlimeIllagerEntity.this.getAttackTarget() != null) {
+            SlimeIllagerEntity.this.getLookController().setLookPositionWithEntity(SlimeIllagerEntity.this.getAttackTarget(), (float) SlimeIllagerEntity.this.getHorizontalFaceSpeed(), (float) SlimeIllagerEntity.this.getVerticalFaceSpeed());
+         } else if (SlimeIllagerEntity.this.getWololoTarget() != null) {
+            SlimeIllagerEntity.this.getLookController().setLookPositionWithEntity(SlimeIllagerEntity.this.getWololoTarget(), (float) SlimeIllagerEntity.this.getHorizontalFaceSpeed(), (float) SlimeIllagerEntity.this.getVerticalFaceSpeed());
          }
 
       }
@@ -235,8 +235,8 @@ public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
          if (!super.shouldExecute()) {
             return false;
          } else {
-            int i = SlimerIllagerEntity.this.world.getTargettableEntitiesWithinAABB(VexEntity.class, this.field_220843_e, SlimerIllagerEntity.this, SlimerIllagerEntity.this.getBoundingBox().grow(16.0D)).size();
-            return SlimerIllagerEntity.this.rand.nextInt(8) + 1 > i;
+            int i = SlimeIllagerEntity.this.world.getTargettableEntitiesWithinAABB(VexEntity.class, this.field_220843_e, SlimeIllagerEntity.this, SlimeIllagerEntity.this.getBoundingBox().grow(16.0D)).size();
+            return SlimeIllagerEntity.this.rand.nextInt(8) + 1 > i;
          }
       }
 
@@ -249,16 +249,16 @@ public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
       }
 
       protected void castSpell() {
-         ServerWorld serverworld = (ServerWorld) SlimerIllagerEntity.this.world;
+         ServerWorld serverworld = (ServerWorld) SlimeIllagerEntity.this.world;
 
          for(int i = 0; i < 3; ++i) {
-            BlockPos blockpos = SlimerIllagerEntity.this.getPosition().add(-2 + SlimerIllagerEntity.this.rand.nextInt(5), 1, -2 + SlimerIllagerEntity.this.rand.nextInt(5));
-            VexEntity vexentity = EntityType.VEX.create(SlimerIllagerEntity.this.world);
+            BlockPos blockpos = SlimeIllagerEntity.this.getPosition().add(-2 + SlimeIllagerEntity.this.rand.nextInt(5), 1, -2 + SlimeIllagerEntity.this.rand.nextInt(5));
+            VexEntity vexentity = EntityType.VEX.create(SlimeIllagerEntity.this.world);
             vexentity.moveToBlockPosAndAngles(blockpos, 0.0F, 0.0F);
-            vexentity.onInitialSpawn(serverworld, SlimerIllagerEntity.this.world.getDifficultyForLocation(blockpos), SpawnReason.MOB_SUMMONED, (ILivingEntityData)null, (CompoundNBT)null);
-            vexentity.setOwner(SlimerIllagerEntity.this);
+            vexentity.onInitialSpawn(serverworld, SlimeIllagerEntity.this.world.getDifficultyForLocation(blockpos), SpawnReason.MOB_SUMMONED, (ILivingEntityData)null, (CompoundNBT)null);
+            vexentity.setOwner(SlimeIllagerEntity.this);
             vexentity.setBoundOrigin(blockpos);
-            vexentity.setLimitedLife(20 * (30 + SlimerIllagerEntity.this.rand.nextInt(90)));
+            vexentity.setLimitedLife(20 * (30 + SlimeIllagerEntity.this.rand.nextInt(90)));
             serverworld.func_242417_l(vexentity);
          }
 
@@ -283,20 +283,20 @@ public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
        * method as well.
        */
       public boolean shouldExecute() {
-         if (SlimerIllagerEntity.this.getAttackTarget() != null) {
+         if (SlimeIllagerEntity.this.getAttackTarget() != null) {
             return false;
-         } else if (SlimerIllagerEntity.this.isSpellcasting()) {
+         } else if (SlimeIllagerEntity.this.isSpellcasting()) {
             return false;
-         } else if (SlimerIllagerEntity.this.ticksExisted < this.spellCooldown) {
+         } else if (SlimeIllagerEntity.this.ticksExisted < this.spellCooldown) {
             return false;
-         } else if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(SlimerIllagerEntity.this.world, SlimerIllagerEntity.this)) {
+         } else if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(SlimeIllagerEntity.this.world, SlimeIllagerEntity.this)) {
             return false;
          } else {
-            List<SheepEntity> list = SlimerIllagerEntity.this.world.getTargettableEntitiesWithinAABB(SheepEntity.class, this.wololoTargetFlags, SlimerIllagerEntity.this, SlimerIllagerEntity.this.getBoundingBox().grow(16.0D, 4.0D, 16.0D));
+            List<SheepEntity> list = SlimeIllagerEntity.this.world.getTargettableEntitiesWithinAABB(SheepEntity.class, this.wololoTargetFlags, SlimeIllagerEntity.this, SlimeIllagerEntity.this.getBoundingBox().grow(16.0D, 4.0D, 16.0D));
             if (list.isEmpty()) {
                return false;
             } else {
-               SlimerIllagerEntity.this.setWololoTarget(list.get(SlimerIllagerEntity.this.rand.nextInt(list.size())));
+               SlimeIllagerEntity.this.setWololoTarget(list.get(SlimeIllagerEntity.this.rand.nextInt(list.size())));
                return true;
             }
          }
@@ -306,7 +306,7 @@ public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
        * Returns whether an in-progress EntityAIBase should continue executing
        */
       public boolean shouldContinueExecuting() {
-         return SlimerIllagerEntity.this.getWololoTarget() != null && this.spellWarmup > 0;
+         return SlimeIllagerEntity.this.getWololoTarget() != null && this.spellWarmup > 0;
       }
 
       /**
@@ -314,11 +314,11 @@ public class SlimerIllagerEntity extends SpellcastingIllagerEntity {
        */
       public void resetTask() {
          super.resetTask();
-         SlimerIllagerEntity.this.setWololoTarget((SheepEntity)null);
+         SlimeIllagerEntity.this.setWololoTarget((SheepEntity)null);
       }
 
       protected void castSpell() {
-         SheepEntity sheepentity = SlimerIllagerEntity.this.getWololoTarget();
+         SheepEntity sheepentity = SlimeIllagerEntity.this.getWololoTarget();
          if (sheepentity != null && sheepentity.isAlive()) {
             sheepentity.setFleeceColor(DyeColor.RED);
          }

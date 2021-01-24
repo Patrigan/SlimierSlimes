@@ -43,7 +43,8 @@ public class ModEntitySpawns {
             SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(CREEPER_SLIME.get(), 75, 1, 1));
             SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(CAMO_SLIME.get(), 50, 1, 1));
             SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(SNOW_SLIME.get(), 80, 1, 1));
-            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(LAVA_SLIME.get(), 80, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(LAVA_SLIME.get(), 0, 1, 1));
+            SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(OBSIDIAN_SLIME.get(), 0, 1, 1));
             SLIME_BASE_SPAWNERS.add(new MobSpawnInfo.Spawners(DIAMOND_SLIME.get(), 1, 1, 1));
         });
     }
@@ -74,6 +75,9 @@ public class ModEntitySpawns {
 
         if(types.contains(BiomeDictionary.Type.OVERWORLD)) {
             slimeWeights = SLIME_BASE_SPAWNERS.stream().map(spawner -> new MobSpawnInfo.Spawners(spawner.type, spawner.itemWeight, spawner.minCount, spawner.maxCount)).collect(Collectors.toList());
+        }else if(types.contains(BiomeDictionary.Type.END)){
+            slimeWeights = SLIME_BASE_SPAWNERS.stream().filter(spawner -> spawner.type.equals(OBSIDIAN_SLIME.get())).map(spawner -> new MobSpawnInfo.Spawners(spawner.type, 1, spawner.minCount, spawner.maxCount)).collect(Collectors.toList());
+            addSlimeSpawners(event, slimeWeights);
         }else {
             slimeWeights = new ArrayList<>();
         }

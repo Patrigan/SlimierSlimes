@@ -25,8 +25,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.Collection;
 
 public class CreeperSlimeEntity extends AbstractSlimeEntity {
-    private static final DataParameter<Integer> STATE = EntityDataManager.createKey(CreeperEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(CreeperEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> STATE = EntityDataManager.createKey(CreeperSlimeEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(CreeperSlimeEntity.class, DataSerializers.BOOLEAN);
     private int lastActiveTime;
     private int timeSinceIgnited;
     private int fuseTime = 30;

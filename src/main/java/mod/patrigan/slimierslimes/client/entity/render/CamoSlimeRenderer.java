@@ -39,11 +39,6 @@ public class CamoSlimeRenderer extends MobRenderer<CamoSlimeEntity, SlimeModel<C
     }
 
     @Override
-    public boolean shouldRender(CamoSlimeEntity livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
-        return super.shouldRender(livingEntityIn, camera, camX, camY, camZ) && !livingEntityIn.isHidden();
-    }
-
-    @Override
     public ResourceLocation getEntityTexture(CamoSlimeEntity entity) {
         return TEXTURE;
     }

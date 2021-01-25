@@ -271,14 +271,16 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
         }
     }
 
-    protected void dealDamage(LivingEntity entityIn) {
+    protected boolean dealDamage(LivingEntity entityIn) {
         if (this.isAlive()) {
             int i = this.getSlimeSize();
             if (this.getDistanceSq(entityIn) < 0.6D * (double) i * 0.6D * (double) i && this.canEntityBeSeen(entityIn) && entityIn.attackEntityFrom(DamageSource.causeMobDamage(this), this.getAttackDamage())) {
                 this.playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0F, getSoundPitch());
                 this.applyEnchantments(this, entityIn);
+                return true;
             }
         }
+        return false;
     }
 
     @Override

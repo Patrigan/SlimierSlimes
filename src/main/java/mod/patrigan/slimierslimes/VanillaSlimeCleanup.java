@@ -6,20 +6,22 @@ import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.Arrays;
+import java.util.stream.Collectors;
 
-import static net.minecraft.entity.merchant.villager.VillagerTrades.field_221240_b;
 import static net.minecraft.item.Items.SLIME_BALL;
 
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class VanillaSlimeCleanup {
 
-    public static void WanderingTraderCleanup(){
-        field_221240_b.forEach((key, trades) ->
-                field_221240_b.put(key, Arrays.stream(trades).filter(VanillaSlimeCleanup::filterSlimeBall).toArray(VillagerTrades.ITrade[]::new)));
+    @SubscribeEvent
+    public static void onVillagerTradesEvent(VillagerTradesEvent event)
+    {
+        event.getTrades().forEach((key, trades) ->
+                event.getTrades().put(key, trades.stream().filter(VanillaSlimeCleanup::filterSlimeBall).collect(Collectors.toList())));
     }
 
     private static boolean filterSlimeBall(VillagerTrades.ITrade trade){

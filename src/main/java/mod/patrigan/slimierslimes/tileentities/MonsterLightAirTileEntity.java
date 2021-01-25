@@ -21,7 +21,7 @@ public class MonsterLightAirTileEntity extends TileEntity implements ITickableTi
 
     @Override
     public void tick() {
-        AxisAlignedBB bounds = new AxisAlignedBB(pos);
+        AxisAlignedBB bounds = new AxisAlignedBB(pos).grow(1);
         List<GlowSlimeEntity> entitiesWithinAABB = this.world.getEntitiesWithinAABB(GlowSlimeEntity.class, bounds);
         if(entitiesWithinAABB.isEmpty()){
             this.world.removeBlock(pos, false);

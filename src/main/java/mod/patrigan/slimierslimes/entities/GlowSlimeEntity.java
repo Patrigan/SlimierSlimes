@@ -32,6 +32,8 @@ public class GlowSlimeEntity extends AbstractSlimeEntity {
         BlockPos position = getPosition();
         if(!dead && (world.getBlockState(position).getBlock().equals(CAVE_AIR)||world.getBlockState(position).getBlock().equals(Blocks.AIR))) {
             world.setBlockState(position, LIGHT_AIR.get().getDefaultState(), 3);
+        }else if(!dead && (world.getBlockState(position.add(0, 1, 0)).getBlock().equals(CAVE_AIR)||world.getBlockState(position.add(0, 1, 0)).getBlock().equals(Blocks.AIR))) {
+            world.setBlockState(position.add(0, 1, 0), LIGHT_AIR.get().getDefaultState(), 3);
         }
     }
 

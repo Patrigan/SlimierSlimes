@@ -1,0 +1,12 @@
+{
+  "processors": [
+    {
+      "processor_type": "slimier-slimes:block_slimify",
+      "slimyness": 0.1
+    },
+    {
+      "processor_type": "slimier-slimes:block_mossify",
+      "mossiness": 0.2
+    }
+  ]
+}

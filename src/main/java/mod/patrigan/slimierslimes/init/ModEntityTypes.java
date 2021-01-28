@@ -25,24 +25,25 @@ public class ModEntityTypes {
     public static final DeferredRegister<Item> SPAWN_EGGS = DeferredRegister.create(ForgeRegistries.ITEMS, SlimierSlimes.MOD_ID);
     public static final List<String> ENTITY_IDS = new ArrayList<>();
     public static final List<String> PROJECTILE_ENTITY_IDS = new ArrayList<>();
+    public static final List<EntityType<?>> SPAWNER_ENTITY_TYPES = new ArrayList<>();
 
     // Entity Types
-    public static final RegistryObject<EntityType<CommonSlimeEntity>> COMMON_SLIME = getSlimeRegistryObject("common_slime", CommonSlimeEntity::new, 0x7EBF6E);
-    public static final RegistryObject<EntityType<PinkSlimeEntity>> PINK_SLIME = getSlimeRegistryObject("pink_slime", PinkSlimeEntity::new, DyeColor.PINK.getColorValue());
-    public static final RegistryObject<EntityType<DiamondSlimeEntity>> DIAMOND_SLIME = getSlimeRegistryObject("diamond_slime", DiamondSlimeEntity::new, DyeColor.CYAN.getColorValue());
-    public static final RegistryObject<EntityType<RockSlimeEntity>> ROCK_SLIME = getSlimeRegistryObject("rock_slime", RockSlimeEntity::new, DyeColor.BLUE.getColorValue());
-    public static final RegistryObject<EntityType<CrystalSlimeEntity>> CRYSTAL_SLIME = getSlimeRegistryObject("crystal_slime", CrystalSlimeEntity::new, DyeColor.MAGENTA.getColorValue());
-    public static final RegistryObject<EntityType<GlowSlimeEntity>> GLOW_SLIME = getSlimeRegistryObject("glow_slime", GlowSlimeEntity::new, DyeColor.PURPLE.getColorValue());
-    public static final RegistryObject<EntityType<CreeperSlimeEntity>> CREEPER_SLIME = getSlimeRegistryObject("creeper_slime", CreeperSlimeEntity::new, DyeColor.GREEN.getColorValue());
-    public static final RegistryObject<EntityType<SnowSlimeEntity>> SNOW_SLIME = getSlimeRegistryObject("snow_slime", SnowSlimeEntity::new, DyeColor.WHITE.getColorValue());
-    public static final RegistryObject<EntityType<CamoSlimeEntity>> CAMO_SLIME = getSlimeRegistryObject("camo_slime", CamoSlimeEntity::new, DyeColor.BROWN.getColorValue());
-    public static final RegistryObject<EntityType<LavaSlimeEntity>> LAVA_SLIME = getFireResistantSlimeRegistryObject("lava_slime", LavaSlimeEntity::new, DyeColor.RED.getColorValue());
-    public static final RegistryObject<EntityType<ObsidianSlimeEntity>> OBSIDIAN_SLIME = getFireResistantSlimeRegistryObject("obsidian_slime", ObsidianSlimeEntity::new, DyeColor.BLACK.getColorValue());
+    public static final RegistryObject<EntityType<CommonSlimeEntity>> COMMON_SLIME = getSlimeRegistryObject("common_slime", CommonSlimeEntity::new, 0x7EBF6E, true);
+    public static final RegistryObject<EntityType<PinkSlimeEntity>> PINK_SLIME = getSlimeRegistryObject("pink_slime", PinkSlimeEntity::new, DyeColor.PINK.getColorValue(), false);
+    public static final RegistryObject<EntityType<DiamondSlimeEntity>> DIAMOND_SLIME = getSlimeRegistryObject("diamond_slime", DiamondSlimeEntity::new, DyeColor.CYAN.getColorValue(), false);
+    public static final RegistryObject<EntityType<RockSlimeEntity>> ROCK_SLIME = getSlimeRegistryObject("rock_slime", RockSlimeEntity::new, DyeColor.BLUE.getColorValue(), true);
+    public static final RegistryObject<EntityType<CrystalSlimeEntity>> CRYSTAL_SLIME = getSlimeRegistryObject("crystal_slime", CrystalSlimeEntity::new, DyeColor.MAGENTA.getColorValue(), true);
+    public static final RegistryObject<EntityType<GlowSlimeEntity>> GLOW_SLIME = getSlimeRegistryObject("glow_slime", GlowSlimeEntity::new, DyeColor.PURPLE.getColorValue(), true);
+    public static final RegistryObject<EntityType<CreeperSlimeEntity>> CREEPER_SLIME = getSlimeRegistryObject("creeper_slime", CreeperSlimeEntity::new, DyeColor.GREEN.getColorValue(), true);
+    public static final RegistryObject<EntityType<SnowSlimeEntity>> SNOW_SLIME = getSlimeRegistryObject("snow_slime", SnowSlimeEntity::new, DyeColor.WHITE.getColorValue(), true);
+    public static final RegistryObject<EntityType<CamoSlimeEntity>> CAMO_SLIME = getSlimeRegistryObject("camo_slime", CamoSlimeEntity::new, DyeColor.BROWN.getColorValue(), true);
+    public static final RegistryObject<EntityType<LavaSlimeEntity>> LAVA_SLIME = getFireResistantSlimeRegistryObject("lava_slime", LavaSlimeEntity::new, DyeColor.RED.getColorValue(), false);
+    public static final RegistryObject<EntityType<ObsidianSlimeEntity>> OBSIDIAN_SLIME = getFireResistantSlimeRegistryObject("obsidian_slime", ObsidianSlimeEntity::new, DyeColor.BLACK.getColorValue(), false);
     //Projectiles
     public static final RegistryObject<EntityType<AmethystProjectileEntity>> AMETYST_PROJECTILE = getAmethystProjectileRegistryObject("amethyst_projectile", AmethystProjectileEntity::new);
     public static final RegistryObject<EntityType<SlimeballProjectileEntity>> SLIMEBALL_PROJECTILE = getSlimeballProjectileRegistryObject("slimeball_projectile", SlimeballProjectileEntity::new);
 
-    private static <T extends AbstractSlimeEntity> RegistryObject<EntityType<T>> getSlimeRegistryObject(String key, final EntityType.IFactory<T> sup, int secondaryColor) {
+    private static <T extends AbstractSlimeEntity> RegistryObject<EntityType<T>> getSlimeRegistryObject(String key, final EntityType.IFactory<T> sup, int secondaryColor, boolean isSpawnerEntity) {
         ENTITY_IDS.add(key);
 
         EntityType<T> entityType = EntityType.Builder.create(sup, EntityClassification.MONSTER)
@@ -50,11 +51,12 @@ public class ModEntityTypes {
                 .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString());
 
         SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 5349438, secondaryColor, new Item.Properties().group(SlimierSlimes.TAB)));
+        addToSpawnerEntities(entityType, isSpawnerEntity);
 
         return ENTITY_TYPES.register(key, () -> entityType);
     }
 
-    private static <T extends AbstractSlimeEntity> RegistryObject<EntityType<T>> getFireResistantSlimeRegistryObject(String key, final EntityType.IFactory<T> sup, int secondaryColor) {
+    private static <T extends AbstractSlimeEntity> RegistryObject<EntityType<T>> getFireResistantSlimeRegistryObject(String key, final EntityType.IFactory<T> sup, int secondaryColor, boolean isSpawnerEntity) {
         ENTITY_IDS.add(key);
 
         EntityType<T> entityType = EntityType.Builder.create(sup, EntityClassification.MONSTER)
@@ -63,8 +65,15 @@ public class ModEntityTypes {
                 .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString());
 
         SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 5349438, secondaryColor, new Item.Properties().group(SlimierSlimes.TAB)));
+        addToSpawnerEntities(entityType, isSpawnerEntity);
 
         return ENTITY_TYPES.register(key, () -> entityType);
+    }
+
+    private static void addToSpawnerEntities(EntityType<?> entityType, Boolean isSpawnerEntity){
+        if(isSpawnerEntity){
+            SPAWNER_ENTITY_TYPES.add(entityType);
+        }
     }
 
     private static <T extends Entity> RegistryObject<EntityType<T>> getAmethystProjectileRegistryObject(String key, final EntityType.IFactory<T> sup) {

@@ -139,10 +139,6 @@ public class LavaSlimeEntity extends AbstractSlimeEntity {
         return worldIn.checkNoEntityCollision(this);
     }
 
-    public static DyeColor getPrimaryColor(){
-        return DyeColor.RED;
-    }
-
     public static boolean spawnable(EntityType<? extends AbstractSlimeEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
         if (world.getDifficulty() != Difficulty.PEACEFUL && reason.equals(SpawnReason.SPAWNER) && world.getBlockState(pos).getBlock().equals(Blocks.LAVA)) {
             return true;

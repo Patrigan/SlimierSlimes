@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -38,6 +39,7 @@ public class ModBlocks {
     public static final Map<DyeColor, BuildingBlockHelper> SLIMY_COBBLESTONE_BLOCK = registerColoredBuildingBlock("slimy_cobblestone", SlimyStoneBlock::new, true);
     public static final Map<DyeColor, BuildingBlockHelper> SLIMY_STONE_BLOCK = registerColoredBuildingBlock("slimy_stone", SlimyStoneBlock::new, true);
     public static final Map<DyeColor, BuildingBlockHelper> SLIMY_NETHERRACK_BLOCK = registerColoredBuildingBlock("slimy_netherrack", SlimyStoneBlock::new, true);
+    public static final List<Block> BASE_SLIMY_BLOCKS = Arrays.asList(Blocks.COBBLESTONE, Blocks.STONE, Blocks.NETHERRACK);
 
     //Utility Blocks
     public static final RegistryObject<Block> LIGHT_AIR = registerBlockWithoutItem("light_air",  LightAirBlock::new);

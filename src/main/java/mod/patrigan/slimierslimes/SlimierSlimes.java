@@ -3,7 +3,7 @@ package mod.patrigan.slimierslimes;
 import mod.patrigan.slimierslimes.datagen.DataGenerators;
 import mod.patrigan.slimierslimes.init.*;
 import mod.patrigan.slimierslimes.world.gen.ModEntitySpawns;
-import mod.patrigan.slimierslimes.world.gen.feature.ModFeatures;
+import mod.patrigan.slimierslimes.world.gen.feature.ModConfiguredFeatures;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
@@ -39,6 +39,7 @@ public class SlimierSlimes {
         ModTileEntityTypes.TILE_ENTITY_TYPES.register(modEventBus);
         ModParticleTypes.PARTICLES.register(modEventBus);
         ModStructures.STRUCTURES.register(modEventBus);
+        ModFeatures.FEATURES.register(modEventBus);
 
         modEventBus.addListener(ModEntitySpawns::initBaseWeights);
 
@@ -57,13 +58,14 @@ public class SlimierSlimes {
     {
         event.enqueueWork(() -> {
             //Register Features
-            ModFeatures.registerConfiguredFeatures();
+            ModConfiguredFeatures.registerConfiguredFeatures();
             ModStructures.setupStructures();
             ModConfiguredStructures.registerConfiguredStructures();
             //Entity Spawning
             ModEntitySpawns.init();
             //Register Entities
             registerAdditionalEntityInformation();
+            ModProcessors.init();
         });
     }
 

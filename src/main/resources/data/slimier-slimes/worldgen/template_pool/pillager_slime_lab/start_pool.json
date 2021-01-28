@@ -1,4 +1,3 @@
-
 {
   "name": "slimier-slimes:pillager_slime_lab/start_pool",
 
@@ -6,13 +5,21 @@
 
   "elements": [
     {
-
       "weight": 1,
       "element": {
         "location": "slimier-slimes:pillager_slime_lab",
-        "processors": "minecraft:empty",
+        "processors": "slimier-slimes:pillager_slime_lab/processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element":
+      {
+        "element_type": "minecraft:feature_pool_element",
+        "feature": "slimier-slimes:slime_spawner_feature",
+        "projection": "rigid"
       }
     }
   ]

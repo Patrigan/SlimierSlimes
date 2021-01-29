@@ -348,5 +348,7 @@
   "item.slimier-slimes.white_slime_ball": "White Slime Ball",
   "item.slimier-slimes.yellow_jelly": "Yellow Jelly",
   "item.slimier-slimes.yellow_slime_ball": "Yellow Slime Ball",
-  "itemGroup.SlimierSlimesTab": "Slimier Slimes"
+  "itemGroup.SlimierSlimesTab": "Slimier Slimes",
+  "slimier_slimes.config.main.allowvanillaslime": "Allow Vanilla Slimes",
+  "slimier_slimes.config.main.totalSlimeSpawnWeight": "Total Slime Spawn Weight"
 }

@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static mod.patrigan.slimierslimes.SlimierSlimes.SlimeConfig;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
 import static net.minecraft.entity.EntityClassification.MONSTER;
 import static net.minecraft.entity.EntitySpawnPlacementRegistry.PlacementType.ON_GROUND;
@@ -30,7 +31,6 @@ import static net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING_NO_LEAVES;
 public class ModEntitySpawns {
 
     private static final List<MobSpawnInfo.Spawners> SLIME_BASE_SPAWNERS = new ArrayList<>();
-    private static final int SLIME_TOTAL_WEIGHT = 400;
 
     public static void initBaseWeights(final FMLCommonSetupEvent event)
     {
@@ -66,8 +66,12 @@ public class ModEntitySpawns {
     @SubscribeEvent
     public static void biomeLoading(final BiomeLoadingEvent event)
     {
+        int SlimeConfigTotalWeight = SlimierSlimes.SlimeConfig.totalSlimeSpawnWeight.get();
         RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
-        removeSlime(event);
+
+        if(Boolean.FALSE.equals(SlimeConfig.allowVanillaSlime.get())) {
+            removeSlime(event);
+        }
 
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
@@ -82,7 +86,7 @@ public class ModEntitySpawns {
             slimeWeights = new ArrayList<>();
         }
         if(types.contains(BiomeDictionary.Type.SWAMP)){
-            slimeWeights = boundWeights(slimeWeights, SLIME_TOTAL_WEIGHT*3);
+            slimeWeights = boundWeights(slimeWeights, SlimeConfigTotalWeight *3);
             addSlimeSpawners(event, slimeWeights);
             return;
         }else{
@@ -100,7 +104,7 @@ public class ModEntitySpawns {
         if(!types.contains(BiomeDictionary.Type.FOREST) && !types.contains(BiomeDictionary.Type.JUNGLE)){
             slimeWeights = slimeWeights.stream().filter(spawner -> !spawner.type.equals(CAMO_SLIME.get())).collect(Collectors.toList());
         }
-        slimeWeights = boundWeights(slimeWeights, SLIME_TOTAL_WEIGHT);
+        slimeWeights = boundWeights(slimeWeights, SlimeConfigTotalWeight);
         addSlimeSpawners(event, slimeWeights);
     }
 

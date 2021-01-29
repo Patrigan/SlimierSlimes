@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.stream.Collectors;
 
+import static mod.patrigan.slimierslimes.SlimierSlimes.SlimeConfig;
 import static net.minecraft.item.Items.SLIME_BALL;
 
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -20,8 +21,10 @@ public class VanillaSlimeCleanup {
     @SubscribeEvent
     public static void onVillagerTradesEvent(VillagerTradesEvent event)
     {
-        event.getTrades().forEach((key, trades) ->
-                event.getTrades().put(key, trades.stream().filter(VanillaSlimeCleanup::filterSlimeBall).collect(Collectors.toList())));
+        if(Boolean.FALSE.equals(SlimeConfig.allowVanillaSlime.get())) {
+            event.getTrades().forEach((key, trades) ->
+                    event.getTrades().put(key, trades.stream().filter(VanillaSlimeCleanup::filterSlimeBall).collect(Collectors.toList())));
+        }
     }
 
     private static boolean filterSlimeBall(VillagerTrades.ITrade trade){
@@ -30,9 +33,10 @@ public class VanillaSlimeCleanup {
 
     @SubscribeEvent
     public static void entityJoinWorld(EntityJoinWorldEvent entityJoinWorldEventIn) {
-        if(entityJoinWorldEventIn.getEntity() instanceof ItemEntity){
+        if(Boolean.FALSE.equals(SlimeConfig.allowVanillaSlime.get())
+            && entityJoinWorldEventIn.getEntity() instanceof ItemEntity) {
             ItemEntity itemEntity = (ItemEntity) entityJoinWorldEventIn.getEntity();
-            if(itemEntity.getItem().getItem().equals(SLIME_BALL)){
+            if (itemEntity.getItem().getItem().equals(SLIME_BALL)) {
                 itemEntity.setItem(new ItemStack(ModItems.SLIME_BALL.get(DyeColor.LIME).get(), itemEntity.getItem().getCount()));
             }
         }

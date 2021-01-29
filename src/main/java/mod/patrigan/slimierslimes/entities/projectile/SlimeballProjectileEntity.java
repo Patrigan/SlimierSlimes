@@ -1,11 +1,13 @@
 package mod.patrigan.slimierslimes.entities.projectile;
 
 import mod.patrigan.slimierslimes.init.ModEntityTypes;
+import mod.patrigan.slimierslimes.init.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -35,7 +37,7 @@ public class SlimeballProjectileEntity extends ProjectileItemEntity {
     }
 
     protected Item getDefaultItem() {
-        return Items.SLIME_BALL;
+        return ModItems.SLIME_BALL.get(DyeColor.LIME).get();
     }
 
     @OnlyIn(Dist.CLIENT)

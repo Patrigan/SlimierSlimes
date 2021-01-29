@@ -25,6 +25,12 @@ public class ModLanguageProvider extends LanguageProvider {
         ITEM_IDS.forEach(this::addItem);
         ENTITY_IDS.forEach(this::addEntity);
         add("itemGroup.SlimierSlimesTab", "Slimier Slimes");
+        addConfigOptions();
+    }
+
+    private void addConfigOptions() {
+        add("slimier_slimes.config.main.allowvanillaslime", "Allow Vanilla Slimes");
+        add("slimier_slimes.config.main.totalSlimeSpawnWeight", "Total Slime Spawn Weight");
     }
 
     private void addBlock(String blockId) {

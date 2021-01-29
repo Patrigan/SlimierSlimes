@@ -26,9 +26,8 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
-            String dyeColorId = dyeColor.getTranslationKey();
-            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColorId + "_jelly")).getRegistryName().getPath(), modLoc("item/jelly"));
-            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColorId + "_slime_ball")).getRegistryName().getPath(), modLoc("item/slime_ball"));
+            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColor + "_jelly")).getRegistryName().getPath(), modLoc("item/jelly"));
+            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColor + "_slime_ball")).getRegistryName().getPath(), modLoc("item/slime_ball"));
         });
         registerBlockItems();
         registerSpawnEggItems();

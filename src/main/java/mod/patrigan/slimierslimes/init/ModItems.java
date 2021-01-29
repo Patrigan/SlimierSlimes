@@ -31,7 +31,7 @@ public class ModItems {
     }
 
     private static RegistryObject<Item> registerColoredItem(DyeColor dyeColorin, String itemId){
-        String coloredItemId = dyeColorin.getTranslationKey() + itemId;
+        String coloredItemId = dyeColorin.toString() + itemId;
         ITEM_IDS.add(coloredItemId);
         return ITEMS.register(coloredItemId,  () -> new Item(new Item.Properties().group(SlimierSlimes.TAB)));
     }

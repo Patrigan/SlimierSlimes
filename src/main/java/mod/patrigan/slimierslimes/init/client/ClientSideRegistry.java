@@ -5,18 +5,23 @@ import mod.patrigan.slimierslimes.client.particles.FallingSlimeParticle;
 import mod.patrigan.slimierslimes.client.particles.LandingSlimeParticle;
 import mod.patrigan.slimierslimes.init.ModParticleTypes;
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.DyeColor;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Arrays;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSideRegistry {
 
     @SubscribeEvent
     public static void onParticleFactoryRegistration(ParticleFactoryRegisterEvent event) {
-        Minecraft.getInstance().particles.registerFactory(ModParticleTypes.DRIPPING_SLIME.get(), DrippingSlimeParticle.DrippingSlimeFactory::new);
-        Minecraft.getInstance().particles.registerFactory(ModParticleTypes.FALLING_SLIME.get(), FallingSlimeParticle.FallingSlimeFactory::new);
-        Minecraft.getInstance().particles.registerFactory(ModParticleTypes.LANDING_SLIME.get(), LandingSlimeParticle.LandingSlimeFactory::new);
+        Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
+            Minecraft.getInstance().particles.registerFactory(ModParticleTypes.DRIPPING_SLIME.get(dyeColor).get(), spriteSet -> new DrippingSlimeParticle.DrippingSlimeFactory(spriteSet, dyeColor));
+            Minecraft.getInstance().particles.registerFactory(ModParticleTypes.FALLING_SLIME.get(dyeColor).get(), spriteSet -> new FallingSlimeParticle.FallingSlimeFactory(spriteSet, dyeColor));
+            Minecraft.getInstance().particles.registerFactory(ModParticleTypes.LANDING_SLIME.get(dyeColor).get(), spriteSet -> new LandingSlimeParticle.LandingSlimeFactory(spriteSet, dyeColor));
+        });
     }
 
 }

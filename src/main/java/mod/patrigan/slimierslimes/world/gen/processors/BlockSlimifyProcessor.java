@@ -45,7 +45,7 @@ public class BlockSlimifyProcessor extends StructureProcessor {
         BlockState blockstate = blockInfo.state;
         BlockPos blockpos = blockInfo.pos;
         BlockState blockstate1 = null;
-        Block newBlock = BLOCKS.getValue(new ResourceLocation(MOD_ID, dyeColor.getTranslationKey() + "_slimy_" + blockstate.getBlock().getRegistryName().getPath()));
+        Block newBlock = BLOCKS.getValue(new ResourceLocation(MOD_ID, dyeColor + "_slimy_" + blockstate.getBlock().getRegistryName().getPath()));
         if(newBlock != null && !newBlock.equals(AIR) && random.nextFloat() < slimyness){
             if (newBlock.isIn(BlockTags.STAIRS)) {
                 blockstate1 = this.getStairs(blockstate, newBlock);

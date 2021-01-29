@@ -50,7 +50,7 @@ public class BuildingBlockHelper {
         if(dyeColor == null) {
             return blockId;
         }else{
-            return dyeColor.getTranslationKey() + "_" + blockId;
+            return dyeColor + "_" + blockId;
         }
     }
 

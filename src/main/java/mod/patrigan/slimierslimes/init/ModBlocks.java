@@ -67,7 +67,7 @@ public class ModBlocks {
     }
 
     private static BuildingBlockHelper registerDyedBuildingBlock(String id, DyeColor dyeColor, Supplier<Block> sup, boolean slimy) {
-        String colorId = dyeColor.getTranslationKey() + "_" + id;
+        String colorId = dyeColor + "_" + id;
         BuildingBlockHelper buildingBlockHelper = new BuildingBlockHelper(id,
                 dyeColor,
                 registerBlock(colorId, sup),

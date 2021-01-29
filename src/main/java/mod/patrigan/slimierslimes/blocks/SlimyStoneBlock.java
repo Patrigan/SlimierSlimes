@@ -121,7 +121,7 @@ public class SlimyStoneBlock extends BreakableBlock implements IBlockColor, IIte
 
     @OnlyIn(Dist.CLIENT)
     private void addSlimeParticle(World world, double x1, double x2, double z1, double z2, double y) {
-        world.addParticle(DRIPPING_SLIME.get(), MathHelper.lerp(world.rand.nextDouble(), x1, x2), y, MathHelper.lerp(world.rand.nextDouble(), z1, z2), 0.0D, 0.0D, 0.0D);
+        world.addParticle(DRIPPING_SLIME.get(dyeColor).get(), MathHelper.lerp(world.rand.nextDouble(), x1, x2), y, MathHelper.lerp(world.rand.nextDouble(), z1, z2), 0.0D, 0.0D, 0.0D);
     }
 
     @Override

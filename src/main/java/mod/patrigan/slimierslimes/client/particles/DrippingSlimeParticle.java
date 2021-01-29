@@ -7,10 +7,13 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.item.DyeColor;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.IParticleData;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.awt.*;
 
 import static mod.patrigan.slimierslimes.init.ModParticleTypes.FALLING_SLIME;
 
@@ -24,16 +27,19 @@ public class DrippingSlimeParticle extends DripParticle.Dripping {
     @OnlyIn(Dist.CLIENT)
     public static class DrippingSlimeFactory implements IParticleFactory<BasicParticleType> {
         protected final IAnimatedSprite spriteSet;
+        protected final DyeColor dyeColor;
 
-        public DrippingSlimeFactory(IAnimatedSprite spriteSet) {
+        public DrippingSlimeFactory(IAnimatedSprite spriteSet, DyeColor dyeColor) {
             this.spriteSet = spriteSet;
+            this.dyeColor = dyeColor;
         }
 
         public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            DrippingSlimeParticle dripparticle = new DrippingSlimeParticle(worldIn, x, y, z, Fluids.EMPTY, FALLING_SLIME.get());
+            DrippingSlimeParticle dripparticle = new DrippingSlimeParticle(worldIn, x, y, z, Fluids.EMPTY, FALLING_SLIME.get(dyeColor).get());
             dripparticle.particleGravity *= 0.01F;
             dripparticle.maxAge = 100;
-            dripparticle.setColor(0.384F, 0.713F, 0.290F);
+            Color color = new Color(dyeColor.getColorValue());
+            dripparticle.setColor(color.getRed()/256F, color.getGreen()/256F, color.getBlue()/256F);
             dripparticle.selectSpriteRandomly(this.spriteSet);
             return dripparticle;
         }

@@ -47,7 +47,7 @@ public class SlimyStoneBlock extends BreakableBlock implements IBlockColor, IIte
                 .setRequiresTool()
                 .harvestLevel(1)
                 .harvestTool(ToolType.PICKAXE)
-                .slipperiness(0.9F)
+                .slipperiness(0.7F)
                 .sound(SoundType.SLIME)
                 .setRequiresTool().hardnessAndResistance(3.0F, 4.0F)
                 .notSolid()

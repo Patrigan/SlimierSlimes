@@ -21,12 +21,12 @@ public class ModItemColors {
                     SLIME_BALL.get(dyeColor).get())
         );
         BLOCK_HELPERS.forEach(buildingBlockHelper -> {
-            if(buildingBlockHelper.isSlimy()) {
+            if(buildingBlockHelper.getDyeColor() != null) {
                 Minecraft.getInstance().getItemColors().register(
                         (stack, tintIndex) -> ((IItemColor) ((BlockItem) stack.getItem()).getBlock()).getColor(stack, tintIndex),
                         buildingBlockHelper.getBlock().get());
                 Minecraft.getInstance().getItemColors().register(
-                        (stack, tintIndex) -> ColorUtils.getColor(((BlockItem) stack.getItem()).getBlock(), tintIndex),
+                        (stack, tintIndex) -> ColorUtils.getColor(stack, tintIndex),
                         buildingBlockHelper.getSlab().get(),
                         buildingBlockHelper.getStairs().get(),
                         buildingBlockHelper.getWall().get(),

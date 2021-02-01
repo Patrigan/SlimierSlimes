@@ -3,12 +3,13 @@ package mod.patrigan.slimierslimes.init;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.blocks.*;
 import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialColor;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -41,6 +42,9 @@ public class ModBlocks {
     public static final Map<DyeColor, BuildingBlockHelper> SLIMY_NETHERRACK_BLOCK = registerColoredBuildingBlock("slimy_netherrack", SlimyStoneBlock::new, true);
     public static final List<Block> BASE_SLIMY_BLOCKS = Arrays.asList(Blocks.COBBLESTONE, Blocks.STONE, Blocks.NETHERRACK);
 
+    //Slime Blocks
+    public static final BuildingBlockHelper LIME_SLIME_BLOCK = registerDyedBuildingBlock("slime_block", DyeColor.LIME, () -> new LimeSlimeBlock(AbstractBlock.Properties.create(Material.CLAY, MaterialColor.GRASS).slipperiness(0.8F).sound(SoundType.SLIME).notSolid()), false, 0.6F, true);
+
     //Utility Blocks
     public static final RegistryObject<Block> LIGHT_AIR = registerBlockWithoutItem("light_air",  LightAirBlock::new);
     public static final RegistryObject<Block> AMETHYST_CLUSTER = registerBlockWithoutItem("amethyst_cluster", AmethystClusterBlock::new);
@@ -63,40 +67,42 @@ public class ModBlocks {
     }
 
     private static Map<DyeColor, BuildingBlockHelper> registerColoredBuildingBlock(String id, Function<DyeColor, Block> sup, boolean slimy){
-        return Arrays.stream(DyeColor.values()).collect(Collectors.toMap(dyeColor -> dyeColor, dyeColor -> registerDyedBuildingBlock(id, dyeColor, () -> sup.apply(dyeColor), slimy)));
+        return Arrays.stream(DyeColor.values()).collect(Collectors.toMap(dyeColor -> dyeColor, dyeColor -> registerDyedBuildingBlock(id, dyeColor, () -> sup.apply(dyeColor), slimy, 0.6F, true)));
     }
 
-    private static BuildingBlockHelper registerDyedBuildingBlock(String id, DyeColor dyeColor, Supplier<Block> sup, boolean slimy) {
-        String colorId = dyeColor + "_" + id;
-        BuildingBlockHelper buildingBlockHelper = new BuildingBlockHelper(id,
-                dyeColor,
-                registerBlock(colorId, sup),
-                registerBlock(colorId + SLAB_ID, () -> new SlabBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(1F))),
-                registerBlock(colorId + STAIRS_ID, () -> new StairsBlock(() -> sup.get().getDefaultState(), AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(1F))),
-                registerBlock(colorId + BUTTON_ID, () -> new StoneButtonBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).doesNotBlockMovement().hardnessAndResistance(0.5F))),
-                registerBlock(colorId + PLATE_ID, () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).doesNotBlockMovement().hardnessAndResistance(0.5F).slipperiness(1F))),
-                registerBlock(colorId + WALL_ID, () -> new WallBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE))),
-                slimy);
+    private static BuildingBlockHelper registerDyedBuildingBlock(String baseId, DyeColor dyeColor, Supplier<Block> sup, boolean slimy, float slipperiness, boolean translucent) {
+        String colorId = dyeColor + "_" + baseId;
+        BuildingBlockHelper buildingBlockHelper = new BuildingBlockHelper.Builder()
+                .withBlockId(baseId).withDyeColor(dyeColor)
+                .withBlock(registerBlock(colorId, sup))
+                .withSlab(registerBlock(colorId + SLAB_ID, () -> new SlabBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(slipperiness))))
+                .withStairs(registerBlock(colorId + STAIRS_ID, () -> new StairsBlock(() -> sup.get().getDefaultState(), AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(slipperiness))))
+                .withButton(registerBlock(colorId + BUTTON_ID, () -> new StoneButtonBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).doesNotBlockMovement().hardnessAndResistance(0.5F))))
+                .withPressurePlate(registerBlock(colorId + PLATE_ID, () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).doesNotBlockMovement().hardnessAndResistance(0.5F).slipperiness(1F))))
+                .withWall(registerBlock(colorId + WALL_ID, () -> new WallBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(slipperiness))))
+                .withSlimy(slimy)
+                .withTranslucent(translucent)
+                .createBuildingBlockHelper();
         BLOCK_HELPERS.add(buildingBlockHelper);
         return buildingBlockHelper;
     }
 
-    private static BuildingBlockHelper registerBuildingBlock(String id, Supplier<Block> sup, boolean slimy) {
-        BuildingBlockHelper buildingBlockHelper = new BuildingBlockHelper(id,
-                registerBlock(id, sup),
-                registerBlock(id + SLAB_ID, () -> new SlabBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(1F))),
-                registerBlock(id + STAIRS_ID, () -> new StairsBlock(() -> sup.get().getDefaultState(), AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(1F))),
-                registerBlock(id + BUTTON_ID, () -> new StoneButtonBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).doesNotBlockMovement().hardnessAndResistance(0.5F))),
-                registerBlock(id + PLATE_ID, () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).doesNotBlockMovement().hardnessAndResistance(0.5F).slipperiness(1F))),
-                registerBlock(id + WALL_ID, () -> new WallBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE))),
-                slimy);
+    private static BuildingBlockHelper registerBuildingBlock(String id, Supplier<Block> sup, boolean slimy, float slipperiness) {
+        BuildingBlockHelper buildingBlockHelper = new BuildingBlockHelper.Builder()
+                .withBlockId(id).withBlock(registerBlock(id, sup))
+                .withSlab(registerBlock(id + SLAB_ID, () -> new SlabBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(slipperiness))))
+                .withStairs(registerBlock(id + STAIRS_ID, () -> new StairsBlock(() -> sup.get().getDefaultState(), AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).slipperiness(slipperiness))))
+                .withButton(registerBlock(id + BUTTON_ID, () -> new StoneButtonBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).doesNotBlockMovement().hardnessAndResistance(0.5F))))
+                .withPressurePlate(registerBlock(id + PLATE_ID, () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).doesNotBlockMovement().hardnessAndResistance(0.5F).slipperiness(slipperiness))))
+                .withWall(registerBlock(id + WALL_ID, () -> new WallBlock(AbstractBlock.Properties.from(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE))))
+                .withSlimy(slimy).createBuildingBlockHelper();
         BLOCK_HELPERS.add(buildingBlockHelper);
         return buildingBlockHelper;
     }
 
     public static void initRenderTypes(){
         BLOCK_HELPERS.forEach(buildingBlockHelper -> {
-            if(buildingBlockHelper.isSlimy()){
+            if(buildingBlockHelper.isTranslucent()){
                 initBuildingBlockRenderTypes(buildingBlockHelper, RenderType.getTranslucent());
             }
         });

@@ -13,7 +13,7 @@ public class ModBlockColors {
                 (state, reader, pos, color) -> DyeColor.RED.getColorValue(),
                 STONE_LAVA_SLIME_SPAWNER.get(), NETHERRACK_LAVA_SLIME_SPAWNER.get());
         BLOCK_HELPERS.forEach(buildingBlockHelper -> {
-            if(buildingBlockHelper.isSlimy()) {
+            if(buildingBlockHelper.getDyeColor() != null) {
                 Minecraft.getInstance().getBlockColors().register(
                         (state, reader, pos, color) -> ((IBlockColor) state.getBlock()).getColor(state, reader, pos, color),
                         buildingBlockHelper.getBlock().get());

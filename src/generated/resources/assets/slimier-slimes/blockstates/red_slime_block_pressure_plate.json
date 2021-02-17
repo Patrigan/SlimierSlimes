@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "slimier-slimes:block/red_slime_block_pressure_plate"
+    },
+    "powered=true": {
+      "model": "slimier-slimes:block/red_slime_block_pressure_plate_down"
+    }
+  }
+}

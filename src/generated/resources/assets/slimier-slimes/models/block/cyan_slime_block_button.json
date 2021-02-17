@@ -1,0 +1,6 @@
+{
+  "parent": "slimier-slimes:block/colored_button",
+  "textures": {
+    "texture": "slimier-slimes:block/slime_block"
+  }
+}

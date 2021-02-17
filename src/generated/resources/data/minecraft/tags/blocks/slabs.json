@@ -49,6 +49,21 @@
     "slimier-slimes:green_slimy_netherrack_slab",
     "slimier-slimes:red_slimy_netherrack_slab",
     "slimier-slimes:black_slimy_netherrack_slab",
-    "slimier-slimes:lime_slime_block_slab"
+    "slimier-slimes:lime_slime_block_slab",
+    "slimier-slimes:green_slime_block_slab",
+    "slimier-slimes:yellow_slime_block_slab",
+    "slimier-slimes:cyan_slime_block_slab",
+    "slimier-slimes:light_blue_slime_block_slab",
+    "slimier-slimes:blue_slime_block_slab",
+    "slimier-slimes:orange_slime_block_slab",
+    "slimier-slimes:red_slime_block_slab",
+    "slimier-slimes:pink_slime_block_slab",
+    "slimier-slimes:brown_slime_block_slab",
+    "slimier-slimes:light_gray_slime_block_slab",
+    "slimier-slimes:gray_slime_block_slab",
+    "slimier-slimes:black_slime_block_slab",
+    "slimier-slimes:white_slime_block_slab",
+    "slimier-slimes:purple_slime_block_slab",
+    "slimier-slimes:magenta_slime_block_slab"
   ]
 }

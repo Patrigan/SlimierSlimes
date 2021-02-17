@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 
+import static mod.patrigan.slimierslimes.init.ModFeatures.LAVA_SLIME_SPAWNER_FEATURE;
 import static mod.patrigan.slimierslimes.init.ModFeatures.SLIME_SPAWNER_FEATURE;
 
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -52,9 +53,9 @@ public class ModConfiguredFeatures {
     }
 
     private static void registerLavaSlimeSpawnerFeatures() {
-        STONE_LAVA_SLIME_SPAWNER_CONFIGURED_FEATURE = new LavaSpawnerFeature(LavaSpawnerConfig.CODEC).withConfiguration(new LavaSpawnerConfig(new BlockMatchRuleTest(Blocks.STONE), ModBlocks.STONE_LAVA_SLIME_SPAWNER.get().getDefaultState(), 6)).range(128).square().func_242731_b(100);
+        STONE_LAVA_SLIME_SPAWNER_CONFIGURED_FEATURE = LAVA_SLIME_SPAWNER_FEATURE.get().withConfiguration(new LavaSpawnerConfig(new BlockMatchRuleTest(Blocks.STONE), ModBlocks.STONE_LAVA_SLIME_SPAWNER.get().getDefaultState(), 6)).range(128).square().func_242731_b(100);
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(SlimierSlimes.MOD_ID, "stone_lava_slime_spawner_configured_feature"), STONE_LAVA_SLIME_SPAWNER_CONFIGURED_FEATURE);
-        NETHERRACK_LAVA_SLIME_SPAWNER_CONFIGURED_FEATURE = new LavaSpawnerFeature(LavaSpawnerConfig.CODEC).withConfiguration(new LavaSpawnerConfig(new BlockMatchRuleTest(Blocks.NETHERRACK), ModBlocks.NETHERRACK_LAVA_SLIME_SPAWNER.get().getDefaultState(), 6)).range(128).square().func_242731_b(50);
+        NETHERRACK_LAVA_SLIME_SPAWNER_CONFIGURED_FEATURE = LAVA_SLIME_SPAWNER_FEATURE.get().withConfiguration(new LavaSpawnerConfig(new BlockMatchRuleTest(Blocks.NETHERRACK), ModBlocks.NETHERRACK_LAVA_SLIME_SPAWNER.get().getDefaultState(), 6)).range(128).square().func_242731_b(50);
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(SlimierSlimes.MOD_ID, "netherrack_lava_slime_spawner_configured_feature"), NETHERRACK_LAVA_SLIME_SPAWNER_CONFIGURED_FEATURE);
     }
 

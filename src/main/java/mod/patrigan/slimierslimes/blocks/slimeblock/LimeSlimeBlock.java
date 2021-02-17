@@ -1,4 +1,4 @@
-package mod.patrigan.slimierslimes.blocks;
+package mod.patrigan.slimierslimes.blocks.slimeblock;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlimeBlock;

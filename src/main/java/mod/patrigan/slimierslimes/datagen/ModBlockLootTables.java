@@ -39,9 +39,7 @@ public class ModBlockLootTables extends BlockLootTables {
                 droppingWithSilkTouch(slimyStoneBlock, withSurvivesExplosion(slimyStoneBlock, ItemLootEntry.builder(ModItems.JELLY.get(dyeColor).get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.COBBLESTONE)))));
         this.registerBuildingBlockLootTable(ModBlocks.SLIMY_NETHERRACK_BLOCK.get(dyeColor), slimyStoneBlock ->
                 droppingWithSilkTouch(slimyStoneBlock, withSurvivesExplosion(slimyStoneBlock, ItemLootEntry.builder(ModItems.JELLY.get(dyeColor).get()).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 0.1F, 0.14285715F, 0.25F, 1.0F)).alternatively(ItemLootEntry.builder(Blocks.NETHERRACK)))));
-        this.registerBuildingBlockLootTable(LIME_SLIME_BLOCK, block ->
-                dropping(block));
-
+        SLIME_BLOCK_HELPERS.forEach(this::registerDroppingSelfBuildingBlockHelper);
     }
 
     @Override
@@ -56,5 +54,9 @@ public class ModBlockLootTables extends BlockLootTables {
         this.registerLootTable(blockHelper.getButton().get(), dropping(blockHelper.getButton().get()));
         this.registerLootTable(blockHelper.getPressurePlate().get(), dropping(blockHelper.getPressurePlate().get()));
         this.registerLootTable(blockHelper.getWall().get(), dropping(blockHelper.getWall().get()));
+    }
+
+    protected void registerDroppingSelfBuildingBlockHelper(BuildingBlockHelper buildingBlockHelper){
+        this.registerBuildingBlockLootTable(buildingBlockHelper, BlockLootTables::dropping);
     }
 }

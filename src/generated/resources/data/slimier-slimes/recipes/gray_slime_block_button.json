@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "slimier-slimes:gray_slime_block"
+    }
+  ],
+  "result": {
+    "item": "slimier-slimes:gray_slime_block_button"
+  }
+}

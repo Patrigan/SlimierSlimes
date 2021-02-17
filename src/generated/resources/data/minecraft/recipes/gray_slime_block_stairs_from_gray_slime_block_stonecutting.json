@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "slimier-slimes:gray_slime_block"
+  },
+  "result": "slimier-slimes:gray_slime_block_stairs",
+  "count": 1
+}

@@ -8,6 +8,7 @@ public class SlimeConfigs {
     public static class SlimeConfigValues {
         public ConfigHelper.ConfigValueListener<Boolean> allowVanillaSlime;
         public ConfigHelper.ConfigValueListener<Integer> totalSlimeSpawnWeight;
+        public ConfigHelper.ConfigValueListener<Boolean> allowSlimeBlockEffects;
 
         public SlimeConfigValues(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber) {
             builder.push("Slimier Slimes Options");
@@ -33,6 +34,19 @@ public class SlimeConfigs {
                             +" Defaults to 300.\n\n")
                     .translation("slimier_slimes.config.main.totalSlimeSpawnWeight")
                     .define("totalSlimeSpawnWeight", 300));
+
+            builder.pop();
+
+            builder.push("Slime Block Options");
+
+            allowSlimeBlockEffects = subscriber.subscribe(builder
+                    .comment(" \r\n-----------------------------------------------------\r\n\r\n"
+                            +" Activates special slime block effects. If you do not want slime blocks to\r\n"
+                            +" bump you around or be used as a factory conveyor belt system, \r\n"
+                            +" set this to false. \r\n"
+                            +" Defaults to true.\n\n")
+                    .translation("slimier_slimes.config.main.allowSlimeBlockEffects")
+                    .define("allowSlimeBlockEffects", true));
 
             builder.pop();
 

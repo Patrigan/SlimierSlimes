@@ -1,0 +1,6 @@
+{
+  "parent": "slimier-slimes:block/colored_slab",
+  "textures": {
+    "texture": "slimier-slimes:block/slime_block"
+  }
+}

@@ -13,7 +13,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class CreeperSlimeRenderer extends MobRenderer<CreeperSlimeEntity, SlimeModel<CreeperSlimeEntity>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(SlimierSlimes.MOD_ID, "textures/entity/creeper_slime.png");

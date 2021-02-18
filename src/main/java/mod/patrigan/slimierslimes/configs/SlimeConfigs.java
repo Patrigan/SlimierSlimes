@@ -23,6 +23,14 @@ public class SlimeConfigs {
                     .translation("slimier_slimes.config.main.allowvanillaslime")
                     .define("allowVanillaSlime", false));
 
+            allowVanillaSlime = subscriber.subscribe(builder
+                    .comment(" \r\n-----------------------------------------------------\r\n\r\n"
+                            +" Maintains the spawning of new slimes within chunks.\r\n"
+                            +" Otherwise slimes will have spawns everywhere, like normal mobs.\r\n"
+                            +" Defaults to false.\n\n")
+                    .translation("slimier_slimes.config.main.maintainChunkSpawning")
+                    .define("maintainChunkSpawning", false));
+
             builder.pop();
 
             builder.push("Slime Spawning Options");

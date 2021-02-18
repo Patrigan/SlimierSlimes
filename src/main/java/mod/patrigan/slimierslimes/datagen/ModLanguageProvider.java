@@ -30,7 +30,9 @@ public class ModLanguageProvider extends LanguageProvider {
 
     private void addConfigOptions() {
         add("slimier_slimes.config.main.allowvanillaslime", "Allow Vanilla Slimes");
+        add("slimier_slimes.config.main.maintainChunkSpawning", "Maintain Chunk Spawning");
         add("slimier_slimes.config.main.totalSlimeSpawnWeight", "Total Slime Spawn Weight");
+        add("slimier_slimes.config.main.allowSlimeBlockEffects", "Allow Slime Block Effects");
     }
 
     private void addBlock(String blockId) {

@@ -4,6 +4,10 @@
 Allows the spawning of the Vanilla Slime. This will also allow slimeballs and the original slimeblock to reappear.
 
 Defaults to false.
+### maintainChunkSpawning
+Maintains the spawning of new slimes within chunks. Otherwise slimes will have spawns everywhere, like normal mobs.
+
+Defaults to false.
 
 ## Slime Spawning Options
 ### totalSlimeSpawnWeight

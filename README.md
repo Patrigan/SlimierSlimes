@@ -1,16 +1,16 @@
 # Slimier Slimes
-Current Version supports 1.16.4
+Current Version supports 1.16.5
 
 # Overview
 Slimier Slimes is a slimy mod, filled with lots of gooey goodness that will allow you to jiggle with these cutesy little friends.
 
 # Content
-Slimier Slimes adds a variety of things that will enrich vanilla MC gameplay with more slimestuff.
+Slimier Slimes adds a variety of things that will enrich vanilla MC gameplay with more slimestuff. An effort has been done to stay close to vanilla gameplay.
 
 ## Entities
 There is a wide variety of slimes added by this mod.
 
-The original slime has been completely rewritten to be properly supported. If any mod based itself on the OG slime, they will break. Let the developers know, so we can determine if change is needed.
+The original slime has been completely rewritten to be properly supported. If any mod based itself on the OG slime, they will break. A config option is available to make the normal slime spawn again. Let the developers know, so we can determine if further change is needed.
 
 A variety of new slimes have been added:
 - Creeper Slime

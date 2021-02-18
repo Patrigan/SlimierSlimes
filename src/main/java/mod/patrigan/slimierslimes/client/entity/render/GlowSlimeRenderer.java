@@ -13,7 +13,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class GlowSlimeRenderer extends MobRenderer<GlowSlimeEntity, SlimeModel<GlowSlimeEntity>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(SlimierSlimes.MOD_ID, "textures/entity/glow_slime.png");

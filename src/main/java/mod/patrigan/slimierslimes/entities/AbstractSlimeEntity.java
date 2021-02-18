@@ -1,5 +1,6 @@
 package mod.patrigan.slimierslimes.entities;
 
+import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.entities.ai.controller.MoveHelperController;
 import mod.patrigan.slimierslimes.entities.ai.goal.AttackGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FaceRandomGoal;
@@ -21,18 +22,13 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.IServerWorld;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import net.minecraft.world.biome.Biomes;
 
 import javax.annotation.Nullable;
@@ -320,10 +316,23 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
             if (canSpawnInSwamp(entityType, world, reason, pos, randomIn)) {
                 return true;
             }
-
-            if(MonsterEntity.isValidLightLevel(world, pos, randomIn) && canSpawnOn(entityType, world, reason, pos, randomIn)){
-                return true;
+            if(Boolean.TRUE.equals(SlimierSlimes.SlimeConfig.allowSlimeBlockEffects.get())) {
+                return spawnInChunk(entityType, world, reason, pos, randomIn);
             }
+            return MonsterEntity.isValidLightLevel(world, pos, randomIn) && canSpawnOn(entityType, world, reason, pos, randomIn);
+        }
+        return false;
+    }
+
+    public static boolean spawnInChunk(EntityType<? extends AbstractSlimeEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
+        if (!(world instanceof ISeedReader)) {
+            return false;
+        }
+
+        ChunkPos chunkpos = new ChunkPos(pos);
+        boolean flag = SharedSeedRandom.seedSlimeChunk(chunkpos.x, chunkpos.z, ((ISeedReader) world).getSeed(), 987234911L).nextInt(10) == 0;
+        if (randomIn.nextInt(10) == 0 && flag && pos.getY() < 40) {
+            return canSpawnOn(entityType, world, reason, pos, randomIn);
         }
         return false;
     }

@@ -17,14 +17,12 @@ import java.awt.*;
 
 import static mod.patrigan.slimierslimes.init.ModParticleTypes.LANDING_SLIME;
 
-@OnlyIn(Dist.CLIENT)
 public class FallingSlimeParticle extends DripParticle.FallingLiquidParticle {
 
     public FallingSlimeParticle(ClientWorld world, double x, double y, double z, Fluid fluid, IParticleData particleData) {
         super(world, x, y, z, fluid, particleData);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class FallingSlimeFactory implements IParticleFactory<BasicParticleType> {
         protected final IAnimatedSprite spriteSet;
         protected final DyeColor dyeColor;

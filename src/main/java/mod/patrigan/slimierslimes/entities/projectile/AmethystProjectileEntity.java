@@ -141,7 +141,6 @@ public class AmethystProjectileEntity extends Entity {
      * Handler for {@link World#setEntityState}
      */
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
         super.handleStatusUpdate(id);
         if (id == 4) {
@@ -152,7 +151,6 @@ public class AmethystProjectileEntity extends Entity {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public float getAnimationProgress(float partialTicks) {
         if (!this.clientSideAttackStarted) {
             return 0.0F;

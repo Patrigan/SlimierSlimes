@@ -40,7 +40,6 @@ public class SlimeballProjectileEntity extends ProjectileItemEntity {
         return ModItems.SLIME_BALL.get(DyeColor.LIME).get();
     }
 
-    @OnlyIn(Dist.CLIENT)
     private IParticleData makeParticle() {
         ItemStack itemstack = this.func_213882_k();
         return (IParticleData)(itemstack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleData(ParticleTypes.ITEM, itemstack));
@@ -49,7 +48,6 @@ public class SlimeballProjectileEntity extends ProjectileItemEntity {
     /**
      * Handler for {@link World#setEntityState}
      */
-    @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
         if (id == 3) {
             IParticleData iparticledata = this.makeParticle();

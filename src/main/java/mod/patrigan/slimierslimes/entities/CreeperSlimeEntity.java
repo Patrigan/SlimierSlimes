@@ -141,7 +141,6 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public float getCreeperFlashIntensity(float partialTicks) {
         return MathHelper.lerp(partialTicks, (float)this.lastActiveTime, (float)this.timeSinceIgnited) / (float)(this.fuseTime - 2);
     }

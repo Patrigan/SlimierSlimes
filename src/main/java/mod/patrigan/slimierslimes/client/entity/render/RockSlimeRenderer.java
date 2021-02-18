@@ -13,7 +13,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class RockSlimeRenderer extends MobRenderer<RockSlimeEntity, SlimeModel<RockSlimeEntity>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(SlimierSlimes.MOD_ID, "textures/entity/rock_slime.png");

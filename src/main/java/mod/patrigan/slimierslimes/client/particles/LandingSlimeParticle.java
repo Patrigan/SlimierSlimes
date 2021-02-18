@@ -14,14 +14,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.awt.*;
 
-@OnlyIn(Dist.CLIENT)
 public class LandingSlimeParticle extends DripParticle.Landing {
 
     public LandingSlimeParticle(ClientWorld world, double x, double y, double z, Fluid fluid) {
         super(world, x, y, z, fluid);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class LandingSlimeFactory implements IParticleFactory<BasicParticleType> {
         protected final IAnimatedSprite spriteSet;
         protected final DyeColor dyeColor;

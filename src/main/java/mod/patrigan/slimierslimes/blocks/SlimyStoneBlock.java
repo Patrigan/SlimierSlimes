@@ -85,14 +85,12 @@ public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, Mo
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         for(int i = 0; i < rand.nextInt(1) + 1; ++i) {
             this.addSlimeParticle(worldIn, pos, stateIn);
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void addSlimeParticle(World world, BlockPos pos, BlockState state) {
         if (state.getFluidState().isEmpty() && (world.rand.nextFloat() < 0.2F)) {
             VoxelShape voxelshape = state.getCollisionShape(world, pos);
@@ -115,12 +113,10 @@ public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, Mo
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void addSlimeParticle(World world, BlockPos pos, VoxelShape shape, double y) {
         this.addSlimeParticle(world, (double)pos.getX() + shape.getStart(Direction.Axis.X), (double)pos.getX() + shape.getEnd(Direction.Axis.X), (double)pos.getZ() + shape.getStart(Direction.Axis.Z), (double)pos.getZ() + shape.getEnd(Direction.Axis.Z), y);
     }
 
-    @OnlyIn(Dist.CLIENT)
     private void addSlimeParticle(World world, double x1, double x2, double z1, double z2, double y) {
         world.addParticle(DRIPPING_SLIME.get(dyeColor).get(), MathHelper.lerp(world.rand.nextDouble(), x1, x2), y, MathHelper.lerp(world.rand.nextDouble(), z1, z2), 0.0D, 0.0D, 0.0D);
     }

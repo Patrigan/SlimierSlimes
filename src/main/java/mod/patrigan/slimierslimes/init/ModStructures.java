@@ -56,8 +56,8 @@ public class ModStructures {
                 true);
         setupMapSpacingAndLand(
                 SLIME_DUNGEON.get(), /* The instance of the structure */
-                new StructureSeparationSettings(5 /* maximum distance apart in chunks between spawn attempts */,
-                        3 /* minimum distance apart in chunks between spawn attempts */,
+                new StructureSeparationSettings(7 /* maximum distance apart in chunks between spawn attempts */,
+                        5 /* minimum distance apart in chunks between spawn attempts */,
                         768149314 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 false);
     }

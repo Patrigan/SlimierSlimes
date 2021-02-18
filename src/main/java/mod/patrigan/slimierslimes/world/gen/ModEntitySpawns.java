@@ -30,7 +30,7 @@ import static net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING_NO_LEAVES;
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModEntitySpawns {
 
-    private static final List<MobSpawnInfo.Spawners> SLIME_BASE_SPAWNERS = new ArrayList<>();
+    public static final List<MobSpawnInfo.Spawners> SLIME_BASE_SPAWNERS = new ArrayList<>();
 
     public static void initBaseWeights(final FMLCommonSetupEvent event)
     {

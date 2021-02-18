@@ -31,7 +31,7 @@ Slimechunks have been fully removed. Instead a new structure will spawn undergro
 
 The swamp has also been more slimified. You'll find all slimes spawning there, regardless of their normal spawning rules.
 
-Lastly, the smallest slimes will become a more dangerous force as well, they might spawn in big!
+Lastly, the smallest slimes will become a more dangerous force as well, they might spawn in big numbers!
 
 ## New Items
 Slimes no longer drop slimeballs, but instead drop slime jelly. This jelly can be pressed into our well know slimeballs, but in all different colours!
@@ -42,6 +42,9 @@ Slime is now everywhere.
 Underground, blocks will spawn that relate to jelly. Not only in the slimier structures, but just in general.
 
 The old slime block has received friends in all colours, but every colour has its own impact. Parkour builders will be able to use these to create new challenges on their tracks. The other builders will have some new slimy colours at their disposal to make interesting constructions.
+
+## Resources for ModPack makers
+- [Configuration Items](doc/configuration.md)
 
 ## Resources for Development
 - [Adding a Slime](doc/AddingSlime.md)

@@ -39,6 +39,7 @@ public class ModStructureSpawns {
                 && types.contains(DENSE)) {
             event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_PILLAGER_SLIME_LAB);
         }
+        event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SLIME_DUNGEON);
     }
 
     /**
@@ -68,6 +69,7 @@ public class ModStructureSpawns {
 
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
             tempMap.put(ModStructures.PILLAGER_SLIME_LAB.get(), DimensionStructuresSettings.field_236191_b_.get(ModStructures.PILLAGER_SLIME_LAB.get()));
+            tempMap.put(ModStructures.SLIME_DUNGEON.get(), DimensionStructuresSettings.field_236191_b_.get(ModStructures.SLIME_DUNGEON.get()));
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }

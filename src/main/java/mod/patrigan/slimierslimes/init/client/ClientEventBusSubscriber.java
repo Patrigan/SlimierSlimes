@@ -4,6 +4,7 @@ import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.client.entity.render.*;
 import mod.patrigan.slimierslimes.init.ModEntityTypes;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -26,7 +27,5 @@ public class ClientEventBusSubscriber {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.OBSIDIAN_SLIME.get(), ObsidianSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.AMETYST_PROJECTILE.get(), AmethystProjectileRenderer::new);
-        ModItemColors.init();
-        ModBlockColors.init();
     }
 }

@@ -3,8 +3,8 @@ package mod.patrigan.slimierslimes.blocks.slimeblock;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlimeBlock;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
+import mod.patrigan.slimierslimes.util.ModBlockColor;
+import mod.patrigan.slimierslimes.util.ModItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 
 import static java.lang.Boolean.TRUE;
 
-public class LightGraySlimeBlock extends SlimeBlock implements IBlockColor, IItemColor {
+public class LightGraySlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
     private static final double BOUNCE_MULTIPLIER = 1.0D;
 
     public LightGraySlimeBlock(Properties properties) {

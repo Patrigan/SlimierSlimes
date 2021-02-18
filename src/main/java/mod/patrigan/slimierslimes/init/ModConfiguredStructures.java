@@ -1,6 +1,7 @@
 package mod.patrigan.slimierslimes.init;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.structures.PillagerSlimeLab;
+import mod.patrigan.slimierslimes.structures.SlimeDungeon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -13,6 +14,7 @@ public class ModConfiguredStructures {
      * Static instance of our structure so we can reference it and add it to biomes easily.
      */
     public static final StructureFeature<?, ?> CONFIGURED_PILLAGER_SLIME_LAB = ModStructures.PILLAGER_SLIME_LAB.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+    public static final StructureFeature<?, ?> CONFIGURED_SLIME_DUNGEON = ModStructures.SLIME_DUNGEON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
     /**
      * Registers the configured structure which is what gets added to the biomes.
@@ -24,6 +26,7 @@ public class ModConfiguredStructures {
     public static void registerConfiguredStructures() {
         Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
         Registry.register(registry, new ResourceLocation(SlimierSlimes.MOD_ID, "configured_"+ PillagerSlimeLab.STRUCTURE_ID), CONFIGURED_PILLAGER_SLIME_LAB);
+        Registry.register(registry, new ResourceLocation(SlimierSlimes.MOD_ID, "configured_"+ SlimeDungeon.STRUCTURE_ID), CONFIGURED_SLIME_DUNGEON);
 
         // Ok so, this part may be hard to grasp but basically, just add your structure to this to
         // prevent any sort of crash or issue with other mod's custom ChunkGenerators. If they use
@@ -38,5 +41,6 @@ public class ModConfiguredStructures {
         // and re-enter it and your structures will be spawning. I could not figure out why it needs
         // the restart but honestly, superflat is really buggy and shouldn't be your main focus in my opinion.
         FlatGenerationSettings.STRUCTURES.put(ModStructures.PILLAGER_SLIME_LAB.get(), CONFIGURED_PILLAGER_SLIME_LAB);
+        FlatGenerationSettings.STRUCTURES.put(ModStructures.SLIME_DUNGEON.get(), CONFIGURED_SLIME_DUNGEON);
     }
 }

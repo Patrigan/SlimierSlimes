@@ -1,13 +1,14 @@
 package mod.patrigan.slimierslimes.blocks;
 
 import mod.patrigan.slimierslimes.entities.RockSlimeEntity;
+import mod.patrigan.slimierslimes.util.ColorUtils;
+import mod.patrigan.slimierslimes.util.ModBlockColor;
+import mod.patrigan.slimierslimes.util.ModItemColor;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BreakableBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -36,7 +37,7 @@ import java.util.Random;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.ROCK_SLIME;
 import static mod.patrigan.slimierslimes.init.ModParticleTypes.DRIPPING_SLIME;
 
-public class SlimyStoneBlock extends BreakableBlock implements IBlockColor, IItemColor {
+public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, ModItemColor {
     private DyeColor dyeColor;
 
     private static final float SPAWN_CHANCE = 0.4F;
@@ -145,6 +146,6 @@ public class SlimyStoneBlock extends BreakableBlock implements IBlockColor, IIte
     }
 
     public int getColor(int tintIndex) {
-        return tintIndex == 0 ? dyeColor.getColorValue() : -1;
+        return tintIndex == 0 ? ColorUtils.getSlimyBlockColor(dyeColor) : -1;
     }
 }

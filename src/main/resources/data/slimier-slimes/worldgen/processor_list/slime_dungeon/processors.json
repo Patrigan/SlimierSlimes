@@ -1,0 +1,11 @@
+{
+  "processors": [
+    {
+      "processor_type": "slimier-slimes:air_retainer"
+    },
+    {
+      "processor_type": "slimier-slimes:block_slimify",
+      "slimyness": 0.8
+    }
+  ]
+}

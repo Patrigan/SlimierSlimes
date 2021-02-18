@@ -3,8 +3,8 @@ package mod.patrigan.slimierslimes.blocks.slimeblock;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SlimeBlock;
-import net.minecraft.client.renderer.color.IBlockColor;
-import net.minecraft.client.renderer.color.IItemColor;
+import mod.patrigan.slimierslimes.util.ModBlockColor;
+import mod.patrigan.slimierslimes.util.ModItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.DyeColor;
@@ -18,7 +18,7 @@ import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
-public class PurpleSlimeBlock extends SlimeBlock implements IBlockColor, IItemColor {
+public class PurpleSlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
 
     public PurpleSlimeBlock(Properties properties) {
         super(properties);

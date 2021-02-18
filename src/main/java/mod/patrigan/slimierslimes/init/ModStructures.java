@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.structures.PillagerSlimeLab;
+import mod.patrigan.slimierslimes.structures.SlimeDungeon;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
@@ -33,6 +34,7 @@ public class ModStructures {
      * Keep watch on that to know when it is safe to remove or change structure's registry names
      */
     public static final RegistryObject<Structure<NoFeatureConfig>> PILLAGER_SLIME_LAB = registerStructure(PillagerSlimeLab.STRUCTURE_ID, () -> (new PillagerSlimeLab(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> SLIME_DUNGEON = registerStructure(SlimeDungeon.STRUCTURE_ID, () -> (new SlimeDungeon(NoFeatureConfig.field_236558_a_)));
 
     /**
      * Helper method for registering all structures
@@ -52,6 +54,12 @@ public class ModStructures {
                         10 /* minimum distance apart in chunks between spawn attempts */,
                         671483951 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 true);
+        setupMapSpacingAndLand(
+                SLIME_DUNGEON.get(), /* The instance of the structure */
+                new StructureSeparationSettings(5 /* maximum distance apart in chunks between spawn attempts */,
+                        3 /* minimum distance apart in chunks between spawn attempts */,
+                        768149314 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
+                false);
     }
 
     /**

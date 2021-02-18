@@ -1,10 +1,17 @@
 package mod.patrigan.slimierslimes.init.client;
 
+import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.util.ColorUtils;
+import mod.patrigan.slimierslimes.util.ModItemColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeColor;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.Arrays;
 
@@ -12,21 +19,24 @@ import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
 import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
 import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
 
+@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class ModItemColors {
-    public static void init(){
+    @SubscribeEvent
+    public static void init(ColorHandlerEvent.Item event){
+        ItemColors itemColors = event.getItemColors();
         Arrays.stream(DyeColor.values()).forEach(dyeColor ->
-            Minecraft.getInstance().getItemColors().register(
+            itemColors.register(
                     (stack, tintIndex) -> dyeColor.getColorValue(),
                     JELLY.get(dyeColor).get(),
                     SLIME_BALL.get(dyeColor).get())
         );
         BLOCK_HELPERS.forEach(buildingBlockHelper -> {
             if(buildingBlockHelper.getDyeColor() != null) {
-                Minecraft.getInstance().getItemColors().register(
-                        (stack, tintIndex) -> ((IItemColor) ((BlockItem) stack.getItem()).getBlock()).getColor(stack, tintIndex),
+                itemColors.register(
+                        (stack, tintIndex) -> ((ModItemColor) ((BlockItem) stack.getItem()).getBlock()).getColor(stack, tintIndex),
                         buildingBlockHelper.getBlock().get());
-                Minecraft.getInstance().getItemColors().register(
-                        (stack, tintIndex) -> ColorUtils.getColor(stack, tintIndex),
+                itemColors.register(
+                        ColorUtils::getColor,
                         buildingBlockHelper.getSlab().get(),
                         buildingBlockHelper.getStairs().get(),
                         buildingBlockHelper.getWall().get(),

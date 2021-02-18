@@ -1,23 +1,33 @@
 package mod.patrigan.slimierslimes.init.client;
 
+import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.util.ColorUtils;
+import mod.patrigan.slimierslimes.util.ModBlockColor;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.item.DyeColor;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.*;
 
+@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModBlockColors {
-    public static void init(){
-        Minecraft.getInstance().getBlockColors().register(
+    @SubscribeEvent
+    public static void init(ColorHandlerEvent.Block event){
+        BlockColors blockColors = event.getBlockColors();
+        blockColors.register(
                 (state, reader, pos, color) -> DyeColor.RED.getColorValue(),
                 STONE_LAVA_SLIME_SPAWNER.get(), NETHERRACK_LAVA_SLIME_SPAWNER.get());
         BLOCK_HELPERS.forEach(buildingBlockHelper -> {
             if(buildingBlockHelper.getDyeColor() != null) {
-                Minecraft.getInstance().getBlockColors().register(
-                        (state, reader, pos, color) -> ((IBlockColor) state.getBlock()).getColor(state, reader, pos, color),
+                blockColors.register(
+                        (state, reader, pos, color) -> ((ModBlockColor) state.getBlock()).getColor(state, reader, pos, color),
                         buildingBlockHelper.getBlock().get());
-                Minecraft.getInstance().getBlockColors().register(
+                blockColors.register(
                         ColorUtils::getColor,
                         buildingBlockHelper.getSlab().get(),
                         buildingBlockHelper.getStairs().get(),

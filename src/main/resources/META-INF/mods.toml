@@ -27,14 +27,20 @@ displayName="Slimier Slimes" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
 # displayURL="http://example.com/" #optional
 # A file name (in the root of the mod JAR) containing a logo for display
-logoFile="slimier-slimes.png" #optional
+logoFile="logo.png" #optional
 # A text field displayed in the mod UI
-credits="Thanks for this mod goes to Me!" #optional
+credits="Thanks for this mod goes to you, the person who downloads it and my reason to make it!" #optional
 # A text field displayed in the mod UI
 authors="Patrigan" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Slimes mod by Patrigan!
+Slimier Slimes mod by Patrigan!
+
+For more information, check out the mod page at:
+https://www.curseforge.com/minecraft/mc-mods/slimier-slimes
+
+For a look at the code base, check out the github and for reporting issues / suggesting changes:
+https://github.com/Patrigan/SlimierSlimes
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.examplemod]] #optional

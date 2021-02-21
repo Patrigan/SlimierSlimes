@@ -39,7 +39,9 @@ public class ModStructureSpawns {
                 && types.contains(DENSE)) {
             event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_PILLAGER_SLIME_LAB);
         }
-        event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SLIME_DUNGEON);
+        if(types.contains(OVERWORLD)){
+            event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SLIME_DUNGEON);
+        }
     }
 
     /**

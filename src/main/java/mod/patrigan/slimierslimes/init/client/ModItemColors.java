@@ -3,8 +3,6 @@ package mod.patrigan.slimierslimes.init.client;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.util.ColorUtils;
 import mod.patrigan.slimierslimes.util.ModItemColor;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeColor;
@@ -19,7 +17,7 @@ import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
 import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
 import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
 
-@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModItemColors {
     @SubscribeEvent
     public static void init(ColorHandlerEvent.Item event){

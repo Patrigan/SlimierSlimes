@@ -16,12 +16,12 @@ import static mod.patrigan.slimierslimes.init.ModEntityTypes.LAVA_SLIME;
 import static mod.patrigan.slimierslimes.init.ModTileEntityTypes.LAVA_SLIME_SPAWNER;
 
 public class LavaSlimeSpawnerTileEntity extends TileEntity implements ITickableTileEntity {
-    private int spawnDelay = 20;
-    private int minSpawnDelay = 200;
-    private int maxSpawnDelay = 800;
+    private int spawnDelay = 200;
+    private int minSpawnDelay = 600;
+    private int maxSpawnDelay = 2000;
     private int spawnRange = 2;
     private int maxNearbyEntities = 2;
-    private int activityRange = 20;
+    private int activityRange = 50;
 
     public LavaSlimeSpawnerTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);

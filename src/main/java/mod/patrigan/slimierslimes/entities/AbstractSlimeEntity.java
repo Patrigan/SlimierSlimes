@@ -38,7 +38,7 @@ import java.util.Random;
 
 public class AbstractSlimeEntity extends MobEntity implements IMob {
 
-    private static final float SWARM_CHANCE = 0.1F;
+    private static final float SWARM_CHANCE = 0.05F;
 
     private static final DataParameter<Integer> SLIME_SIZE = EntityDataManager.createKey(AbstractSlimeEntity.class, DataSerializers.VARINT);
 
@@ -316,7 +316,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
             if (canSpawnInSwamp(entityType, world, reason, pos, randomIn)) {
                 return true;
             }
-            if(Boolean.TRUE.equals(SlimierSlimes.SlimeConfig.allowSlimeBlockEffects.get())) {
+            if(Boolean.TRUE.equals(SlimierSlimes.SlimeConfig.maintainChunkSpawning.get())) {
                 return spawnInChunk(entityType, world, reason, pos, randomIn);
             }
             return MonsterEntity.isValidLightLevel(world, pos, randomIn) && canSpawnOn(entityType, world, reason, pos, randomIn);

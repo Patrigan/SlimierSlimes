@@ -7,6 +7,7 @@ public class SlimeConfigs {
 
     public static class SlimeConfigValues {
         public ConfigHelper.ConfigValueListener<Boolean> allowVanillaSlime;
+        public ConfigHelper.ConfigValueListener<Boolean> maintainChunkSpawning;
         public ConfigHelper.ConfigValueListener<Integer> totalSlimeSpawnWeight;
         public ConfigHelper.ConfigValueListener<Boolean> allowSlimeBlockEffects;
 
@@ -23,7 +24,7 @@ public class SlimeConfigs {
                     .translation("slimier_slimes.config.main.allowvanillaslime")
                     .define("allowVanillaSlime", false));
 
-            allowVanillaSlime = subscriber.subscribe(builder
+            maintainChunkSpawning = subscriber.subscribe(builder
                     .comment(" \r\n-----------------------------------------------------\r\n\r\n"
                             +" Maintains the spawning of new slimes within chunks.\r\n"
                             +" Otherwise slimes will have spawns everywhere, like normal mobs.\r\n"

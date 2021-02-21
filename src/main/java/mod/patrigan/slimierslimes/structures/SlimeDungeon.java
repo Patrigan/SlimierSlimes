@@ -3,8 +3,6 @@ package mod.patrigan.slimierslimes.structures;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import mod.patrigan.slimierslimes.SlimierSlimes;
-import mod.patrigan.slimierslimes.init.ModEntityTypes;
-import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -24,11 +22,9 @@ import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.apache.logging.log4j.Level;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static mod.patrigan.slimierslimes.world.gen.ModEntitySpawns.SLIME_BASE_SPAWNERS;
+import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
 
 public class SlimeDungeon extends Structure<NoFeatureConfig> {
 
@@ -64,7 +60,18 @@ public class SlimeDungeon extends Structure<NoFeatureConfig> {
      * ambient, or misc mobs. Use that event to add/remove mobs from structures
      * that are not your own.
      */
-    private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = new ArrayList<>(SLIME_BASE_SPAWNERS);
+    private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
+            new MobSpawnInfo.Spawners(COMMON_SLIME.get(), 100, 1, 1),
+            new MobSpawnInfo.Spawners(PINK_SLIME.get(), 10, 1, 1),
+            new MobSpawnInfo.Spawners(ROCK_SLIME.get(), 75, 1, 1),
+            new MobSpawnInfo.Spawners(CRYSTAL_SLIME.get(), 20, 1, 1),
+            new MobSpawnInfo.Spawners(GLOW_SLIME.get(), 30, 1, 1),
+            new MobSpawnInfo.Spawners(CREEPER_SLIME.get(), 75, 1, 1),
+            new MobSpawnInfo.Spawners(CAMO_SLIME.get(), 50, 1, 1),
+            new MobSpawnInfo.Spawners(SNOW_SLIME.get(), 80, 1, 1),
+            new MobSpawnInfo.Spawners(LAVA_SLIME.get(), 5, 1, 1),
+            new MobSpawnInfo.Spawners(DIAMOND_SLIME.get(), 1, 1, 1)
+    );
 
     @Override
     public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {

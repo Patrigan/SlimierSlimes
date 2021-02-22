@@ -6,12 +6,15 @@ import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.init.ModEntityTypes;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
@@ -21,6 +24,7 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import org.apache.logging.log4j.Level;
 
 import java.util.List;
@@ -104,11 +108,23 @@ public class PillagerSlimeLab extends Structure<NoFeatureConfig> {
      * If you check for the dimension there and do not add your structure's
      * spacing into the chunk generator, the structure will not spawn in that dimension!
      */
-//    @Override
-//    protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
-//        int landHeight = chunkGenerator.getNoiseHeight(chunkX << 4, chunkZ << 4, Heightmap.Type.WORLD_SURFACE_WG);
-//        return landHeight > 100;
-//    }
+    @Override
+    protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
+        StructureSeparationSettings structureseparationsettings = chunkGenerator.func_235957_b_().func_236197_a_(Structure.VILLAGE);
+        if (structureseparationsettings == null) {
+            return true;
+        } else {
+            for(int i = chunkX - 10; i <= chunkX + 10; ++i) {
+                for(int j = chunkZ - 10; j <= chunkZ + 10; ++j) {
+                    ChunkPos chunkpos = Structure.VILLAGE.getChunkPosForStructure(structureseparationsettings, seed, chunkRandom, i, j);
+                    if (i == chunkpos.x && j == chunkpos.z) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
 
 
     /**

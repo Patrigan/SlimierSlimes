@@ -7,10 +7,9 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.event.village.WandererTradesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.stream.Collectors;
 
 import static mod.patrigan.slimierslimes.SlimierSlimes.SlimeConfig;
 import static net.minecraft.item.Items.SLIME_BALL;
@@ -22,13 +21,22 @@ public class VanillaSlimeCleanup {
     public static void onVillagerTradesEvent(VillagerTradesEvent event)
     {
         if(Boolean.FALSE.equals(SlimeConfig.allowVanillaSlime.get())) {
-            event.getTrades().forEach((key, trades) ->
-                    event.getTrades().put(key, trades.stream().filter(VanillaSlimeCleanup::filterSlimeBall).collect(Collectors.toList())));
+            event.getTrades().values().forEach(list->list.removeIf(VanillaSlimeCleanup::hasSlimeBall));
         }
     }
 
-    private static boolean filterSlimeBall(VillagerTrades.ITrade trade){
-        return trade instanceof VillagerTrades.ItemsForEmeraldsTrade && ! ((VillagerTrades.ItemsForEmeraldsTrade) trade).sellingItem.getItem().equals(SLIME_BALL);
+    @SubscribeEvent
+    public static void onWandererTradesEvent(WandererTradesEvent event)
+    {
+        if(Boolean.FALSE.equals(SlimeConfig.allowVanillaSlime.get())) {
+            event.getGenericTrades().removeIf(VanillaSlimeCleanup::hasSlimeBall);
+            event.getRareTrades().removeIf(VanillaSlimeCleanup::hasSlimeBall);
+        }
+    }
+
+    private static boolean hasSlimeBall(VillagerTrades.ITrade trade){
+        return (trade instanceof VillagerTrades.ItemsForEmeraldsTrade && ((VillagerTrades.ItemsForEmeraldsTrade) trade).sellingItem.getItem().equals(SLIME_BALL)) ||
+                (trade instanceof VillagerTrades.EmeraldForItemsTrade && ((VillagerTrades.EmeraldForItemsTrade) trade).tradeItem.equals(SLIME_BALL));
     }
 
     @SubscribeEvent

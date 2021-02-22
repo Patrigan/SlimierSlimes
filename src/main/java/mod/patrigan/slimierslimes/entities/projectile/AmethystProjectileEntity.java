@@ -1,5 +1,6 @@
 package mod.patrigan.slimierslimes.entities.projectile;
 
+import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
 import mod.patrigan.slimierslimes.init.ModEntityTypes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -123,7 +124,7 @@ public class AmethystProjectileEntity extends Entity {
 
     private void damage(LivingEntity target) {
         LivingEntity attacker = this.getCaster();
-        if (target.isAlive() && !target.isInvulnerable() && target != attacker) {
+        if (target.isAlive() && !target.isInvulnerable() && target != attacker && ! (target instanceof AbstractSlimeEntity)) {
             if (attacker == null) {
                 target.attackEntityFrom(DamageSource.MAGIC, DAMAGE);
             } else {

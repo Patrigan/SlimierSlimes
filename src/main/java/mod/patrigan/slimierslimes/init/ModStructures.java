@@ -50,8 +50,8 @@ public class ModStructures {
     public static void setupStructures() {
         setupMapSpacingAndLand(
                 PILLAGER_SLIME_LAB.get(), /* The instance of the structure */
-                new StructureSeparationSettings(15 /* maximum distance apart in chunks between spawn attempts */,
-                        10 /* minimum distance apart in chunks between spawn attempts */,
+                new StructureSeparationSettings(18 /* maximum distance apart in chunks between spawn attempts */,
+                        13 /* minimum distance apart in chunks between spawn attempts */,
                         671483951 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 true);
         setupMapSpacingAndLand(

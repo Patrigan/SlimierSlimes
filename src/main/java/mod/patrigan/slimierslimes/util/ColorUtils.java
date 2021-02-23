@@ -14,7 +14,7 @@ import java.util.Arrays;
 public class ColorUtils {
     private enum DyeColorAdjustment {
         WHITE(DyeColor.WHITE, 16580606),
-        ORANGE(DyeColor.ORANGE, 16580606),
+        ORANGE(DyeColor.ORANGE, 16235402),
         MAGENTA(DyeColor.MAGENTA, 13011906),
         LIGHT_BLUE(DyeColor.LIGHT_BLUE, 9094872),
         YELLOW(DyeColor.YELLOW, 16574879),

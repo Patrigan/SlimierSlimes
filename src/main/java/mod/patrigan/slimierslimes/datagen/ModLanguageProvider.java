@@ -24,7 +24,7 @@ public class ModLanguageProvider extends LanguageProvider {
         BLOCK_IDS.forEach(this::addBlock);
         ITEM_IDS.forEach(this::addItem);
         ENTITY_IDS.forEach(this::addEntity);
-        add("itemGroup.SlimierSlimesTab", "Slimier Slimes");
+        add("itemGroup.slimier-slimes", "Slimier Slimes");
         addConfigOptions();
     }
 

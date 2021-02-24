@@ -4,12 +4,15 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
@@ -20,6 +23,7 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import org.apache.logging.log4j.Level;
 
 import java.util.List;
@@ -110,11 +114,12 @@ public class SlimeDungeon extends Structure<NoFeatureConfig> {
      * If you check for the dimension there and do not add your structure's
      * spacing into the chunk generator, the structure will not spawn in that dimension!
      */
-//    @Override
-//    protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
-//        int landHeight = chunkGenerator.getNoiseHeight(chunkX << 4, chunkZ << 4, Heightmap.Type.WORLD_SURFACE_WG);
-//        return landHeight > 100;
-//    }
+    @Override
+    protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long seed, SharedSeedRandom chunkRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos, NoFeatureConfig featureConfig) {
+        int x = (chunkX << 4) + 7;
+        int z = (chunkZ << 4) + 7;
+        return chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG) > 20;
+    }
 
 
     /**
@@ -138,7 +143,8 @@ public class SlimeDungeon extends Structure<NoFeatureConfig> {
              * structure will spawn at terrain height instead. Set that parameter to false to
              * force the structure to spawn at blockpos's Y value instead. You got options here!
              */
-            int randY = rand.nextInt(chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG) - 20) + 10;
+            int heightY = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
+            int randY = rand.nextInt(heightY - 20) + 10;
             BlockPos blockpos = new BlockPos(x, randY, z);
 
             // All a structure has to do is call this method to turn it into a jigsaw based structure!

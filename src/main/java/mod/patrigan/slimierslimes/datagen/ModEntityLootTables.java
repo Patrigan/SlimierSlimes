@@ -29,7 +29,7 @@ public class ModEntityLootTables extends EntityLootTables {
         this.registerLootTable(SNOW_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(WHITE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(SNOWBALL).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
         this.registerLootTable(CAMO_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(GREEN)).addLootPool(getJellyLootPool(GREEN)));
         this.registerLootTable(LAVA_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(RED)).addLootPool(getJellyLootPool(RED)));
-        this.registerLootTable(OBSIDIAN_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(BLACK)).addLootPool(getJellyLootPool(PURPLE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(OBSIDIAN).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));;
+        this.registerLootTable(OBSIDIAN_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(BLACK)).addLootPool(getJellyLootPool(PURPLE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(OBSIDIAN).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
     }
 
     @Override
@@ -38,6 +38,6 @@ public class ModEntityLootTables extends EntityLootTables {
     }
 
     private LootPool.Builder getJellyLootPool(DyeColor dyeColor){
-        return LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(JELLY.get(dyeColor).get()).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))));
+        return LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(JELLY.get(dyeColor).get()).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))));
     }
 }

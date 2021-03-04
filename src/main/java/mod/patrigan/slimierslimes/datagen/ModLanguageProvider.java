@@ -26,6 +26,11 @@ public class ModLanguageProvider extends LanguageProvider {
         ENTITY_IDS.forEach(this::addEntity);
         add("itemGroup.slimier-slimes", "Slimier Slimes");
         addConfigOptions();
+        addTips();
+    }
+
+    private void addTips() {
+        add("slimier-slimes.tip.diamond_slime", "Kill the diamond slimes before they hop away!");
     }
 
     private void addConfigOptions() {

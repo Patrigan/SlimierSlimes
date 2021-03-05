@@ -445,8 +445,10 @@
   "item.slimier-slimes.yellow_jelly": "Yellow Jelly",
   "item.slimier-slimes.yellow_slime_ball": "Yellow Slime Ball",
   "itemGroup.slimier-slimes": "Slimier Slimes",
+  "slimier-slimes.tip.diamond_slime": "Kill the diamond slimes before they hop away!",
   "slimier_slimes.config.main.allowSlimeBlockEffects": "Allow Slime Block Effects",
   "slimier_slimes.config.main.allowvanillaslime": "Allow Vanilla Slimes",
   "slimier_slimes.config.main.maintainChunkSpawning": "Maintain Chunk Spawning",
-  "slimier_slimes.config.main.totalSlimeSpawnWeight": "Total Slime Spawn Weight"
+  "slimier_slimes.config.main.totalSlimeSpawnWeight": "Total Slime Spawn Weight",
+  "slimier_slimes.config.main.useTotalSlimeSpawnWeight": "Use Total Slime Spawn Weight"
 }

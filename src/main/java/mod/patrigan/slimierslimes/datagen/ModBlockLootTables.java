@@ -53,7 +53,7 @@ public class ModBlockLootTables extends BlockLootTables {
                 getSlimyStoneBuilder(dyeColor, slimyStoneBlock, COBBLESTONE));
         this.registerBuildingBlockLootTable(SLIMY_NETHERRACK_BLOCK.get(dyeColor), slimyStoneBlock ->
                 getSlimyStoneBuilder(dyeColor, slimyStoneBlock, NETHERRACK));
-        SLIME_BLOCK_HELPERS.forEach(this::registerDroppingSelfBuildingBlockHelper);
+        SLIME_BLOCK_HELPERS.values().forEach(this::registerDroppingSelfBuildingBlockHelper);
     }
 
     private LootTable.Builder getSlimyStoneBuilder(DyeColor dyeColor, Block slimyBlock, Item cobblestone) {

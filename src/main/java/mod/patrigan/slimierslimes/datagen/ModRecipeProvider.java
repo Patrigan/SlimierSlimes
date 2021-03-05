@@ -8,12 +8,14 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.common.Tags;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
 
 import static mod.patrigan.slimierslimes.datagen.DataGenerators.DYE_ITEMS;
 import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
+import static mod.patrigan.slimierslimes.init.ModBlocks.SLIME_BLOCK_HELPERS;
 import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
 import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
 import static net.minecraftforge.common.Tags.Items.SLIMEBALLS;
@@ -42,11 +44,17 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     private void dyeColorRecipes(DyeColor dyeColor, Consumer<IFinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shapedRecipe(SLIME_BALL.get(dyeColor).get(), 4).key('#', JELLY.get(dyeColor).get())
+        ShapedRecipeBuilder.shapedRecipe(SLIME_BALL.get(dyeColor).get(), 2).key('#', JELLY.get(dyeColor).get())
                 .patternLine("###")
                 .patternLine("###")
                 .patternLine("###")
                 .addCriterion("has_jelly", hasItem(ModTags.Items.JELLY))
+                .build(consumer);
+        ShapedRecipeBuilder.shapedRecipe(SLIME_BLOCK_HELPERS.get(dyeColor).getBlock().get(), 1).key('#', SLIME_BALL.get(dyeColor).get())
+                .patternLine("###")
+                .patternLine("###")
+                .patternLine("###")
+                .addCriterion("has_slime_ball", hasItem(SLIMEBALLS))
                 .build(consumer);
     }
 

@@ -16,10 +16,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -36,7 +33,7 @@ public class ModBlocks {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SlimierSlimes.MOD_ID);
     public static final List<String> BLOCK_IDS = new ArrayList<>();
     public static final List<BuildingBlockHelper> BLOCK_HELPERS = new ArrayList<>();
-    public static final List<BuildingBlockHelper> SLIME_BLOCK_HELPERS = new ArrayList<>();
+    public static final Map<DyeColor, BuildingBlockHelper> SLIME_BLOCK_HELPERS = new HashMap<>();
 
     //Slimy Blocks
     public static final Map<DyeColor, BuildingBlockHelper> SLIMY_COBBLESTONE_BLOCK = registerColoredBuildingBlock("slimy_cobblestone", SlimyStoneBlock::new, true);
@@ -106,7 +103,7 @@ public class ModBlocks {
 
     private static BuildingBlockHelper registerSlimeBlockBuildingBlock(String baseId, DyeColor dyeColor, Supplier<Block> sup, boolean slimy, float slipperiness, boolean translucent) {
         BuildingBlockHelper helper = registerDyedBuildingBlock(baseId, dyeColor, sup, slimy, slipperiness, translucent);
-        SLIME_BLOCK_HELPERS.add(helper);
+        SLIME_BLOCK_HELPERS.put(dyeColor,helper);
         return helper;
     }
 

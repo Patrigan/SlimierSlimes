@@ -12,9 +12,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.tags.BlockTags;
@@ -34,6 +36,8 @@ import net.minecraftforge.common.ToolType;
 import javax.annotation.Nullable;
 import java.util.Random;
 
+import static mod.patrigan.slimierslimes.entities.AbstractSlimeEntity.SLIME_SIZE_KEY;
+import static mod.patrigan.slimierslimes.init.ModEntityTypes.LAVA_SLIME;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.ROCK_SLIME;
 import static mod.patrigan.slimierslimes.init.ModParticleTypes.DRIPPING_SLIME;
 
@@ -68,9 +72,14 @@ public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, Mo
 
     private void spawnRockSlime(ServerWorld world, BlockPos pos) {
         if (world.getDifficulty() != Difficulty.PEACEFUL) {
-            RockSlimeEntity rockSlimeEntity = ROCK_SLIME.get().create(world);
-            rockSlimeEntity.setLocationAndAngles((double) pos.getX() + 0.5D, (double) pos.getY(), (double) pos.getZ() + 0.5D, 0.0F, 0.0F);
-            world.addEntity(rockSlimeEntity);
+
+            CompoundNBT compound = new CompoundNBT();
+            compound.putInt(SLIME_SIZE_KEY, 1);
+            RockSlimeEntity rockSlimeEntity = ROCK_SLIME.get().spawn(world, compound, null, null, pos, SpawnReason.TRIGGERED, false, false);
+            if (rockSlimeEntity == null) {
+                return;
+            }
+            rockSlimeEntity.setLocationAndAngles(rockSlimeEntity.getPosX(), rockSlimeEntity.getPosY(), rockSlimeEntity.getPosZ(), world.rand.nextFloat() * 360.0F, 0.0F);
             rockSlimeEntity.spawnExplosionParticle();
         }
     }

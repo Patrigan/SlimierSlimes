@@ -41,6 +41,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     private static final float SWARM_CHANCE = 0.05F;
 
     private static final DataParameter<Integer> SLIME_SIZE = EntityDataManager.createKey(AbstractSlimeEntity.class, DataSerializers.VARINT);
+    public static final String SLIME_SIZE_KEY = "Size";
 
     public float squishAmount;
     public float squishFactor;
@@ -99,7 +100,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
 
     @Override
     public void readAdditional(CompoundNBT compound) {
-        int i = compound.getInt("Size");
+        int i = compound.getInt(SLIME_SIZE_KEY);
         if (i < 0) {
             i = 0;
         }
@@ -387,15 +388,20 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     @Nullable
     @Override
     public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
-        int i = this.rand.nextInt(3);
+        int j = 0;
         boolean swarm = false;
-        if(i < 2 && this.rand.nextFloat() < SWARM_CHANCE){
-            swarm = true;
-        }else if (i < 2 && this.rand.nextFloat() < 0.5F * difficultyIn.getClampedAdditionalDifficulty()) {
-            ++i;
-        }
+        if(dataTag != null && dataTag.contains(SLIME_SIZE_KEY)) {
+            j = dataTag.getInt(SLIME_SIZE_KEY);
+        }else{
+                int i = this.rand.nextInt(3);
+                if(i < 2 && this.rand.nextFloat() < SWARM_CHANCE){
+                    swarm = true;
+                }else if (i < 2 && this.rand.nextFloat() < 0.5F * difficultyIn.getClampedAdditionalDifficulty()) {
+                    ++i;
+                }
 
-        int j = 1 << i;
+                j = 1 << i;
+        }
         this.setSlimeSize(j, true);
         ILivingEntityData iLivingEntityData = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         if(swarm){

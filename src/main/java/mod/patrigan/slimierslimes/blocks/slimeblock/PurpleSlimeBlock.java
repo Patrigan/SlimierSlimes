@@ -14,7 +14,6 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockDisplayReader;
-import net.minecraft.world.IBlockReader;
 
 import javax.annotation.Nullable;
 
@@ -26,7 +25,7 @@ public class PurpleSlimeBlock extends SlimeBlock implements ModBlockColor, ModIt
 
     @Override
     public void bounceEntity(Entity entity) {
-        if(SlimierSlimes.SlimeConfig.allowSlimeBlockEffects.get()) {
+        if(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get()) {
             Vector3d vector3d = entity.getMotion();
             entity.setMotion(vector3d.x, 0, vector3d.z);
             effectEntity(entity);

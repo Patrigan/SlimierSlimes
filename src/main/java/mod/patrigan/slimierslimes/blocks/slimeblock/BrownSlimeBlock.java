@@ -24,7 +24,7 @@ public class BrownSlimeBlock extends SlimeBlock implements ModBlockColor, ModIte
 
     @Override
     public void bounceEntity(Entity entity) {
-        if(SlimierSlimes.SlimeConfig.allowSlimeBlockEffects.get()) {
+        if(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get()) {
             super.bounceEntity(entity);
             effectEntity(entity);
         }else{

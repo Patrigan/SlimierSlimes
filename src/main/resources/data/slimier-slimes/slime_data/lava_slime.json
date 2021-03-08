@@ -1,0 +1,13 @@
+{
+  "maxInChunk": 6,
+  "slimeSpawnData": [
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 5,
+      "biomes": [
+        "SWAMP"
+      ]
+    }
+  ]
+}

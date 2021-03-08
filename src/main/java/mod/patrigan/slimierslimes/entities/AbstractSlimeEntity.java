@@ -6,6 +6,7 @@ import mod.patrigan.slimierslimes.entities.ai.goal.AttackGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FaceRandomGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FloatGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.HopGoal;
+import mod.patrigan.slimierslimes.init.data.SlimeData;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -35,6 +36,8 @@ import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
+
+import static mod.patrigan.slimierslimes.SlimierSlimes.SLIME_DATA;
 
 public class AbstractSlimeEntity extends MobEntity implements IMob {
 
@@ -317,7 +320,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
             if (canSpawnInSwamp(entityType, world, reason, pos, randomIn)) {
                 return true;
             }
-            if(Boolean.TRUE.equals(SlimierSlimes.SlimeConfig.maintainChunkSpawning.get())) {
+            if(Boolean.TRUE.equals(SlimierSlimes.MAIN_CONFIG.maintainChunkSpawning.get())) {
                 return spawnInChunk(entityType, world, reason, pos, randomIn);
             }
             return MonsterEntity.isValidLightLevel(world, pos, randomIn) && canSpawnOn(entityType, world, reason, pos, randomIn);
@@ -470,7 +473,12 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
 
     @Override
     public int getMaxSpawnedInChunk() {
-        return 6;
+        SlimeData data = SLIME_DATA.getData(this.getType().getRegistryName());
+        if(data != null) {
+            return data.getMaxInChunk();
+        }else{
+            return 6;
+        }
     }
 
     public static DyeColor getPrimaryColor() {

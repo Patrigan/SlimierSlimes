@@ -24,7 +24,7 @@ public class RedSlimeBlock extends SlimeBlock implements ModBlockColor, ModItemC
 
     @Override
     public void bounceEntity(Entity entity) {
-        if(SlimierSlimes.SlimeConfig.allowSlimeBlockEffects.get()) {
+        if(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get()) {
             Vector3d vector3d = entity.getMotion();
             if (vector3d.y < 0.0D) {
                 double d0 = (entity instanceof LivingEntity ? 1.0D : 0.8D)*BOUNCE_MULTIPLIER;

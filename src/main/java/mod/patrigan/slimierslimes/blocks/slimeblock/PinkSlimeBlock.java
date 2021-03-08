@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockDisplayReader;
 
 import javax.annotation.Nullable;
@@ -25,7 +24,7 @@ public class PinkSlimeBlock extends SlimeBlock implements ModBlockColor, ModItem
 
     @Override
     public void bounceEntity(Entity entity) {
-        if(SlimierSlimes.SlimeConfig.allowSlimeBlockEffects.get()) {
+        if(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get()) {
             super.bounceEntity(entity);
             effectEntity(entity);
         }else{

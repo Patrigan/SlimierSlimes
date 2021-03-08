@@ -23,6 +23,7 @@ public class ModEntityTypes {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, SlimierSlimes.MOD_ID);
     public static final DeferredRegister<Item> SPAWN_EGGS = DeferredRegister.create(ForgeRegistries.ITEMS, SlimierSlimes.MOD_ID);
+    public static final List<EntityType<?>> SLIMES = new ArrayList<>();
     public static final List<String> ENTITY_IDS = new ArrayList<>();
     public static final List<String> PROJECTILE_ENTITY_IDS = new ArrayList<>();
     public static final List<EntityType<?>> SPAWNER_ENTITY_TYPES = new ArrayList<>();
@@ -52,6 +53,7 @@ public class ModEntityTypes {
 
         SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 5349438, secondaryColor, new Item.Properties().group(SlimierSlimes.TAB)));
         addToSpawnerEntities(entityType, isSpawnerEntity);
+        SLIMES.add(entityType);
 
         return ENTITY_TYPES.register(key, () -> entityType);
     }
@@ -66,6 +68,7 @@ public class ModEntityTypes {
 
         SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 5349438, secondaryColor, new Item.Properties().group(SlimierSlimes.TAB)));
         addToSpawnerEntities(entityType, isSpawnerEntity);
+        SLIMES.add(entityType);
 
         return ENTITY_TYPES.register(key, () -> entityType);
     }

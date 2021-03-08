@@ -1,17 +1,18 @@
-package mod.patrigan.slimierslimes.configs;
+package mod.patrigan.slimierslimes.init.config;
 
 import mod.patrigan.slimierslimes.util.ConfigHelper;
 import net.minecraftforge.common.ForgeConfigSpec;
 
-public class SlimeConfigs {
+public class CommonConfigs {
 
-    public static class SlimeConfigValues {
+    public static class CommonConfigValues {
         public ConfigHelper.ConfigValueListener<Boolean> allowVanillaSlime;
         public ConfigHelper.ConfigValueListener<Boolean> maintainChunkSpawning;
+        public ConfigHelper.ConfigValueListener<Boolean> useTotalSlimeSpawnWeight;
         public ConfigHelper.ConfigValueListener<Integer> totalSlimeSpawnWeight;
         public ConfigHelper.ConfigValueListener<Boolean> allowSlimeBlockEffects;
 
-        public SlimeConfigValues(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber) {
+        public CommonConfigValues(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber) {
             builder.push("Slimier Slimes Options");
 
             builder.push("Vanilla Slime Options");
@@ -29,20 +30,29 @@ public class SlimeConfigs {
                             +" Maintains the spawning of new slimes within chunks.\r\n"
                             +" Otherwise slimes will have spawns everywhere, like normal mobs.\r\n"
                             +" Defaults to false.\n\n")
-                    .translation("slimier_slimes.config.main.maintainChunkSpawning")
+                    .translation("slimier_slimes.config.mobs.maintainChunkSpawning")
                     .define("maintainChunkSpawning", false));
 
             builder.pop();
 
             builder.push("Slime Spawning Options");
 
+            useTotalSlimeSpawnWeight = subscriber.subscribe(builder
+                    .comment(" \r\n-----------------------------------------------------\r\n\r\n"
+                            +" Determines if slimes should be bounded by a total weight. \r\n"
+                            +" Disabling this will (likely) make slimes more common in the world.\r\n"
+                            +" Enabling it will cause a calculation to happen that limits the total weight.\r\n"
+                            +" Defaults to true.\n\n")
+                    .translation("slimier_slimes.config.mobs.useTotalSlimeSpawnWeight")
+                    .define("useTotalSlimeSpawnWeight", true));
+
             totalSlimeSpawnWeight = subscriber.subscribe(builder
                     .comment(" \r\n-----------------------------------------------------\r\n\r\n"
                             +" Determines the spawning weight of slimes. All Slimes together\r\n"
                             +" are bound by this weight. 100 makes slimes as common as zombies.\r\n"
                             +" Defaults to 300.\n\n")
-                    .translation("slimier_slimes.config.main.totalSlimeSpawnWeight")
-                    .define("totalSlimeSpawnWeight", 300));
+                    .translation("slimier_slimes.config.mobs.totalSlimeSpawnWeight")
+                    .define("totalSlimeSpawnWeight", 150));
 
             builder.pop();
 

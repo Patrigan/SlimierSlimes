@@ -25,7 +25,7 @@ public class MagentaSlimeBlock extends SlimeBlock implements ModBlockColor, ModI
 
     @Override
     public void bounceEntity(Entity entity) {
-        if(SlimierSlimes.SlimeConfig.allowSlimeBlockEffects.get()) {
+        if(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get()) {
             Vector3d vector3d = entity.getMotion();
             entity.setMotion(vector3d.x, 0, vector3d.z);
             effectEntity(entity);

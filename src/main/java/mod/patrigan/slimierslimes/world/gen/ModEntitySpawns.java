@@ -15,7 +15,6 @@ import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -43,6 +42,7 @@ public class ModEntitySpawns {
         EntitySpawnPlacementRegistry.register(CAMO_SLIME.get(), ON_GROUND, MOTION_BLOCKING, CamoSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(DIAMOND_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, DiamondSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(LAVA_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, LavaSlimeEntity::spawnable);
+        EntitySpawnPlacementRegistry.register(OBSIDIAN_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, ObsidianSlimeEntity::spawnable);
     }
 
 
@@ -61,18 +61,22 @@ public class ModEntitySpawns {
         if(types.contains(BiomeDictionary.Type.SWAMP)){
             slimeConfigTotalWeight = slimeConfigTotalWeight * 3;
         }
-        if(TRUE.equals(SlimierSlimes.MAIN_CONFIG.useTotalSlimeSpawnWeight.get())) {
+        Integer currentTotal = event.getSpawns().getSpawner(MONSTER).stream().map(spawners -> spawners.itemWeight).reduce(0, Integer::sum);
+        if(TRUE.equals(SlimierSlimes.MAIN_CONFIG.useTotalSlimeSpawnWeight.get()) && slimeConfigTotalWeight < currentTotal) {
             slimeWeights = boundWeights(slimeWeights, slimeConfigTotalWeight);
         }
         addSlimeSpawners(event, slimeWeights);
-        return;
     }
 
     private static Optional<MobSpawnInfo.Spawners> getSpawner(BiomeLoadingEvent event, EntityType<?> entityType) {
-        List<SlimeSpawnData> slimeSpawnDatas = SLIME_DATA.getData(entityType.getRegistryName()).getSlimeSpawnData();
-        return slimeSpawnDatas.stream()
-                .filter(slimeSpawnData -> slimeSpawnData.isMatch(event)).findFirst()
-                .map(slimeSpawnData -> slimeSpawnData.getSpawner(entityType));
+        if(SLIME_DATA.hasData()) {
+            List<SlimeSpawnData> slimeSpawnDatas = SLIME_DATA.getData(entityType.getRegistryName()).getSlimeSpawnData();
+            return slimeSpawnDatas.stream()
+                    .filter(slimeSpawnData -> slimeSpawnData.isMatch(event)).findFirst()
+                    .map(slimeSpawnData -> slimeSpawnData.getSpawner(entityType));
+        }else{
+            return Optional.empty();
+        }
 
     }
 

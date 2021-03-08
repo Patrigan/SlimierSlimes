@@ -242,4 +242,8 @@ public class CodecJsonDataManager<T> extends JsonReloadListener
             }
         };
     }
+
+    public boolean hasData(){
+        return !data.isEmpty();
+    }
 }

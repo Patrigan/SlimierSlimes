@@ -6,7 +6,15 @@
       "maxPackSize": 1,
       "spawnWeight": 50,
       "biomes": [
-        "OVERWORLD", "FOREST", "JUNGLE"
+        "OVERWORLD", "FOREST"
+      ]
+    },
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 50,
+      "biomes": [
+        "OVERWORLD", "JUNGLE"
       ]
     },
     {

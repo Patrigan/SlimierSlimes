@@ -6,7 +6,7 @@
       "maxPackSize": 1,
       "spawnWeight": 80,
       "biomes": [
-        "OVERWORLD", "!COLD"
+        "OVERWORLD", "!COLD", "!HOT"
       ]
     },
     {
@@ -14,7 +14,7 @@
       "maxPackSize": 1,
       "spawnWeight": 160,
       "biomes": [
-        "COLD"
+        "OVERWORLD", "COLD"
       ]
     }
   ]

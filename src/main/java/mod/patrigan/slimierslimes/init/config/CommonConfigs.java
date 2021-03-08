@@ -50,7 +50,7 @@ public class CommonConfigs {
                     .comment(" \r\n-----------------------------------------------------\r\n\r\n"
                             +" Determines the spawning weight of slimes. All Slimes together\r\n"
                             +" are bound by this weight. 100 makes slimes as common as zombies.\r\n"
-                            +" Defaults to 300.\n\n")
+                            +" Defaults to 150.\n\n")
                     .translation("slimier_slimes.config.mobs.totalSlimeSpawnWeight")
                     .define("totalSlimeSpawnWeight", 150));
 

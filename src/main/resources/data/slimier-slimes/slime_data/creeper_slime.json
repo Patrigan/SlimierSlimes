@@ -1,5 +1,10 @@
 {
   "maxInChunk": 6,
+  "spawnOnSurface": true,
+  "squishParticleData": {
+    "typeString": "ITEM",
+    "resourceLocation": "minecraft:slime_ball"
+  },
   "slimeSpawnData": [
     {
       "minPackSize": 1,

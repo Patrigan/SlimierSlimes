@@ -15,8 +15,4 @@ public class PinkSlimeEntity extends AbstractSlimeEntity {
         super(type, worldIn);
     }
 
-    @Override
-    protected IParticleData getSquishParticle() {
-        return new ItemParticleData(ITEM, new ItemStack(ModItems.JELLY.get(DyeColor.PINK).get()));
-    }
 }

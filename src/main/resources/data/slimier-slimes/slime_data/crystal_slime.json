@@ -1,10 +1,15 @@
 {
   "maxInChunk": 6,
+  "spawnOnSurface": false,
+  "squishParticleData": {
+    "typeString": "ITEM",
+    "resourceLocation": "slimier-slimes:magenta_slime_ball"
+  },
   "slimeSpawnData": [
     {
       "minPackSize": 1,
       "maxPackSize": 1,
-      "spawnWeight": 30,
+      "spawnWeight": 35,
       "biomes": [
         "OVERWORLD"
       ]
@@ -12,7 +17,7 @@
     {
       "minPackSize": 1,
       "maxPackSize": 1,
-      "spawnWeight": 30,
+      "spawnWeight": 35,
       "biomes": [
         "SWAMP"
       ]

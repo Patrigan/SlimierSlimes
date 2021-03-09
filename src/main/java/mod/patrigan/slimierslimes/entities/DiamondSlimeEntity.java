@@ -43,11 +43,6 @@ public class DiamondSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    protected IParticleData getSquishParticle() {
-        return new ItemParticleData(ITEM, new ItemStack(DIAMOND));
-    }
-
-    @Override
     protected void setSlimeSize(int size, boolean resetHealth) {
         super.setSlimeSize(size, resetHealth);
         this.getAttribute(Attributes.ARMOR).setBaseValue((double)(size * 2F));

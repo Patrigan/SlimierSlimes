@@ -48,11 +48,6 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    protected IParticleData getSquishParticle() {
-        return new ItemParticleData(ITEM, new ItemStack(ModItems.JELLY.get(DyeColor.MAGENTA).get()));
-    }
-
-    @Override
     protected void land(){
         super.land();
         if (!this.world.isRemote) {

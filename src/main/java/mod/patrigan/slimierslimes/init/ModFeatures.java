@@ -15,7 +15,7 @@ import java.util.function.Supplier;
 public class ModFeatures {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, SlimierSlimes.MOD_ID);
 
-    public static final RegistryObject<Feature<NoFeatureConfig>> SLIME_SPAWNER_FEATURE = registerFeature("slime_spawner_feature", () -> new SlimeSpawnerFeature(NoFeatureConfig.field_236558_a_));
+    public static final RegistryObject<Feature<NoFeatureConfig>> SLIME_SPAWNER_FEATURE = registerFeature("slime_spawner_feature", () -> new SlimeSpawnerFeature(NoFeatureConfig.CODEC));
     public static final RegistryObject<LavaSpawnerFeature> LAVA_SLIME_SPAWNER_FEATURE = registerFeature("lava_slime_spawner_feature", () -> new LavaSpawnerFeature(LavaSpawnerConfig.CODEC));
 
     public static <T extends Feature<?>> RegistryObject<T> registerFeature(String name, Supplier<T> feature) {

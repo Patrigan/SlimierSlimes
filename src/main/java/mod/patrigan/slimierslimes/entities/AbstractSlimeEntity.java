@@ -6,7 +6,9 @@ import mod.patrigan.slimierslimes.entities.ai.goal.AttackGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FaceRandomGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FloatGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.HopGoal;
+import mod.patrigan.slimierslimes.init.ModItems;
 import mod.patrigan.slimierslimes.init.data.SlimeData;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -16,13 +18,13 @@ import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.DyeColor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.particles.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -31,6 +33,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biomes;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.Objects;
@@ -38,6 +41,8 @@ import java.util.Optional;
 import java.util.Random;
 
 import static mod.patrigan.slimierslimes.SlimierSlimes.SLIME_DATA;
+import static mod.patrigan.slimierslimes.init.data.SquishParticleData.SquishParticleType.*;
+import static net.minecraft.world.gen.Heightmap.Type.WORLD_SURFACE;
 
 public class AbstractSlimeEntity extends MobEntity implements IMob {
 
@@ -118,6 +123,14 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     }
 
     protected IParticleData getSquishParticle() {
+        SlimeData data = SLIME_DATA.getData(this.getType().getRegistryName());
+        if(ITEM.equals(data.getSquishParticleData().getType())){
+            return new ItemParticleData(ParticleTypes.ITEM, new ItemStack(ForgeRegistries.ITEMS.getValue(data.getSquishParticleData().getResourceLocation())));
+        }else if(BLOCK.equals(data.getSquishParticleData().getType())){
+            return new BlockParticleData(ParticleTypes.BLOCK, ForgeRegistries.BLOCKS.getValue(data.getSquishParticleData().getResourceLocation()).getDefaultState());
+        }else if(PARTICLE.equals(data.getSquishParticleData().getType())){
+            return (BasicParticleType) ForgeRegistries.PARTICLE_TYPES.getValue(data.getSquishParticleData().getResourceLocation());
+        }
         return ParticleTypes.ITEM_SLIME;
     }
 
@@ -320,12 +333,20 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
             if (canSpawnInSwamp(entityType, world, reason, pos, randomIn)) {
                 return true;
             }
+            boolean result = true;
             if(Boolean.TRUE.equals(SlimierSlimes.MAIN_CONFIG.maintainChunkSpawning.get())) {
-                return spawnInChunk(entityType, world, reason, pos, randomIn);
+                result = result && spawnInChunk(entityType, world, reason, pos, randomIn);
             }
-            return MonsterEntity.isValidLightLevel(world, pos, randomIn) && canSpawnOn(entityType, world, reason, pos, randomIn);
+            if(!Boolean.TRUE.equals(SLIME_DATA.getData(entityType.getRegistryName()).isSpawnOnSurface())){
+                result = result && isBelowSurface(world, pos);
+            }
+            return result && MonsterEntity.isValidLightLevel(world, pos, randomIn) && canSpawnOn(entityType, world, reason, pos, randomIn);
         }
         return false;
+    }
+
+    private static boolean isBelowSurface(IServerWorld world, BlockPos pos) {
+        return world.getHeight(WORLD_SURFACE, pos).getY() > pos.getY();
     }
 
     public static boolean spawnInChunk(EntityType<? extends AbstractSlimeEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
@@ -334,7 +355,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
         }
 
         ChunkPos chunkpos = new ChunkPos(pos);
-        boolean flag = SharedSeedRandom.seedSlimeChunk(chunkpos.x, chunkpos.z, ((ISeedReader) world).getSeed(), 987234911L).nextInt(10) == 0;
+        boolean flag = SharedSeedRandom.createSlimeChunkSpawningSeed(chunkpos.x, chunkpos.z, ((ISeedReader) world).getSeed(), 987234911L).nextInt(10) == 0;
         if (randomIn.nextInt(10) == 0 && flag && pos.getY() < 40) {
             return canSpawnOn(entityType, world, reason, pos, randomIn);
         }
@@ -474,11 +495,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     @Override
     public int getMaxSpawnedInChunk() {
         SlimeData data = SLIME_DATA.getData(this.getType().getRegistryName());
-        if(data != null) {
-            return data.getMaxInChunk();
-        }else{
-            return 6;
-        }
+        return data.getMaxInChunk();
     }
 
     public static DyeColor getPrimaryColor() {

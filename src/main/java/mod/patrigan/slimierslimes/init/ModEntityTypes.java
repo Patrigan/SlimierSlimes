@@ -92,7 +92,7 @@ public class ModEntityTypes {
     private static <T extends Entity> RegistryObject<EntityType<T>> getSlimeballProjectileRegistryObject(String key, final EntityType.IFactory<T> sup) {
         PROJECTILE_ENTITY_IDS.add(key);
         return ENTITY_TYPES.register(key,
-                () -> EntityType.Builder.create(sup, EntityClassification.MISC).size(0.25F, 0.25F).trackingRange(4).func_233608_b_(10)
+                () -> EntityType.Builder.create(sup, EntityClassification.MISC).size(0.25F, 0.25F).trackingRange(4).updateInterval(10)
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
     }
 

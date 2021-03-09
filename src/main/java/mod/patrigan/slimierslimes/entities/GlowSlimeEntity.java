@@ -46,11 +46,6 @@ public class GlowSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    protected IParticleData getSquishParticle() {
-        return new BlockParticleData(ParticleTypes.BLOCK, Blocks.GLOWSTONE.getDefaultState());
-    }
-
-    @Override
     public int getJumpDelay() {
         return super.getJumpDelay() * 10;
     }

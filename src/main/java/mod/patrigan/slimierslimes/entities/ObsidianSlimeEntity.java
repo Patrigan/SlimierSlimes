@@ -25,11 +25,6 @@ public class ObsidianSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    protected IParticleData getSquishParticle() {
-        return new BlockParticleData(ParticleTypes.BLOCK, Blocks.OBSIDIAN.getDefaultState());
-    }
-
-    @Override
     public int getJumpDelay() {
         return this.rand.nextInt(5) + 10;
     }

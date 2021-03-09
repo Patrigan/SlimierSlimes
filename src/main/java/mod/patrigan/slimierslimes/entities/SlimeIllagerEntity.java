@@ -222,7 +222,7 @@ public class SlimeIllagerEntity extends SpellcastingIllagerEntity {
    }
 
    class SummonSpellGoal extends UseSpellGoal {
-      private final EntityPredicate field_220843_e = (new EntityPredicate()).setDistance(16.0D).setLineOfSiteRequired().setUseInvisibilityCheck().allowInvulnerable().allowFriendlyFire();
+      private final EntityPredicate field_220843_e = (new EntityPredicate()).setDistance(16.0D).setIgnoresLineOfSight().setUseInvisibilityCheck().allowInvulnerable().allowFriendlyFire();
 
       private SummonSpellGoal() {
       }

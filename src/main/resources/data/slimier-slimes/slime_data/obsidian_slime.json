@@ -1,5 +1,10 @@
 {
   "maxInChunk": 6,
+  "spawnOnSurface": true,
+  "squishParticleData": {
+    "typeString": "BLOCK",
+    "resourceLocation": "minecraft:obsidian"
+  },
   "slimeSpawnData": [
     {
       "minPackSize": 1,

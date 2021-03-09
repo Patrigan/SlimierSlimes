@@ -1,5 +1,10 @@
 {
   "maxInChunk": 6,
+  "spawnOnSurface": false,
+  "squishParticleData": {
+    "typeString": "BLOCK",
+    "resourceLocation": "minecraft:cobblestone"
+  },
   "slimeSpawnData": [
     {
       "minPackSize": 1,

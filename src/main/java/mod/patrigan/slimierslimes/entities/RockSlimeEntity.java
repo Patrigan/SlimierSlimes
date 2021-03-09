@@ -37,11 +37,6 @@ public class RockSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    protected IParticleData getSquishParticle() {
-        return new BlockParticleData(ParticleTypes.BLOCK, Blocks.COBBLESTONE.getDefaultState());
-    }
-
-    @Override
     public int getJumpDelay() {
         return super.getJumpDelay() * 5;
     }

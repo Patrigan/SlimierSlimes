@@ -23,11 +23,6 @@ public class SnowSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    protected IParticleData getSquishParticle() {
-        return new ItemParticleData(ITEM, new ItemStack(ModItems.JELLY.get(DyeColor.WHITE).get()));
-    }
-
-    @Override
     protected void land(){
         super.land();
         if (!this.world.isRemote) {
@@ -65,7 +60,7 @@ public class SnowSlimeEntity extends AbstractSlimeEntity {
             float rotationPitch = this.rotationPitch - 45F;
             float rotationYaw = this.rotationYaw + (360F/amount)*(x-1);
             float velocity = 0.3F + getSlimeSize() * 0.1F;
-            snowballentity.func_234612_a_(this, rotationPitch, rotationYaw, 0.0F, velocity , 5.0F);
+            snowballentity.setDirectionAndMovement(this, rotationPitch, rotationYaw, 0.0F, velocity , 5.0F);
             this.world.addEntity(snowballentity);
         }
     }

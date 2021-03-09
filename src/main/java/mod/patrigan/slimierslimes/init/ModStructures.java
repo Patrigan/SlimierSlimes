@@ -33,8 +33,8 @@ public class ModStructures {
      * Forge has an issue report here: https://github.com/MinecraftForge/MinecraftForge/issues/7363
      * Keep watch on that to know when it is safe to remove or change structure's registry names
      */
-    public static final RegistryObject<Structure<NoFeatureConfig>> PILLAGER_SLIME_LAB = registerStructure(PillagerSlimeLab.STRUCTURE_ID, () -> (new PillagerSlimeLab(NoFeatureConfig.field_236558_a_)));
-    public static final RegistryObject<Structure<NoFeatureConfig>> SLIME_DUNGEON = registerStructure(SlimeDungeon.STRUCTURE_ID, () -> (new SlimeDungeon(NoFeatureConfig.field_236558_a_)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> PILLAGER_SLIME_LAB = registerStructure(PillagerSlimeLab.STRUCTURE_ID, () -> (new PillagerSlimeLab(NoFeatureConfig.CODEC)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> SLIME_DUNGEON = registerStructure(SlimeDungeon.STRUCTURE_ID, () -> (new SlimeDungeon(NoFeatureConfig.CODEC)));
 
     /**
      * Helper method for registering all structures

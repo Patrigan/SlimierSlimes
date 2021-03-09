@@ -18,12 +18,11 @@ import net.minecraft.world.World;
 
 public class CamoSlimeEntity extends AbstractSlimeEntity {
     private static final int FLEE_TIME = 120;
-   // private static final DataParameter<Boolean> HIDDEN = EntityDataManager.createKey(CamoSlimeEntity.class, DataSerializers.BOOLEAN);
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new FleeGoal(this, FLEE_TIME, () -> !this.isHidden(), this::hide));
+        this.goalSelector.addGoal(2, new FleeGoal(this, FLEE_TIME, () -> !this.isInvisible(), this::hide));
         this.goalSelector.addGoal(3, new AttackGoal(this));
         this.goalSelector.addGoal(4, new HideGoal(this));
         this.goalSelector.addGoal(5, new FaceRandomGoal(this));
@@ -35,31 +34,6 @@ public class CamoSlimeEntity extends AbstractSlimeEntity {
 
     public CamoSlimeEntity(EntityType<? extends AbstractSlimeEntity> type, World worldIn) {
         super(type, worldIn);
-    }
-
-
-  /*  @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(HIDDEN, false);
-    }
-
-    @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
-        compound.putBoolean("hidden", this.isHidden());
-    }
-
-    @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
-        if (compound.getBoolean("hidden")) {
-            this.hide();
-        }
-    }*/
-
-    public boolean isHidden() {
-        return isInvisible();
     }
 
     public void hide() {

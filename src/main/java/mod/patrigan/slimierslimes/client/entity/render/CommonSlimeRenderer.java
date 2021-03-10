@@ -2,7 +2,7 @@ package mod.patrigan.slimierslimes.client.entity.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import mod.patrigan.slimierslimes.SlimierSlimes;
-import mod.patrigan.slimierslimes.entities.CommonSlimeEntity;
+import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -11,7 +11,7 @@ import net.minecraft.client.renderer.entity.model.SlimeModel;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
-public class CommonSlimeRenderer  extends MobRenderer<CommonSlimeEntity, SlimeModel<CommonSlimeEntity>> {
+public class CommonSlimeRenderer  extends MobRenderer<AbstractSlimeEntity, SlimeModel<AbstractSlimeEntity>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(SlimierSlimes.MOD_ID, "textures/entity/common_slime.png");
 
@@ -21,13 +21,13 @@ public class CommonSlimeRenderer  extends MobRenderer<CommonSlimeEntity, SlimeMo
     }
 
     @Override
-    public void render(CommonSlimeEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    public void render(AbstractSlimeEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         this.shadowSize = 0.25F * (float)entityIn.getSlimeSize();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
-    protected void preRenderCallback(CommonSlimeEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void preRenderCallback(AbstractSlimeEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
         float f = 0.999F;
         matrixStackIn.scale(f, f, f);
         matrixStackIn.translate(0.0D, (double)0.001F, 0.0D);
@@ -38,7 +38,7 @@ public class CommonSlimeRenderer  extends MobRenderer<CommonSlimeEntity, SlimeMo
     }
 
     @Override
-    public ResourceLocation getEntityTexture(CommonSlimeEntity entity) {
+    public ResourceLocation getEntityTexture(AbstractSlimeEntity entity) {
         return TEXTURE;
     }
 }

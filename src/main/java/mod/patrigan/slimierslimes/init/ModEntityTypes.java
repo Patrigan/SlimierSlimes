@@ -29,8 +29,8 @@ public class ModEntityTypes {
     public static final List<EntityType<?>> SPAWNER_ENTITY_TYPES = new ArrayList<>();
 
     // Entity Types
-    public static final RegistryObject<EntityType<CommonSlimeEntity>> COMMON_SLIME = getSlimeRegistryObject("common_slime", CommonSlimeEntity::new, 0x7EBF6E, true);
-    public static final RegistryObject<EntityType<PinkSlimeEntity>> PINK_SLIME = getSlimeRegistryObject("pink_slime", PinkSlimeEntity::new, DyeColor.PINK.getColorValue(), false);
+    public static final RegistryObject<EntityType<AbstractSlimeEntity>> COMMON_SLIME = getSlimeRegistryObject("common_slime", AbstractSlimeEntity::new, 0x7EBF6E, true);
+    public static final RegistryObject<EntityType<AbstractSlimeEntity>> PINK_SLIME = getSlimeRegistryObject("pink_slime", AbstractSlimeEntity::new, DyeColor.PINK.getColorValue(), false);
     public static final RegistryObject<EntityType<DiamondSlimeEntity>> DIAMOND_SLIME = getSlimeRegistryObject("diamond_slime", DiamondSlimeEntity::new, DyeColor.CYAN.getColorValue(), false);
     public static final RegistryObject<EntityType<RockSlimeEntity>> ROCK_SLIME = getSlimeRegistryObject("rock_slime", RockSlimeEntity::new, DyeColor.BLUE.getColorValue(), true);
     public static final RegistryObject<EntityType<CrystalSlimeEntity>> CRYSTAL_SLIME = getSlimeRegistryObject("crystal_slime", CrystalSlimeEntity::new, DyeColor.MAGENTA.getColorValue(), true);
@@ -101,9 +101,9 @@ public class ModEntityTypes {
     }
 
     private static void registerEntityAttributes() {
-        GlobalEntityTypeAttributes.put(ModEntityTypes.COMMON_SLIME.get(), CommonSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.COMMON_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.SNOW_SLIME.get(), SnowSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.PINK_SLIME.get(), PinkSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.PINK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.ROCK_SLIME.get(), RockSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.CRYSTAL_SLIME.get(), CrystalSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.GLOW_SLIME.get(), GlowSlimeEntity.getMutableAttributes().create());

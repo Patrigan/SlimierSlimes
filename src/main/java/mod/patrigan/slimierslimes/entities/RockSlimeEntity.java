@@ -1,23 +1,11 @@
 package mod.patrigan.slimierslimes.entities;
 
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.particles.BlockParticleData;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
-
-import java.util.Random;
-
-import static net.minecraft.block.Blocks.CAVE_AIR;
 
 public class RockSlimeEntity extends AbstractSlimeEntity {
 
@@ -61,22 +49,6 @@ public class RockSlimeEntity extends AbstractSlimeEntity {
     @Override
     protected float getAttackDamage() {
         return super.getAttackDamage() + 1.0F;
-    }
-
-    public static boolean spawnable(EntityType<? extends AbstractSlimeEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
-
-        if (world.getDifficulty() != Difficulty.PEACEFUL) {
-            if (canSpawnInSwamp(entityType, world, reason, pos, randomIn)) {
-                return true;
-            }
-            return MonsterEntity.isValidLightLevel(world, pos, randomIn) && canSpawnOn(entityType, world, reason, pos, randomIn) && isCaveAir(world, pos);
-        }
-
-        return false;
-    }
-
-    private static boolean isCaveAir(IServerWorld world, BlockPos pos){
-        return world.getBlockState(pos).getBlock().equals(CAVE_AIR);
     }
 
 }

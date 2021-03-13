@@ -51,7 +51,7 @@ public class LavaSlimeEntity extends AbstractSlimeEntity {
         if (!this.world.isRemote) {
             super.remove(keepData);
             BlockPos position = getPosition();
-            if (this.getSlimeSize() > 1 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) && (world.getBlockState(position).getBlock().equals(CAVE_AIR)||world.getBlockState(position).getBlock().equals(Blocks.AIR))) {
+            if (this.getShouldBeDead() && this.getSlimeSize() > 1 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) && world.getBlockState(position).getBlock().isAir(world.getBlockState(position), world, position)) {
                 world.setBlockState(position, Blocks.LAVA.getDefaultState(), 3);
             }
         }

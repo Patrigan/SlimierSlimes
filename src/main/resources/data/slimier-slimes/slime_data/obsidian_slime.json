@@ -1,6 +1,21 @@
 {
-  "maxInChunk": 6,
-  "spawnOnSurface": true,
+  "maxHealth": {
+    "isSizeSquared": true,
+    "resultMultiplier": 7
+  },
+  "armor": {"sizeMultiplier": 5},
+  "armorToughness": {},
+  "attackDamage": {
+    "resultModifier": 4
+  },
+  "jumpDelay": {
+    "sizeMultiplier": 0,
+    "resultModifier": 5,
+    "resultRandomModifierBound": 10
+  },
+  "experienceValue": {
+    "sizeMultiplier": 1.5
+  },
   "squishParticleData": {
     "typeString": "BLOCK",
     "resourceLocation": "minecraft:obsidian"

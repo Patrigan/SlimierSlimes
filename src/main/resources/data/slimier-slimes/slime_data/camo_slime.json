@@ -1,9 +1,15 @@
 {
-  "maxInChunk": 6,
-  "spawnOnSurface": true,
+  "movementSpeed": {
+    "resultMultiplier": 0.2,
+    "resultModifier": 0.3
+  },
+  "experienceValue": {},
   "squishParticleData": {
     "typeString": "ITEM",
     "resourceLocation": "minecraft:slime_ball"
+  },
+  "attackDamage": {
+    "resultModifier": 1
   },
   "slimeSpawnData": [
     {

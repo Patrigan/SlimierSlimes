@@ -17,6 +17,7 @@ public class ClientEventBusSubscriber {
     public static void onClientSetup(FMLClientSetupEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.COMMON_SLIME.get(), CommonSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.PINK_SLIME.get(), PinkSlimeRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.CLOUD_SLIME.get(), CloudSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.ROCK_SLIME.get(), RockSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.CRYSTAL_SLIME.get(), CrystalSlimeRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(ModEntityTypes.GLOW_SLIME.get(), GlowSlimeRenderer::new);

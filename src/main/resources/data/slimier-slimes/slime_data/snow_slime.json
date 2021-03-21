@@ -1,6 +1,4 @@
 {
-  "maxInChunk": 6,
-  "spawnOnSurface": true,
   "squishParticleData": {
     "typeString": "ITEM",
     "resourceLocation": "slimier-slimes:white_slime_ball"

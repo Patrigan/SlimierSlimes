@@ -6,9 +6,7 @@ import mod.patrigan.slimierslimes.entities.ai.goal.AttackGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FaceRandomGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FloatGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.HopGoal;
-import mod.patrigan.slimierslimes.init.ModItems;
 import mod.patrigan.slimierslimes.init.data.SlimeData;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -17,7 +15,6 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
@@ -25,6 +22,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.*;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
@@ -33,6 +31,10 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biomes;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
@@ -40,16 +42,21 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
+import static mod.patrigan.slimierslimes.SlimierSlimes.MOD_ID;
 import static mod.patrigan.slimierslimes.SlimierSlimes.SLIME_DATA;
 import static mod.patrigan.slimierslimes.init.data.SquishParticleData.SquishParticleType.*;
 import static net.minecraft.world.gen.Heightmap.Type.WORLD_SURFACE;
+import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.FORGE;
 
+@Mod.EventBusSubscriber(modid = MOD_ID, bus = FORGE)
 public class AbstractSlimeEntity extends MobEntity implements IMob {
 
     private static final float SWARM_CHANCE = 0.05F;
 
     private static final DataParameter<Integer> SLIME_SIZE = EntityDataManager.createKey(AbstractSlimeEntity.class, DataSerializers.VARINT);
     public static final String SLIME_SIZE_KEY = "Size";
+
+    private final SlimeData data;
 
     public float squishAmount;
     public float squishFactor;
@@ -58,6 +65,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
 
     public AbstractSlimeEntity(EntityType<? extends AbstractSlimeEntity> type, World worldIn) {
         super(type, worldIn);
+        data = SLIME_DATA.getData(this.getType().getRegistryName());
         this.moveController = new MoveHelperController(this);
     }
 
@@ -84,14 +92,17 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
         this.dataManager.set(SLIME_SIZE, size);
         this.recenterBoundingBox();
         this.recalculateSize();
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double) (size * size));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue((double) (0.2F + 0.1F * (float) size));
-        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue((double) size);
+        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(data.getMaxHealth(size, this.rand));
+        this.getAttribute(Attributes.ARMOR).setBaseValue(data.getArmor(size, this.rand));
+        this.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(data.getArmorToughness(size, this.rand));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(data.getMovementSpeed(size, this.rand));
+        this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getAttackDamage(size, this.rand));
+        this.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(data.getEntityGravity());
         if (resetHealth) {
             this.setHealth(this.getMaxHealth());
         }
 
-        this.experienceValue = size;
+        this.experienceValue = data.getExperienceValue(size, this.rand);
     }
 
     public int getSlimeSize() {
@@ -123,7 +134,6 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     }
 
     protected IParticleData getSquishParticle() {
-        SlimeData data = SLIME_DATA.getData(this.getType().getRegistryName());
         if(ITEM.equals(data.getSquishParticleData().getType())){
             return new ItemParticleData(ParticleTypes.ITEM, new ItemStack(ForgeRegistries.ITEMS.getValue(data.getSquishParticleData().getResourceLocation())));
         }else if(BLOCK.equals(data.getSquishParticleData().getType())){
@@ -178,7 +188,12 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
      * Gets the amount of time the slime needs to wait between jumps.
      */
     public int getJumpDelay() {
-        return this.rand.nextInt(20) + 10;
+        return (int) data.getJumpDelay(this.getSlimeSize(), this.rand);
+    }
+
+    @Override
+    protected float getJumpUpwardsMotion() {
+        return super.getJumpUpwardsMotion() * data.getJumpHeightMultiplier(this.getSlimeSize(), this.rand);
     }
 
     @Override
@@ -403,9 +418,14 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
      */
     @Override
     protected void jump() {
+        float f = this.getJumpUpwardsMotion();
+        if (this.isPotionActive(Effects.JUMP_BOOST)) {
+            f += 0.1F * (float)(this.getActivePotionEffect(Effects.JUMP_BOOST).getAmplifier() + 1);
+        }
         Vector3d vector3d = this.getMotion();
-        this.setMotion(vector3d.x, (double) this.getJumpUpwardsMotion(), vector3d.z);
+        this.setMotion(vector3d.x, f, vector3d.z);
         this.isAirBorne = true;
+        net.minecraftforge.common.ForgeHooks.onLivingJump(this);
     }
 
 
@@ -494,11 +514,15 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
 
     @Override
     public int getMaxSpawnedInChunk() {
-        SlimeData data = SLIME_DATA.getData(this.getType().getRegistryName());
         return data.getMaxInChunk();
     }
 
-    public static DyeColor getPrimaryColor() {
-        return DyeColor.LIME;
+    @SubscribeEvent
+    public static void preventFallDamage(LivingHurtEvent event) {
+        if(event.getSource() == DamageSource.FALL) {
+            if(event.getEntity() instanceof AbstractSlimeEntity) {
+                event.setCanceled(true);
+            }
+        }
     }
 }

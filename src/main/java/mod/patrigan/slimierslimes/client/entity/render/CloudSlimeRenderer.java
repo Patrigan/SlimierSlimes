@@ -11,11 +11,11 @@ import net.minecraft.client.renderer.entity.model.SlimeModel;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
-public class ObsidianSlimeRenderer extends MobRenderer<AbstractSlimeEntity, SlimeModel<AbstractSlimeEntity>> {
+public class CloudSlimeRenderer extends MobRenderer<AbstractSlimeEntity, SlimeModel<AbstractSlimeEntity>> {
 
-    protected static final ResourceLocation TEXTURE = new ResourceLocation(SlimierSlimes.MOD_ID, "textures/entity/obsidian_slime.png");
+    protected static final ResourceLocation TEXTURE = new ResourceLocation(SlimierSlimes.MOD_ID, "textures/entity/cloud_slime.png");
 
-    public ObsidianSlimeRenderer(EntityRendererManager renderManagerIn) {
+    public CloudSlimeRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new SlimeModel<>(16), 0.7f);
         this.addLayer(new SlimeGelLayer<>(this));
     }

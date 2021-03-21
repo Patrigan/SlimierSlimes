@@ -2,7 +2,7 @@ package mod.patrigan.slimierslimes.client.entity.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import mod.patrigan.slimierslimes.SlimierSlimes;
-import mod.patrigan.slimierslimes.entities.RockSlimeEntity;
+import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -13,7 +13,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class RockSlimeRenderer extends MobRenderer<RockSlimeEntity, SlimeModel<RockSlimeEntity>> {
+public class RockSlimeRenderer extends MobRenderer<AbstractSlimeEntity, SlimeModel<AbstractSlimeEntity>> {
 
     protected static final ResourceLocation TEXTURE = new ResourceLocation(SlimierSlimes.MOD_ID, "textures/entity/rock_slime.png");
 
@@ -23,13 +23,13 @@ public class RockSlimeRenderer extends MobRenderer<RockSlimeEntity, SlimeModel<R
     }
 
     @Override
-    public void render(RockSlimeEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    public void render(AbstractSlimeEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         this.shadowSize = 0.25F * (float)entityIn.getSlimeSize();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
-    protected void preRenderCallback(RockSlimeEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void preRenderCallback(AbstractSlimeEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
         float f = 0.999F;
         matrixStackIn.scale(f, f, f);
         matrixStackIn.translate(0.0D, (double)0.001F, 0.0D);
@@ -40,7 +40,7 @@ public class RockSlimeRenderer extends MobRenderer<RockSlimeEntity, SlimeModel<R
     }
 
     @Override
-    public ResourceLocation getEntityTexture(RockSlimeEntity entity) {
+    public ResourceLocation getEntityTexture(AbstractSlimeEntity entity) {
         return TEXTURE;
     }
 }

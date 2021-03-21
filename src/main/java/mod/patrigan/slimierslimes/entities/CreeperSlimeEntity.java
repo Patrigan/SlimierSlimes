@@ -145,24 +145,10 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
         return MathHelper.lerp(partialTicks, (float)this.lastActiveTime, (float)this.timeSinceIgnited) / (float)(this.fuseTime - 2);
     }
 
-    public static AttributeModifierMap.MutableAttribute getMutableAttributes() {
-        return AbstractSlimeEntity.getMutableAttributes();
-    }
-
     @Override
     protected void setSlimeSize(int size, boolean resetHealth) {
         super.setSlimeSize(size, resetHealth);
         this.explosionRadius = size;
-        this.getAttribute(Attributes.MAX_HEALTH).setBaseValue((double)(size));
-        this.getAttribute(Attributes.ARMOR).setBaseValue(0);
-        if (resetHealth) {
-            this.setHealth(this.getMaxHealth());
-        }
-    }
-
-    @Override
-    protected void alterSquishAmount() {
-        this.squishAmount *= 0.9F;
     }
 
     protected void spawnLingeringCloud() {

@@ -1,0 +1,25 @@
+{
+  "movementSpeed": {
+    "resultMultiplier": 0.1,
+    "resultModifier": 0.3
+  },
+  "entityGravity": 0.02,
+  "squishParticleData": {
+    "typeString": "ITEM",
+    "resourceLocation": "slimier-slimes:white_slime_ball"
+  },
+  "jumpHeightMultiplier": {
+    "sizeMultiplier": 0,
+    "resultModifier": 0.9
+  },
+  "slimeSpawnData": [
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 40,
+      "biomes": [
+        "OVERWORLD", "MOUNTAIN"
+      ]
+    }
+  ]
+}

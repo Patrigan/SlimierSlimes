@@ -1,6 +1,17 @@
 {
-  "maxInChunk": 6,
-  "spawnOnSurface": true,
+  "armor": {"sizeMultiplier": 2},
+  "jumpDelay": {
+    "sizeMultiplier": 0,
+    "resultModifier": 10,
+    "resultRandomModifierBound": 10
+  },
+  "movementSpeed": {
+    "resultMultiplier": 0.1,
+    "resultModifier": 0.3
+  },
+  "experienceValue": {
+    "sizeMultiplier": 2
+  },
   "squishParticleData": {
     "typeString": "ITEM",
     "resourceLocation": "minecraft:diamond"

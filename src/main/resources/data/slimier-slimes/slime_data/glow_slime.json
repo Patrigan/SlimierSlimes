@@ -1,6 +1,13 @@
 {
-  "maxInChunk": 6,
-  "spawnOnSurface": true,
+  "jumpDelay": {
+    "sizeMultiplier": 0,
+    "resultModifier": 100,
+    "resultRandomModifierBound": 200
+  },
+  "movementSpeed": {
+    "resultMultiplier": 0.1,
+    "resultModifier": 0.3
+  },
   "squishParticleData": {
     "typeString": "BLOCK",
     "resourceLocation": "minecraft:glowstone"

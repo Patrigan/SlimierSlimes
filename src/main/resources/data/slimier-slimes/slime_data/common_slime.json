@@ -1,4 +1,27 @@
 {
+  "maxHealth": {
+    "isSizeSquared": true
+  },
+  "armor": {"sizeMultiplier": 0},
+  "armorToughness": {"sizeMultiplier": 0},
+  "attackDamage": {},
+  "jumpDelay": {
+    "sizeMultiplier": 0,
+    "resultModifier": 10,
+    "resultRandomModifierBound": 20
+  },
+  "movementSpeed": {
+    "resultMultiplier": 0.1,
+    "resultModifier": 0.2
+  },
+  "jumpHeightMultiplier": {
+    "sizeMultiplier": 0,
+    "resultModifier": 1
+  },
+  "entityGravity": 0.08,
+  "experienceValue": {
+    "sizeMultiplier": 0.76
+  },
   "maxInChunk": 6,
   "spawnOnSurface": true,
   "squishParticleData": {

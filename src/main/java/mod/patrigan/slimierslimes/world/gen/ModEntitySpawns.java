@@ -34,7 +34,8 @@ public class ModEntitySpawns {
     public static void init(){
         EntitySpawnPlacementRegistry.register(COMMON_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(PINK_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(ROCK_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, RockSlimeEntity::spawnable);
+        EntitySpawnPlacementRegistry.register(CLOUD_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::spawnable);
+        EntitySpawnPlacementRegistry.register(ROCK_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(CRYSTAL_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, CrystalSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(GLOW_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, GlowSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(CREEPER_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, CreeperSlimeEntity::spawnable);
@@ -42,7 +43,7 @@ public class ModEntitySpawns {
         EntitySpawnPlacementRegistry.register(CAMO_SLIME.get(), ON_GROUND, MOTION_BLOCKING, CamoSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(DIAMOND_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, DiamondSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(LAVA_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, LavaSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(OBSIDIAN_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, ObsidianSlimeEntity::spawnable);
+        EntitySpawnPlacementRegistry.register(OBSIDIAN_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::spawnable);
     }
 
 

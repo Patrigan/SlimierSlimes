@@ -1,5 +1,4 @@
 {
-  "maxInChunk": 6,
   "spawnOnSurface": false,
   "squishParticleData": {
     "typeString": "ITEM",

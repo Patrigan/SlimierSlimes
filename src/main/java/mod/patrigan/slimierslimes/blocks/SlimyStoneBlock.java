@@ -1,6 +1,6 @@
 package mod.patrigan.slimierslimes.blocks;
 
-import mod.patrigan.slimierslimes.entities.RockSlimeEntity;
+import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
 import mod.patrigan.slimierslimes.util.ColorUtils;
 import mod.patrigan.slimierslimes.util.ModBlockColor;
 import mod.patrigan.slimierslimes.util.ModItemColor;
@@ -29,15 +29,12 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.IBlockDisplayReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
 import static mod.patrigan.slimierslimes.entities.AbstractSlimeEntity.SLIME_SIZE_KEY;
-import static mod.patrigan.slimierslimes.init.ModEntityTypes.LAVA_SLIME;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.ROCK_SLIME;
 import static mod.patrigan.slimierslimes.init.ModParticleTypes.DRIPPING_SLIME;
 
@@ -75,7 +72,7 @@ public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, Mo
 
             CompoundNBT compound = new CompoundNBT();
             compound.putInt(SLIME_SIZE_KEY, 1);
-            RockSlimeEntity rockSlimeEntity = ROCK_SLIME.get().spawn(world, compound, null, null, pos, SpawnReason.TRIGGERED, false, false);
+            AbstractSlimeEntity rockSlimeEntity = ROCK_SLIME.get().spawn(world, compound, null, null, pos, SpawnReason.TRIGGERED, false, false);
             if (rockSlimeEntity == null) {
                 return;
             }

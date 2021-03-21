@@ -32,14 +32,15 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<AbstractSlimeEntity>> COMMON_SLIME = getSlimeRegistryObject("common_slime", AbstractSlimeEntity::new, 0x7EBF6E, true);
     public static final RegistryObject<EntityType<AbstractSlimeEntity>> PINK_SLIME = getSlimeRegistryObject("pink_slime", AbstractSlimeEntity::new, DyeColor.PINK.getColorValue(), false);
     public static final RegistryObject<EntityType<DiamondSlimeEntity>> DIAMOND_SLIME = getSlimeRegistryObject("diamond_slime", DiamondSlimeEntity::new, DyeColor.CYAN.getColorValue(), false);
-    public static final RegistryObject<EntityType<RockSlimeEntity>> ROCK_SLIME = getSlimeRegistryObject("rock_slime", RockSlimeEntity::new, DyeColor.BLUE.getColorValue(), true);
+    public static final RegistryObject<EntityType<AbstractSlimeEntity>> ROCK_SLIME = getSlimeRegistryObject("rock_slime", AbstractSlimeEntity::new, DyeColor.BLUE.getColorValue(), true);
+    public static final RegistryObject<EntityType<AbstractSlimeEntity>> CLOUD_SLIME = getSlimeRegistryObject("cloud_slime", AbstractSlimeEntity::new, DyeColor.LIGHT_GRAY.getColorValue(), true);
     public static final RegistryObject<EntityType<CrystalSlimeEntity>> CRYSTAL_SLIME = getSlimeRegistryObject("crystal_slime", CrystalSlimeEntity::new, DyeColor.MAGENTA.getColorValue(), true);
     public static final RegistryObject<EntityType<GlowSlimeEntity>> GLOW_SLIME = getSlimeRegistryObject("glow_slime", GlowSlimeEntity::new, DyeColor.PURPLE.getColorValue(), true);
     public static final RegistryObject<EntityType<CreeperSlimeEntity>> CREEPER_SLIME = getSlimeRegistryObject("creeper_slime", CreeperSlimeEntity::new, DyeColor.GREEN.getColorValue(), true);
     public static final RegistryObject<EntityType<SnowSlimeEntity>> SNOW_SLIME = getSlimeRegistryObject("snow_slime", SnowSlimeEntity::new, DyeColor.WHITE.getColorValue(), true);
     public static final RegistryObject<EntityType<CamoSlimeEntity>> CAMO_SLIME = getSlimeRegistryObject("camo_slime", CamoSlimeEntity::new, DyeColor.BROWN.getColorValue(), true);
     public static final RegistryObject<EntityType<LavaSlimeEntity>> LAVA_SLIME = getFireResistantSlimeRegistryObject("lava_slime", LavaSlimeEntity::new, DyeColor.RED.getColorValue(), false);
-    public static final RegistryObject<EntityType<ObsidianSlimeEntity>> OBSIDIAN_SLIME = getFireResistantSlimeRegistryObject("obsidian_slime", ObsidianSlimeEntity::new, DyeColor.BLACK.getColorValue(), false);
+    public static final RegistryObject<EntityType<AbstractSlimeEntity>> OBSIDIAN_SLIME = getFireResistantSlimeRegistryObject("obsidian_slime", AbstractSlimeEntity::new, DyeColor.BLACK.getColorValue(), false);
     //Projectiles
     public static final RegistryObject<EntityType<AmethystProjectileEntity>> AMETYST_PROJECTILE = getAmethystProjectileRegistryObject("amethyst_projectile", AmethystProjectileEntity::new);
     public static final RegistryObject<EntityType<SlimeballProjectileEntity>> SLIMEBALL_PROJECTILE = getSlimeballProjectileRegistryObject("slimeball_projectile", SlimeballProjectileEntity::new);
@@ -104,14 +105,15 @@ public class ModEntityTypes {
         GlobalEntityTypeAttributes.put(ModEntityTypes.COMMON_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.SNOW_SLIME.get(), SnowSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.PINK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.ROCK_SLIME.get(), RockSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.CLOUD_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.ROCK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.CRYSTAL_SLIME.get(), CrystalSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.GLOW_SLIME.get(), GlowSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.CREEPER_SLIME.get(), CreeperSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().create());
         GlobalEntityTypeAttributes.put(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.OBSIDIAN_SLIME.get(), ObsidianSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.OBSIDIAN_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
     }
 
 }

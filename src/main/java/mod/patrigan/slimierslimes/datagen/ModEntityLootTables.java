@@ -21,6 +21,7 @@ public class ModEntityLootTables extends EntityLootTables {
     protected void addTables() {
         this.registerLootTable(COMMON_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(LIME)));
         this.registerLootTable(PINK_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(PINK)).addLootPool(getJellyLootPool(PINK)));
+        this.registerLootTable(CLOUD_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(LIGHT_GRAY)));
         this.registerLootTable(DIAMOND_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(CYAN)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(DIAMOND).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
         this.registerLootTable(ROCK_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(BLUE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(COBBLESTONE).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
         this.registerLootTable(CRYSTAL_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(MAGENTA)).addLootPool(getJellyLootPool(LIGHT_BLUE)));

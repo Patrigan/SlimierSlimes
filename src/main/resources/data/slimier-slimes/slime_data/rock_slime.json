@@ -1,5 +1,23 @@
 {
-  "maxInChunk": 6,
+  "armor": {"sizeMultiplier": 2},
+  "attackDamage": {
+    "resultModifier": 1
+  },
+  "jumpDelay": {
+    "sizeMultiplier": 0,
+    "resultModifier": 30,
+    "resultRandomModifierBound": 60
+  },
+  "movementSpeed": {
+    "resultMultiplier": 0.1,
+    "resultModifier": 0.1
+  },
+  "jumpHeightMultiplier": {
+    "sizeMultiplier": 0,
+    "resultModifier": 1.2
+  },
+  "entityGravity": 0.09,
+
   "spawnOnSurface": false,
   "squishParticleData": {
     "typeString": "BLOCK",

@@ -22,12 +22,6 @@ public class GlowSlimeEntity extends AbstractSlimeEntity {
         updateLightLevel();
     }
 
-    @Override
-    protected void setSlimeSize(int size, boolean resetHealth) {
-        super.setSlimeSize(size, resetHealth);
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue((double) (0.3F + 0.1F * (float) size));
-    }
-
     private void updateLightLevel() {
         BlockPos position = getPosition();
         if(!dead && (world.getBlockState(position).getBlock().equals(CAVE_AIR)||world.getBlockState(position).getBlock().equals(Blocks.AIR))) {
@@ -43,21 +37,6 @@ public class GlowSlimeEntity extends AbstractSlimeEntity {
 
     public static AttributeModifierMap.MutableAttribute getMutableAttributes() {
         return MonsterEntity.func_234295_eP_();
-    }
-
-    @Override
-    public int getJumpDelay() {
-        return super.getJumpDelay() * 10;
-    }
-
-    @Override
-    protected void alterSquishAmount() {
-        this.squishAmount *= 0.9F;
-    }
-
-    @Override
-    protected float getAttackDamage() {
-        return super.getAttackDamage() + 1.0F;
     }
 
 }

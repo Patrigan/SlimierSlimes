@@ -115,7 +115,7 @@ public class LavaSlimeEntity extends AbstractSlimeEntity {
     }
 
     private void hardenInWater() {
-        ObsidianSlimeEntity slimeentity = OBSIDIAN_SLIME.get().create(this.world);
+        AbstractSlimeEntity slimeentity = OBSIDIAN_SLIME.get().create(this.world);
         if (this.isNoDespawnRequired()) {
             slimeentity.enablePersistence();
         }

@@ -1,6 +1,4 @@
 {
-  "maxInChunk": 6,
-  "spawnOnSurface": true,
   "squishParticleData": {
     "typeString": "PARTICLE",
     "resourceLocation": "minecraft:lava"

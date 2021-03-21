@@ -1,6 +1,12 @@
 {
-  "maxInChunk": 6,
-  "spawnOnSurface": true,
+  "maxHealth": {},
+  "jumpDelay": {
+    "sizeMultiplier": 0,
+    "resultModifier": 10,
+    "resultRandomModifierBound": 15
+  },
+
+
   "squishParticleData": {
     "typeString": "ITEM",
     "resourceLocation": "minecraft:slime_ball"

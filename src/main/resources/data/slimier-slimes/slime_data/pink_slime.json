@@ -1,6 +1,9 @@
 {
-  "maxInChunk": 6,
-  "spawnOnSurface": true,
+  "maxHealth": {
+    "isSizeSquared": true,
+    "sizeMultiplier": 2,
+    "resultModifier": 1
+  },
   "squishParticleData": {
     "typeString": "ITEM",
     "resourceLocation": "slimier-slimes:pink_slime_ball"

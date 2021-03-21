@@ -38,8 +38,12 @@ public class ModBlockLootTables extends BlockLootTables {
         this.registerLootTable(ModBlocks.SMALL_AMETHYST_BUD.get(), block -> blockNoDrop());
         this.registerLootTable(ModBlocks.MEDIUM_AMETHYST_BUD.get(), block -> blockNoDrop());
         this.registerLootTable(ModBlocks.LARGE_AMETHYST_BUD.get(), block -> blockNoDrop());
-        this.registerLootTable(STONE_LAVA_SLIME_SPAWNER.get(), block -> dropOtherLootTable(ModBlocks.SLIMY_COBBLESTONE_BLOCK.get(DyeColor.RED).getBlock().getId()));
-        this.registerLootTable(NETHERRACK_LAVA_SLIME_SPAWNER.get(), block -> dropOtherLootTable(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getBlock().getId()));
+        this.registerLootTable(STONE_LAVA_SLIME_SPAWNER.get(), block -> dropOtherLootTable(getLootTableIdOf(ModBlocks.SLIMY_COBBLESTONE_BLOCK.get(DyeColor.RED).getBlock().getId())));
+        this.registerLootTable(NETHERRACK_LAVA_SLIME_SPAWNER.get(), block -> dropOtherLootTable(getLootTableIdOf(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getBlock().getId())));
+    }
+
+    private ResourceLocation getLootTableIdOf(ResourceLocation id) {
+        return new ResourceLocation(id.getNamespace(), "blocks/" + id.getPath());
     }
 
     private LootTable.Builder dropOtherLootTable(ResourceLocation id) {

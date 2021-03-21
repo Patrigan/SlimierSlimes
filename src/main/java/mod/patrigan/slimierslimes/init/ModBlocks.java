@@ -127,6 +127,7 @@ public class ModBlocks {
             }
         });
         RenderTypeLookup.setRenderLayer(STONE_LAVA_SLIME_SPAWNER.get(), RenderType.getTranslucent());
+        RenderTypeLookup.setRenderLayer(NETHERRACK_LAVA_SLIME_SPAWNER.get(), RenderType.getTranslucent());
     }
 
     private static void initBuildingBlockRenderTypes(BuildingBlockHelper blockHelper, RenderType renderType) {

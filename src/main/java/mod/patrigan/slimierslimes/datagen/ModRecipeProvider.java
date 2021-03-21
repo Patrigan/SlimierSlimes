@@ -8,7 +8,6 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraftforge.common.Tags;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
@@ -30,7 +29,7 @@ public class ModRecipeProvider extends RecipeProvider {
     protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
         DYE_ITEMS.forEach(dye -> ShapelessRecipeBuilder.shapelessRecipe(dye)
                 .addIngredient(JELLY.get(((DyeItem) dye).getDyeColor()).get())
-                .addCriterion("has_jelly", hasItem(ModTags.Items.JELLY))
+                .addCriterion("has_jelly", hasItem(ModTags.Items.JELLIES))
                 .build(consumer));
         Arrays.stream(DyeColor.values()).forEach(dyeColor -> dyeColorRecipes(dyeColor, consumer));
         cleanSlimeBallRecipes(consumer);
@@ -48,7 +47,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 .patternLine("###")
                 .patternLine("###")
                 .patternLine("###")
-                .addCriterion("has_jelly", hasItem(ModTags.Items.JELLY))
+                .addCriterion("has_jelly", hasItem(ModTags.Items.JELLIES))
                 .build(consumer);
         ShapedRecipeBuilder.shapedRecipe(SLIME_BLOCK_HELPERS.get(dyeColor).getBlock().get(), 1).key('#', SLIME_BALL.get(dyeColor).get())
                 .patternLine("###")

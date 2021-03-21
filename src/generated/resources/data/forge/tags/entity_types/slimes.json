@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "slimier-slimes:common_slime",
+    "slimier-slimes:pink_slime",
+    "slimier-slimes:diamond_slime",
+    "slimier-slimes:rock_slime",
+    "slimier-slimes:cloud_slime",
+    "slimier-slimes:crystal_slime",
+    "slimier-slimes:glow_slime",
+    "slimier-slimes:creeper_slime",
+    "slimier-slimes:snow_slime",
+    "slimier-slimes:camo_slime",
+    "slimier-slimes:lava_slime",
+    "slimier-slimes:obsidian_slime"
+  ]
+}

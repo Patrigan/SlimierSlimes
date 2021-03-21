@@ -28,6 +28,7 @@ public class DataGenerators {
             ModBlockTagsProvider modBlockTagsProvider = new ModBlockTagsProvider(generator, event.getExistingFileHelper());
             generator.addProvider(modBlockTagsProvider);
             generator.addProvider(new ModItemTagsProvider(generator, modBlockTagsProvider, event.getExistingFileHelper()));
+            generator.addProvider(new ModEntityTypeTagsProvider(generator, event.getExistingFileHelper()));
             generator.addProvider(new ModRecipeProvider(generator));
             generator.addProvider(new ModEntityLootTablesProvider(generator));
             generator.addProvider(new ModBlockLootTablesProvider(generator));

@@ -16,6 +16,8 @@ import net.minecraft.world.IBlockDisplayReader;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class PinkSlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
 
     public PinkSlimeBlock(Properties properties) {
@@ -23,18 +25,18 @@ public class PinkSlimeBlock extends SlimeBlock implements ModBlockColor, ModItem
     }
 
     @Override
-    public void bounceEntity(Entity entity) {
+    public void bounceUp(Entity entity) {
         if(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get()) {
-            super.bounceEntity(entity);
+            super.bounceUp(entity);
             effectEntity(entity);
         }else{
-            super.bounceEntity(entity);
+            super.bounceUp(entity);
         }
     }
 
     private void effectEntity(Entity entityIn) {
         if(entityIn instanceof LivingEntity){
-            ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.JUMP_BOOST, 20, 2));
+            ((LivingEntity) entityIn).addEffect(new EffectInstance(Effects.JUMP, 20, 2));
         }
     }
 

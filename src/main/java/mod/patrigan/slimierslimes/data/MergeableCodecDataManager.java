@@ -143,7 +143,7 @@ public class MergeableCodecDataManager<RAW, FINE> extends ReloadListener<Map<Res
     {
         final Map<ResourceLocation, List<RAW>> map = Maps.newHashMap();
 
-        for (ResourceLocation resourceLocation : resourceManager.getAllResourceLocations(this.folderName, MergeableCodecDataManager::isStringJsonFile))
+        for (ResourceLocation resourceLocation : resourceManager.listResources(this.folderName, MergeableCodecDataManager::isStringJsonFile))
         {
             final String namespace = resourceLocation.getNamespace();
             final String filePath = resourceLocation.getPath();
@@ -157,7 +157,7 @@ public class MergeableCodecDataManager<RAW, FINE> extends ReloadListener<Map<Res
             // we can query the resource manager for these
             try
             {
-                for (IResource resource : resourceManager.getAllResources(resourceLocation))
+                for (IResource resource : resourceManager.getResources(resourceLocation))
                 {
                     try // with resources
                             (
@@ -175,7 +175,7 @@ public class MergeableCodecDataManager<RAW, FINE> extends ReloadListener<Map<Res
                     }
                     catch(RuntimeException | IOException exception)
                     {
-                        this.logger.error("Data loader for {} could not read data {} from file {} in data pack {}", this.folderName, jsonIdentifier, resourceLocation, resource.getPackName(), exception);
+                        this.logger.error("Data loader for {} could not read data {} from file {} in data pack {}", this.folderName, jsonIdentifier, resourceLocation, resource.getSourceName(), exception);
                     }
                     finally
                     {

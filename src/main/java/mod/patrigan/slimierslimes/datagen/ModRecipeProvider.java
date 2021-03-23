@@ -26,66 +26,66 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     @Override
-    protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-        DYE_ITEMS.forEach(dye -> ShapelessRecipeBuilder.shapelessRecipe(dye)
-                .addIngredient(JELLY.get(((DyeItem) dye).getDyeColor()).get())
-                .addCriterion("has_jelly", hasItem(ModTags.Items.JELLIES))
-                .build(consumer));
+    protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
+        DYE_ITEMS.forEach(dye -> ShapelessRecipeBuilder.shapeless(dye)
+                .requires(JELLY.get(((DyeItem) dye).getDyeColor()).get())
+                .unlockedBy("has_jelly", has(ModTags.Items.JELLIES))
+                .save(consumer));
         Arrays.stream(DyeColor.values()).forEach(dyeColor -> dyeColorRecipes(dyeColor, consumer));
         cleanSlimeBallRecipes(consumer);
         BLOCK_HELPERS.forEach(buildingBlockHelper -> buildingBlockRecipes(buildingBlockHelper, consumer));
     }
 
     private void cleanSlimeBallRecipes(Consumer<IFinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shapedRecipe(Items.LEAD, 2).key('~', Items.STRING).key('O', SLIMEBALLS).patternLine("~~ ").patternLine("~O ").patternLine("  ~").addCriterion("has_slime_ball", hasItem(SLIMEBALLS)).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(Items.MAGMA_CREAM).addIngredient(Items.BLAZE_POWDER).addIngredient(SLIMEBALLS).addCriterion("has_blaze_powder", hasItem(Items.BLAZE_POWDER)).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(Blocks.STICKY_PISTON).key('P', Blocks.PISTON).key('S', SLIMEBALLS).patternLine("S").patternLine("P").addCriterion("has_slime_ball", hasItem(SLIMEBALLS)).build(consumer);
+        ShapedRecipeBuilder.shaped(Items.LEAD, 2).define('~', Items.STRING).define('O', SLIMEBALLS).pattern("~~ ").pattern("~O ").pattern("  ~").unlockedBy("has_slime_ball", has(SLIMEBALLS)).save(consumer);
+        ShapelessRecipeBuilder.shapeless(Items.MAGMA_CREAM).requires(Items.BLAZE_POWDER).requires(SLIMEBALLS).unlockedBy("has_blaze_powder", has(Items.BLAZE_POWDER)).save(consumer);
+        ShapedRecipeBuilder.shaped(Blocks.STICKY_PISTON).define('P', Blocks.PISTON).define('S', SLIMEBALLS).pattern("S").pattern("P").unlockedBy("has_slime_ball", has(SLIMEBALLS)).save(consumer);
     }
 
     private void dyeColorRecipes(DyeColor dyeColor, Consumer<IFinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shapedRecipe(SLIME_BALL.get(dyeColor).get(), 2).key('#', JELLY.get(dyeColor).get())
-                .patternLine("###")
-                .patternLine("###")
-                .patternLine("###")
-                .addCriterion("has_jelly", hasItem(ModTags.Items.JELLIES))
-                .build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(SLIME_BLOCK_HELPERS.get(dyeColor).getBlock().get(), 1).key('#', SLIME_BALL.get(dyeColor).get())
-                .patternLine("###")
-                .patternLine("###")
-                .patternLine("###")
-                .addCriterion("has_slime_ball", hasItem(SLIMEBALLS))
-                .build(consumer);
+        ShapedRecipeBuilder.shaped(SLIME_BALL.get(dyeColor).get(), 2).define('#', JELLY.get(dyeColor).get())
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_jelly", has(ModTags.Items.JELLIES))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(SLIME_BLOCK_HELPERS.get(dyeColor).getBlock().get(), 1).define('#', SLIME_BALL.get(dyeColor).get())
+                .pattern("###")
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_slime_ball", has(SLIMEBALLS))
+                .save(consumer);
     }
 
     private void buildingBlockRecipes(BuildingBlockHelper blockHelper, Consumer<IFinishedRecipe> consumer){
-        ShapedRecipeBuilder.shapedRecipe(blockHelper.getSlab().get(), 6).key('#', blockHelper.getBlock().get())
-                .patternLine("###")
-                .addCriterion("has_" + blockHelper.getId(), hasItem(blockHelper.getBlock().get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(blockHelper.getStairs().get(), 4).key('#', blockHelper.getBlock().get())
-                .patternLine("#  ")
-                .patternLine("## ")
-                .patternLine("###")
-                .addCriterion("has_" +  blockHelper.getId(), hasItem(blockHelper.getBlock().get())).build(consumer);
-        ShapelessRecipeBuilder.shapelessRecipe(blockHelper.getButton().get()).addIngredient(blockHelper.getBlock().get())
-                .addCriterion("has_" +  blockHelper.getId(), hasItem(blockHelper.getBlock().get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(blockHelper.getPressurePlate().get())
-                .key('#', blockHelper.getBlock().get())
-                .patternLine("##")
-                .addCriterion("has_" +  blockHelper.getId(), hasItem(blockHelper.getBlock().get())).build(consumer);
-        ShapedRecipeBuilder.shapedRecipe(blockHelper.getWall().get(), 6).key('#', blockHelper.getBlock().get())
-                .patternLine("###")
-                .patternLine("###")
-                .addCriterion("has_" + blockHelper.getId(), hasItem(blockHelper.getBlock().get())).build(consumer);
+        ShapedRecipeBuilder.shaped(blockHelper.getSlab().get(), 6).define('#', blockHelper.getBlock().get())
+                .pattern("###")
+                .unlockedBy("has_" + blockHelper.getId(), has(blockHelper.getBlock().get())).save(consumer);
+        ShapedRecipeBuilder.shaped(blockHelper.getStairs().get(), 4).define('#', blockHelper.getBlock().get())
+                .pattern("#  ")
+                .pattern("## ")
+                .pattern("###")
+                .unlockedBy("has_" +  blockHelper.getId(), has(blockHelper.getBlock().get())).save(consumer);
+        ShapelessRecipeBuilder.shapeless(blockHelper.getButton().get()).requires(blockHelper.getBlock().get())
+                .unlockedBy("has_" +  blockHelper.getId(), has(blockHelper.getBlock().get())).save(consumer);
+        ShapedRecipeBuilder.shaped(blockHelper.getPressurePlate().get())
+                .define('#', blockHelper.getBlock().get())
+                .pattern("##")
+                .unlockedBy("has_" +  blockHelper.getId(), has(blockHelper.getBlock().get())).save(consumer);
+        ShapedRecipeBuilder.shaped(blockHelper.getWall().get(), 6).define('#', blockHelper.getBlock().get())
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_" + blockHelper.getId(), has(blockHelper.getBlock().get())).save(consumer);
         stoneCutterRecipes(blockHelper, consumer);
     }
 
     private void stoneCutterRecipes(BuildingBlockHelper blockHelper, Consumer<IFinishedRecipe> consumer) {
-        SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(blockHelper.getBlock().get()), blockHelper.getStairs().get()).addCriterion("has_" + blockHelper.getId(), hasItem(blockHelper.getBlock().get()))
-                .build(consumer, blockHelper.getId() + "_stairs_from_" + blockHelper.getId() + "_stonecutting");
-        SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(blockHelper.getBlock().get()), blockHelper.getSlab().get(), 2).addCriterion("has_" + blockHelper.getId(), hasItem(blockHelper.getBlock().get()))
-                .build(consumer, blockHelper.getId() + "_slab_from_" + blockHelper.getId() + "_stonecutting");
-        SingleItemRecipeBuilder.stonecuttingRecipe(Ingredient.fromItems(blockHelper.getBlock().get()), blockHelper.getWall().get()).addCriterion("has_" + blockHelper.getId(), hasItem(blockHelper.getBlock().get()))
-                .build(consumer, blockHelper.getId() + "_wall_from_" + blockHelper.getId() + "_stonecutting");
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(blockHelper.getBlock().get()), blockHelper.getStairs().get()).unlocks("has_" + blockHelper.getId(), has(blockHelper.getBlock().get()))
+                .save(consumer, blockHelper.getId() + "_stairs_from_" + blockHelper.getId() + "_stonecutting");
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(blockHelper.getBlock().get()), blockHelper.getSlab().get(), 2).unlocks("has_" + blockHelper.getId(), has(blockHelper.getBlock().get()))
+                .save(consumer, blockHelper.getId() + "_slab_from_" + blockHelper.getId() + "_stonecutting");
+        SingleItemRecipeBuilder.stonecutting(Ingredient.of(blockHelper.getBlock().get()), blockHelper.getWall().get()).unlocks("has_" + blockHelper.getId(), has(blockHelper.getBlock().get()))
+                .save(consumer, blockHelper.getId() + "_wall_from_" + blockHelper.getId() + "_stonecutting");
     }
 
 }

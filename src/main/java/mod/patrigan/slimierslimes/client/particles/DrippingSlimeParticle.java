@@ -32,13 +32,13 @@ public class DrippingSlimeParticle extends DripParticle.Dripping {
             this.dyeColor = dyeColor;
         }
 
-        public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             DrippingSlimeParticle dripparticle = new DrippingSlimeParticle(worldIn, x, y, z, Fluids.EMPTY, FALLING_SLIME.get(dyeColor).get());
-            dripparticle.particleGravity *= 0.01F;
-            dripparticle.maxAge = 100;
+            dripparticle.gravity *= 0.01F;
+            dripparticle.lifetime = 100;
             Color color = new Color(dyeColor.getColorValue());
             dripparticle.setColor(color.getRed()/256F, color.getGreen()/256F, color.getBlue()/256F);
-            dripparticle.selectSpriteRandomly(this.spriteSet);
+            dripparticle.pickSprite(this.spriteSet);
             return dripparticle;
         }
     }

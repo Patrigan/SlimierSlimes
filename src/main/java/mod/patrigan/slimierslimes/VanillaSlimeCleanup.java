@@ -42,8 +42,8 @@ public class VanillaSlimeCleanup {
     }
 
     private static boolean hasSlimeBall(VillagerTrades.ITrade trade){
-        return (trade instanceof VillagerTrades.ItemsForEmeraldsTrade && ((VillagerTrades.ItemsForEmeraldsTrade) trade).sellingItem.getItem().equals(SLIME_BALL)) ||
-                (trade instanceof VillagerTrades.EmeraldForItemsTrade && ((VillagerTrades.EmeraldForItemsTrade) trade).tradeItem.equals(SLIME_BALL));
+        return (trade instanceof VillagerTrades.ItemsForEmeraldsTrade && ((VillagerTrades.ItemsForEmeraldsTrade) trade).itemStack.getItem().equals(SLIME_BALL)) ||
+                (trade instanceof VillagerTrades.EmeraldForItemsTrade && ((VillagerTrades.EmeraldForItemsTrade) trade).item.equals(SLIME_BALL));
     }
 
     @SubscribeEvent
@@ -60,9 +60,9 @@ public class VanillaSlimeCleanup {
     @SubscribeEvent
     public static void biomeLoading(final BiomeLoadingEvent event) {
         if (Boolean.FALSE.equals(MAIN_CONFIG.allowVanillaSlime.get())) {
-            List<MobSpawnInfo.Spawners> spawners = new ArrayList<>(event.getSpawns().getSpawner(SLIME.getClassification()));
-            event.getSpawns().getSpawner(SLIME.getClassification()).clear();
-            event.getSpawns().getSpawner(SLIME.getClassification()).addAll(spawners.stream().filter(spawner -> !spawner.type.equals(SLIME)).collect(Collectors.toList()));
+            List<MobSpawnInfo.Spawners> spawners = new ArrayList<>(event.getSpawns().getSpawner(SLIME.getCategory()));
+            event.getSpawns().getSpawner(SLIME.getCategory()).clear();
+            event.getSpawns().getSpawner(SLIME.getCategory()).addAll(spawners.stream().filter(spawner -> !spawner.type.equals(SLIME)).collect(Collectors.toList()));
         }
     }
 

@@ -14,21 +14,21 @@ public class AttackGoal  extends Goal {
 
     public AttackGoal(AbstractSlimeEntity slimeIn) {
         this.slime = slimeIn;
-        this.setMutexFlags(EnumSet.of(Goal.Flag.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.LOOK));
     }
 
     /**
      * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
      * method as well.
      */
-    public boolean shouldExecute() {
-        LivingEntity livingentity = this.slime.getAttackTarget();
+    public boolean canUse() {
+        LivingEntity livingentity = this.slime.getTarget();
         if (livingentity == null) {
             return false;
         } else if (!livingentity.isAlive()) {
             return false;
         } else {
-            return (!(livingentity instanceof PlayerEntity) || !((PlayerEntity) livingentity).abilities.disableDamage) && this.slime.getMoveHelper() instanceof MoveHelperController;
+            return (!(livingentity instanceof PlayerEntity) || !((PlayerEntity) livingentity).abilities.invulnerable) && this.slime.getMoveControl() instanceof MoveHelperController;
         }
     }
 
@@ -36,22 +36,22 @@ public class AttackGoal  extends Goal {
      * Execute a one shot task or start executing a continuous task
      */
     @Override
-    public void startExecuting() {
+    public void start() {
         this.growTiredTimer = 300;
-        super.startExecuting();
+        super.start();
     }
 
     /**
      * Returns whether an in-progress EntityAIBase should continue executing
      */
     @Override
-    public boolean shouldContinueExecuting() {
-        LivingEntity livingentity = this.slime.getAttackTarget();
+    public boolean canContinueToUse() {
+        LivingEntity livingentity = this.slime.getTarget();
         if (livingentity == null) {
             return false;
         } else if (!livingentity.isAlive()) {
             return false;
-        } else if (livingentity instanceof PlayerEntity && ((PlayerEntity)livingentity).abilities.disableDamage) {
+        } else if (livingentity instanceof PlayerEntity && ((PlayerEntity)livingentity).abilities.invulnerable) {
             return false;
         } else {
             return --this.growTiredTimer > 0;
@@ -63,7 +63,7 @@ public class AttackGoal  extends Goal {
      */
     @Override
     public void tick() {
-        this.slime.faceEntity(this.slime.getAttackTarget(), 10.0F, 10.0F);
-        ((MoveHelperController)this.slime.getMoveHelper()).setDirection(this.slime.rotationYaw, this.slime.canDamagePlayer());
+        this.slime.lookAt(this.slime.getTarget(), 10.0F, 10.0F);
+        ((MoveHelperController)this.slime.getMoveControl()).setDirection(this.slime.yRot, this.slime.isDealsDamage());
     }
 }

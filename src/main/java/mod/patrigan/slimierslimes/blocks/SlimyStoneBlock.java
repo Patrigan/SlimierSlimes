@@ -38,6 +38,8 @@ import static mod.patrigan.slimierslimes.entities.AbstractSlimeEntity.SLIME_SIZE
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.ROCK_SLIME;
 import static mod.patrigan.slimierslimes.init.ModParticleTypes.DRIPPING_SLIME;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, ModItemColor {
     private DyeColor dyeColor;
 
@@ -45,25 +47,25 @@ public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, Mo
     public static final BooleanProperty CAN_SPAWN = BooleanProperty.create("can_spawn");
 
     public SlimyStoneBlock(DyeColor dyeColor) {
-        super(Properties.create(Material.ROCK)
-                .setRequiresTool()
+        super(Properties.of(Material.STONE)
+                .requiresCorrectToolForDrops()
                 .harvestLevel(1)
                 .harvestTool(ToolType.PICKAXE)
-                .slipperiness(0.7F)
-                .sound(SoundType.SLIME)
-                .setRequiresTool().hardnessAndResistance(3.0F, 4.0F)
-                .notSolid()
+                .friction(0.7F)
+                .sound(SoundType.SLIME_BLOCK)
+                .requiresCorrectToolForDrops().strength(3.0F, 4.0F)
+                .noOcclusion()
         );
-        this.setDefaultState(this.stateContainer.getBaseState().with(CAN_SPAWN, Boolean.TRUE));
+        this.registerDefaultState(this.stateDefinition.any().setValue(CAN_SPAWN, Boolean.TRUE));
         this.dyeColor = dyeColor;
     }
 
     @Override
-    public void onFallenUpon(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
+    public void fallOn(World worldIn, BlockPos pos, Entity entityIn, float fallDistance) {
         if (entityIn.isSuppressingBounce()) {
-            super.onFallenUpon(worldIn, pos, entityIn, fallDistance);
+            super.fallOn(worldIn, pos, entityIn, fallDistance);
         } else {
-            entityIn.onLivingFall(fallDistance, 0.5F);
+            entityIn.causeFallDamage(fallDistance, 0.5F);
         }
     }
 
@@ -76,15 +78,15 @@ public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, Mo
             if (rockSlimeEntity == null) {
                 return;
             }
-            rockSlimeEntity.setLocationAndAngles(rockSlimeEntity.getPosX(), rockSlimeEntity.getPosY(), rockSlimeEntity.getPosZ(), world.rand.nextFloat() * 360.0F, 0.0F);
-            rockSlimeEntity.spawnExplosionParticle();
+            rockSlimeEntity.moveTo(rockSlimeEntity.getX(), rockSlimeEntity.getY(), rockSlimeEntity.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
+            rockSlimeEntity.spawnAnim();
         }
     }
 
     @Override
-    public void spawnAdditionalDrops(BlockState state, ServerWorld worldIn, BlockPos pos, ItemStack stack) {
-        super.spawnAdditionalDrops(state, worldIn, pos, stack);
-        if (Boolean.TRUE.equals(state.get(CAN_SPAWN)) && worldIn.getGameRules().getBoolean(GameRules.DO_TILE_DROPS) && EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 && worldIn.rand.nextFloat() <= SPAWN_CHANCE) {
+    public void spawnAfterBreak(BlockState state, ServerWorld worldIn, BlockPos pos, ItemStack stack) {
+        super.spawnAfterBreak(state, worldIn, pos, stack);
+        if (Boolean.TRUE.equals(state.getValue(CAN_SPAWN)) && worldIn.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 && worldIn.random.nextFloat() <= SPAWN_CHANCE) {
             this.spawnRockSlime(worldIn, pos);
         }
 
@@ -98,19 +100,19 @@ public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, Mo
     }
 
     private void addSlimeParticle(World world, BlockPos pos, BlockState state) {
-        if (state.getFluidState().isEmpty() && (world.rand.nextFloat() < 0.2F)) {
-            VoxelShape voxelshape = state.getCollisionShape(world, pos);
-            double d0 = voxelshape.getEnd(Direction.Axis.Y);
-            if (d0 >= 1.0D && !state.isIn(BlockTags.IMPERMEABLE)) {
-                double d1 = voxelshape.getStart(Direction.Axis.Y);
+        if (state.getFluidState().isEmpty() && (world.random.nextFloat() < 0.2F)) {
+            VoxelShape voxelshape = state.getBlockSupportShape(world, pos);
+            double d0 = voxelshape.max(Direction.Axis.Y);
+            if (d0 >= 1.0D && !state.is(BlockTags.IMPERMEABLE)) {
+                double d1 = voxelshape.min(Direction.Axis.Y);
                 if (d1 > 0.0D) {
                     this.addSlimeParticle(world, pos, voxelshape, (double)pos.getY() + d1 - 0.05D);
                 } else {
-                    BlockPos blockpos = pos.down();
+                    BlockPos blockpos = pos.below();
                     BlockState blockstate = world.getBlockState(blockpos);
-                    VoxelShape voxelshape1 = blockstate.getCollisionShape(world, blockpos);
-                    double d2 = voxelshape1.getEnd(Direction.Axis.Y);
-                    if ((d2 < 1.0D || !blockstate.hasOpaqueCollisionShape(world, blockpos)) && blockstate.getFluidState().isEmpty()) {
+                    VoxelShape voxelshape1 = blockstate.getBlockSupportShape(world, blockpos);
+                    double d2 = voxelshape1.max(Direction.Axis.Y);
+                    if ((d2 < 1.0D || !blockstate.isCollisionShapeFullBlock(world, blockpos)) && blockstate.getFluidState().isEmpty()) {
                         this.addSlimeParticle(world, pos, voxelshape, (double)pos.getY() - 0.05D);
                     }
                 }
@@ -120,21 +122,21 @@ public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, Mo
     }
 
     private void addSlimeParticle(World world, BlockPos pos, VoxelShape shape, double y) {
-        this.addSlimeParticle(world, (double)pos.getX() + shape.getStart(Direction.Axis.X), (double)pos.getX() + shape.getEnd(Direction.Axis.X), (double)pos.getZ() + shape.getStart(Direction.Axis.Z), (double)pos.getZ() + shape.getEnd(Direction.Axis.Z), y);
+        this.addSlimeParticle(world, (double)pos.getX() + shape.min(Direction.Axis.X), (double)pos.getX() + shape.max(Direction.Axis.X), (double)pos.getZ() + shape.min(Direction.Axis.Z), (double)pos.getZ() + shape.max(Direction.Axis.Z), y);
     }
 
     private void addSlimeParticle(World world, double x1, double x2, double z1, double z2, double y) {
-        world.addParticle(DRIPPING_SLIME.get(dyeColor).get(), MathHelper.lerp(world.rand.nextDouble(), x1, x2), y, MathHelper.lerp(world.rand.nextDouble(), z1, z2), 0.0D, 0.0D, 0.0D);
+        world.addParticle(DRIPPING_SLIME.get(dyeColor).get(), MathHelper.lerp(world.random.nextDouble(), x1, x2), y, MathHelper.lerp(world.random.nextDouble(), z1, z2), 0.0D, 0.0D, 0.0D);
     }
 
     @Override
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(CAN_SPAWN);
     }
 
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().with(CAN_SPAWN, Boolean.FALSE);
+        return this.defaultBlockState().setValue(CAN_SPAWN, Boolean.FALSE);
     }
 
     @Override

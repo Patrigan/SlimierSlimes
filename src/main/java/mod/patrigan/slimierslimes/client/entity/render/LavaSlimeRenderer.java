@@ -32,25 +32,25 @@ public class LavaSlimeRenderer extends MobRenderer<LavaSlimeEntity, SlimeModel<L
 
     @Override
     public void render(LavaSlimeEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        this.shadowSize = 0.25F * (float)entityIn.getSlimeSize();
+        this.shadowRadius = 0.25F * (float)entityIn.getSize();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
-    protected void preRenderCallback(LavaSlimeEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void scale(LavaSlimeEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
         float f = 0.999F;
         matrixStackIn.scale(f, f, f);
         matrixStackIn.translate(0.0D, (double)0.001F, 0.0D);
-        float f1 = (float)entitylivingbaseIn.getSlimeSize();
+        float f1 = (float)entitylivingbaseIn.getSize();
         float f2 = MathHelper.lerp(partialTickTime, entitylivingbaseIn.prevSquishFactor, entitylivingbaseIn.squishFactor) / (f1 * 0.5F + 1.0F);
         float f3 = 1.0F / (f2 + 1.0F);
         matrixStackIn.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
     }
 
     @Override
-    public ResourceLocation getEntityTexture(LavaSlimeEntity entity) {
+    public ResourceLocation getTextureLocation(LavaSlimeEntity entity) {
         final int changeInterval = 3;
-        int textureNum = ((entity.ticksExisted + entity.getEntityId()) / changeInterval) % TEXTURES.length;
+        int textureNum = ((entity.tickCount + entity.getId()) / changeInterval) % TEXTURES.length;
         return TEXTURES[textureNum];
     }
 }

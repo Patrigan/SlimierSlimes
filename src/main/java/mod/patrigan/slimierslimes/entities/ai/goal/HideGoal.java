@@ -12,16 +12,16 @@ public class HideGoal extends Goal {
     }
 
     @Override
-    public boolean shouldExecute() {
-        return this.slime.getAttackTarget() == null && (this.slime.isOnGround() || this.slime.isPotionActive(Effects.LEVITATION)) && slime.getActivePotionEffect(Effects.INVISIBILITY) == null;
+    public boolean canUse() {
+        return this.slime.getTarget() == null && (this.slime.isOnGround() || this.slime.hasEffect(Effects.LEVITATION)) && slime.getEffect(Effects.INVISIBILITY) == null;
     }
 
     /**
      * Execute a one shot task or start executing a continuous task
      */
     @Override
-    public void startExecuting() {
-        super.startExecuting();
+    public void start() {
+        super.start();
         slime.hide();
     }
 

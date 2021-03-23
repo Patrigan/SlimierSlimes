@@ -4,7 +4,6 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.entities.CamoSlimeEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.SlimeGelLayer;
@@ -23,23 +22,23 @@ public class CamoSlimeRenderer extends MobRenderer<CamoSlimeEntity, SlimeModel<C
 
     @Override
     public void render(CamoSlimeEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        this.shadowSize = 0.25F * (float)entityIn.getSlimeSize();
+        this.shadowRadius = 0.25F * (float)entityIn.getSize();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     @Override
-    protected void preRenderCallback(CamoSlimeEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+    protected void scale(CamoSlimeEntity entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
         float f = 0.999F;
         matrixStackIn.scale(f, f, f);
         matrixStackIn.translate(0.0D, (double)0.001F, 0.0D);
-        float f1 = (float)entitylivingbaseIn.getSlimeSize();
+        float f1 = (float)entitylivingbaseIn.getSize();
         float f2 = MathHelper.lerp(partialTickTime, entitylivingbaseIn.prevSquishFactor, entitylivingbaseIn.squishFactor) / (f1 * 0.5F + 1.0F);
         float f3 = 1.0F / (f2 + 1.0F);
         matrixStackIn.scale(f3 * f1, 1.0F / f3 * f1, f3 * f1);
     }
 
     @Override
-    public ResourceLocation getEntityTexture(CamoSlimeEntity entity) {
+    public ResourceLocation getTextureLocation(CamoSlimeEntity entity) {
         return TEXTURE;
     }
 }

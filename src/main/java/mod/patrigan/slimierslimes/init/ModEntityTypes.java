@@ -48,11 +48,11 @@ public class ModEntityTypes {
     private static <T extends AbstractSlimeEntity> RegistryObject<EntityType<T>> getSlimeRegistryObject(String key, final EntityType.IFactory<T> sup, int secondaryColor, boolean isSpawnerEntity) {
         ENTITY_IDS.add(key);
 
-        EntityType<T> entityType = EntityType.Builder.create(sup, EntityClassification.MONSTER)
-                .size(2.04f, 2.04f) // Hitbox Size
+        EntityType<T> entityType = EntityType.Builder.of(sup, EntityClassification.MONSTER)
+                .sized(2.04f, 2.04f) // Hitbox Size
                 .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString());
 
-        SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 5349438, secondaryColor, new Item.Properties().group(SlimierSlimes.TAB)));
+        SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 5349438, secondaryColor, new Item.Properties().tab(SlimierSlimes.TAB)));
         addToSpawnerEntities(entityType, isSpawnerEntity);
         SLIMES.add(entityType);
 
@@ -62,12 +62,12 @@ public class ModEntityTypes {
     private static <T extends AbstractSlimeEntity> RegistryObject<EntityType<T>> getFireResistantSlimeRegistryObject(String key, final EntityType.IFactory<T> sup, int secondaryColor, boolean isSpawnerEntity) {
         ENTITY_IDS.add(key);
 
-        EntityType<T> entityType = EntityType.Builder.create(sup, EntityClassification.MONSTER)
-                .immuneToFire()
-                .size(2.04f, 2.04f) // Hitbox Size
+        EntityType<T> entityType = EntityType.Builder.of(sup, EntityClassification.MONSTER)
+                .fireImmune()
+                .sized(2.04f, 2.04f) // Hitbox Size
                 .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString());
 
-        SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 5349438, secondaryColor, new Item.Properties().group(SlimierSlimes.TAB)));
+        SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 5349438, secondaryColor, new Item.Properties().tab(SlimierSlimes.TAB)));
         addToSpawnerEntities(entityType, isSpawnerEntity);
         SLIMES.add(entityType);
 
@@ -83,8 +83,8 @@ public class ModEntityTypes {
     private static <T extends Entity> RegistryObject<EntityType<T>> getAmethystProjectileRegistryObject(String key, final EntityType.IFactory<T> sup) {
         PROJECTILE_ENTITY_IDS.add(key);
         return ENTITY_TYPES.register(key,
-                () -> EntityType.Builder.create(sup, EntityClassification.MISC)
-                        .size(0.6f, 0.6f)
+                () -> EntityType.Builder.of(sup, EntityClassification.MISC)
+                        .sized(0.6f, 0.6f)
                         .setUpdateInterval(20)
                         .setTrackingRange(120)
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
@@ -93,7 +93,7 @@ public class ModEntityTypes {
     private static <T extends Entity> RegistryObject<EntityType<T>> getSlimeballProjectileRegistryObject(String key, final EntityType.IFactory<T> sup) {
         PROJECTILE_ENTITY_IDS.add(key);
         return ENTITY_TYPES.register(key,
-                () -> EntityType.Builder.create(sup, EntityClassification.MISC).size(0.25F, 0.25F).trackingRange(4).updateInterval(10)
+                () -> EntityType.Builder.of(sup, EntityClassification.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
     }
 
@@ -102,18 +102,18 @@ public class ModEntityTypes {
     }
 
     private static void registerEntityAttributes() {
-        GlobalEntityTypeAttributes.put(ModEntityTypes.COMMON_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.SNOW_SLIME.get(), SnowSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.PINK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.CLOUD_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.ROCK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.CRYSTAL_SLIME.get(), CrystalSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.GLOW_SLIME.get(), GlowSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.CREEPER_SLIME.get(), CreeperSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeEntity.getMutableAttributes().create());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.OBSIDIAN_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().create());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.COMMON_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.SNOW_SLIME.get(), SnowSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.PINK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.CLOUD_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.ROCK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.CRYSTAL_SLIME.get(), CrystalSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.GLOW_SLIME.get(), GlowSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.CREEPER_SLIME.get(), CreeperSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.OBSIDIAN_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
     }
 
 }

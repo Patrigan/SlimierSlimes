@@ -20,9 +20,9 @@ public class ClientSideRegistry {
     @SubscribeEvent
     public static void onParticleFactoryRegistration(ParticleFactoryRegisterEvent event) {
         Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
-            Minecraft.getInstance().particles.registerFactory(ModParticleTypes.DRIPPING_SLIME.get(dyeColor).get(), spriteSet -> new DrippingSlimeParticle.DrippingSlimeFactory(spriteSet, dyeColor));
-            Minecraft.getInstance().particles.registerFactory(ModParticleTypes.FALLING_SLIME.get(dyeColor).get(), spriteSet -> new FallingSlimeParticle.FallingSlimeFactory(spriteSet, dyeColor));
-            Minecraft.getInstance().particles.registerFactory(ModParticleTypes.LANDING_SLIME.get(dyeColor).get(), spriteSet -> new LandingSlimeParticle.LandingSlimeFactory(spriteSet, dyeColor));
+            Minecraft.getInstance().particleEngine.register(ModParticleTypes.DRIPPING_SLIME.get(dyeColor).get(), spriteSet -> new DrippingSlimeParticle.DrippingSlimeFactory(spriteSet, dyeColor));
+            Minecraft.getInstance().particleEngine.register(ModParticleTypes.FALLING_SLIME.get(dyeColor).get(), spriteSet -> new FallingSlimeParticle.FallingSlimeFactory(spriteSet, dyeColor));
+            Minecraft.getInstance().particleEngine.register(ModParticleTypes.LANDING_SLIME.get(dyeColor).get(), spriteSet -> new LandingSlimeParticle.LandingSlimeFactory(spriteSet, dyeColor));
         });
     }
 

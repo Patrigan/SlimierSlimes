@@ -17,15 +17,15 @@ public class FaceLavaGoal extends Goal {
 
     public FaceLavaGoal(AbstractSlimeEntity slimeIn) {
         this.slime = slimeIn;
-        this.setMutexFlags(EnumSet.of(Goal.Flag.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.LOOK));
     }
 
     /**
      * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
      * method as well.
      */
-    public boolean shouldExecute() {
-        if (this.slime.getAttackTarget() == null && (this.slime.isOnGround() || this.slime.isInWater() || this.slime.isPotionActive(Effects.LEVITATION)) && this.slime.getMoveHelper() instanceof MoveHelperController) {
+    public boolean canUse() {
+        if (this.slime.getTarget() == null && (this.slime.isOnGround() || this.slime.isInWater() || this.slime.hasEffect(Effects.LEVITATION)) && this.slime.getMoveControl() instanceof MoveHelperController) {
             return getClosestLavaBlocks().count() > 0;
         }
         return false;
@@ -39,16 +39,16 @@ public class FaceLavaGoal extends Goal {
         float chosenDegrees;
         Optional<BlockPos> first = getClosestLavaBlocks().findFirst();
         if(first.isPresent()){
-            double d0 = first.get().getX() - this.slime.getPosX();
-            double d2 = first.get().getZ() - this.slime.getPosZ();
+            double d0 = first.get().getX() - this.slime.getX();
+            double d2 = first.get().getZ() - this.slime.getZ();
             chosenDegrees = (float)(MathHelper.atan2(d2, d0) * (double)(180F / (float)Math.PI)) - 90.0F;
         }else {
-            chosenDegrees = (float) this.slime.getRNG().nextInt(360);
+            chosenDegrees = (float) this.slime.getRandom().nextInt(360);
         }
-        ((MoveHelperController) this.slime.getMoveHelper()).setDirection(chosenDegrees, false);
+        ((MoveHelperController) this.slime.getMoveControl()).setDirection(chosenDegrees, false);
     }
 
     private Stream<BlockPos> getClosestLavaBlocks(){
-        return BlockPos.getProximitySortedBoxPositions(this.slime.getPosition(), 20, 2, 20).filter(blockPos -> this.slime.getEntityWorld().getBlockState(blockPos).getBlock().equals(Blocks.LAVA));
+        return BlockPos.withinManhattanStream(this.slime.blockPosition(), 20, 2, 20).filter(blockPos -> this.slime.getCommandSenderWorld().getBlockState(blockPos).getBlock().equals(Blocks.LAVA));
     }
 }

@@ -28,17 +28,17 @@ public class CastingAttackGoal extends Goal {
         this.maxRangedAttackTime = maxCastingTime;
         this.attackRadius = maxAttackDistanceIn;
         this.maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
-        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
     /**
      * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
      * method as well.
      */
-    public boolean shouldExecute() {
-        LivingEntity livingentity = this.slimeEntity.getAttackTarget();
+    public boolean canUse() {
+        LivingEntity livingentity = this.slimeEntity.getTarget();
         if (livingentity != null && livingentity.isAlive()) {
-            double d0 = this.slimeEntity.getDistanceSq(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ());
+            double d0 = this.slimeEntity.distanceToSqr(livingentity.getX(), livingentity.getY(), livingentity.getZ());
             if(d0 <= (double)this.maxAttackDistance && this.notSeeTime < 5) {
                 this.attackTarget = livingentity;
                 return true;
@@ -51,15 +51,15 @@ public class CastingAttackGoal extends Goal {
      * Returns whether an in-progress EntityAIBase should continue executing
      */
     @Override
-    public boolean shouldContinueExecuting() {
-        return this.shouldExecute();
+    public boolean canContinueToUse() {
+        return this.canUse();
     }
 
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
     @Override
-    public void resetTask() {
+    public void stop() {
         this.attackTarget = null;
         this.notSeeTime = 0;
         this.rangedAttackTime = -1;
@@ -70,16 +70,16 @@ public class CastingAttackGoal extends Goal {
      */
     @Override
     public void tick() {
-        double d0 = this.slimeEntity.getDistanceSq(this.attackTarget.getPosX(), this.attackTarget.getPosY(), this.attackTarget.getPosZ());
-        boolean flag = this.slimeEntity.getEntitySenses().canSee(this.attackTarget);
+        double d0 = this.slimeEntity.distanceToSqr(this.attackTarget.getX(), this.attackTarget.getY(), this.attackTarget.getZ());
+        boolean flag = this.slimeEntity.getSensing().canSee(this.attackTarget);
         if (!flag) {
             ++this.notSeeTime;
         } else {
             this.notSeeTime = 0;
         }
-        this.slimeEntity.faceEntity(this.attackTarget, 10.0F, 10.0F);
-        MoveHelperController moveHelper = (MoveHelperController) this.slimeEntity.getMoveHelper();
-        moveHelper.setDirection(this.slimeEntity.rotationYaw, this.slimeEntity.canDamagePlayer());
+        this.slimeEntity.lookAt(this.attackTarget, 10.0F, 10.0F);
+        MoveHelperController moveHelper = (MoveHelperController) this.slimeEntity.getMoveControl();
+        moveHelper.setDirection(this.slimeEntity.yRot, this.slimeEntity.isDealsDamage());
         moveHelper.setSpeed(0.1D);
         if (--this.rangedAttackTime == 0) {
             if (!flag) {

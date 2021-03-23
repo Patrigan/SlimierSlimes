@@ -11,16 +11,16 @@ public class FloatGoal  extends Goal {
 
     public FloatGoal(AbstractSlimeEntity slimeIn) {
         this.slime = slimeIn;
-        this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
-        slimeIn.getNavigator().setCanSwim(true);
+        this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+        slimeIn.getNavigation().setCanFloat(true);
     }
 
     /**
      * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
      * method as well.
      */
-    public boolean shouldExecute() {
-        return (this.slime.isInWater() || this.slime.isInLava()) && this.slime.getMoveHelper() instanceof MoveHelperController;
+    public boolean canUse() {
+        return (this.slime.isInWater() || this.slime.isInLava()) && this.slime.getMoveControl() instanceof MoveHelperController;
     }
 
     /**
@@ -28,10 +28,10 @@ public class FloatGoal  extends Goal {
      */
     @Override
     public void tick() {
-        if (this.slime.getRNG().nextFloat() < 0.8F) {
-            this.slime.getJumpController().setJumping();
+        if (this.slime.getRandom().nextFloat() < 0.8F) {
+            this.slime.getJumpControl().jump();
         }
 
-        ((MoveHelperController)this.slime.getMoveHelper()).setSpeed(1.2D);
+        ((MoveHelperController)this.slime.getMoveControl()).setSpeed(1.2D);
     }
 }

@@ -28,7 +28,7 @@ public class CamoSlimeEntity extends AbstractSlimeEntity {
         this.goalSelector.addGoal(5, new FaceRandomGoal(this));
         this.goalSelector.addGoal(6, new HopGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false,
-                livingEntity -> Math.abs(livingEntity.getPosY() - this.getPosY()) <= 4.0D));
+                livingEntity -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
@@ -37,14 +37,14 @@ public class CamoSlimeEntity extends AbstractSlimeEntity {
     }
 
     public void hide() {
-        this.addPotionEffect(new EffectInstance(Effects.INVISIBILITY, Integer.MAX_VALUE));
+        this.addEffect(new EffectInstance(Effects.INVISIBILITY, Integer.MAX_VALUE));
     }
 
     @Override
     protected boolean dealDamage(LivingEntity entityIn) {
         boolean dealtDamage = super.dealDamage(entityIn);
         if(dealtDamage) {
-            this.removePotionEffect(Effects.INVISIBILITY);
+            this.removeEffect(Effects.INVISIBILITY);
         }
         return dealtDamage;
     }

@@ -11,14 +11,14 @@ public class HopGoal extends Goal {
 
     public HopGoal(AbstractSlimeEntity slimeIn) {
         this.slime = slimeIn;
-        this.setMutexFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
+        this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
     }
 
     /**
      * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
      * method as well.
      */
-    public boolean shouldExecute() {
+    public boolean canUse() {
         return !this.slime.isPassenger();
     }
 
@@ -27,6 +27,6 @@ public class HopGoal extends Goal {
      */
     @Override
     public void tick() {
-        ((MoveHelperController)this.slime.getMoveHelper()).setSpeed(1.0D);
+        ((MoveHelperController)this.slime.getMoveControl()).setSpeed(1.0D);
     }
 }

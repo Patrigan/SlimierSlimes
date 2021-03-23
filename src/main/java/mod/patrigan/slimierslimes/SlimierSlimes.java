@@ -33,7 +33,7 @@ public class SlimierSlimes {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public static CommonConfigValues MAIN_CONFIG = null;
-    public static final CodecJsonDataManager<SlimeData> SLIME_DATA = new CodecJsonDataManager("slime_data", SlimeData.CODEC, LOGGER);
+    public static final CodecJsonDataManager<SlimeData> SLIME_DATA = new CodecJsonDataManager<>("slime_data", SlimeData.CODEC, LOGGER);
 
     public SlimierSlimes() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -61,7 +61,7 @@ public class SlimierSlimes {
 
     public static final ItemGroup TAB = new ItemGroup(MOD_ID) {
         @Override
-        public ItemStack createIcon(){
+        public ItemStack makeIcon(){
             return new ItemStack(ModItems.JELLY.get(DyeColor.LIME).get());
         }
     };

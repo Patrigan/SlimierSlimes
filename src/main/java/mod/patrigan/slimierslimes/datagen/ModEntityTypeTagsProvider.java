@@ -25,7 +25,7 @@ public class ModEntityTypeTagsProvider extends net.minecraft.data.EntityTypeTags
     }
 
     @Override
-    protected void registerTags() {
-        ModEntityTypes.SLIMES.forEach(slimeEntityType -> this.getOrCreateBuilder(ModTags.EntityTypes.SLIMES).add(slimeEntityType));
+    protected void addTags() {
+        ModEntityTypes.SLIMES.forEach(slimeEntityType -> this.tag(ModTags.EntityTypes.SLIMES).add(slimeEntityType));
     }
 }

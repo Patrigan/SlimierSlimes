@@ -4,10 +4,7 @@ import mod.patrigan.slimierslimes.entities.ai.controller.MoveHelperController;
 import mod.patrigan.slimierslimes.entities.ai.goal.*;
 import net.minecraft.entity.AreaEffectCloudEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -19,14 +16,12 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.Collection;
 
 public class CreeperSlimeEntity extends AbstractSlimeEntity {
-    private static final DataParameter<Integer> STATE = EntityDataManager.createKey(CreeperSlimeEntity.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> IGNITED = EntityDataManager.createKey(CreeperSlimeEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> STATE = EntityDataManager.defineId(CreeperSlimeEntity.class, DataSerializers.INT);
+    private static final DataParameter<Boolean> IGNITED = EntityDataManager.defineId(CreeperSlimeEntity.class, DataSerializers.BOOLEAN);
     private int lastActiveTime;
     private int timeSinceIgnited;
     private int fuseTime = 30;
@@ -34,7 +29,7 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
 
     public CreeperSlimeEntity(EntityType<? extends AbstractSlimeEntity> type, World worldIn) {
         super(type, worldIn);
-        this.moveController = new MoveHelperController(this);
+        this.moveControl = new MoveHelperController(this);
     }
 
     @Override
@@ -47,20 +42,20 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
         this.goalSelector.addGoal(4, new FaceRandomGoal(this));
         this.goalSelector.addGoal(5, new HopGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false,
-                livingEntity -> Math.abs(livingEntity.getPosY() - this.getPosY()) <= 4.0D));
+                livingEntity -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
     @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(STATE, -1);
-        this.dataManager.register(IGNITED, false);
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(STATE, -1);
+        this.entityData.define(IGNITED, false);
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
+    public void addAdditionalSaveData(CompoundNBT compound) {
+        super.addAdditionalSaveData(compound);
 
         compound.putShort("Fuse", (short)this.fuseTime);
         compound.putByte("ExplosionRadius", (byte)this.explosionRadius);
@@ -68,8 +63,8 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
+    public void readAdditionalSaveData(CompoundNBT compound) {
+        super.readAdditionalSaveData(compound);
         if (compound.contains("Fuse", 99)) {
             this.fuseTime = compound.getShort("Fuse");
         }
@@ -85,11 +80,11 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
     }
 
     public boolean hasIgnited() {
-        return this.dataManager.get(IGNITED);
+        return this.entityData.get(IGNITED);
     }
 
     public void ignite() {
-        this.dataManager.set(IGNITED, true);
+        this.entityData.set(IGNITED, true);
     }
 
     @Override
@@ -102,7 +97,7 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
 
             int i = this.getCreeperSlimeState();
             if (i > 0 && this.timeSinceIgnited == 0) {
-                this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
+                this.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
             }
 
             this.timeSinceIgnited += i;
@@ -120,21 +115,21 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
     }
 
     public int getCreeperSlimeState() {
-        return this.dataManager.get(STATE);
+        return this.entityData.get(STATE);
     }
 
     public void setCreeperSlimeState(int state) {
-        this.dataManager.set(STATE, state);
+        this.entityData.set(STATE, state);
     }
 
     private void explode() {
-        if (!this.world.isRemote) {
+        if (!this.level.isClientSide) {
             Explosion.Mode explosionMode = Explosion.Mode.NONE;
-            if(this.getSlimeSize() > 1 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this)){
+            if(this.getSize() > 1 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)){
                 explosionMode = Explosion.Mode.DESTROY;
             }
             this.dead = true;
-            this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float)this.explosionRadius, explosionMode);
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionRadius, explosionMode);
             this.setHealth(0F);
             this.remove(false);
             this.spawnLingeringCloud();
@@ -146,15 +141,15 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    protected void setSlimeSize(int size, boolean resetHealth) {
-        super.setSlimeSize(size, resetHealth);
+    protected void setSize(int size, boolean resetHealth) {
+        super.setSize(size, resetHealth);
         this.explosionRadius = size;
     }
 
     protected void spawnLingeringCloud() {
-        Collection<EffectInstance> collection = this.getActivePotionEffects();
+        Collection<EffectInstance> collection = this.getActiveEffects();
         if (!collection.isEmpty()) {
-            AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(this.world, this.getPosX(), this.getPosY(), this.getPosZ());
+            AreaEffectCloudEntity areaeffectcloudentity = new AreaEffectCloudEntity(this.level, this.getX(), this.getY(), this.getZ());
             areaeffectcloudentity.setRadius(2.5F);
             areaeffectcloudentity.setRadiusOnUse(-0.5F);
             areaeffectcloudentity.setWaitTime(10);
@@ -165,7 +160,7 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
                 areaeffectcloudentity.addEffect(new EffectInstance(effectinstance));
             }
 
-            this.world.addEntity(areaeffectcloudentity);
+            this.level.addFreshEntity(areaeffectcloudentity);
         }
 
     }

@@ -19,18 +19,18 @@ public class ModEntityLootTables extends EntityLootTables {
 
     @Override
     protected void addTables() {
-        this.registerLootTable(COMMON_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(LIME)));
-        this.registerLootTable(PINK_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(PINK)).addLootPool(getJellyLootPool(PINK)));
-        this.registerLootTable(CLOUD_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(LIGHT_GRAY)));
-        this.registerLootTable(DIAMOND_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(CYAN)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(DIAMOND).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
-        this.registerLootTable(ROCK_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(BLUE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(COBBLESTONE).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
-        this.registerLootTable(CRYSTAL_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(MAGENTA)).addLootPool(getJellyLootPool(LIGHT_BLUE)));
-        this.registerLootTable(GLOW_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(PURPLE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(GLOWSTONE_DUST).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
-        this.registerLootTable(CREEPER_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(GREEN)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(GUNPOWDER).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
-        this.registerLootTable(SNOW_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(WHITE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(SNOWBALL).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 2.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
-        this.registerLootTable(CAMO_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(GREEN)).addLootPool(getJellyLootPool(GREEN)));
-        this.registerLootTable(LAVA_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(RED)).addLootPool(getJellyLootPool(RED)));
-        this.registerLootTable(OBSIDIAN_SLIME.get(), LootTable.builder().addLootPool(getJellyLootPool(BLACK)).addLootPool(getJellyLootPool(PURPLE)).addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(OBSIDIAN).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))))));
+        this.add(COMMON_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(LIME)));
+        this.add(PINK_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(PINK)).withPool(getJellyLootPool(PINK)));
+        this.add(CLOUD_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(LIGHT_GRAY)));
+        this.add(DIAMOND_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(CYAN)).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(DIAMOND).apply(SetCount.setCount(RandomValueRange.between(0.0F, 1.0F))).apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))));
+        this.add(ROCK_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(BLUE)).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(COBBLESTONE).apply(SetCount.setCount(RandomValueRange.between(0.0F, 1.0F))).apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))));
+        this.add(CRYSTAL_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(MAGENTA)).withPool(getJellyLootPool(LIGHT_BLUE)));
+        this.add(GLOW_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(PURPLE)).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(GLOWSTONE_DUST).apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F))).apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))));
+        this.add(CREEPER_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(GREEN)).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(GUNPOWDER).apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F))).apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))));
+        this.add(SNOW_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(WHITE)).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(SNOWBALL).apply(SetCount.setCount(RandomValueRange.between(0.0F, 2.0F))).apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))));
+        this.add(CAMO_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(GREEN)).withPool(getJellyLootPool(GREEN)));
+        this.add(LAVA_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(RED)).withPool(getJellyLootPool(RED)));
+        this.add(OBSIDIAN_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(BLACK)).withPool(getJellyLootPool(PURPLE)).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(OBSIDIAN).apply(SetCount.setCount(RandomValueRange.between(0.0F, 1.0F))).apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))));
     }
 
     @Override
@@ -39,6 +39,6 @@ public class ModEntityLootTables extends EntityLootTables {
     }
 
     private LootPool.Builder getJellyLootPool(DyeColor dyeColor){
-        return LootPool.builder().rolls(ConstantRange.of(1)).addEntry(ItemLootEntry.builder(JELLY.get(dyeColor).get()).acceptFunction(SetCount.builder(RandomValueRange.of(0.0F, 1.0F))).acceptFunction(LootingEnchantBonus.builder(RandomValueRange.of(0.0F, 1.0F))));
+        return LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(JELLY.get(dyeColor).get()).apply(SetCount.setCount(RandomValueRange.between(0.0F, 1.0F))).apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))));
     }
 }

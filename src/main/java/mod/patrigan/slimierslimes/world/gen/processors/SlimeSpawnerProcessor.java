@@ -27,18 +27,18 @@ public class SlimeSpawnerProcessor extends StructureProcessor {
     public SlimeSpawnerProcessor() {}
 
     @Nullable
-    public Template.BlockInfo func_230386_a_(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings) {
+    public Template.BlockInfo processBlock(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings) {
         Random random = settings.getRandom(blockInfo.pos);
         BlockState blockstate = blockInfo.state;
         BlockPos blockpos = blockInfo.pos;
         BlockState blockstate1 = null;
         if (blockstate.getBlock().equals(SPAWNER)) {
-            TileEntity tileentity = world.getTileEntity(blockpos);
+            TileEntity tileentity = world.getBlockEntity(blockpos);
             if (tileentity instanceof MobSpawnerTileEntity) {
-                AbstractSpawner abstractspawner = ((MobSpawnerTileEntity)tileentity).getSpawnerBaseLogic();
+                AbstractSpawner abstractspawner = ((MobSpawnerTileEntity)tileentity).getSpawner();
                 EntityType<?> entitytype1 = SPAWNER_ENTITY_TYPES.get(random.nextInt(SPAWNER_ENTITY_TYPES.size()));
-                abstractspawner.setEntityType(entitytype1);
-                tileentity.markDirty();
+                abstractspawner.setEntityId(entitytype1);
+                tileentity.setChanged();
             }
 
         }

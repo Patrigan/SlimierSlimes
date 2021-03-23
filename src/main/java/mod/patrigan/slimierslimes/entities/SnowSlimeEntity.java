@@ -1,20 +1,13 @@
 package mod.patrigan.slimierslimes.entities;
 
 import mod.patrigan.slimierslimes.entities.projectile.SlimeSnowballEntity;
-import mod.patrigan.slimierslimes.init.ModItems;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ItemParticleData;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-
-import static net.minecraft.particles.ParticleTypes.ITEM;
 
 public class SnowSlimeEntity extends AbstractSlimeEntity {
 
@@ -25,28 +18,28 @@ public class SnowSlimeEntity extends AbstractSlimeEntity {
     @Override
     protected void land(){
         super.land();
-        if (!this.world.isRemote) {
-            int i = MathHelper.floor(this.getPosX());
-            int j = MathHelper.floor(this.getPosY());
-            int k = MathHelper.floor(this.getPosZ());
-            if (this.world.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
-                this.attackEntityFrom(DamageSource.ON_FIRE, 1.0F);
+        if (!this.level.isClientSide) {
+            int i = MathHelper.floor(this.getX());
+            int j = MathHelper.floor(this.getY());
+            int k = MathHelper.floor(this.getZ());
+            if (this.level.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+                this.hurt(DamageSource.ON_FIRE, 1.0F);
             }
             fireSnowballs();
 
-            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this)) {
+            if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                 return;
             }
 
-            BlockState blockstate = Blocks.SNOW.getDefaultState();
+            BlockState blockstate = Blocks.SNOW.defaultBlockState();
 
             for(int l = 0; l < 4; ++l) {
-                i = MathHelper.floor(this.getPosX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
-                j = MathHelper.floor(this.getPosY());
-                k = MathHelper.floor(this.getPosZ() + (double) ((l / 2F % 2 * 2 - 1) * 0.25F));
+                i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
+                j = MathHelper.floor(this.getY());
+                k = MathHelper.floor(this.getZ() + (double) ((l / 2F % 2 * 2 - 1) * 0.25F));
                 BlockPos blockpos = new BlockPos(i, j, k);
-                if (this.world.isAirBlock(blockpos) && this.world.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.isValidPosition(this.world, blockpos)) {
-                    this.world.setBlockState(blockpos, blockstate);
+                if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.canSurvive(this.level, blockpos)) {
+                    this.level.setBlockAndUpdate(blockpos, blockstate);
                 }
             }
         }
@@ -54,14 +47,14 @@ public class SnowSlimeEntity extends AbstractSlimeEntity {
 
     // On standard slime sizes: fires 1 / 4 / 8 snowballs
     public void fireSnowballs() {
-        int amount = this.isSmallSlime() ? 1 : (getSlimeSize() * 2);
+        int amount = this.isTiny() ? 1 : (getSize() * 2);
         for(int x = 1; x <= amount; x++) {
-            SlimeSnowballEntity snowballentity = new SlimeSnowballEntity(this.world, this);
-            float rotationPitch = this.rotationPitch - 45F;
-            float rotationYaw = this.rotationYaw + (360F/amount)*(x-1);
-            float velocity = 0.3F + getSlimeSize() * 0.1F;
-            snowballentity.setDirectionAndMovement(this, rotationPitch, rotationYaw, 0.0F, velocity , 5.0F);
-            this.world.addEntity(snowballentity);
+            SlimeSnowballEntity snowballentity = new SlimeSnowballEntity(this.level, this);
+            float rotationPitch = this.xRot - 45F;
+            float rotationYaw = this.yRot + (360F/amount)*(x-1);
+            float velocity = 0.3F + getSize() * 0.1F;
+            snowballentity.shootFromRotation(this, rotationPitch, rotationYaw, 0.0F, velocity , 5.0F);
+            this.level.addFreshEntity(snowballentity);
         }
     }
 

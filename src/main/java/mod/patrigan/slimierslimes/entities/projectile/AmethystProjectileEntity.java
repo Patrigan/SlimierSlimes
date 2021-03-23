@@ -38,23 +38,23 @@ public class AmethystProjectileEntity extends Entity {
         this(ModEntityTypes.AMETYST_PROJECTILE.get(), worldIn);
         this.warmupDelayTicks = warmupDelayTicks;
         this.setCaster(casterIn);
-        this.rotationYaw = rotationYaw * (180F / (float)Math.PI);
-        this.setPosition(x, y, z);
+        this.yRot = rotationYaw * (180F / (float)Math.PI);
+        this.setPos(x, y, z);
     }
 
-    protected void registerData() {
+    protected void defineSynchedData() {
         //No Data to register
     }
 
     public void setCaster(@Nullable LivingEntity livingEntity) {
         this.caster = livingEntity;
-        this.casterUuid = livingEntity == null ? null : livingEntity.getUniqueID();
+        this.casterUuid = livingEntity == null ? null : livingEntity.getUUID();
     }
 
     @Nullable
     public LivingEntity getCaster() {
-        if (this.caster == null && this.casterUuid != null && this.world instanceof ServerWorld) {
-            Entity entity = ((ServerWorld)this.world).getEntityByUuid(this.casterUuid);
+        if (this.caster == null && this.casterUuid != null && this.level instanceof ServerWorld) {
+            Entity entity = ((ServerWorld)this.level).getEntity(this.casterUuid);
             if (entity instanceof LivingEntity) {
                 this.caster = (LivingEntity)entity;
             }
@@ -66,18 +66,18 @@ public class AmethystProjectileEntity extends Entity {
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
-    protected void readAdditional(CompoundNBT compound) {
+    protected void readAdditionalSaveData(CompoundNBT compound) {
         this.warmupDelayTicks = compound.getInt("Warmup");
-        if (compound.hasUniqueId("Owner")) {
-            this.casterUuid = compound.getUniqueId("Owner");
+        if (compound.hasUUID("Owner")) {
+            this.casterUuid = compound.getUUID("Owner");
         }
 
     }
 
-    protected void writeAdditional(CompoundNBT compound) {
+    protected void addAdditionalSaveData(CompoundNBT compound) {
         compound.putInt("Warmup", this.warmupDelayTicks);
         if (this.casterUuid != null) {
-            compound.putUniqueId("Owner", this.casterUuid);
+            compound.putUUID("Owner", this.casterUuid);
         }
 
     }
@@ -88,30 +88,30 @@ public class AmethystProjectileEntity extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (this.world.isRemote) {
+        if (this.level.isClientSide) {
             if (this.clientSideAttackStarted) {
                 --this.lifeTicks;
                 if (this.lifeTicks == 14) {
                     for(int i = 0; i < 12; ++i) {
-                        double d0 = this.getPosX() + (this.rand.nextDouble() * 2.0D - 1.0D) * (double)this.getWidth() * 0.5D;
-                        double d1 = this.getPosY() + 0.05D + this.rand.nextDouble();
-                        double d2 = this.getPosZ() + (this.rand.nextDouble() * 2.0D - 1.0D) * (double)this.getWidth() * 0.5D;
-                        double d3 = (this.rand.nextDouble() * 2.0D - 1.0D) * 0.3D;
-                        double d4 = 0.3D + this.rand.nextDouble() * 0.3D;
-                        double d5 = (this.rand.nextDouble() * 2.0D - 1.0D) * 0.3D;
-                        this.world.addParticle(ParticleTypes.CRIT, d0, d1 + 1.0D, d2, d3, d4, d5);
+                        double d0 = this.getX() + (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.getBbWidth() * 0.5D;
+                        double d1 = this.getY() + 0.05D + this.random.nextDouble();
+                        double d2 = this.getZ() + (this.random.nextDouble() * 2.0D - 1.0D) * (double)this.getBbWidth() * 0.5D;
+                        double d3 = (this.random.nextDouble() * 2.0D - 1.0D) * 0.3D;
+                        double d4 = 0.3D + this.random.nextDouble() * 0.3D;
+                        double d5 = (this.random.nextDouble() * 2.0D - 1.0D) * 0.3D;
+                        this.level.addParticle(ParticleTypes.CRIT, d0, d1 + 1.0D, d2, d3, d4, d5);
                     }
                 }
             }
         } else if (--this.warmupDelayTicks < 0) {
             if (this.warmupDelayTicks == -8) {
-                for(LivingEntity livingentity : this.world.getEntitiesWithinAABB(LivingEntity.class, this.getBoundingBox().grow(0.2D, 0.0D, 0.2D))) {
+                for(LivingEntity livingentity : this.level.getEntitiesOfClass(LivingEntity.class, this.getBoundingBox().inflate(0.2D, 0.0D, 0.2D))) {
                     this.damage(livingentity);
                 }
             }
 
             if (!this.sentSpikeEvent) {
-                this.world.setEntityState(this, (byte)4);
+                this.level.broadcastEntityEvent(this, (byte)4);
                 this.sentSpikeEvent = true;
             }
 
@@ -126,13 +126,13 @@ public class AmethystProjectileEntity extends Entity {
         LivingEntity attacker = this.getCaster();
         if (target.isAlive() && !target.isInvulnerable() && target != attacker && ! (target instanceof AbstractSlimeEntity)) {
             if (attacker == null) {
-                target.attackEntityFrom(DamageSource.MAGIC, DAMAGE);
+                target.hurt(DamageSource.MAGIC, DAMAGE);
             } else {
-                if (attacker.isOnSameTeam(target)) {
+                if (attacker.isAlliedTo(target)) {
                     return;
                 }
 
-                target.attackEntityFrom(DamageSource.causeIndirectMagicDamage(this, attacker), DAMAGE);
+                target.hurt(DamageSource.indirectMagic(this, attacker), DAMAGE);
             }
 
         }
@@ -142,12 +142,12 @@ public class AmethystProjectileEntity extends Entity {
      * Handler for {@link World#setEntityState}
      */
     @Override
-    public void handleStatusUpdate(byte id) {
-        super.handleStatusUpdate(id);
+    public void handleEntityEvent(byte id) {
+        super.handleEntityEvent(id);
         if (id == 4) {
             this.clientSideAttackStarted = true;
             if (!this.isSilent()) {
-                this.world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), SoundEvents.BLOCK_NOTE_BLOCK_CHIME, this.getSoundCategory(), 1.0F, this.rand.nextFloat() , false);
+                this.level.playLocalSound(this.getX(), this.getY(), this.getZ(), SoundEvents.NOTE_BLOCK_CHIME, this.getSoundSource(), 1.0F, this.random.nextFloat() , false);
             }
         }
     }
@@ -161,7 +161,7 @@ public class AmethystProjectileEntity extends Entity {
         }
     }
 
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

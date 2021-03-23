@@ -21,8 +21,8 @@ public class ModItemTagsProvider extends net.minecraft.data.ItemTagsProvider {
     }
 
     @Override
-    protected void registerTags() {
-        Arrays.stream(DyeColor.values()).forEach(dyeColor -> this.getOrCreateBuilder(ModTags.Items.JELLIES).add(JELLY.get(dyeColor).get()));
-        Arrays.stream(DyeColor.values()).forEach(dyeColor -> this.getOrCreateBuilder(SLIMEBALLS).add(SLIME_BALL.get(dyeColor).get()));
+    protected void addTags() {
+        Arrays.stream(DyeColor.values()).forEach(dyeColor -> this.tag(ModTags.Items.JELLIES).add(JELLY.get(dyeColor).get()));
+        Arrays.stream(DyeColor.values()).forEach(dyeColor -> this.tag(SLIMEBALLS).add(SLIME_BALL.get(dyeColor).get()));
     }
 }

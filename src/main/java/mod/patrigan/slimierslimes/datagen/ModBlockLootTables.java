@@ -29,17 +29,17 @@ import static net.minecraft.item.Items.NETHERRACK;
 
 public class ModBlockLootTables extends BlockLootTables {
 
-    private static final ILootCondition.IBuilder SILK_TOUCH = MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
-    private static final ILootCondition.IBuilder NO_SILK_TOUCH = SILK_TOUCH.inverted();
+    private static final ILootCondition.IBuilder SILK_TOUCH = MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1))));
+    private static final ILootCondition.IBuilder NO_SILK_TOUCH = SILK_TOUCH.invert();
     @Override
     protected void addTables() {
         Arrays.stream(DyeColor.values()).forEach(this::registerBuildingBlocks);
-        this.registerLootTable(ModBlocks.AMETHYST_CLUSTER.get(), block -> blockNoDrop());
-        this.registerLootTable(ModBlocks.SMALL_AMETHYST_BUD.get(), block -> blockNoDrop());
-        this.registerLootTable(ModBlocks.MEDIUM_AMETHYST_BUD.get(), block -> blockNoDrop());
-        this.registerLootTable(ModBlocks.LARGE_AMETHYST_BUD.get(), block -> blockNoDrop());
-        this.registerLootTable(STONE_LAVA_SLIME_SPAWNER.get(), block -> dropOtherLootTable(getLootTableIdOf(ModBlocks.SLIMY_COBBLESTONE_BLOCK.get(DyeColor.RED).getBlock().getId())));
-        this.registerLootTable(NETHERRACK_LAVA_SLIME_SPAWNER.get(), block -> dropOtherLootTable(getLootTableIdOf(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getBlock().getId())));
+        this.add(ModBlocks.AMETHYST_CLUSTER.get(), block -> noDrop());
+        this.add(ModBlocks.SMALL_AMETHYST_BUD.get(), block -> noDrop());
+        this.add(ModBlocks.MEDIUM_AMETHYST_BUD.get(), block -> noDrop());
+        this.add(ModBlocks.LARGE_AMETHYST_BUD.get(), block -> noDrop());
+        this.add(STONE_LAVA_SLIME_SPAWNER.get(), block -> dropOtherLootTable(getLootTableIdOf(ModBlocks.SLIMY_COBBLESTONE_BLOCK.get(DyeColor.RED).getBlock().getId())));
+        this.add(NETHERRACK_LAVA_SLIME_SPAWNER.get(), block -> dropOtherLootTable(getLootTableIdOf(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getBlock().getId())));
     }
 
     private ResourceLocation getLootTableIdOf(ResourceLocation id) {
@@ -47,7 +47,7 @@ public class ModBlockLootTables extends BlockLootTables {
     }
 
     private LootTable.Builder dropOtherLootTable(ResourceLocation id) {
-        return LootTable.builder().addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).addEntry(TableLootEntry.builder(id)));
+        return LootTable.lootTable().withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(TableLootEntry.lootTableReference(id)));
     }
 
     private void registerBuildingBlocks(DyeColor dyeColor){
@@ -61,8 +61,8 @@ public class ModBlockLootTables extends BlockLootTables {
     }
 
     private LootTable.Builder getSlimyStoneBuilder(DyeColor dyeColor, Block slimyBlock, Item cobblestone) {
-        return droppingWithSilkTouch(slimyBlock, withSurvivesExplosion(slimyBlock, ItemLootEntry.builder(cobblestone)))
-                .addLootPool(LootPool.builder().rolls(ConstantRange.of(1)).acceptCondition(NO_SILK_TOUCH).addEntry(ItemLootEntry.builder(ModItems.JELLY.get(dyeColor).get()).acceptFunction(SetCount.builder(RandomValueRange.of(1.0F, 2.0F)))).acceptCondition(TableBonus.builder(Enchantments.FORTUNE, 1.0F, 1.5F, 2F, 2.5F)));
+        return createSilkTouchDispatchTable(slimyBlock, applyExplosionCondition(slimyBlock, ItemLootEntry.lootTableItem(cobblestone)))
+                .withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).when(NO_SILK_TOUCH).add(ItemLootEntry.lootTableItem(ModItems.JELLY.get(dyeColor).get()).apply(SetCount.setCount(RandomValueRange.between(1.0F, 2.0F)))).when(TableBonus.bonusLevelFlatChance(Enchantments.BLOCK_FORTUNE, 1.0F, 1.5F, 2F, 2.5F)));
     }
 
     @Override
@@ -71,15 +71,15 @@ public class ModBlockLootTables extends BlockLootTables {
     }
 
     protected void registerBuildingBlockLootTable(BuildingBlockHelper blockHelper, Function<Block, LootTable.Builder> baseFactory) {
-        this.registerLootTable(blockHelper.getBlock().get(), baseFactory);
-        this.registerLootTable(blockHelper.getSlab().get(), droppingSlab(blockHelper.getSlab().get()));
-        this.registerLootTable(blockHelper.getStairs().get(), dropping(blockHelper.getStairs().get()));
-        this.registerLootTable(blockHelper.getButton().get(), dropping(blockHelper.getButton().get()));
-        this.registerLootTable(blockHelper.getPressurePlate().get(), dropping(blockHelper.getPressurePlate().get()));
-        this.registerLootTable(blockHelper.getWall().get(), dropping(blockHelper.getWall().get()));
+        this.add(blockHelper.getBlock().get(), baseFactory);
+        this.add(blockHelper.getSlab().get(), createSlabItemTable(blockHelper.getSlab().get()));
+        this.add(blockHelper.getStairs().get(), createSingleItemTable(blockHelper.getStairs().get()));
+        this.add(blockHelper.getButton().get(), createSingleItemTable(blockHelper.getButton().get()));
+        this.add(blockHelper.getPressurePlate().get(), createSingleItemTable(blockHelper.getPressurePlate().get()));
+        this.add(blockHelper.getWall().get(), createSingleItemTable(blockHelper.getWall().get()));
     }
 
     protected void registerDroppingSelfBuildingBlockHelper(BuildingBlockHelper buildingBlockHelper){
-        this.registerBuildingBlockLootTable(buildingBlockHelper, BlockLootTables::dropping);
+        this.registerBuildingBlockLootTable(buildingBlockHelper, BlockLootTables::createSingleItemTable);
     }
 }

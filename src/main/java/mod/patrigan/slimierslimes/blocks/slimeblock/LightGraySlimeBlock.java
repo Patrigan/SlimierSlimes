@@ -21,6 +21,8 @@ import javax.annotation.Nullable;
 
 import static java.lang.Boolean.TRUE;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class LightGraySlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
     private static final double BOUNCE_MULTIPLIER = 1.0D;
 

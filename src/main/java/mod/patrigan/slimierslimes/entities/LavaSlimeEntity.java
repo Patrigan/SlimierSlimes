@@ -7,8 +7,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeColor;
-import net.minecraft.particles.IParticleData;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
@@ -19,9 +17,6 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.OBSIDIAN_SLIME;
-import static mod.patrigan.slimierslimes.init.ModEntityTypes.ROCK_SLIME;
-import static net.minecraft.block.Blocks.CAVE_AIR;
-import static net.minecraft.particles.ParticleTypes.LAVA;
 
 public class LavaSlimeEntity extends AbstractSlimeEntity {
 
@@ -37,22 +32,22 @@ public class LavaSlimeEntity extends AbstractSlimeEntity {
         this.goalSelector.addGoal(4, new FaceRandomGoal(this));
         this.goalSelector.addGoal(5, new HopGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false,
-                livingEntity -> Math.abs(livingEntity.getPosY() - this.getPosY()) <= 4.0D));
+                livingEntity -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
     @Override
-    public boolean isBurning() {
+    public boolean isOnFire() {
         return false;
     }
 
     @Override
     public void remove(boolean keepData) {
-        if (!this.world.isRemote) {
+        if (!this.level.isClientSide) {
             super.remove(keepData);
-            BlockPos position = getPosition();
-            if (this.getShouldBeDead() && this.getSlimeSize() > 1 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) && world.getBlockState(position).getBlock().isAir(world.getBlockState(position), world, position)) {
-                world.setBlockState(position, Blocks.LAVA.getDefaultState(), 3);
+            BlockPos position = blockPosition();
+            if (this.isDeadOrDying() && this.getSize() > 1 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && level.getBlockState(position).getBlock().isAir(level.getBlockState(position), level, position)) {
+                level.setBlock(position, Blocks.LAVA.defaultBlockState(), 3);
             }
         }
     }
@@ -102,7 +97,7 @@ public class LavaSlimeEntity extends AbstractSlimeEntity {
 
     private boolean isSurroundingBlockFlammable(IWorldReader worldIn, BlockPos pos) {
         for(Direction direction : Direction.values()) {
-            if (this.getCanBlockBurn(worldIn, pos.offset(direction))) {
+            if (this.getCanBlockBurn(worldIn, pos.relative(direction))) {
                 return true;
             }
         }
@@ -111,34 +106,34 @@ public class LavaSlimeEntity extends AbstractSlimeEntity {
     }
 
     private boolean getCanBlockBurn(IWorldReader worldIn, BlockPos pos) {
-        return pos.getY() >= 0 && pos.getY() < 256 && !worldIn.isBlockLoaded(pos) ? false : worldIn.getBlockState(pos).getMaterial().isFlammable();
+        return pos.getY() >= 0 && pos.getY() < 256 && !worldIn.hasChunkAt(pos) ? false : worldIn.getBlockState(pos).getMaterial().isFlammable();
     }
 
     private void hardenInWater() {
-        AbstractSlimeEntity slimeentity = OBSIDIAN_SLIME.get().create(this.world);
-        if (this.isNoDespawnRequired()) {
-            slimeentity.enablePersistence();
+        AbstractSlimeEntity slimeentity = OBSIDIAN_SLIME.get().create(this.level);
+        if (this.isPersistenceRequired()) {
+            slimeentity.setPersistenceRequired();
         }
 
         slimeentity.setCustomName(this.getCustomName());
-        slimeentity.setNoAI(this.isAIDisabled());
+        slimeentity.setNoAi(this.isNoAi());
         slimeentity.setInvulnerable(this.isInvulnerable());
-        slimeentity.setSlimeSize(this.getSlimeSize(), true);
-        slimeentity.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(), this.rotationYaw, this.rotationPitch);
-        this.world.addEntity(slimeentity);
+        slimeentity.setSize(this.getSize(), true);
+        slimeentity.moveTo(this.getX(), this.getY(), this.getZ(), this.yRot, this.xRot);
+        this.level.addFreshEntity(slimeentity);
         this.remove(false);
     }
 
     @Override
-    public boolean isNotColliding(IWorldReader worldIn) {
-        return worldIn.checkNoEntityCollision(this);
+    public boolean checkSpawnObstruction(IWorldReader worldIn) {
+        return worldIn.isUnobstructed(this);
     }
 
     public static boolean spawnable(EntityType<? extends AbstractSlimeEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random randomIn) {
         if (world.getDifficulty() != Difficulty.PEACEFUL && reason.equals(SpawnReason.SPAWNER) && world.getBlockState(pos).getBlock().equals(Blocks.LAVA)) {
             return true;
         }else{
-            return AbstractSlimeEntity.spawnable(entityType, world, reason, pos, randomIn);
+            return AbstractSlimeEntity.checkSlimeSpawnRules(entityType, world, reason, pos, randomIn);
         }
     }
 }

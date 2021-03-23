@@ -33,12 +33,12 @@ public class LavaSlimeSpawnerTileEntity extends TileEntity implements ITickableT
 
     @Override
     public void tick() {
-        World world = this.getWorld();
-        BlockPos blockpos = this.pos;
+        World world = this.getLevel();
+        BlockPos blockpos = this.worldPosition;
         if (!(world instanceof ServerWorld)) {
-            double d3 = (double) blockpos.getX() + world.rand.nextDouble();
-            double d4 = (double) blockpos.getY() + world.rand.nextDouble();
-            double d5 = (double) blockpos.getZ() + world.rand.nextDouble();
+            double d3 = (double) blockpos.getX() + world.random.nextDouble();
+            double d4 = (double) blockpos.getY() + world.random.nextDouble();
+            double d5 = (double) blockpos.getZ() + world.random.nextDouble();
             world.addParticle(ParticleTypes.SMOKE, d3, d4, d5, 0.0D, 0.0D, 0.0D);
             world.addParticle(ParticleTypes.FLAME, d3, d4, d5, 0.0D, 0.0D, 0.0D);
             if (this.spawnDelay > 0) {
@@ -59,14 +59,14 @@ public class LavaSlimeSpawnerTileEntity extends TileEntity implements ITickableT
     }
 
     private void doSpawn(World world, BlockPos blockpos) {
-        double d0 = (double) blockpos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) this.spawnRange + 0.5D;
-        double d1 = (double) (blockpos.getY() + world.rand.nextInt(4) + 1);
-        double d2 = (double) blockpos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * (double) this.spawnRange + 0.5D;
-        if (world.hasNoCollisions(LAVA_SLIME.get().getBoundingBoxWithSizeApplied(d0, d1, d2))) {
+        double d0 = (double) blockpos.getX() + (world.random.nextDouble() - world.random.nextDouble()) * (double) this.spawnRange + 0.5D;
+        double d1 = (double) (blockpos.getY() + world.random.nextInt(4) + 1);
+        double d2 = (double) blockpos.getZ() + (world.random.nextDouble() - world.random.nextDouble()) * (double) this.spawnRange + 0.5D;
+        if (world.noCollision(LAVA_SLIME.get().getAABB(d0, d1, d2))) {
             ServerWorld serverworld = (ServerWorld) world;
-            if (EntitySpawnPlacementRegistry.canSpawnEntity(LAVA_SLIME.get(), serverworld, SpawnReason.SPAWNER, new BlockPos(d0, d1, d2), world.getRandom())) {
+            if (EntitySpawnPlacementRegistry.checkSpawnRules(LAVA_SLIME.get(), serverworld, SpawnReason.SPAWNER, new BlockPos(d0, d1, d2), world.getRandom())) {
 
-                int k = world.getEntitiesWithinAABB(LavaSlimeEntity.class, new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(), (blockpos.getX() + 1), (blockpos.getY() + 1), (blockpos.getZ() + 1)).grow(this.activityRange)).size();
+                int k = world.getEntitiesOfClass(LavaSlimeEntity.class, new AxisAlignedBB(blockpos.getX(), blockpos.getY(), blockpos.getZ(), (blockpos.getX() + 1), (blockpos.getY() + 1), (blockpos.getZ() + 1)).inflate(this.activityRange)).size();
                 if (k >= this.maxNearbyEntities) {
                     this.resetTimer();
                     return;
@@ -77,7 +77,7 @@ public class LavaSlimeSpawnerTileEntity extends TileEntity implements ITickableT
                     this.resetTimer();
                     return;
                 }
-                entity.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), world.rand.nextFloat() * 360.0F, 0.0F);
+                entity.moveTo(entity.getX(), entity.getY(), entity.getZ(), world.random.nextFloat() * 360.0F, 0.0F);
 
                 this.resetTimer();
             }
@@ -89,7 +89,7 @@ public class LavaSlimeSpawnerTileEntity extends TileEntity implements ITickableT
             this.spawnDelay = this.minSpawnDelay;
         } else {
             int i = this.maxSpawnDelay - this.minSpawnDelay;
-            this.spawnDelay = this.minSpawnDelay + this.getWorld().rand.nextInt(i);
+            this.spawnDelay = this.minSpawnDelay + this.getLevel().random.nextInt(i);
         }
     }
 }

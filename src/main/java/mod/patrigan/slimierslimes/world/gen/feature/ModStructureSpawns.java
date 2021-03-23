@@ -30,7 +30,7 @@ public class ModStructureSpawns {
     @SubscribeEvent
     public static void biomeLoading(final BiomeLoadingEvent event)
     {
-        RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
+        RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
 
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
@@ -64,15 +64,15 @@ public class ModStructureSpawns {
             // Prevent spawning our structure in Vanilla's superflat world as
             // people seem to want their superflat worlds free of modded structures.
             // Also that vanilla superflat is really tricky and buggy to work with in my experience.
-            if(serverWorld.getChunkProvider().getChunkGenerator() instanceof FlatChunkGenerator &&
-                    serverWorld.getDimensionKey().equals(World.OVERWORLD)){
+            if(serverWorld.getChunkSource().getGenerator() instanceof FlatChunkGenerator &&
+                    serverWorld.dimension().equals(World.OVERWORLD)){
                 return;
             }
 
-            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
-            tempMap.put(ModStructures.PILLAGER_SLIME_LAB.get(), DimensionStructuresSettings.field_236191_b_.get(ModStructures.PILLAGER_SLIME_LAB.get()));
-            tempMap.put(ModStructures.SLIME_DUNGEON.get(), DimensionStructuresSettings.field_236191_b_.get(ModStructures.SLIME_DUNGEON.get()));
-            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
+            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkSource().generator.getSettings().structureConfig());
+            tempMap.put(ModStructures.PILLAGER_SLIME_LAB.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.PILLAGER_SLIME_LAB.get()));
+            tempMap.put(ModStructures.SLIME_DUNGEON.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.SLIME_DUNGEON.get()));
+            serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
         }
     }
 

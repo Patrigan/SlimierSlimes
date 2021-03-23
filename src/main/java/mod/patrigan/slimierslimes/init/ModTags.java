@@ -17,7 +17,7 @@ public class ModTags {
         public static final ITag.INamedTag<Item> JELLIES = tag("jellies");
 
         private static ITag.INamedTag<Item> tag(String id) {
-            return ItemTags.makeWrapperTag(SlimierSlimes.MOD_ID + ":" + id);
+            return ItemTags.bind(SlimierSlimes.MOD_ID + ":" + id);
         }
     }
 

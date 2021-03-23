@@ -34,17 +34,17 @@ public class DiamondSlimeEntity extends AbstractSlimeEntity {
         this.goalSelector.addGoal(3, new FaceRandomGoal(this));
         this.goalSelector.addGoal(4, new HopGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false,
-                livingEntity -> Math.abs(livingEntity.getPosY() - this.getPosY()) <= 4.0D));
+                livingEntity -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
     }
 
     public static AttributeModifierMap.MutableAttribute getMutableAttributes() {
-        return MonsterEntity.func_234295_eP_();
+        return MonsterEntity.createMonsterAttributes();
     }
 
     @Override
-    protected ResourceLocation getLootTable() {
-        return this.getType().getLootTable();
+    protected ResourceLocation getDefaultLootTable() {
+        return this.getType().getDefaultLootTable();
     }
 
     public void split() {

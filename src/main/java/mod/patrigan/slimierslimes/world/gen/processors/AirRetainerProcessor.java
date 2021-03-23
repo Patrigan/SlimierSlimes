@@ -21,8 +21,8 @@ public class AirRetainerProcessor extends StructureProcessor {
     public AirRetainerProcessor() {}
 
     @Nullable
-    public Template.BlockInfo func_230386_a_(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings) {
-        if(world.isAirBlock(blockInfo.pos)){
+    public Template.BlockInfo processBlock(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings) {
+        if(world.isEmptyBlock(blockInfo.pos)){
             BlockState blockState = world.getBlockState(blockInfo.pos);
             return new Template.BlockInfo(blockInfo.pos, blockState, null);
         }else {

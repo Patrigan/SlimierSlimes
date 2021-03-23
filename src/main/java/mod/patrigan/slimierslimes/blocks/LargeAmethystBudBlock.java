@@ -9,14 +9,16 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class LargeAmethystBudBlock extends Block {
-    protected static final VoxelShape SHAPE = Block.makeCuboidShape(4.0D, 0.0D, 4.0D, 12.0D, 9.0D, 12.0D);
+    protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 9.0D, 12.0D);
 
     public LargeAmethystBudBlock() {
         super(Properties
-                .create(Material.PLANTS, MaterialColor.MAGENTA)
-                .zeroHardnessAndResistance()
-                .doesNotBlockMovement());
+                .of(Material.PLANT, MaterialColor.COLOR_MAGENTA)
+                .instabreak()
+                .noCollission());
     }
 
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {

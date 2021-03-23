@@ -32,18 +32,18 @@ import static net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING_NO_LEAVES;
 public class ModEntitySpawns {
 
     public static void init(){
-        EntitySpawnPlacementRegistry.register(COMMON_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(PINK_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(CLOUD_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(ROCK_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(CRYSTAL_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, CrystalSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(GLOW_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, GlowSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(CREEPER_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, CreeperSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(SNOW_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, SnowSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(CAMO_SLIME.get(), ON_GROUND, MOTION_BLOCKING, CamoSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(DIAMOND_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, DiamondSlimeEntity::spawnable);
+        EntitySpawnPlacementRegistry.register(COMMON_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(PINK_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(CLOUD_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(ROCK_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(CRYSTAL_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, CrystalSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(GLOW_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, GlowSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(CREEPER_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, CreeperSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(SNOW_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, SnowSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(CAMO_SLIME.get(), ON_GROUND, MOTION_BLOCKING, CamoSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(DIAMOND_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, DiamondSlimeEntity::checkSlimeSpawnRules);
         EntitySpawnPlacementRegistry.register(LAVA_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, LavaSlimeEntity::spawnable);
-        EntitySpawnPlacementRegistry.register(OBSIDIAN_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::spawnable);
+        EntitySpawnPlacementRegistry.register(OBSIDIAN_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::checkSlimeSpawnRules);
     }
 
 
@@ -52,7 +52,7 @@ public class ModEntitySpawns {
     {
         int slimeConfigTotalWeight = SlimierSlimes.MAIN_CONFIG.totalSlimeSpawnWeight.get();
 
-        RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
+        RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         List<MobSpawnInfo.Spawners> slimeWeights = SLIMES.stream()
@@ -62,7 +62,7 @@ public class ModEntitySpawns {
         if(types.contains(BiomeDictionary.Type.SWAMP)){
             slimeConfigTotalWeight = slimeConfigTotalWeight * 3;
         }
-        Integer currentTotal = event.getSpawns().getSpawner(MONSTER).stream().map(spawners -> spawners.itemWeight).reduce(0, Integer::sum);
+        Integer currentTotal = event.getSpawns().getSpawner(MONSTER).stream().map(spawners -> spawners.weight).reduce(0, Integer::sum);
         if(TRUE.equals(SlimierSlimes.MAIN_CONFIG.useTotalSlimeSpawnWeight.get()) && slimeConfigTotalWeight < currentTotal) {
             slimeWeights = boundWeights(slimeWeights, slimeConfigTotalWeight);
         }
@@ -82,11 +82,11 @@ public class ModEntitySpawns {
     }
 
     private static List<MobSpawnInfo.Spawners> boundWeights(List<MobSpawnInfo.Spawners> slimeWeights, final int totalWeight) {
-        final double totalOriginal = slimeWeights.stream().map(spawner -> spawner.itemWeight).reduce(0, Integer::sum);
-        return slimeWeights.stream().map(spawner -> new MobSpawnInfo.Spawners(spawner.type, (int) Math.ceil((spawner.itemWeight/totalOriginal)*totalWeight), spawner.minCount, spawner.maxCount)).collect(Collectors.toList());
+        final double totalOriginal = slimeWeights.stream().map(spawner -> spawner.weight).reduce(0, Integer::sum);
+        return slimeWeights.stream().map(spawner -> new MobSpawnInfo.Spawners(spawner.type, (int) Math.ceil((spawner.weight/totalOriginal)*totalWeight), spawner.minCount, spawner.maxCount)).collect(Collectors.toList());
     }
 
     private static void addSlimeSpawners(BiomeLoadingEvent event, List<MobSpawnInfo.Spawners> slimeWeights) {
-        slimeWeights.forEach(slimeSpawner -> event.getSpawns().withSpawner(MONSTER, slimeSpawner));
+        slimeWeights.forEach(slimeSpawner -> event.getSpawns().addSpawn(MONSTER, slimeSpawner));
     }
 }

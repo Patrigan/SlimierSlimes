@@ -9,6 +9,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
 
+import net.minecraft.entity.ai.goal.Goal.Flag;
+
 public class FleeGoal extends Goal {
     private final AbstractSlimeEntity slime;
 
@@ -19,7 +21,7 @@ public class FleeGoal extends Goal {
 
     public FleeGoal(AbstractSlimeEntity slimeIn, int fleeTime, BooleanSupplier predicate, Runnable action) {
         this.slime = slimeIn;
-        this.setMutexFlags(EnumSet.of(Flag.LOOK));
+        this.setFlags(EnumSet.of(Flag.LOOK));
         this.baseFleeTime = fleeTime;
         this.action = action;
         this.predicate = predicate;
@@ -29,14 +31,14 @@ public class FleeGoal extends Goal {
      * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
      * method as well.
      */
-    public boolean shouldExecute() {
-        LivingEntity livingentity = this.slime.getAttackTarget();
+    public boolean canUse() {
+        LivingEntity livingentity = this.slime.getTarget();
         if (livingentity == null) {
             return false;
         } else if (!livingentity.isAlive()) {
             return false;
         } else {
-            return (!(livingentity instanceof PlayerEntity) || !((PlayerEntity) livingentity).abilities.disableDamage) && this.slime.getMoveHelper() instanceof MoveHelperController
+            return (!(livingentity instanceof PlayerEntity) || !((PlayerEntity) livingentity).abilities.invulnerable) && this.slime.getMoveControl() instanceof MoveHelperController
                     && predicate.getAsBoolean();
         }
     }
@@ -45,22 +47,22 @@ public class FleeGoal extends Goal {
      * Execute a one shot task or start executing a continuous task
      */
     @Override
-    public void startExecuting() {
+    public void start() {
         this.fleeTimer = baseFleeTime;
-        super.startExecuting();
+        super.start();
     }
 
     /**
      * Returns whether an in-progress EntityAIBase should continue executing
      */
     @Override
-    public boolean shouldContinueExecuting() {
-        LivingEntity livingentity = this.slime.getAttackTarget();
+    public boolean canContinueToUse() {
+        LivingEntity livingentity = this.slime.getTarget();
         if (livingentity == null) {
             return false;
         } else if (!livingentity.isAlive()) {
             return false;
-        } else if (livingentity instanceof PlayerEntity && ((PlayerEntity)livingentity).abilities.disableDamage) {
+        } else if (livingentity instanceof PlayerEntity && ((PlayerEntity)livingentity).abilities.invulnerable) {
             return false;
         } else return fleeTimer >= 0;
     }
@@ -70,8 +72,8 @@ public class FleeGoal extends Goal {
      */
     @Override
     public void tick() {
-        this.slime.faceAwayFromEntity(this.slime.getAttackTarget(), 10.0F, 10.0F);
-        ((MoveHelperController)this.slime.getMoveHelper()).setDirection(this.slime.rotationYaw, true);
+        this.slime.faceAwayFromEntity(this.slime.getTarget(), 10.0F, 10.0F);
+        ((MoveHelperController)this.slime.getMoveControl()).setDirection(this.slime.yRot, true);
         fleeTimer--;
         if(fleeTimer == 0){
             action.run();

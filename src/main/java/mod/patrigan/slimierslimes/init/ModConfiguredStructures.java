@@ -13,8 +13,8 @@ public class ModConfiguredStructures {
     /**
      * Static instance of our structure so we can reference it and add it to biomes easily.
      */
-    public static final StructureFeature<?, ?> CONFIGURED_PILLAGER_SLIME_LAB = ModStructures.PILLAGER_SLIME_LAB.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
-    public static final StructureFeature<?, ?> CONFIGURED_SLIME_DUNGEON = ModStructures.SLIME_DUNGEON.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+    public static final StructureFeature<?, ?> CONFIGURED_PILLAGER_SLIME_LAB = ModStructures.PILLAGER_SLIME_LAB.get().configured(IFeatureConfig.NONE);
+    public static final StructureFeature<?, ?> CONFIGURED_SLIME_DUNGEON = ModStructures.SLIME_DUNGEON.get().configured(IFeatureConfig.NONE);
 
     /**
      * Registers the configured structure which is what gets added to the biomes.
@@ -40,7 +40,7 @@ public class ModConfiguredStructures {
         // in StructureTutorialMain.addDimensionalSpacing and then create a superflat world, exit it,
         // and re-enter it and your structures will be spawning. I could not figure out why it needs
         // the restart but honestly, superflat is really buggy and shouldn't be your main focus in my opinion.
-        FlatGenerationSettings.STRUCTURES.put(ModStructures.PILLAGER_SLIME_LAB.get(), CONFIGURED_PILLAGER_SLIME_LAB);
-        FlatGenerationSettings.STRUCTURES.put(ModStructures.SLIME_DUNGEON.get(), CONFIGURED_SLIME_DUNGEON);
+        FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.PILLAGER_SLIME_LAB.get(), CONFIGURED_PILLAGER_SLIME_LAB);
+        FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SLIME_DUNGEON.get(), CONFIGURED_SLIME_DUNGEON);
     }
 }

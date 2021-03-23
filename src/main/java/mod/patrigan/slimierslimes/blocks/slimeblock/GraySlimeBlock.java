@@ -15,6 +15,8 @@ import net.minecraft.world.IBlockDisplayReader;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class GraySlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
     private static final double BOUNCE_MULTIPLIER = 1.0D;
 

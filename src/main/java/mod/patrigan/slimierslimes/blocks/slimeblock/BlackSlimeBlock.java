@@ -11,6 +11,8 @@ import net.minecraft.world.IBlockDisplayReader;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class BlackSlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
 
 

@@ -29,12 +29,12 @@ public class LandingSlimeParticle extends DripParticle.Landing {
             this.dyeColor = dyeColor;
         }
 
-        public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+        public Particle createParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             LandingSlimeParticle dripparticle = new LandingSlimeParticle(worldIn, x, y, z, Fluids.EMPTY);
-            dripparticle.maxAge = (int)(128.0D / (worldIn.rand.nextDouble() * 0.8D + 0.2D));
+            dripparticle.lifetime = (int)(128.0D / (worldIn.random.nextDouble() * 0.8D + 0.2D));
             Color color = new Color(dyeColor.getColorValue());
             dripparticle.setColor(color.getRed()/256F, color.getGreen()/256F, color.getBlue()/256F);
-            dripparticle.selectSpriteRandomly(this.spriteSet);
+            dripparticle.pickSprite(this.spriteSet);
             return dripparticle;
         }
     }

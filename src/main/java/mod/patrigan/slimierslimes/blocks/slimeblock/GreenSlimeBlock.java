@@ -15,6 +15,8 @@ import net.minecraft.world.IBlockDisplayReader;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class GreenSlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
     private static final double BOUNCE_MULTIPLIER = 0.5D;
 
@@ -23,15 +25,15 @@ public class GreenSlimeBlock extends SlimeBlock implements ModBlockColor, ModIte
     }
 
     @Override
-    public void bounceEntity(Entity entity) {
+    public void bounceUp(Entity entity) {
         if(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get()) {
-            Vector3d vector3d = entity.getMotion();
+            Vector3d vector3d = entity.getDeltaMovement();
             if (vector3d.y < 0.0D) {
                 double d0 = (entity instanceof LivingEntity ? 1.0D : 0.8D)*BOUNCE_MULTIPLIER;
-                entity.setMotion(vector3d.x, -vector3d.y * d0, vector3d.z);
+                entity.setDeltaMovement(vector3d.x, -vector3d.y * d0, vector3d.z);
             }
         }else{
-            super.bounceEntity(entity);
+            super.bounceUp(entity);
         }
     }
 

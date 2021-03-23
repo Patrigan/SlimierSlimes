@@ -28,7 +28,7 @@ public class BlockMossifyProcessor extends StructureProcessor {
     }
 
     @Nullable
-    public Template.BlockInfo func_230386_a_(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings) {
+    public Template.BlockInfo processBlock(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings) {
         Random random = settings.getRandom(blockInfo.pos);
         BlockState blockstate = blockInfo.state;
         BlockPos blockpos = blockInfo.pos;
@@ -38,40 +38,18 @@ public class BlockMossifyProcessor extends StructureProcessor {
             newBlock = BLOCKS.getValue(new ResourceLocation(MOD_ID, "mossy_" + blockstate.getBlock().getRegistryName().getPath()));
         }
         if(newBlock != null && !newBlock.equals(AIR) && random.nextFloat() < mossiness){
-            if (newBlock.isIn(BlockTags.STAIRS)) {
-                blockstate1 = this.getStairs(blockstate, newBlock);
-            } else if (newBlock.isIn(BlockTags.SLABS)) {
-                blockstate1 = this.getSlab(blockstate, newBlock);
-            } else if (newBlock.isIn(BlockTags.WALLS)) {
-                blockstate1 = this.getWall(blockstate, newBlock);
+            if (newBlock.is(BlockTags.STAIRS)) {
+                blockstate1 = ProcessorUtil.copyStairsState(blockstate, newBlock);
+            } else if (newBlock.is(BlockTags.SLABS)) {
+                blockstate1 = ProcessorUtil.copySlabState(blockstate, newBlock);
+            } else if (newBlock.is(BlockTags.WALLS)) {
+                blockstate1 = ProcessorUtil.copyWallState(blockstate, newBlock);
             }else if (blockstate.getBlock().equals(Blocks.COBBLESTONE) || blockstate.getBlock().equals(Blocks.STONE_BRICKS)){
-                blockstate1 = this.getBlock(blockstate, newBlock);
+                blockstate1 = newBlock.defaultBlockState();
             }
         }
 
         return blockstate1 != null ? new Template.BlockInfo(blockpos, blockstate1, blockInfo.nbt) : blockInfo;
-    }
-
-    private BlockState getBlock(BlockState blockstate, Block newBlock) {
-        return newBlock.getDefaultState();
-    }
-
-    private BlockState getStairs(BlockState state, Block newBlock) {
-        return newBlock.getDefaultState().with(StairsBlock.FACING, state.get(StairsBlock.FACING)).with(StairsBlock.SHAPE, state.get(StairsBlock.SHAPE)).with(StairsBlock.HALF, state.get(StairsBlock.HALF)).with(StairsBlock.WATERLOGGED, state.get(StairsBlock.WATERLOGGED));
-    }
-
-    private BlockState getSlab(BlockState blockstate, Block newBlock) {
-        return newBlock.getDefaultState().with(SlabBlock.TYPE, blockstate.get(SlabBlock.TYPE));
-    }
-
-    private BlockState getWall(BlockState blockstate, Block newBlock) {
-        return newBlock.getDefaultState()
-                .with(WallBlock.UP, blockstate.get(WallBlock.UP))
-                .with(WallBlock.WALL_HEIGHT_EAST, blockstate.get(WallBlock.WALL_HEIGHT_EAST))
-                .with(WallBlock.WALL_HEIGHT_NORTH, blockstate.get(WallBlock.WALL_HEIGHT_NORTH))
-                .with(WallBlock.WALL_HEIGHT_SOUTH, blockstate.get(WallBlock.WALL_HEIGHT_SOUTH))
-                .with(WallBlock.WALL_HEIGHT_WEST, blockstate.get(WallBlock.WALL_HEIGHT_WEST))
-                .with(WallBlock.WATERLOGGED, blockstate.get(WallBlock.WATERLOGGED));
     }
 
     protected IStructureProcessorType<?> getType() {

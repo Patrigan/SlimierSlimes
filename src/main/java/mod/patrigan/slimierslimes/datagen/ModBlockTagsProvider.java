@@ -16,20 +16,20 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     }
 
     @Override
-    protected void registerTags() {
+    protected void addTags() {
         ModBlocks.BLOCK_HELPERS.forEach(this::addBlocksToTags);
     }
 
     private void addBlocksToTags(BuildingBlockHelper blockHelper) {
-        this.getOrCreateBuilder(BlockTags.SLABS).add(blockHelper.getSlab().get());
-        this.getOrCreateBuilder(BlockTags.STAIRS).add(blockHelper.getStairs().get());
-        this.getOrCreateBuilder(BlockTags.BUTTONS).add(blockHelper.getButton().get());
-        this.getOrCreateBuilder(BlockTags.PRESSURE_PLATES).add(blockHelper.getPressurePlate().get());
-        this.getOrCreateBuilder(BlockTags.WALLS).add(blockHelper.getWall().get());
-        if(Material.ROCK.equals(blockHelper.getBlock().get().getDefaultState().getMaterial())) {
-            this.getOrCreateBuilder(BlockTags.STONE_PRESSURE_PLATES).add(blockHelper.getPressurePlate().get());
+        this.tag(BlockTags.SLABS).add(blockHelper.getSlab().get());
+        this.tag(BlockTags.STAIRS).add(blockHelper.getStairs().get());
+        this.tag(BlockTags.BUTTONS).add(blockHelper.getButton().get());
+        this.tag(BlockTags.PRESSURE_PLATES).add(blockHelper.getPressurePlate().get());
+        this.tag(BlockTags.WALLS).add(blockHelper.getWall().get());
+        if(Material.STONE.equals(blockHelper.getBlock().get().defaultBlockState().getMaterial())) {
+            this.tag(BlockTags.STONE_PRESSURE_PLATES).add(blockHelper.getPressurePlate().get());
         }else{
-            this.getOrCreateBuilder(BlockTags.WOODEN_PRESSURE_PLATES).add(blockHelper.getPressurePlate().get());
+            this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(blockHelper.getPressurePlate().get());
         }
     }
 }

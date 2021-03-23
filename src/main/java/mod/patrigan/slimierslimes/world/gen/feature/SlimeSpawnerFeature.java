@@ -25,11 +25,11 @@ public class SlimeSpawnerFeature extends Feature<NoFeatureConfig> {
         super(codec);
     }
 
-    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
-        BlockState blockState = Blocks.SPAWNER.getDefaultState();
-        reader.setBlockState(pos, blockState, 2);
-        TileEntity tileentity = reader.getTileEntity(pos);
-        ((MobSpawnerTileEntity)tileentity).getSpawnerBaseLogic().setEntityType(
+    public boolean place(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+        BlockState blockState = Blocks.SPAWNER.defaultBlockState();
+        reader.setBlock(pos, blockState, 2);
+        TileEntity tileentity = reader.getBlockEntity(pos);
+        ((MobSpawnerTileEntity)tileentity).getSpawner().setEntityId(
                     SPAWNER_ENTITY_TYPES.get(rand.nextInt(SPAWNER_ENTITY_TYPES.size())));
         return true;
     }

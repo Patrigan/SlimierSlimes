@@ -79,7 +79,7 @@ public class ModStructures {
          * If the registration is setup properly for the structure,
          * getRegistryName() should never return null.
          */
-        Structure.NAME_STRUCTURE_BIMAP.put(structure.getRegistryName().toString(), structure);
+        Structure.STRUCTURES_REGISTRY.put(structure.getRegistryName().toString(), structure);
 
         /*
          * Whether surrounding land will be modified automatically to conform to the bottom of the structure.
@@ -90,9 +90,9 @@ public class ModStructures {
          * This means this is best for structure above sealevel so keep that in mind.
          */
         if(transformSurroundingLand){
-            Structure.field_236384_t_ =
+            Structure.NOISE_AFFECTING_FEATURES =
                     ImmutableList.<Structure<?>>builder()
-                            .addAll(Structure.field_236384_t_)
+                            .addAll(Structure.NOISE_AFFECTING_FEATURES)
                             .add(structure)
                             .build();
         }
@@ -105,9 +105,9 @@ public class ModStructures {
          * this list beforehand. Use the WorldEvent.Load event in StructureTutorialMain to add
          * the structure spacing from this list into that dimension.
          */
-        DimensionStructuresSettings.field_236191_b_ =
+        DimensionStructuresSettings.DEFAULTS =
                 ImmutableMap.<Structure<?>, StructureSeparationSettings>builder()
-                        .putAll(DimensionStructuresSettings.field_236191_b_)
+                        .putAll(DimensionStructuresSettings.DEFAULTS)
                         .put(structure, structureSeparationSettings)
                         .build();
     }

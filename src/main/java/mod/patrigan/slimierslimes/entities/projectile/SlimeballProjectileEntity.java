@@ -38,44 +38,44 @@ public class SlimeballProjectileEntity extends ProjectileItemEntity {
     }
 
     private IParticleData makeParticle() {
-        ItemStack itemstack = this.func_213882_k();
+        ItemStack itemstack = this.getItemRaw();
         return (IParticleData)(itemstack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleData(ParticleTypes.ITEM, itemstack));
     }
 
     /**
      * Handler for {@link World#setEntityState}
      */
-    public void handleStatusUpdate(byte id) {
+    public void handleEntityEvent(byte id) {
         if (id == 3) {
             IParticleData iparticledata = this.makeParticle();
 
             for(int i = 0; i < 8; ++i) {
-                this.world.addParticle(iparticledata, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
+                this.level.addParticle(iparticledata, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
             }
         }
 
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult entityRayTraceResult) {
-        super.onEntityHit(entityRayTraceResult);
+    protected void onHitEntity(EntityRayTraceResult entityRayTraceResult) {
+        super.onHitEntity(entityRayTraceResult);
         Entity entity = entityRayTraceResult.getEntity();
         int i = entity instanceof PlayerEntity ? 1 : 0;
-        entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getShooter()), (float)i);
+        entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
     }
 
     /**
      * Called when this EntityFireball hits a block or entity.
      */
-    protected void onImpact(RayTraceResult result) {
-        super.onImpact(result);
-        if (!this.world.isRemote) {
-            this.world.setEntityState(this, (byte)3);
+    protected void onHit(RayTraceResult result) {
+        super.onHit(result);
+        if (!this.level.isClientSide) {
+            this.level.broadcastEntityEvent(this, (byte)3);
             this.remove();
         }
     }
 
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }

@@ -54,7 +54,7 @@ public class SlimeSpawnData {
     }
 
     public boolean isMatch(BiomeLoadingEvent event){
-        RegistryKey<Biome> key = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
+        RegistryKey<Biome> key = RegistryKey.create(Registry.BIOME_REGISTRY, event.getName());
         final Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
         return biomeResourceLocations.contains(event.getName()) ||
                 (types.containsAll(biomeTypes) &&

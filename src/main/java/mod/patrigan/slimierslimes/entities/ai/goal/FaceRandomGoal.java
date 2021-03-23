@@ -14,15 +14,15 @@ public class FaceRandomGoal  extends Goal {
 
     public FaceRandomGoal(AbstractSlimeEntity slimeIn) {
         this.slime = slimeIn;
-        this.setMutexFlags(EnumSet.of(Goal.Flag.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.LOOK));
     }
 
     /**
      * Returns whether execution should begin. You can also read and cache any state necessary for execution in this
      * method as well.
      */
-    public boolean shouldExecute() {
-        return this.slime.getAttackTarget() == null && (this.slime.isOnGround() || this.slime.isInWater() || this.slime.isInLava() || this.slime.isPotionActive(Effects.LEVITATION)) && this.slime.getMoveHelper() instanceof MoveHelperController;
+    public boolean canUse() {
+        return this.slime.getTarget() == null && (this.slime.isOnGround() || this.slime.isInWater() || this.slime.isInLava() || this.slime.hasEffect(Effects.LEVITATION)) && this.slime.getMoveControl() instanceof MoveHelperController;
     }
 
     /**
@@ -31,10 +31,10 @@ public class FaceRandomGoal  extends Goal {
     @Override
     public void tick() {
         if (--this.nextRandomizeTime <= 0) {
-            this.nextRandomizeTime = 40 + this.slime.getRNG().nextInt(60);
-            this.chosenDegrees = (float)this.slime.getRNG().nextInt(360);
+            this.nextRandomizeTime = 40 + this.slime.getRandom().nextInt(60);
+            this.chosenDegrees = (float)this.slime.getRandom().nextInt(360);
         }
 
-        ((MoveHelperController)this.slime.getMoveHelper()).setDirection(this.chosenDegrees, false);
+        ((MoveHelperController)this.slime.getMoveControl()).setDirection(this.chosenDegrees, false);
     }
 }

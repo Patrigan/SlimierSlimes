@@ -15,10 +15,10 @@ public class SlimeSnowballEntity extends SnowballEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult entityRayTraceResult) {
-        super.onEntityHit(entityRayTraceResult);
+    protected void onHitEntity(EntityRayTraceResult entityRayTraceResult) {
+        super.onHitEntity(entityRayTraceResult);
         Entity entity = entityRayTraceResult.getEntity();
         int i = entity instanceof PlayerEntity ? 1 : 0;
-        entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.getShooter()), (float)i);
+        entity.hurt(DamageSource.thrown(this, this.getOwner()), (float)i);
     }
 }

@@ -17,6 +17,8 @@ import net.minecraft.world.IBlockDisplayReader;
 
 import javax.annotation.Nullable;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class MagentaSlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
 
     public MagentaSlimeBlock(Properties properties) {
@@ -24,19 +26,19 @@ public class MagentaSlimeBlock extends SlimeBlock implements ModBlockColor, ModI
     }
 
     @Override
-    public void bounceEntity(Entity entity) {
+    public void bounceUp(Entity entity) {
         if(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get()) {
-            Vector3d vector3d = entity.getMotion();
-            entity.setMotion(vector3d.x, 0, vector3d.z);
+            Vector3d vector3d = entity.getDeltaMovement();
+            entity.setDeltaMovement(vector3d.x, 0, vector3d.z);
             effectEntity(entity);
         }else{
-            super.bounceEntity(entity);
+            super.bounceUp(entity);
         }
     }
 
     private void effectEntity(Entity entityIn) {
         if(entityIn instanceof LivingEntity){
-            ((LivingEntity) entityIn).addPotionEffect(new EffectInstance(Effects.SPEED, 20, 2));
+            ((LivingEntity) entityIn).addEffect(new EffectInstance(Effects.MOVEMENT_SPEED, 20, 2));
         }
     }
 

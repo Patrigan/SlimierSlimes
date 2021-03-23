@@ -20,7 +20,7 @@ public class AmethystProjectileRenderer extends EntityRenderer<AmethystProjectil
     }
 
     @Override
-    public ResourceLocation getEntityTexture(AmethystProjectileEntity entity) {
+    public ResourceLocation getTextureLocation(AmethystProjectileEntity entity) {
         return null;
     }
 
@@ -28,7 +28,7 @@ public class AmethystProjectileRenderer extends EntityRenderer<AmethystProjectil
     public void render(AmethystProjectileEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         float f = entityIn.getAnimationProgress(partialTicks);
         if (f != 0.0F) {
-            matrixStackIn.push();
+            matrixStackIn.pushPose();
             Block block = AMETHYST_CLUSTER.get();
             if(f <= 0.1F){
                 block = SMALL_AMETHYST_BUD.get();
@@ -37,8 +37,8 @@ public class AmethystProjectileRenderer extends EntityRenderer<AmethystProjectil
             }else if(f <= 0.3F){
                 block = LARGE_AMETHYST_BUD.get();
             }
-            Minecraft.getInstance().getBlockRendererDispatcher().renderBlock(block.getDefaultState(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
-            matrixStackIn.pop();
+            Minecraft.getInstance().getBlockRenderer().renderBlock(block.defaultBlockState(), matrixStackIn, bufferIn, packedLightIn, OverlayTexture.NO_OVERLAY, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
+            matrixStackIn.popPose();
         }
     }
 }

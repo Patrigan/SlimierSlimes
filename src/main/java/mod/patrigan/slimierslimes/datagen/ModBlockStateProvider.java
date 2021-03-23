@@ -13,7 +13,7 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.*;
-import static net.minecraft.block.HorizontalBlock.HORIZONTAL_FACING;
+import static net.minecraft.block.HorizontalBlock.FACING;
 import static net.minecraft.block.HorizontalFaceBlock.FACE;
 
 public class ModBlockStateProvider extends BlockStateProvider {
@@ -77,9 +77,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private void buttonBlock(BuildingBlockHelper blockHelper) {
         getVariantBuilder(blockHelper.getButton().get()).forAllStates(state -> {
-            ModelFile buttonModel = buttonModel(blockHelper, state.get(AbstractButtonBlock.POWERED));
-            AttachFace face = state.get(FACE);
-            Direction dir = state.get(HORIZONTAL_FACING);
+            ModelFile buttonModel = buttonModel(blockHelper, state.getValue(AbstractButtonBlock.POWERED));
+            AttachFace face = state.getValue(FACE);
+            Direction dir = state.getValue(FACING);
             int xrot = 0;
             if (face == AttachFace.CEILING) {
                 dir = dir.getOpposite();
@@ -88,7 +88,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 xrot = 90;
             }
             return ConfiguredModel.builder().modelFile(buttonModel)
-                    .rotationY((int) dir.getHorizontalAngle())
+                    .rotationY((int) dir.toYRot())
                     .rotationX(xrot)
                     .uvLock(face == AttachFace.WALL).build();
         });
@@ -106,7 +106,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void pressurePlateBlock(BuildingBlockHelper blockHelper) {
-        getVariantBuilder(blockHelper.getPressurePlate().get()).forAllStates(state -> ConfiguredModel.builder().modelFile(pressurePlateModel(blockHelper, state.get(PressurePlateBlock.POWERED))).build());
+        getVariantBuilder(blockHelper.getPressurePlate().get()).forAllStates(state -> ConfiguredModel.builder().modelFile(pressurePlateModel(blockHelper, state.getValue(PressurePlateBlock.POWERED))).build());
     }
 
     private ModelFile pressurePlateModel(BuildingBlockHelper blockHelper, boolean powered) {
@@ -164,9 +164,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     private void modButtonBlock(BuildingBlockHelper blockHelper, String parent, ResourceLocation texture) {
         getVariantBuilder(blockHelper.getButton().get()).forAllStates(state -> {
-            ModelFile buttonModel = modButtonModel(blockHelper, state.get(AbstractButtonBlock.POWERED), parent, texture);
-            AttachFace face = state.get(FACE);
-            Direction dir = state.get(HORIZONTAL_FACING);
+            ModelFile buttonModel = modButtonModel(blockHelper, state.getValue(AbstractButtonBlock.POWERED), parent, texture);
+            AttachFace face = state.getValue(FACE);
+            Direction dir = state.getValue(FACING);
             int xrot = 0;
             if (face == AttachFace.CEILING) {
                 dir = dir.getOpposite();
@@ -175,7 +175,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 xrot = 270;
             }
             return ConfiguredModel.builder().modelFile(buttonModel)
-                    .rotationY((int) dir.getHorizontalAngle())
+                    .rotationY((int) dir.toYRot())
                     .rotationX(xrot)
                     .uvLock(face == AttachFace.WALL).build();
         });
@@ -193,7 +193,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     private void modPressurePlateBlock(BuildingBlockHelper blockHelper, String parent, ResourceLocation texture) {
-        getVariantBuilder(blockHelper.getPressurePlate().get()).forAllStates(state -> ConfiguredModel.builder().modelFile(modPressurePlateModel(blockHelper, state.get(PressurePlateBlock.POWERED), parent, texture)).build());
+        getVariantBuilder(blockHelper.getPressurePlate().get()).forAllStates(state -> ConfiguredModel.builder().modelFile(modPressurePlateModel(blockHelper, state.getValue(PressurePlateBlock.POWERED), parent, texture)).build());
     }
 
     private ModelFile modPressurePlateModel(BuildingBlockHelper blockHelper, boolean powered, String parent, ResourceLocation texture) {

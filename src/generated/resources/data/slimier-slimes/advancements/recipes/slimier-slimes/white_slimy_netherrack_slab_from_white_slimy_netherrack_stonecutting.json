@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "slimier-slimes:white_slimy_netherrack_slab_from_white_slimy_netherrack_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_white_slimy_netherrack": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "slimier-slimes:white_slimy_netherrack"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "slimier-slimes:white_slimy_netherrack_slab_from_white_slimy_netherrack_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_white_slimy_netherrack",
+      "has_the_recipe"
+    ]
+  ]
+}

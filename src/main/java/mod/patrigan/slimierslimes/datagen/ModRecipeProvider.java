@@ -8,10 +8,12 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.DyeItem;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.Arrays;
 import java.util.function.Consumer;
 
+import static mod.patrigan.slimierslimes.SlimierSlimes.MOD_ID;
 import static mod.patrigan.slimierslimes.datagen.DataGenerators.DYE_ITEMS;
 import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
 import static mod.patrigan.slimierslimes.init.ModBlocks.SLIME_BLOCK_HELPERS;
@@ -25,12 +27,16 @@ public class ModRecipeProvider extends RecipeProvider {
         super(generatorIn);
     }
 
+    private ResourceLocation modRecipe(String id){
+        return new ResourceLocation(MOD_ID, id);
+    }
+
     @Override
     protected void buildShapelessRecipes(Consumer<IFinishedRecipe> consumer) {
         DYE_ITEMS.forEach(dye -> ShapelessRecipeBuilder.shapeless(dye)
                 .requires(JELLY.get(((DyeItem) dye).getDyeColor()).get())
                 .unlockedBy("has_jelly", has(ModTags.Items.JELLIES))
-                .save(consumer));
+                .save(consumer, modRecipe(dye.getRegistryName().getPath())));
         Arrays.stream(DyeColor.values()).forEach(dyeColor -> dyeColorRecipes(dyeColor, consumer));
         cleanSlimeBallRecipes(consumer);
         BLOCK_HELPERS.forEach(buildingBlockHelper -> buildingBlockRecipes(buildingBlockHelper, consumer));
@@ -81,11 +87,11 @@ public class ModRecipeProvider extends RecipeProvider {
 
     private void stoneCutterRecipes(BuildingBlockHelper blockHelper, Consumer<IFinishedRecipe> consumer) {
         SingleItemRecipeBuilder.stonecutting(Ingredient.of(blockHelper.getBlock().get()), blockHelper.getStairs().get()).unlocks("has_" + blockHelper.getId(), has(blockHelper.getBlock().get()))
-                .save(consumer, blockHelper.getId() + "_stairs_from_" + blockHelper.getId() + "_stonecutting");
+                .save(consumer, modRecipe(blockHelper.getId() + "_stairs_from_" + blockHelper.getId() + "_stonecutting"));
         SingleItemRecipeBuilder.stonecutting(Ingredient.of(blockHelper.getBlock().get()), blockHelper.getSlab().get(), 2).unlocks("has_" + blockHelper.getId(), has(blockHelper.getBlock().get()))
-                .save(consumer, blockHelper.getId() + "_slab_from_" + blockHelper.getId() + "_stonecutting");
+                .save(consumer, modRecipe(blockHelper.getId() + "_slab_from_" + blockHelper.getId() + "_stonecutting"));
         SingleItemRecipeBuilder.stonecutting(Ingredient.of(blockHelper.getBlock().get()), blockHelper.getWall().get()).unlocks("has_" + blockHelper.getId(), has(blockHelper.getBlock().get()))
-                .save(consumer, blockHelper.getId() + "_wall_from_" + blockHelper.getId() + "_stonecutting");
+                .save(consumer, modRecipe(blockHelper.getId() + "_wall_from_" + blockHelper.getId() + "_stonecutting"));
     }
 
 }

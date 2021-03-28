@@ -14,14 +14,18 @@ public class ModProcessors {
     public static IStructureProcessorType<BlockSlimifyProcessor> BLOCK_SLIMIFY;
     public static IStructureProcessorType<AirRetainerProcessor> AIR_RETAINER;
     public static IStructureProcessorType<SlimeSpawnerProcessor> SLIME_SPAWNER_RANDOM;
-    public static IStructureProcessorType<GradientSpotReplace> GRADIENT_SPOT_REPLACE;
+    public static IStructureProcessorType<GradientSpotReplaceProcessor> GRADIENT_SPOT_REPLACE;
+    public static IStructureProcessorType<CeilingAttachmentProcessor> CEILING_ATTACHMENT;
+    public static IStructureProcessorType<VineProcessor> VINES;
 
     public static void init(){
         BLOCK_MOSSIFY = register("block_mossify", BlockMossifyProcessor.CODEC);
         BLOCK_SLIMIFY = register("block_slimify", BlockSlimifyProcessor.CODEC);
         AIR_RETAINER = register("air_retainer", AirRetainerProcessor.CODEC);
         SLIME_SPAWNER_RANDOM = register("slime_spawner_random", SlimeSpawnerProcessor.CODEC);
-        GRADIENT_SPOT_REPLACE = register("gradient_spot_replace", GradientSpotReplace.CODEC);
+        GRADIENT_SPOT_REPLACE = register("gradient_spot_replace", GradientSpotReplaceProcessor.CODEC);
+        CEILING_ATTACHMENT = register("ceiling_attachment", CeilingAttachmentProcessor.CODEC);
+        VINES = register("vines", VineProcessor.CODEC);
     }
 
     static <P extends StructureProcessor> IStructureProcessorType<P> register(String name, Codec<P> codec) {

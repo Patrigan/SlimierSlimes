@@ -5,8 +5,8 @@
   },
   "experienceValue": {},
   "squishParticleData": {
-    "typeString": "ITEM",
-    "resourceLocation": "minecraft:slime_ball"
+    "typeString": "BLOCK",
+    "resourceLocation": "slimier-slimes:green_slime_block"
   },
   "attackDamage": {
     "resultModifier": 1

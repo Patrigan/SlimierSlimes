@@ -21,7 +21,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.lang.Boolean.TRUE;
-import static mod.patrigan.slimierslimes.SlimierSlimes.SLIME_DATA;
+import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
 import static net.minecraft.entity.EntityClassification.MONSTER;
 import static net.minecraft.entity.EntitySpawnPlacementRegistry.PlacementType.ON_GROUND;

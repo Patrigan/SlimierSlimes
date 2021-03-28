@@ -42,7 +42,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import static mod.patrigan.slimierslimes.SlimierSlimes.MOD_ID;
-import static mod.patrigan.slimierslimes.SlimierSlimes.SLIME_DATA;
+import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
 import static mod.patrigan.slimierslimes.init.data.SquishParticleData.SquishParticleType.*;
 import static net.minecraft.world.gen.Heightmap.Type.WORLD_SURFACE;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.FORGE;
@@ -133,12 +133,14 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     }
 
     protected IParticleData getParticleType() {
-        if(ITEM.equals(data.getSquishParticleData().getType())){
-            return new ItemParticleData(ParticleTypes.ITEM, new ItemStack(ForgeRegistries.ITEMS.getValue(data.getSquishParticleData().getResourceLocation())));
-        }else if(BLOCK.equals(data.getSquishParticleData().getType())){
-            return new BlockParticleData(ParticleTypes.BLOCK, ForgeRegistries.BLOCKS.getValue(data.getSquishParticleData().getResourceLocation()).defaultBlockState());
-        }else if(PARTICLE.equals(data.getSquishParticleData().getType())){
-            return (BasicParticleType) ForgeRegistries.PARTICLE_TYPES.getValue(data.getSquishParticleData().getResourceLocation());
+        if(data != null) {
+            if (ITEM.equals(data.getSquishParticleData().getType())) {
+                return new ItemParticleData(ParticleTypes.ITEM, new ItemStack(ForgeRegistries.ITEMS.getValue(data.getSquishParticleData().getResourceLocation())));
+            } else if (BLOCK.equals(data.getSquishParticleData().getType())) {
+                return new BlockParticleData(ParticleTypes.BLOCK, ForgeRegistries.BLOCKS.getValue(data.getSquishParticleData().getResourceLocation()).defaultBlockState());
+            } else if (PARTICLE.equals(data.getSquishParticleData().getType())) {
+                return (BasicParticleType) ForgeRegistries.PARTICLE_TYPES.getValue(data.getSquishParticleData().getResourceLocation());
+            }
         }
         return ParticleTypes.ITEM_SLIME;
     }
@@ -164,19 +166,21 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     }
 
     protected void land() {
-        int i = this.getSize();
+        //if (!this.level.isClientSide) {
+            int i = this.getSize();
 
-        if (spawnCustomParticles()) i = 0; // don't spawn particles if it's handled by the implementation itself
-        for (int j = 0; j < i * 8; ++j) {
-            float f = this.random.nextFloat() * ((float) Math.PI * 2F);
-            float f1 = this.random.nextFloat() * 0.5F + 0.5F;
-            float f2 = MathHelper.sin(f) * (float) i * 0.5F * f1;
-            float f3 = MathHelper.cos(f) * (float) i * 0.5F * f1;
-            this.level.addParticle(this.getParticleType(), this.getX() + (double) f2, this.getY(), this.getZ() + (double) f3, 0.0D, 0.0D, 0.0D);
-        }
+            if (spawnCustomParticles()) i = 0; // don't spawn particles if it's handled by the implementation itself
+            for (int j = 0; j < i * 8; ++j) {
+                float f = this.random.nextFloat() * ((float) Math.PI * 2F);
+                float f1 = this.random.nextFloat() * 0.5F + 0.5F;
+                float f2 = MathHelper.sin(f) * (float) i * 0.5F * f1;
+                float f3 = MathHelper.cos(f) * (float) i * 0.5F * f1;
+                this.level.addParticle(this.getParticleType(), this.getX() + (double) f2, this.getY(), this.getZ() + (double) f3, 0.0D, 0.0D, 0.0D);
+            }
 
-        this.playSound(this.getSquishSound(), this.getSoundVolume(), getVoicePitch() / 0.8F);
-        this.squishAmount = -0.5F;
+            this.playSound(this.getSquishSound(), this.getSoundVolume(), getVoicePitch() / 0.8F);
+            this.squishAmount = -0.5F;
+        //}
     }
 
     protected void decreaseSquish() {

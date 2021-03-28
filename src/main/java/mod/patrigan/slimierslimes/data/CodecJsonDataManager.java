@@ -123,7 +123,7 @@ public class CodecJsonDataManager<T> extends JsonReloadListener
     private final String folderName;
 
     /** The raw data that we parsed from json last time resources were reloaded **/
-    protected Map<ResourceLocation, T> data = new HashMap<>();
+    public Map<ResourceLocation, T> data = new HashMap<>();
     private Optional<Runnable> syncOnReloadCallback = Optional.empty();
 
     /**
@@ -180,6 +180,10 @@ public class CodecJsonDataManager<T> extends JsonReloadListener
         try
         {
             LogicalSidedProvider.INSTANCE.get(LogicalSide.SERVER);
+        }
+        catch(IllegalStateException e)
+        {
+            isServer = false;
         }
         catch(NullPointerException e)
         {

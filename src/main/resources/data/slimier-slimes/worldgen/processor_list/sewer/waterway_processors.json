@@ -1,0 +1,44 @@
+{
+  "processors": [
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_cobblestone",
+        "minecraft:cobblestone"
+      ],
+      "toReplace": "minecraft:andesite",
+      "includeBuildingBlocks": true
+    },
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_cobblestone",
+        "minecraft:cobblestone",
+        "minecraft:andesite"
+      ],
+      "toReplace": "minecraft:polished_andesite"
+    },
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_stone_bricks",
+        "minecraft:cracked_stone_bricks"
+      ],
+      "toReplace": "minecraft:stone_bricks",
+      "includeBuildingBlocks": true
+    },
+    {
+      "processor_type": "slimier-slimes:ceiling_attachment",
+      "rarity": 0.1,
+      "block": "minecraft:cobweb",
+      "needsWall": true
+    },
+    {
+      "processor_type": "slimier-slimes:vines",
+      "rarity": 0.2
+    }
+  ]
+}

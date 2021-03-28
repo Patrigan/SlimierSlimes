@@ -2,8 +2,11 @@ package mod.patrigan.slimierslimes.init.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import mod.patrigan.slimierslimes.SlimierSlimes;
+import mod.patrigan.slimierslimes.data.CodecJsonDataManager;
 import mod.patrigan.slimierslimes.entities.util.SlimeSizeCalculation;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -26,6 +29,7 @@ public class SlimeData {
                     SquishParticleData.CODEC.fieldOf("squishParticleData").forGetter(data -> data.squishParticleData),
                     SlimeSpawnData.CODEC.listOf().fieldOf("slimeSpawnData").forGetter(data -> data.slimeSpawnData)
             ).apply(builder, SlimeData::new));
+
     private final SlimeSizeCalculation maxHealth;
     private final SlimeSizeCalculation armor;
     private final SlimeSizeCalculation armorToughness;
@@ -54,6 +58,22 @@ public class SlimeData {
         this.spawnOnSurface = spawnOnSurface;
         this.squishParticleData = squishParticleData;
         this.slimeSpawnData = slimeSpawnData;
+    }
+
+    public SlimeData(SquishParticleData squishParticleData){
+        this.maxHealth = DEFAULT_SIZE_SQUARED;
+        this.armor = DEFAULT_ZERO;
+        this.armorToughness = DEFAULT_ZERO;
+        this.attackDamage = DEFAULT_SIZE;
+        this.jumpDelay = DEFAULT_JUMP_DELAY;
+        this.movementSpeed = DEFAULT_MOVEMENT_SPEED;
+        this.jumpHeightMultiplier = DEFAULT_JUMP_HEIGHT_MULTIPLIER;
+        this.entityGravity = 0.08D;
+        this.experienceValue = DEFAULT_EXPERIENCE;
+        this.maxInChunk = 6;
+        this.spawnOnSurface = true;
+        this.squishParticleData = squishParticleData;
+        this.slimeSpawnData = new ArrayList<>();
     }
 
     public float getMaxHealth(int size, Random rand) {

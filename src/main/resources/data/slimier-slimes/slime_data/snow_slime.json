@@ -1,7 +1,7 @@
 {
   "squishParticleData": {
-    "typeString": "ITEM",
-    "resourceLocation": "slimier-slimes:white_slime_ball"
+    "typeString": "BLOCK",
+    "resourceLocation": "slimier-slimes:white_slime_block"
   },
   "slimeSpawnData": [
     {

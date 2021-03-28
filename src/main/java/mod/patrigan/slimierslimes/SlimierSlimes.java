@@ -1,16 +1,19 @@
 package mod.patrigan.slimierslimes;
 
+import mod.patrigan.slimierslimes.client.packet.SlimeDataSyncPacket;
 import mod.patrigan.slimierslimes.data.CodecJsonDataManager;
 import mod.patrigan.slimierslimes.init.config.CommonConfigs.CommonConfigValues;
 import mod.patrigan.slimierslimes.datagen.DataGenerators;
 import mod.patrigan.slimierslimes.init.*;
 import mod.patrigan.slimierslimes.init.data.SlimeData;
+import mod.patrigan.slimierslimes.init.data.SlimeDatas;
 import mod.patrigan.slimierslimes.util.ConfigHelper;
 import mod.patrigan.slimierslimes.world.gen.ModEntitySpawns;
 import mod.patrigan.slimierslimes.world.gen.feature.ModConfiguredFeatures;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -19,11 +22,14 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.network.NetworkRegistry;
+import net.minecraftforge.fml.network.simple.SimpleChannel;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.registerAdditionalEntityInformation;
+import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
 
 @Mod(SlimierSlimes.MOD_ID)
 public class SlimierSlimes {
@@ -33,7 +39,14 @@ public class SlimierSlimes {
     public static final Logger LOGGER = LogManager.getLogger();
 
     public static CommonConfigValues MAIN_CONFIG = null;
-    public static final CodecJsonDataManager<SlimeData> SLIME_DATA = new CodecJsonDataManager<>("slime_data", SlimeData.CODEC, LOGGER);
+
+    private static final String CHANNEL_PROTOCOL = "0";
+
+    public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
+            new ResourceLocation(MOD_ID, "main"),
+            () -> CHANNEL_PROTOCOL,
+            CHANNEL_PROTOCOL::equals,
+            CHANNEL_PROTOCOL::equals);
 
     public SlimierSlimes() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -52,10 +65,13 @@ public class SlimierSlimes {
         ModStructures.STRUCTURES.register(modEventBus);
         ModFeatures.FEATURES.register(modEventBus);
 
+        this.registerPackets();
 
         forgeBus.register(this);
         forgeBus.addListener(this::onAddReloadListeners);
-        //Generates/Handles Config
+
+        SLIME_DATA.subscribeAsSyncable(CHANNEL, SlimeDatas::toPacket);
+
         LOGGER.log(Level.INFO, "Slimier Slimes Loaded.");
     }
 
@@ -65,6 +81,15 @@ public class SlimierSlimes {
             return new ItemStack(ModItems.JELLY.get(DyeColor.LIME).get());
         }
     };
+
+    void registerPackets()
+    {
+        int id = 0;
+        CHANNEL.registerMessage(id++, SlimeDataSyncPacket.class,
+                SlimeDataSyncPacket::encode,
+                SlimeDataSyncPacket::decode,
+                SlimeDataSyncPacket::onPacketReceived);
+    }
 
     private void setup(final FMLCommonSetupEvent event)
     {
@@ -80,7 +105,6 @@ public class SlimierSlimes {
             ModProcessors.init();
         });
     }
-
     private void doClientStuff(final FMLClientSetupEvent event) {
         ModBlocks.initRenderTypes();
     }

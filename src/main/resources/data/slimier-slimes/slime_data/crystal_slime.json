@@ -1,8 +1,8 @@
 {
   "spawnOnSurface": false,
   "squishParticleData": {
-    "typeString": "ITEM",
-    "resourceLocation": "slimier-slimes:magenta_slime_ball"
+    "typeString": "BLOCK",
+    "resourceLocation": "slimier-slimes:magenta_slime_block"
   },
   "slimeSpawnData": [
     {

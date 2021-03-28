@@ -5,8 +5,8 @@
     "resultModifier": 1
   },
   "squishParticleData": {
-    "typeString": "ITEM",
-    "resourceLocation": "slimier-slimes:pink_slime_ball"
+    "typeString": "BLOCK",
+    "resourceLocation": "slimier-slimes:pink_slime_block"
   },
   "slimeSpawnData": [
     {

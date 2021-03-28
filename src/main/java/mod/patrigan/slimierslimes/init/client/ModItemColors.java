@@ -24,14 +24,14 @@ public class ModItemColors {
         ItemColors itemColors = event.getItemColors();
         Arrays.stream(DyeColor.values()).forEach(dyeColor ->
             itemColors.register(
-                    (stack, tintIndex) -> dyeColor.getColorValue(),
+                    (stack, tintIndex) -> tintIndex == 0 ? dyeColor.getColorValue() : 0xFFFFFFFF,
                     JELLY.get(dyeColor).get(),
                     SLIME_BALL.get(dyeColor).get())
         );
         BLOCK_HELPERS.forEach(buildingBlockHelper -> {
             if(buildingBlockHelper.getDyeColor() != null) {
                 itemColors.register(
-                        (stack, tintIndex) -> ((ModItemColor) ((BlockItem) stack.getItem()).getBlock()).getColor(stack, tintIndex),
+                        (stack, tintIndex) ->  tintIndex == 0 ? ((ModItemColor) ((BlockItem) stack.getItem()).getBlock()).getColor(stack, tintIndex) : 0xFFFFFFFF,
                         buildingBlockHelper.getBlock().get());
                 itemColors.register(
                         ColorUtils::getColor,

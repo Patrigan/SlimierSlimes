@@ -1,8 +1,0 @@
-{
-  "processors": [
-    {
-      "processor_type": "slimier-slimes:block_mossify",
-      "mossiness": 0.2
-    }
-  ]
-}

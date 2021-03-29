@@ -41,7 +41,7 @@ public class SlimeData {
     private final SlimeSizeCalculation experienceValue;
     private final int maxInChunk;
     private final boolean spawnOnSurface;
-    private final SquishParticleData squishParticleData;
+    private SquishParticleData squishParticleData;
     private final List<SlimeSpawnData> slimeSpawnData;
 
     public SlimeData(SlimeSizeCalculation maxHealth, SlimeSizeCalculation armor, SlimeSizeCalculation armorToughness, SlimeSizeCalculation attackDamage, SlimeSizeCalculation jumpDelay, SlimeSizeCalculation movementSpeed, SlimeSizeCalculation jumpHeightMultiplier, double entityGravity, SlimeSizeCalculation experienceValue, int maxInChunk, boolean spawnOnSurface, SquishParticleData squishParticleData, List<SlimeSpawnData> slimeSpawnData) {
@@ -128,5 +128,7 @@ public class SlimeData {
         return squishParticleData;
     }
 
-
+    public void setSquishParticleData(SquishParticleData squishParticleData) {
+        this.squishParticleData = squishParticleData;
+    }
 }

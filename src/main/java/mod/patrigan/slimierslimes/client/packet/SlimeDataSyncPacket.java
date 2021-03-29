@@ -40,7 +40,21 @@ public class SlimeDataSyncPacket {
         context.setPacketHandled(true);
     }
 
+    // Add a check on existence of the original slime data object instead of overwriting with a default one
     private void handlePacketOnMainThread() {
-        SLIME_DATA.data = this.map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry -> new SlimeData(entry.getValue())));
+        
+        SLIME_DATA.data = this.map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, this::getSlimeData));
     }
+
+    private SlimeData getSlimeData(Map.Entry<ResourceLocation, SquishParticleData> entry) {
+        SlimeData data = SLIME_DATA.getData(entry.getKey());
+        if(data != null) {
+            data.setSquishParticleData(entry.getValue());
+            return data;
+        }else{
+            return new SlimeData(entry.getValue());
+
+        }
+    }
+
 }

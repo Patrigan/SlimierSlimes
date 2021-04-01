@@ -26,27 +26,19 @@ public class GradientSpotReplaceProcessor extends StructureProcessor {
             builder.group(
                     Codec.FLOAT.fieldOf("rarity").forGetter(processor -> processor.rarity),
                     ResourceLocation.CODEC.listOf().fieldOf("gradientList").forGetter(data -> data.gradientList),
-                    ResourceLocation.CODEC.fieldOf("toReplace").forGetter(data -> data.toReplace),
-                    Codec.BOOL.optionalFieldOf("includeBuildingBlocks", false).forGetter(data -> data.includeBuildingBlocks)
-            ).apply(builder, GradientSpotReplaceProcessor::new));
-    /*public static final Codec<GradientSpotReplace> CODEC_SINGLE_ITEM = RecordCodecBuilder.create(builder ->
-            builder.group(
-                    Codec.FLOAT.fieldOf("rarity").forGetter(processor -> processor.rarity),
                     ResourceLocation.CODEC.fieldOf("toReplace").forGetter(data -> data.toReplace)
-            ).apply(builder, GradientSpotReplace::new));*/
+            ).apply(builder, GradientSpotReplaceProcessor::new));
     private final float rarity;
     private final List<ResourceLocation> gradientList;
     private final ResourceLocation toReplace;
-    private boolean includeBuildingBlocks;
 
     protected long seed;
     protected static OpenSimplex2F noiseGen;
 
-    public GradientSpotReplaceProcessor(float rarity, List<ResourceLocation> gradientList, ResourceLocation toReplace, boolean includeBuildingBlocks) {
+    public GradientSpotReplaceProcessor(float rarity, List<ResourceLocation> gradientList, ResourceLocation toReplace) {
         this.rarity = rarity;
         this.gradientList = gradientList;
         this.toReplace = toReplace;
-        this.includeBuildingBlocks = includeBuildingBlocks;
     }
 
     public void setSeed(long seed) {
@@ -58,47 +50,29 @@ public class GradientSpotReplaceProcessor extends StructureProcessor {
 
     @Override
     public Template.BlockInfo process(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings, @Nullable Template template) {
-        BlockState blockstate1;
         setSeed(((ISeedReader) world).getSeed());
 
         BlockState blockstate = blockInfo.state;
         BlockPos blockPos = blockInfo.pos;
-
-        ResourceLocation replacementBlock = getReplacementBlockResourceLocation(blockPos);
-
-        Block newBlock = null;
-        if(this.includeBuildingBlocks) {
-            if(!matchesIncludingBuildingBlocks(blockstate)){
-                return blockInfo;
-            }
-            if (blockstate.getBlock().is(BlockTags.STAIRS)) {
-                newBlock = BLOCKS.getValue(new ResourceLocation(replacementBlock.getNamespace(), replacementBlock.getPath() + "_stairs"));
-                blockstate1 = ProcessorUtil.copyStairsState(blockstate, newBlock);
-            } else if (blockstate.getBlock().is(BlockTags.SLABS)) {
-                newBlock = BLOCKS.getValue(new ResourceLocation(replacementBlock.getNamespace(), replacementBlock.getPath() + "_slab"));
-                blockstate1 = ProcessorUtil.copySlabState(blockstate, newBlock);
-            } else if (blockstate.getBlock().is(BlockTags.WALLS)) {
-                newBlock = BLOCKS.getValue(new ResourceLocation(replacementBlock.getNamespace(), replacementBlock.getPath() + "_wall"));
-                blockstate1 = ProcessorUtil.copyWallState(blockstate, newBlock);
-            }else{
-                blockstate1 = BLOCKS.getValue(replacementBlock).defaultBlockState();
-            }
-            return new Template.BlockInfo(blockPos, blockstate1, blockInfo.nbt);
-        }else{
-            if(!blockstate.getBlock().getRegistryName().getPath().equals(toReplace.getPath())){
-                return blockInfo;
-            }
-            blockstate1 = BLOCKS.getValue(replacementBlock).defaultBlockState();
-            return new Template.BlockInfo(blockPos, blockstate1, blockInfo.nbt);
+        if(!blockstate.getBlock().getRegistryName().getPath().equals(toReplace.getPath())){
+            return blockInfo;
         }
-    }
 
-    private boolean matchesIncludingBuildingBlocks(BlockState blockstate) {
-        String path = blockstate.getBlock().getRegistryName().getPath();
-        return path.equals(toReplace.getPath())
-                || path.equals(toReplace.getPath() + "_stairs")
-                || path.equals(toReplace.getPath() + "_slab")
-                || path.equals(toReplace.getPath() + "_walls");
+        ResourceLocation newBlockResourceLocation = getReplacementBlockResourceLocation(blockPos);
+        Block newBlock = BLOCKS.getValue(newBlockResourceLocation);
+        if(newBlock == null){
+            return blockInfo;
+        }
+
+        if (blockstate.getBlock().is(BlockTags.STAIRS)) {
+            return new Template.BlockInfo(blockPos, ProcessorUtil.copyStairsState(blockstate, newBlock), blockInfo.nbt);
+        } else if (blockstate.getBlock().is(BlockTags.SLABS)) {
+            return new Template.BlockInfo(blockPos, ProcessorUtil.copySlabState(blockstate, newBlock), blockInfo.nbt);
+        } else if (blockstate.getBlock().is(BlockTags.WALLS)) {
+            return new Template.BlockInfo(blockPos, ProcessorUtil.copyWallState(blockstate, newBlock), blockInfo.nbt);
+        }else{
+            return new Template.BlockInfo(blockPos, newBlock.defaultBlockState(), blockInfo.nbt);
+        }
     }
 
     private ResourceLocation getReplacementBlockResourceLocation(BlockPos blockPos) {

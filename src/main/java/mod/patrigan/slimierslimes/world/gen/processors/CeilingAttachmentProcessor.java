@@ -2,7 +2,6 @@ package mod.patrigan.slimierslimes.world.gen.processors;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -12,14 +11,14 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.StructureProcessor;
 import net.minecraft.world.gen.feature.template.Template;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import static mod.patrigan.slimierslimes.init.ModProcessors.BLOCK_MOSSIFY;
 import static mod.patrigan.slimierslimes.init.ModProcessors.CEILING_ATTACHMENT;
+import static mod.patrigan.slimierslimes.world.gen.processors.ProcessorUtil.getBlock;
+import static mod.patrigan.slimierslimes.world.gen.processors.ProcessorUtil.isSolid;
 import static net.minecraft.block.Blocks.AIR;
 import static net.minecraftforge.registries.ForgeRegistries.BLOCKS;
 
@@ -30,6 +29,7 @@ public class CeilingAttachmentProcessor extends StructureProcessor {
                     ResourceLocation.CODEC.fieldOf("block").forGetter(data -> data.block),
                     Codec.BOOL.optionalFieldOf("needsWall", false).forGetter(processor -> processor.needsWall)
             ).apply(builder, CeilingAttachmentProcessor::new));
+    private static final long SEED = 7645816L;
 
     private final float rarity;
     private final ResourceLocation block;
@@ -41,31 +41,30 @@ public class CeilingAttachmentProcessor extends StructureProcessor {
         this.needsWall = needsWall;
     }
 
-    @Nullable
+    @Override
     public Template.BlockInfo process(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings, Template template) {
-        Random random = settings.getRandom(blockInfo.pos);
+        Random random = ProcessorUtil.getRandom(blockInfo.pos, SEED);
         BlockState blockstate = blockInfo.state;
         BlockPos blockpos = blockInfo.pos;
-        BlockState blockstate1 = null;
         if(blockstate.getBlock().equals(AIR) && random.nextFloat() <= rarity){
             List<Template.BlockInfo> pieceBlocks = settings.getRandomPalette(template.palettes, piecePos).blocks();
-            if(needsWall){
-                blockstate1 = getIfNeedsWall(pieceBlocks, rawBlockInfo.pos);
-            }else {
-                blockstate1 = getIfAbove(pieceBlocks, rawBlockInfo.pos);
+            if(hasCeiling(pieceBlocks, rawBlockInfo.pos)) {
+                if(needsWall) {
+                    if(hasWall(pieceBlocks, rawBlockInfo.pos)){
+                        return new Template.BlockInfo(blockpos, BLOCKS.getValue(block).defaultBlockState(), blockInfo.nbt);
+                    }
+                } else {
+                    return new Template.BlockInfo(blockpos, BLOCKS.getValue(block).defaultBlockState(), blockInfo.nbt);
+                }
             }
         }
-
-        return blockstate1 != null ? new Template.BlockInfo(blockpos, blockstate1, blockInfo.nbt) : blockInfo;
+        return blockInfo;
     }
 
-    private BlockState getIfNeedsWall(List<Template.BlockInfo> pieceBlocks, BlockPos pos) {
+    private boolean hasWall(List<Template.BlockInfo> pieceBlocks, BlockPos pos) {
         List<Template.BlockInfo> neighbours = getSideNeighboursBlockInfo(pieceBlocks, pos, true);
-        long count = neighbours.stream().filter(blockInfo -> blockInfo != null && !blockInfo.state.getBlock().equals(AIR)).count();
-        if(count > 0){
-            return getIfAbove(pieceBlocks, pos);
-        }
-        return null;
+        long count = neighbours.stream().filter(ProcessorUtil::isSolid).count();
+        return count > 0;
     }
 
     private List<Template.BlockInfo> getSideNeighboursBlockInfo(List<Template.BlockInfo> pieceBlocks, BlockPos pos, boolean diagonal) {
@@ -81,17 +80,8 @@ public class CeilingAttachmentProcessor extends StructureProcessor {
         return neighbours;
     }
 
-    private BlockState getIfAbove(List<Template.BlockInfo> pieceBlocks, BlockPos pos) {
-        Template.BlockInfo above = getBlock(pieceBlocks, pos.above());
-        if(above != null && !above.state.getBlock().equals(AIR)) {
-            Block newBlock = BLOCKS.getValue(block);
-            return newBlock.defaultBlockState();
-        }
-        return null;
-    }
-
-    private Template.BlockInfo getBlock(List<Template.BlockInfo> pieceBlocks, BlockPos pos) {
-        return pieceBlocks.stream().filter(blockInfo -> blockInfo.pos.equals(pos)).findFirst().orElse(null);
+    private boolean hasCeiling(List<Template.BlockInfo> pieceBlocks, BlockPos pos) {
+        return isSolid(getBlock(pieceBlocks, pos.above()));
     }
 
     protected IStructureProcessorType<?> getType() {

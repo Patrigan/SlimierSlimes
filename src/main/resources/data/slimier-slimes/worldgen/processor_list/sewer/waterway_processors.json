@@ -39,6 +39,10 @@
     {
       "processor_type": "slimier-slimes:vines",
       "rarity": 0.2
+    },
+    {
+      "processor_type": "slimier-slimes:mushrooms",
+      "rarity": 0.1
     }
   ]
 }

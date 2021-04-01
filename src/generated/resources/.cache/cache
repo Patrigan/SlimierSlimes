@@ -1783,6 +1783,7 @@ f3c415c4e13630dac1aef4155f8b94e5c7934c97 assets/slimier-slimes/models/item/yello
 bce515307ee7f56ae53bd0b696515acd047d0718 assets/slimier-slimes/models/item/yellow_slimy_stone_slab.json
 01fd43b5f994ddf0d5ae59d714b5706adaa3673c assets/slimier-slimes/models/item/yellow_slimy_stone_stairs.json
 699cd422e319be9c2740bb4532f42aa94a732e9b assets/slimier-slimes/models/item/yellow_slimy_stone_wall.json
+1e7f9ff7c197a8dbaf804f3ef04b4dad00ae08aa data/forge/tags/blocks/mushrooms.json
 0951b4843e1ef8112ad940332b4fca944b5f43d5 data/forge/tags/entity_types/slimes.json
 19c5b2d62645cdbf962e7534cf237a71850aaa65 data/forge/tags/items/slimeballs.json
 c33eac7a5d16e0ae75b1a04a4c3b2a8d827c62c1 data/minecraft/advancements/recipes/brewing/magma_cream.json

@@ -28,7 +28,7 @@ public class ModEntityTypes {
     public static final List<String> PROJECTILE_ENTITY_IDS = new ArrayList<>();
     public static final List<EntityType<?>> SPAWNER_ENTITY_TYPES = new ArrayList<>();
 
-    // Entity Types
+    // Slimes
     public static final RegistryObject<EntityType<AbstractSlimeEntity>> COMMON_SLIME = getSlimeRegistryObject("common_slime", AbstractSlimeEntity::new, 0x7EBF6E, true);
     public static final RegistryObject<EntityType<AbstractSlimeEntity>> PINK_SLIME = getSlimeRegistryObject("pink_slime", AbstractSlimeEntity::new, DyeColor.PINK.getColorValue(), false);
     public static final RegistryObject<EntityType<DiamondSlimeEntity>> DIAMOND_SLIME = getSlimeRegistryObject("diamond_slime", DiamondSlimeEntity::new, DyeColor.CYAN.getColorValue(), false);
@@ -44,6 +44,8 @@ public class ModEntityTypes {
     //Projectiles
     public static final RegistryObject<EntityType<AmethystProjectileEntity>> AMETYST_PROJECTILE = getAmethystProjectileRegistryObject("amethyst_projectile", AmethystProjectileEntity::new);
     public static final RegistryObject<EntityType<SlimeballProjectileEntity>> SLIMEBALL_PROJECTILE = getSlimeballProjectileRegistryObject("slimeball_projectile", SlimeballProjectileEntity::new);
+    //Other
+
 
     private static <T extends AbstractSlimeEntity> RegistryObject<EntityType<T>> getSlimeRegistryObject(String key, final EntityType.IFactory<T> sup, int secondaryColor, boolean isSpawnerEntity) {
         ENTITY_IDS.add(key);
@@ -94,6 +96,12 @@ public class ModEntityTypes {
         PROJECTILE_ENTITY_IDS.add(key);
         return ENTITY_TYPES.register(key,
                 () -> EntityType.Builder.of(sup, EntityClassification.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
+                        .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
+    }
+
+    private static <T extends Entity> RegistryObject<EntityType<T>> getGooFallingBlockEntityRegistryObject(String key, final EntityType.IFactory<T> sup) {
+        return ENTITY_TYPES.register(key,
+                () -> EntityType.Builder.of(sup, EntityClassification.MISC).sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(20)
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
     }
 

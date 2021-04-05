@@ -12,6 +12,8 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Arrays;
+
 import static mod.patrigan.slimierslimes.init.ModBlocks.*;
 
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -36,5 +38,10 @@ public class ModBlockColors {
                         buildingBlockHelper.getPressurePlate().get());
             }
         });
+        Arrays.stream(DyeColor.values()).forEach(dyeColor ->
+                blockColors.register(
+                        (state, reader, pos, tintIndex) -> tintIndex == 0 ? dyeColor.getColorValue() : 0xFFFFFFFF,
+                        GOO_LAYER_BLOCKS.get(dyeColor).get())
+        );
     }
 }

@@ -85,6 +85,10 @@
       "rarity": 0.1
     },
     {
+      "processor_type": "slimier-slimes:lily_pads",
+      "rarity": 0.2
+    },
+    {
       "processor_type": "slimier-slimes:goo_blocks",
       "rarity": 0.1,
       "maxHeight": 3,

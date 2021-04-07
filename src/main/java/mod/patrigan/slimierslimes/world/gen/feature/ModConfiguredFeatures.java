@@ -59,7 +59,6 @@ public class ModConfiguredFeatures {
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(SlimierSlimes.MOD_ID, "netherrack_lava_slime_spawner_configured_feature"), NETHERRACK_LAVA_SLIME_SPAWNER_CONFIGURED_FEATURE);
     }
 
-
     @SubscribeEvent
     public static void biomeLoading(final BiomeLoadingEvent event)
     {

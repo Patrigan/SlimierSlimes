@@ -3,7 +3,7 @@ package mod.patrigan.slimierslimes.init;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.entities.*;
 import mod.patrigan.slimierslimes.entities.projectile.AmethystProjectileEntity;
-import mod.patrigan.slimierslimes.entities.projectile.SlimeballProjectileEntity;
+import mod.patrigan.slimierslimes.entities.projectile.SlimeBallEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -17,7 +17,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ModEntityTypes {
 
@@ -43,7 +46,7 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<AbstractSlimeEntity>> OBSIDIAN_SLIME = getFireResistantSlimeRegistryObject("obsidian_slime", AbstractSlimeEntity::new, DyeColor.BLACK.getColorValue(), false);
     //Projectiles
     public static final RegistryObject<EntityType<AmethystProjectileEntity>> AMETYST_PROJECTILE = getAmethystProjectileRegistryObject("amethyst_projectile", AmethystProjectileEntity::new);
-    public static final RegistryObject<EntityType<SlimeballProjectileEntity>> SLIMEBALL_PROJECTILE = getSlimeballProjectileRegistryObject("slimeball_projectile", SlimeballProjectileEntity::new);
+    public static final Map<DyeColor, RegistryObject<EntityType<SlimeBallEntity>>> SLIME_BALL_PROJECTILE = getSlimeballProjectileRegistryObjects("slimeball_projectile", SlimeBallEntity::new);
     //Other
 
 
@@ -92,17 +95,16 @@ public class ModEntityTypes {
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
     }
 
-    private static <T extends Entity> RegistryObject<EntityType<T>> getSlimeballProjectileRegistryObject(String key, final EntityType.IFactory<T> sup) {
-        PROJECTILE_ENTITY_IDS.add(key);
-        return ENTITY_TYPES.register(key,
-                () -> EntityType.Builder.of(sup, EntityClassification.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
-                        .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
+    private static <T extends Entity> Map<DyeColor, RegistryObject<EntityType<T>>> getSlimeballProjectileRegistryObjects(String key, EntityType.IFactory<T> sup) {
+        return Arrays.stream(DyeColor.values()).collect(Collectors.toMap(dyeColor -> dyeColor, dyeColor -> getSlimeballProjectileRegistryObject(key, dyeColor, sup)));
     }
 
-    private static <T extends Entity> RegistryObject<EntityType<T>> getGooFallingBlockEntityRegistryObject(String key, final EntityType.IFactory<T> sup) {
-        return ENTITY_TYPES.register(key,
-                () -> EntityType.Builder.of(sup, EntityClassification.MISC).sized(0.98F, 0.98F).clientTrackingRange(10).updateInterval(20)
-                        .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString()));
+    private static <T extends Entity> RegistryObject<EntityType<T>> getSlimeballProjectileRegistryObject(String key, DyeColor dyeColor, final EntityType.IFactory<T> sup) {
+        String id = dyeColor.getName() + "_" + key;
+        PROJECTILE_ENTITY_IDS.add(id);
+        return ENTITY_TYPES.register(id,
+                () -> EntityType.Builder.of(sup, EntityClassification.MISC).sized(0.25F, 0.25F).clientTrackingRange(4).updateInterval(10)
+                        .build(new ResourceLocation(SlimierSlimes.MOD_ID, id).toString()));
     }
 
     public static void registerAdditionalEntityInformation() {

@@ -1,13 +1,13 @@
 {
-  "name": "slimier-slimes:sewer/waterways_pool",
+  "name": "slimier-slimes:sewer/cistern_pool",
 
   "fallback": "minecraft:empty",
 
   "elements": [
     {
-      "weight": 3,
+      "weight": 1,
       "element": {
-        "location": "slimier-slimes:sewer/waterway/straight",
+        "location": "slimier-slimes:sewer/cistern/pool",
         "processors": "slimier-slimes:sewer/waterway_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
@@ -16,16 +16,16 @@
     {
       "weight": 1,
       "element": {
-        "location": "slimier-slimes:sewer/waterway/bars",
+        "location": "slimier-slimes:sewer/cistern/deep_pool",
         "processors": "slimier-slimes:sewer/waterway_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     },
     {
-      "weight": 2,
+      "weight": 3,
       "element": {
-        "location": "slimier-slimes:sewer/waterway/corner",
+        "location": "slimier-slimes:sewer/cistern/closed_side",
         "processors": "slimier-slimes:sewer/waterway_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
@@ -35,6 +35,24 @@
       "weight": 1,
       "element": {
         "location": "slimier-slimes:sewer/cistern/waterway_side",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/cistern/dome_corner",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/cistern/dome",
         "processors": "slimier-slimes:sewer/waterway_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

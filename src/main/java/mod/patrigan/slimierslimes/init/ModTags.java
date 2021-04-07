@@ -11,8 +11,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.versions.forge.ForgeVersion;
 
-import static net.minecraftforge.versions.forge.ForgeVersion.MOD_ID;
-
 public class ModTags {
 
     public static class Items {
@@ -26,10 +24,10 @@ public class ModTags {
 
     public static class EntityTypes {
 
-        public static final ITag.INamedTag<EntityType<?>> SLIMES = tag("slimes");
+        public static final ITag.INamedTag<EntityType<?>> SLIMES = forgeTag("slimes");
 
-        private static ITag.INamedTag<EntityType<?>> tag(String id) {
-            return EntityTypeTags.createOptional(new ResourceLocation(MOD_ID + ":" + id));
+        private static ITag.INamedTag<EntityType<?>> forgeTag(String id) {
+            return EntityTypeTags.createOptional(new ResourceLocation(ForgeVersion.MOD_ID + ":" + id));
         }
     }
 

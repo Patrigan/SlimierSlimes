@@ -18,6 +18,7 @@ public class ModProcessors {
     public static IStructureProcessorType<CeilingAttachmentProcessor> CEILING_ATTACHMENT;
     public static IStructureProcessorType<VineProcessor> VINES;
     public static IStructureProcessorType<MushroomProcessor> MUSHROOMS;
+    public static IStructureProcessorType<LilyPadProcessor> LILY_PADS;
     public static IStructureProcessorType<GooProcessor> GOO_BLOCKS;
 
     public static void init(){
@@ -29,6 +30,7 @@ public class ModProcessors {
         CEILING_ATTACHMENT = register("ceiling_attachment", CeilingAttachmentProcessor.CODEC);
         VINES = register("vines", VineProcessor.CODEC);
         MUSHROOMS = register("mushrooms", MushroomProcessor.CODEC);
+        LILY_PADS = register("lily_pads", LilyPadProcessor.CODEC);
         GOO_BLOCKS = register("goo_blocks", GooProcessor.CODEC);
     }
 

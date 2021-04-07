@@ -44,7 +44,8 @@ public class LilyPadProcessor extends StructureProcessor {
         BlockPos blockpos = blockInfo.pos;
         if(blockstate.getBlock().equals(AIR) && random.nextFloat() <= rarity){
             List<Template.BlockInfo> pieceBlocks = settings.getRandomPalette(template.palettes, piecePos).blocks();
-            if(getBlock(pieceBlocks, rawBlockInfo.pos.relative(DOWN)).state.getFluidState().getType() == Fluids.WATER) {
+            Template.BlockInfo below = getBlock(pieceBlocks, rawBlockInfo.pos.relative(DOWN));
+            if(below != null && below.state.getFluidState().getType() == Fluids.WATER) {
                 return new Template.BlockInfo(blockpos, LILY_PAD.defaultBlockState(), blockInfo.nbt);
             }
         }

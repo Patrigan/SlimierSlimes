@@ -1,0 +1,86 @@
+{
+  "processors": [
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_cobblestone",
+        "minecraft:cobblestone"
+      ],
+      "toReplace": "minecraft:andesite"
+    },
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_cobblestone_stairs",
+        "minecraft:cobblestone_stairs"
+      ],
+      "toReplace": "minecraft:andesite_stairs"
+    },
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_cobblestone",
+        "minecraft:cobblestone",
+        "minecraft:andesite"
+      ],
+      "toReplace": "minecraft:polished_andesite"
+    },
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_stone_bricks",
+        "minecraft:cracked_stone_bricks"
+      ],
+      "toReplace": "minecraft:stone_bricks"
+    },
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_stone_bricks",
+        "minecraft:cracked_stone_bricks"
+      ],
+      "toReplace": "minecraft:stone_bricks"
+    },
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_stone_brick_stairs"
+      ],
+      "toReplace": "minecraft:stone_brick_stairs"
+    },
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_stone_brick_slab"
+      ],
+      "toReplace": "minecraft:stone_brick_slab"
+    },
+    {
+      "processor_type": "slimier-slimes:gradient_spot_replace",
+      "rarity": 1,
+      "gradientList": [
+        "minecraft:mossy_stone_brick_stairs"
+      ],
+      "toReplace": "minecraft:stone_brick_stairs"
+    },
+    {
+      "processor_type": "slimier-slimes:ceiling_attachment",
+      "rarity": 0.1,
+      "block": "minecraft:cobweb",
+      "needsWall": true
+    },
+    {
+      "processor_type": "slimier-slimes:goo_blocks",
+      "rarity": 0.1,
+      "maxHeight": 3,
+      "dyeColor": "white"
+    }
+  ]
+}

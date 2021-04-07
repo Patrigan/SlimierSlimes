@@ -1,7 +1,7 @@
 {
   "name": "slimier-slimes:sewer/waterways_pool",
 
-  "fallback": "minecraft:empty",
+  "fallback": "slimier-slimes:sewer/waterways_endcap_pool",
 
   "elements": [
     {

@@ -16,6 +16,24 @@
     {
       "weight": 1,
       "element": {
+        "location": "slimier-slimes:sewer/waterway/secret_passage",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/waterway/doorway",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
         "location": "slimier-slimes:sewer/waterway/bars",
         "processors": "slimier-slimes:sewer/waterway_processors",
         "projection": "rigid",

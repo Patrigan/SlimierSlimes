@@ -1,6 +1,7 @@
 package mod.patrigan.slimierslimes.init;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.structures.PillagerSlimeLab;
+import mod.patrigan.slimierslimes.structures.Sewer;
 import mod.patrigan.slimierslimes.structures.SlimeDungeon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -15,6 +16,7 @@ public class ModConfiguredStructures {
      */
     public static final StructureFeature<?, ?> CONFIGURED_PILLAGER_SLIME_LAB = ModStructures.PILLAGER_SLIME_LAB.get().configured(IFeatureConfig.NONE);
     public static final StructureFeature<?, ?> CONFIGURED_SLIME_DUNGEON = ModStructures.SLIME_DUNGEON.get().configured(IFeatureConfig.NONE);
+    public static final StructureFeature<?, ?> CONFIGURED_SEWER = ModStructures.SEWER.get().configured(IFeatureConfig.NONE);
 
     /**
      * Registers the configured structure which is what gets added to the biomes.
@@ -27,6 +29,7 @@ public class ModConfiguredStructures {
         Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
         Registry.register(registry, new ResourceLocation(SlimierSlimes.MOD_ID, "configured_"+ PillagerSlimeLab.STRUCTURE_ID), CONFIGURED_PILLAGER_SLIME_LAB);
         Registry.register(registry, new ResourceLocation(SlimierSlimes.MOD_ID, "configured_"+ SlimeDungeon.STRUCTURE_ID), CONFIGURED_SLIME_DUNGEON);
+        Registry.register(registry, new ResourceLocation(SlimierSlimes.MOD_ID, "configured_"+ Sewer.STRUCTURE_ID), CONFIGURED_SEWER);
 
         // Ok so, this part may be hard to grasp but basically, just add your structure to this to
         // prevent any sort of crash or issue with other mod's custom ChunkGenerators. If they use
@@ -42,5 +45,6 @@ public class ModConfiguredStructures {
         // the restart but honestly, superflat is really buggy and shouldn't be your main focus in my opinion.
         FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.PILLAGER_SLIME_LAB.get(), CONFIGURED_PILLAGER_SLIME_LAB);
         FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SLIME_DUNGEON.get(), CONFIGURED_SLIME_DUNGEON);
+        FlatGenerationSettings.STRUCTURE_FEATURES.put(ModStructures.SEWER.get(), CONFIGURED_SEWER);
     }
 }

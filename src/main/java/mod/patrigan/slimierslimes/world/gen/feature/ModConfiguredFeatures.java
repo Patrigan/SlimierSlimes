@@ -21,8 +21,7 @@ import java.util.Arrays;
 import java.util.EnumMap;
 import java.util.Map;
 
-import static mod.patrigan.slimierslimes.init.ModFeatures.LAVA_SLIME_SPAWNER_FEATURE;
-import static mod.patrigan.slimierslimes.init.ModFeatures.SLIME_SPAWNER_FEATURE;
+import static mod.patrigan.slimierslimes.init.ModFeatures.*;
 
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModConfiguredFeatures {
@@ -33,6 +32,7 @@ public class ModConfiguredFeatures {
     private static ConfiguredFeature<?,?> STONE_LAVA_SLIME_SPAWNER_CONFIGURED_FEATURE;
     private static ConfiguredFeature<?,?> NETHERRACK_LAVA_SLIME_SPAWNER_CONFIGURED_FEATURE;
     private static ConfiguredFeature<?,?> SLIME_SPAWNER_CONFIGURED_FEATURE;
+    private static ConfiguredFeature<?,?> SEWER_SHAFT_CONFIGURED_FEATURE;
 
     public static void registerConfiguredFeatures(){
         registerLavaSlimeSpawnerFeatures();
@@ -40,6 +40,8 @@ public class ModConfiguredFeatures {
         Arrays.stream(DyeColor.values()).forEach(ModConfiguredFeatures::registerSlimyNetherrack);
         SLIME_SPAWNER_CONFIGURED_FEATURE = SLIME_SPAWNER_FEATURE.get().configured(IFeatureConfig.NONE);
         Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(SlimierSlimes.MOD_ID, "slime_spawner_configured_feature"), SLIME_SPAWNER_CONFIGURED_FEATURE);
+        SEWER_SHAFT_CONFIGURED_FEATURE = SEWER_SHAFT_FEATURE.get().configured(IFeatureConfig.NONE);
+        Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, new ResourceLocation(SlimierSlimes.MOD_ID, "sewer_shaft_configured_feature"), SEWER_SHAFT_CONFIGURED_FEATURE);
     }
 
     private static void registerSlimyStone(DyeColor dyeColor) {

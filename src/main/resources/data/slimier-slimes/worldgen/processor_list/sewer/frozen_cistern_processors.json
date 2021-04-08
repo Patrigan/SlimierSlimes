@@ -74,7 +74,7 @@
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
       "gradientList": [
-        "minecraft:ice",
+        "minecraft:ice"
       ],
       "toReplace": "minecraft:snow_block"
     },

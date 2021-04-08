@@ -74,9 +74,10 @@
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
       "gradientList": [
-        "minecraft:ice",
+        "minecraft:spruce_slab",
+        "minecraft:jungle_slab"
       ],
-      "toReplace": "minecraft:snow_block"
+      "toReplace": "minecraft:oak_slab"
     },
     {
       "processor_type": "slimier-slimes:ceiling_attachment",
@@ -85,10 +86,14 @@
       "needsWall": true
     },
     {
+      "processor_type": "slimier-slimes:vines",
+      "rarity": 0.2
+    },
+    {
       "processor_type": "slimier-slimes:goo_blocks",
       "rarity": 0.1,
       "maxHeight": 3,
-      "dyeColor": "white"
+      "dyeColor": "green"
     }
   ]
 }

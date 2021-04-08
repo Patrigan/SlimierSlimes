@@ -1,13 +1,31 @@
 {
   "name": "slimier-slimes:sewer/waterways_pool",
 
-  "fallback": "minecraft:empty",
+  "fallback": "slimier-slimes:sewer/waterways_endcap_pool",
 
   "elements": [
     {
       "weight": 3,
       "element": {
         "location": "slimier-slimes:sewer/waterway/straight",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/waterway/secret_passage",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/waterway/doorway",
         "processors": "slimier-slimes:sewer/waterway_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

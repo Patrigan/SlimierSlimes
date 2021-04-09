@@ -39,6 +39,7 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<AbstractSlimeEntity>> CLOUD_SLIME = getSlimeRegistryObject("cloud_slime", AbstractSlimeEntity::new, DyeColor.LIGHT_GRAY.getColorValue(), true);
     public static final RegistryObject<EntityType<CrystalSlimeEntity>> CRYSTAL_SLIME = getSlimeRegistryObject("crystal_slime", CrystalSlimeEntity::new, DyeColor.MAGENTA.getColorValue(), true);
     public static final RegistryObject<EntityType<GlowSlimeEntity>> GLOW_SLIME = getSlimeRegistryObject("glow_slime", GlowSlimeEntity::new, DyeColor.PURPLE.getColorValue(), true);
+    public static final RegistryObject<EntityType<GooSlimeEntity>> BROWN_GOO_SLIME = getSlimeRegistryObject("brown_goo_slime", GooSlimeEntity::new, DyeColor.BROWN.getColorValue(), true);
     public static final RegistryObject<EntityType<CreeperSlimeEntity>> CREEPER_SLIME = getSlimeRegistryObject("creeper_slime", CreeperSlimeEntity::new, DyeColor.GREEN.getColorValue(), true);
     public static final RegistryObject<EntityType<SnowSlimeEntity>> SNOW_SLIME = getSlimeRegistryObject("snow_slime", SnowSlimeEntity::new, DyeColor.WHITE.getColorValue(), true);
     public static final RegistryObject<EntityType<CamoSlimeEntity>> CAMO_SLIME = getSlimeRegistryObject("camo_slime", CamoSlimeEntity::new, DyeColor.BROWN.getColorValue(), true);
@@ -124,6 +125,7 @@ public class ModEntityTypes {
         GlobalEntityTypeAttributes.put(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().build());
         GlobalEntityTypeAttributes.put(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeEntity.getMutableAttributes().build());
         GlobalEntityTypeAttributes.put(ModEntityTypes.OBSIDIAN_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        GlobalEntityTypeAttributes.put(ModEntityTypes.BROWN_GOO_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
     }
 
 }

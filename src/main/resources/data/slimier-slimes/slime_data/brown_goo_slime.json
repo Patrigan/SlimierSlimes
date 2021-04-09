@@ -1,0 +1,17 @@
+{
+  "spawnOnSurface": false,
+  "squishParticleData": {
+    "typeString": "BLOCK",
+    "resourceLocation": "slimier-slimes:brown_slime_block"
+  },
+  "slimeSpawnData": [
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 30,
+      "biomes": [
+        "OVERWORLD"
+      ]
+    }
+  ]
+}

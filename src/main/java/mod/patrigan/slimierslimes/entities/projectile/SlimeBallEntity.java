@@ -1,7 +1,6 @@
 package mod.patrigan.slimierslimes.entities.projectile;
 
 import mod.patrigan.slimierslimes.init.ModEntityTypes;
-import mod.patrigan.slimierslimes.init.ModItems;
 import mod.patrigan.slimierslimes.init.ModTags;
 import mod.patrigan.slimierslimes.items.SlimeBallItem;
 import net.minecraft.block.BlockState;
@@ -14,7 +13,9 @@ import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
@@ -25,6 +26,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 import static mod.patrigan.slimierslimes.blocks.GooLayerBlock.LAYERS;
@@ -32,15 +34,12 @@ import static mod.patrigan.slimierslimes.init.ModBlocks.GOO_LAYER_BLOCKS;
 import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
 
 public class SlimeBallEntity extends ProjectileItemEntity {
-    private SlimeBallItem defaultItem = (SlimeBallItem) SLIME_BALL.get(DyeColor.LIME).get();
     public SlimeBallEntity(EntityType<? extends SlimeBallEntity> p_i50159_1_, World p_i50159_2_) {
         super(p_i50159_1_, p_i50159_2_);
     }
 
     public SlimeBallEntity(SlimeBallItem defaultItem, World worldIn, LivingEntity throwerIn) {
         super(ModEntityTypes.SLIME_BALL_PROJECTILE.get(defaultItem.getDyeColor()).get(), throwerIn, worldIn);
-        this.defaultItem = defaultItem;
-
     }
 
     public SlimeBallEntity(World worldIn, double x, double y, double z) {
@@ -116,7 +115,7 @@ public class SlimeBallEntity extends ProjectileItemEntity {
     }
 
     private void placeGooBlock(BlockPos blockpos) {
-        BlockState blockState = GOO_LAYER_BLOCKS.get(defaultItem.getDyeColor()).get().defaultBlockState();
+        BlockState blockState = GOO_LAYER_BLOCKS.get(((SlimeBallItem) getItemRaw().getItem()).getDyeColor()).get().defaultBlockState();
         if (this.level.isEmptyBlock(blockpos)) {
             this.level.setBlockAndUpdate(blockpos, blockState);
         }else if(this.level.getBlockState(blockpos).is(blockState.getBlock())){

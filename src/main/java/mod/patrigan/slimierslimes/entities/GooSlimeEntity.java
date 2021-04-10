@@ -69,6 +69,7 @@ public class GooSlimeEntity extends AbstractSlimeEntity implements IRangedAttack
 
     public void performRangedAttack(LivingEntity p_82196_1_, float p_82196_2_) {
         SlimeBallEntity slimeBallentity = new SlimeBallEntity((SlimeBallItem) SLIME_BALL.get(dyeColor).get(), this.level, this);
+        slimeBallentity.setItem(SLIME_BALL.get(dyeColor).get().getDefaultInstance());
         double d0 = p_82196_1_.getEyeY() - (double)1.1F;
         double d1 = p_82196_1_.getX() - this.getX();
         double d2 = d0 - slimeBallentity.getY();

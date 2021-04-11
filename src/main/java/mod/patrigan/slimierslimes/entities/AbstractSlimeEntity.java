@@ -87,7 +87,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     }
 
     //Slime Size is determined as follows: A random number is determined between 0 and 2. 1 is then bitshift equal to this number, resulting in either 1, 2 or 4.
-    protected void setSize(int size, boolean resetHealth) {
+    public void setSize(int size, boolean resetHealth) {
         this.entityData.set(SLIME_SIZE, size);
         this.reapplyPosition();
         this.refreshDimensions();

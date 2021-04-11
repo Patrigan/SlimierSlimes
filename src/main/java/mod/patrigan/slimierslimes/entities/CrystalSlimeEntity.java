@@ -35,7 +35,7 @@ public class CrystalSlimeEntity extends AbstractSlimeEntity {
 
     //Slime Size is determined as follows: A random number is determined between 0 and 2. 1 is then bitshift equal to this number, resulting in either 1, 2 or 4.
     @Override
-    protected void setSize(int size, boolean resetHealth) {
+    public void setSize(int size, boolean resetHealth) {
         super.setSize(size, resetHealth);
         this.getAttribute(Attributes.FOLLOW_RANGE).setBaseValue(12D);
     }

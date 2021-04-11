@@ -141,7 +141,7 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    protected void setSize(int size, boolean resetHealth) {
+    public void setSize(int size, boolean resetHealth) {
         super.setSize(size, resetHealth);
         this.explosionRadius = size;
     }

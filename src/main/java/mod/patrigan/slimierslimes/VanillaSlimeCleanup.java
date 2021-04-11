@@ -1,11 +1,17 @@
 package mod.patrigan.slimierslimes;
 
+import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
 import mod.patrigan.slimierslimes.init.ModItems;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
+import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
@@ -18,6 +24,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static mod.patrigan.slimierslimes.SlimierSlimes.MAIN_CONFIG;
+import static mod.patrigan.slimierslimes.entities.AbstractSlimeEntity.SLIME_SIZE_KEY;
+import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
 import static net.minecraft.entity.EntityType.SLIME;
 import static net.minecraft.item.Items.SLIME_BALL;
 
@@ -47,12 +55,26 @@ public class VanillaSlimeCleanup {
     }
 
     @SubscribeEvent
-    public static void entityJoinWorld(EntityJoinWorldEvent entityJoinWorldEventIn) {
-        if(Boolean.FALSE.equals(MAIN_CONFIG.allowVanillaSlime.get())
-            && entityJoinWorldEventIn.getEntity() instanceof ItemEntity) {
-            ItemEntity itemEntity = (ItemEntity) entityJoinWorldEventIn.getEntity();
-            if (itemEntity.getItem().getItem().equals(SLIME_BALL)) {
-                itemEntity.setItem(new ItemStack(ModItems.SLIME_BALL.get(DyeColor.LIME).get(), itemEntity.getItem().getCount()));
+    public static void entityJoinWorld(EntityJoinWorldEvent event) {
+        if(Boolean.FALSE.equals(MAIN_CONFIG.allowVanillaSlime.get()) && !event.getWorld().isClientSide()){
+            if(event.getEntity() instanceof ItemEntity) {
+                ItemEntity itemEntity = (ItemEntity) event.getEntity();
+                if (itemEntity.getItem().getItem().equals(SLIME_BALL)) {
+                    itemEntity.setItem(new ItemStack(ModItems.SLIME_BALL.get(DyeColor.LIME).get(), itemEntity.getItem().getCount()));
+                }
+            }else if(event.getEntity() instanceof SlimeEntity) {
+                SlimeEntity eventEntity = (SlimeEntity) event.getEntity();
+                AbstractSlimeEntity slimeEntity = COMMON_SLIME.get().create(event.getWorld());
+                if (eventEntity.isPersistenceRequired()) {
+                    slimeEntity.setPersistenceRequired();
+                }
+                slimeEntity.setCustomName(eventEntity.getCustomName());
+                slimeEntity.setNoAi(eventEntity.isNoAi());
+                slimeEntity.setInvulnerable(eventEntity.isInvulnerable());
+                slimeEntity.setSize(eventEntity.getSize(), true);
+                slimeEntity.moveTo(eventEntity.getX(), eventEntity.getY(), eventEntity.getZ(), eventEntity.yRot, eventEntity.xRot);
+                event.getWorld().addFreshEntity(slimeEntity);
+                eventEntity.remove(false);
             }
         }
     }

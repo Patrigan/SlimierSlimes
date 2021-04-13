@@ -2,8 +2,13 @@ package mod.patrigan.slimierslimes.init.client;
 
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.client.entity.render.*;
+import mod.patrigan.slimierslimes.client.renderer.entity.layers.BipedTranslucentArmorLayer;
 import mod.patrigan.slimierslimes.entities.projectile.SlimeBallEntity;
 import mod.patrigan.slimierslimes.init.ModEntityTypes;
+import mod.patrigan.slimierslimes.item.TranslucentArmorItem;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.entity.EntityType;
@@ -14,9 +19,13 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
+import java.util.Map;
+
+import static net.minecraftforge.api.distmarker.Dist.CLIENT;
+
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.SLIME_BALL_PROJECTILE;
 
-@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = CLIENT)
 public class ClientEventBusSubscriber {
 
     @SubscribeEvent
@@ -38,5 +47,16 @@ public class ClientEventBusSubscriber {
         SLIME_BALL_PROJECTILE.forEach((dyeColor, entityTypeRegistryObject) ->
                 RenderingRegistry.registerEntityRenderingHandler(entityTypeRegistryObject.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()))
                 );
+
+        addTranslucentArmorRenderer();
+    }
+
+    private static void addTranslucentArmorRenderer() {
+        //SlimierSlimes.LOGGER.debug(CLIENT, "Adding custom player layer renderers");
+        final Map<String, PlayerRenderer> skinMap = Minecraft.getInstance().getEntityRenderDispatcher().getSkinMap();
+        final PlayerRenderer defaultRenderer = skinMap.get("default");
+        defaultRenderer.addLayer(new BipedTranslucentArmorLayer<>(defaultRenderer, new BipedModel<>(0.5F), new BipedModel<>(1.0F)));
+        final PlayerRenderer slimRenderer = skinMap.get("slim");
+        slimRenderer.addLayer(new BipedTranslucentArmorLayer<>(slimRenderer, new BipedModel<>(0.5F), new BipedModel<>(1.0F)));
     }
 }

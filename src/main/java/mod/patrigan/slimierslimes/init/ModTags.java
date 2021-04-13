@@ -16,6 +16,10 @@ public class ModTags {
     public static class Items {
 
         public static final ITag.INamedTag<Item> JELLIES = tag("jellies");
+        public static final ITag.INamedTag<Item> ARMOR_SLIME_CHESTPLATE = tag("armor/slime/chestplate");
+        public static final ITag.INamedTag<Item> ARMOR_SLIME_HELMET = tag("armor/slime/helmet");
+        public static final ITag.INamedTag<Item> ARMOR_SLIME_LEGGINGS = tag("armor/slime/leggings");
+        public static final ITag.INamedTag<Item> ARMOR_SLIME_BOOTS = tag("armor/slime/boots");
 
         private static ITag.INamedTag<Item> tag(String id) {
             return ItemTags.bind(SlimierSlimes.MOD_ID + ":" + id);

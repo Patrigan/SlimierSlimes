@@ -57,6 +57,50 @@
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/waterway/cross_large",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/waterway/cross_small",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/waterway/junction_large",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/waterway/junction_small",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/waterway/junction_secret_door",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
     }
   ]
 }

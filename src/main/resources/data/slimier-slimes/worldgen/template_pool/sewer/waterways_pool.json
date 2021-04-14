@@ -74,7 +74,8 @@
         "processors": "slimier-slimes:sewer/waterway_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
-      },
+      }
+    },
     {
       "weight": 1,
       "element": {

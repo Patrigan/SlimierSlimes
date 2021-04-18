@@ -1,6 +1,5 @@
 package mod.patrigan.slimierslimes.item;
 
-import mod.patrigan.slimierslimes.SlimierSlimes;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
@@ -13,7 +12,6 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -21,9 +19,12 @@ import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
 
+import static mod.patrigan.slimierslimes.SlimierSlimes.MOD_ID;
 import static mod.patrigan.slimierslimes.init.ModTags.Items.*;
+import static net.minecraft.inventory.EquipmentSlotType.CHEST;
+import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.FORGE;
 
-@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = MOD_ID, bus = FORGE)
 public class SlimeArmorEvents {
 
     @SubscribeEvent
@@ -31,7 +32,7 @@ public class SlimeArmorEvents {
     {
         LivingEntity entity = (LivingEntity) event.getEntity();
         DamageSource source = event.getSource();
-        if(entity.getItemBySlot(EquipmentSlotType.CHEST).getItem().is(ARMOR_SLIME_CHESTPLATE)){
+        if(entity.getItemBySlot(CHEST).getItem().is(ARMOR_SLIME_CHESTPLATE)){
             if(source instanceof EntityDamageSource && !source.isProjectile()){
                 Entity sourceEntity = ((EntityDamageSource) source).getEntity();
                 int i = 2;
@@ -45,52 +46,36 @@ public class SlimeArmorEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingFallEvent(LivingFallEvent event){
-        LivingEntity entity = (LivingEntity) event.getEntity();
-        if(entity.getItemBySlot(EquipmentSlotType.FEET).getItem().is(ARMOR_SLIME_BOOTS) && !entity.isSuppressingBounce()){
-            Vector3d vector3d = entity.getDeltaMovement();
-            if (vector3d.y < 0.0D) {
-                double d0 =  1.0D;
-                entity.setDeltaMovement(vector3d.x, -vector3d.y * d0, vector3d.z);
-            }
-            entity.fallDistance = 0.0F;
+    public static void onLivingFallEvent(LivingFallEvent event) {
+        LivingEntity entity = event.getEntityLiving();
+        if (entity != null && entity.getItemBySlot(EquipmentSlotType.FEET).getItem().is(ARMOR_SLIME_BOOTS)) {
             event.setDamageMultiplier(0);
-            //event.setCanceled(true);
+            entity.fallDistance =  0.0F;
+            if(!entity.isCrouching() && event.getDistance() > 2) {
+                if (entity instanceof PlayerEntity) {
+                    if(entity.level.isClientSide()){
+                        bounce(entity);
+                    } else {
+                        event.setCanceled(true);
+                    }
+                } else {
+                    if(!entity.level.isClientSide()){
+                        bounce(entity);
+                    } else {
+                        event.setCanceled(true);
+                    }
+                }
+                entity.playSound(SoundEvents.SLIME_SQUISH, 1f, 1f);
+                SlimeBootsHandler.addSlimeBootsHandler(entity, entity.getDeltaMovement().y);
+            }
         }
     }
 
-    //Implementation as per Tinker's Construct
-   /* @SubscribeEvent
-    public void onFall(LivingFallEvent event) {
-        LivingEntity entity = event.getEntityLiving();
-        if (entity == null) {
-            return;
-        }
-        if(entity.getItemBySlot(EquipmentSlotType.FEET).getItem().is(ARMOR_SLIME_BOOTS)) {
-            // thing is wearing slime boots. let's get bouncyyyyy
-            boolean isClientSide = entity.level.isClientSide;
-            if (!entity.isCrouching() && event.getDistance() > 2) {
-                event.setDamageMultiplier(0);
-                entity.fallDistance = 0.0F;
-
-                if (isClientSide) {
-                    entity.setDeltaMovement(entity.getDeltaMovement().multiply(1.0D, -1.00D, 1.0D));
-                    //entity.isAirBorne = true;
-                    entity.setOnGround(false);
-                    double f = 0.91d + 0.04d;
-                    // only slow down half as much when bouncing
-                    entity.setDeltaMovement(entity.getDeltaMovement().multiply(1.0D/f, -1.00D, 1.0D/f));
-                } else {
-                    event.setCanceled(true); // we don't care about previous cancels, since we just bounceeeee
-                }
-
-                entity.playSound(SoundEvents.SLIME_SQUISH, 1f, 1f);
-                //SlimeBounceHandler.addBounceHandler(entity, entity.getMotion().y);
-            } else if (!isClientSide && entity.isCrouching()) {
-                event.setDamageMultiplier(0.2f);
-            }
-        }
-    }*/
+    private static void bounce(LivingEntity entity) {
+        entity.setDeltaMovement(entity.getDeltaMovement().x, entity.getDeltaMovement().y * -0.9, entity.getDeltaMovement().z);
+        entity.hasImpulse = true;
+        entity.setOnGround(false);
+    }
 
     @SubscribeEvent
     public static void onPlayerTickEvent(TickEvent.PlayerTickEvent event){
@@ -115,4 +100,21 @@ public class SlimeArmorEvents {
         Vector3d vector3d = player.getDeltaMovement();
         player.setDeltaMovement(vector3d.x * (double)0.99F, vector3d.y + (double)(vector3d.y < (double)0.06F ? 0.005F : 0.0F), vector3d.z * (double)0.99F);
     }
+
+//TODO:Find a better way to do this. Also needs support for mobs above.
+/*    @SubscribeEvent
+    public static void giveArmor(EntityJoinWorldEvent event){
+        if(!event.getWorld().isClientSide() && event.getEntity() instanceof LivingEntity && ! (event.getEntity() instanceof PlayerEntity)) {
+            LivingEntity entity = (LivingEntity) event.getEntity();
+            replaceArmorItem(event.getWorld(), entity, HEAD, ARMOR_SLIME_HELMET.getRandomElement(event.getWorld().getRandom()));
+            replaceArmorItem(event.getWorld(), entity, CHEST, ARMOR_SLIME_CHESTPLATE.getRandomElement(event.getWorld().getRandom()));
+            replaceArmorItem(event.getWorld(), entity, LEGS, ARMOR_SLIME_LEGGINGS.getRandomElement(event.getWorld().getRandom()));
+            replaceArmorItem(event.getWorld(), entity, FEET, ARMOR_SLIME_BOOTS.getRandomElement(event.getWorld().getRandom()));
+        }
+    }
+    private static void replaceArmorItem(World world, LivingEntity entity, EquipmentSlotType equipmentSlotType, Item item) {
+        if (world.random.nextFloat() < 1F) {
+            entity.setItemSlot(equipmentSlotType, new ItemStack(item));
+        }
+    }*/
 }

@@ -27,7 +27,7 @@ public class CeilingAttachmentProcessor extends StructureProcessor {
             builder.group(
                     Codec.FLOAT.fieldOf("rarity").forGetter(processor -> processor.rarity),
                     ResourceLocation.CODEC.fieldOf("block").forGetter(data -> data.block),
-                    Codec.BOOL.optionalFieldOf("needsWall", false).forGetter(processor -> processor.needsWall)
+                    Codec.BOOL.optionalFieldOf("needs_wall", false).forGetter(processor -> processor.needsWall)
             ).apply(builder, CeilingAttachmentProcessor::new));
     private static final long SEED = 7645816L;
 

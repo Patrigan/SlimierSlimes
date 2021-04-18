@@ -3,6 +3,7 @@ package mod.patrigan.slimierslimes.structures;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import mod.patrigan.slimierslimes.SlimierSlimes;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
@@ -27,7 +28,7 @@ import org.apache.logging.log4j.Level;
 
 import java.util.List;
 
-import static mod.patrigan.slimierslimes.init.ModEntityTypes.COMMON_SLIME;
+import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
 
 public class Sewer extends Structure<NoFeatureConfig> {
 
@@ -64,7 +65,11 @@ public class Sewer extends Structure<NoFeatureConfig> {
      * that are not your own.
      */
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
-            new MobSpawnInfo.Spawners(COMMON_SLIME.get(), 100, 1, 1)
+            new MobSpawnInfo.Spawners(COMMON_SLIME.get(), 50, 1, 1),
+            new MobSpawnInfo.Spawners(BROWN_GOO_SLIME.get(), 100, 1, 1),
+            new MobSpawnInfo.Spawners(EntityType.ZOMBIE, 20, 4, 4),
+            new MobSpawnInfo.Spawners(EntityType.SKELETON, 20, 4, 4),
+            new MobSpawnInfo.Spawners(DIAMOND_SLIME.get(), 2, 1, 1)
     );
 
     @Override
@@ -133,7 +138,7 @@ public class Sewer extends Structure<NoFeatureConfig> {
              * structure will spawn at terrain height instead. Set that parameter to false to
              * force the structure to spawn at blockpos's Y value instead. You got options here!
              */
-            int heightY = chunkGenerator.getBaseHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
+            int heightY = Math.min(65, chunkGenerator.getBaseHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG));
             int randY = random.nextInt(heightY - 20) + 10;
             BlockPos blockpos = new BlockPos(x, randY, z);
 
@@ -192,10 +197,10 @@ public class Sewer extends Structure<NoFeatureConfig> {
 
             // I use to debug and quickly find out if the structure is spawning or not and where it is.
             // This is returning the coordinates of the center starting piece.
-            SlimierSlimes.LOGGER.log(Level.DEBUG, "Sewers at " +
+            /*SlimierSlimes.LOGGER.log(Level.DEBUG, "Sewers at " +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
-                    this.pieces.get(0).getBoundingBox().z0);
+                    this.pieces.get(0).getBoundingBox().z0);*/
         }
 
     }

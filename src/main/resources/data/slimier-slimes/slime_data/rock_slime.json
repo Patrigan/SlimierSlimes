@@ -1,4 +1,5 @@
 {
+  "dyeColor": "blue",
   "armor": {"sizeMultiplier": 2},
   "attackDamage": {
     "resultModifier": 1

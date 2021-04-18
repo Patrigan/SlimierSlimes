@@ -1,4 +1,5 @@
 {
+  "dyeColor": "light_gray",
   "movementSpeed": {
     "resultMultiplier": 0.1,
     "resultModifier": 0.3

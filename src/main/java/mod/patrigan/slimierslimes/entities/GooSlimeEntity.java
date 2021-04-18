@@ -4,7 +4,6 @@ import mod.patrigan.slimierslimes.entities.ai.goal.FaceRandomGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FloatGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.HopGoal;
 import mod.patrigan.slimierslimes.entities.projectile.SlimeBallEntity;
-import mod.patrigan.slimierslimes.entities.projectile.SlimeSnowballEntity;
 import mod.patrigan.slimierslimes.items.SlimeBallItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
@@ -14,8 +13,6 @@ import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.SnowballEntity;
-import net.minecraft.item.DyeColor;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -26,7 +23,6 @@ import static mod.patrigan.slimierslimes.init.ModBlocks.GOO_LAYER_BLOCKS;
 import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
 
 public class GooSlimeEntity extends AbstractSlimeEntity implements IRangedAttackMob {
-    DyeColor dyeColor = DyeColor.BROWN;
 
     public GooSlimeEntity(EntityType<? extends AbstractSlimeEntity> type, World worldIn) {
         super(type, worldIn);
@@ -46,12 +42,12 @@ public class GooSlimeEntity extends AbstractSlimeEntity implements IRangedAttack
     @Override
     protected void land(){
         super.land();
-        if (!this.level.isClientSide) {
+        if (!this.level.isClientSide && random.nextFloat() < 0.2F) {
             if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                 return;
             }
 
-            BlockState blockstate = GOO_LAYER_BLOCKS.get(dyeColor).get().defaultBlockState();
+            BlockState blockstate = GOO_LAYER_BLOCKS.get(this.getDyeColor()).get().defaultBlockState();
 
             for(int l = 0; l < 4; ++l) {
                 int i = MathHelper.floor(this.getX() + (double) ((float) (l % 2 * 2 - 1) * 0.25F));
@@ -67,20 +63,17 @@ public class GooSlimeEntity extends AbstractSlimeEntity implements IRangedAttack
         }
     }
 
-    public void performRangedAttack(LivingEntity p_82196_1_, float p_82196_2_) {
-        SlimeBallEntity slimeBallentity = new SlimeBallEntity((SlimeBallItem) SLIME_BALL.get(dyeColor).get(), this.level, this);
-        slimeBallentity.setItem(SLIME_BALL.get(dyeColor).get().getDefaultInstance());
-        double d0 = p_82196_1_.getEyeY() - (double)1.1F;
-        double d1 = p_82196_1_.getX() - this.getX();
+    public void performRangedAttack(LivingEntity livingEntity, float p_82196_2_) {
+        SlimeBallEntity slimeBallentity = new SlimeBallEntity((SlimeBallItem) SLIME_BALL.get(this.getDyeColor()).get(), this.level, this);
+        slimeBallentity.setItem(SLIME_BALL.get(this.getDyeColor()).get().getDefaultInstance());
+        double d0 = livingEntity.getEyeY() - (double)1.1F;
+        double d1 = livingEntity.getX() - this.getX();
         double d2 = d0 - slimeBallentity.getY();
-        double d3 = p_82196_1_.getZ() - this.getZ();
+        double d3 = livingEntity.getZ() - this.getZ();
         float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
         slimeBallentity.shoot(d1, d2 + (double)f, d3, 1.6F, 12.0F);
         this.playSound(SoundEvents.SNOW_GOLEM_SHOOT, 1.0F, 0.4F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
         this.level.addFreshEntity(slimeBallentity);
     }
 
-    public DyeColor getDyeColor() {
-        return dyeColor;
-    }
 }

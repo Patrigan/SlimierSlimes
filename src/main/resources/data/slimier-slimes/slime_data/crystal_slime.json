@@ -1,4 +1,5 @@
 {
+  "dyeColor": "magenta",
   "spawnOnSurface": false,
   "squishParticleData": {
     "typeString": "BLOCK",

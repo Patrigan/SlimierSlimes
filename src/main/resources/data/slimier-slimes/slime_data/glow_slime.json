@@ -1,4 +1,5 @@
 {
+  "dyeColor": "brown",
   "jumpDelay": {
     "sizeMultiplier": 0,
     "resultModifier": 100,

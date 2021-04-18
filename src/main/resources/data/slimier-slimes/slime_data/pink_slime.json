@@ -1,4 +1,5 @@
 {
+  "dyeColor": "pink",
   "maxHealth": {
     "isSizeSquared": true,
     "sizeMultiplier": 2,

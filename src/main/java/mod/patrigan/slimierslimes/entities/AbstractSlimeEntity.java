@@ -1,6 +1,7 @@
 package mod.patrigan.slimierslimes.entities;
 
 import mod.patrigan.slimierslimes.SlimierSlimes;
+import mod.patrigan.slimierslimes.blocks.GooLayerBlock;
 import mod.patrigan.slimierslimes.entities.ai.controller.MoveHelperController;
 import mod.patrigan.slimierslimes.entities.ai.goal.AttackGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FaceRandomGoal;
@@ -15,6 +16,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.LootTables;
 import net.minecraft.nbt.CompoundNBT;
@@ -31,7 +33,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.*;
 import net.minecraft.world.biome.Biomes;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -45,6 +47,7 @@ import static mod.patrigan.slimierslimes.SlimierSlimes.MOD_ID;
 import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
 import static mod.patrigan.slimierslimes.init.data.SquishParticleData.SquishParticleType.*;
 import static net.minecraft.world.gen.Heightmap.Type.WORLD_SURFACE;
+import static net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY;
 import static net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus.FORGE;
 
 @Mod.EventBusSubscriber(modid = MOD_ID, bus = FORGE)
@@ -96,7 +99,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
         this.getAttribute(Attributes.ARMOR_TOUGHNESS).setBaseValue(data.getArmorToughness(size, this.random));
         this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(data.getMovementSpeed(size, this.random));
         this.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(data.getAttackDamage(size, this.random));
-        this.getAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get()).setBaseValue(data.getEntityGravity());
+        this.getAttribute(ENTITY_GRAVITY.get()).setBaseValue(data.getEntityGravity());
         if (resetHealth) {
             this.setHealth(this.getMaxHealth());
         }
@@ -166,7 +169,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     }
 
     protected void land() {
-        //if (!this.level.isClientSide) {
+        if (!this.level.isClientSide) {
             int i = this.getSize();
 
             if (spawnCustomParticles()) i = 0; // don't spawn particles if it's handled by the implementation itself
@@ -180,7 +183,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
 
             this.playSound(this.getSquishSound(), this.getSoundVolume(), getVoicePitch() / 0.8F);
             this.squishAmount = -0.5F;
-        //}
+        }
     }
 
     protected void decreaseSquish() {
@@ -353,7 +356,7 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
             }
             boolean result = true;
             if(Boolean.TRUE.equals(SlimierSlimes.MAIN_CONFIG.maintainChunkSpawning.get())) {
-                result = result && spawnInChunk(entityType, world, reason, pos, randomIn);
+                result = spawnInChunk(entityType, world, reason, pos, randomIn);
             }
             if(!Boolean.TRUE.equals(SLIME_DATA.getData(entityType.getRegistryName()).isSpawnOnSurface())){
                 result = result && isBelowSurface(world, pos);
@@ -520,11 +523,21 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
         return data.getMaxInChunk();
     }
 
+    public DyeColor getDyeColor(){
+        return data.getDyeColor();
+    }
+
     @SubscribeEvent
-    public static void preventFallDamage(LivingHurtEvent event) {
-        if(event.getSource() == DamageSource.FALL) {
-            if(event.getEntity() instanceof AbstractSlimeEntity) {
-                event.setCanceled(true);
+    public static void preventFallDamage(LivingFallEvent event) {
+        if(event.getEntity() instanceof AbstractSlimeEntity) {
+            event.setDamageMultiplier(0.0f);
+            AbstractSlimeEntity entity = (AbstractSlimeEntity) event.getEntity();
+            if(!event.getEntity().level.isClientSide() && event.getDistance() > (14 / (10 * entity.getAttributeValue(ENTITY_GRAVITY.get())))){
+                entity.setHealth(0);
+                if(entity.isTiny()) {
+                    GooLayerBlock.spawnAtBlockPos(entity.level, entity.blockPosition(), entity.getDyeColor());
+                }
+                event.getEntity().remove(false);
             }
         }
     }

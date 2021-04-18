@@ -3,86 +3,86 @@
     {
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
-      "gradientList": [
+      "gradient_list": [
         "minecraft:mossy_cobblestone",
         "minecraft:cobblestone"
       ],
-      "toReplace": "minecraft:andesite"
+      "to_replace": "minecraft:andesite"
     },
     {
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
-      "gradientList": [
+      "gradient_list": [
         "minecraft:mossy_cobblestone_stairs",
         "minecraft:cobblestone_stairs"
       ],
-      "toReplace": "minecraft:andesite_stairs"
+      "to_replace": "minecraft:andesite_stairs"
     },
     {
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
-      "gradientList": [
+      "gradient_list": [
         "minecraft:mossy_cobblestone",
         "minecraft:cobblestone",
         "minecraft:andesite"
       ],
-      "toReplace": "minecraft:polished_andesite"
+      "to_replace": "minecraft:polished_andesite"
     },
     {
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
-      "gradientList": [
+      "gradient_list": [
         "minecraft:mossy_stone_bricks",
         "minecraft:cracked_stone_bricks"
       ],
-      "toReplace": "minecraft:stone_bricks"
+      "to_replace": "minecraft:stone_bricks"
     },
     {
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
-      "gradientList": [
+      "gradient_list": [
         "minecraft:mossy_stone_bricks",
         "minecraft:cracked_stone_bricks"
       ],
-      "toReplace": "minecraft:stone_bricks"
+      "to_replace": "minecraft:stone_bricks"
     },
     {
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
-      "gradientList": [
+      "gradient_list": [
         "minecraft:mossy_stone_brick_stairs"
       ],
-      "toReplace": "minecraft:stone_brick_stairs"
+      "to_replace": "minecraft:stone_brick_stairs"
     },
     {
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
-      "gradientList": [
+      "gradient_list": [
         "minecraft:mossy_stone_brick_slab"
       ],
-      "toReplace": "minecraft:stone_brick_slab"
+      "to_replace": "minecraft:stone_brick_slab"
     },
     {
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
-      "gradientList": [
+      "gradient_list": [
         "minecraft:mossy_stone_brick_stairs"
       ],
-      "toReplace": "minecraft:stone_brick_stairs"
+      "to_replace": "minecraft:stone_brick_stairs"
     },
     {
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
-      "gradientList": [
+      "gradient_list": [
         "minecraft:ice"
       ],
-      "toReplace": "minecraft:snow_block"
+      "to_replace": "minecraft:snow_block"
     },
     {
       "processor_type": "slimier-slimes:ceiling_attachment",
       "rarity": 0.1,
       "block": "minecraft:cobweb",
-      "needsWall": true
+      "needs_wall": true
     },
     {
       "processor_type": "slimier-slimes:goo_blocks",

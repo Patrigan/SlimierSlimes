@@ -1,7 +1,6 @@
 package mod.patrigan.slimierslimes.world.gen.processors;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -20,6 +19,7 @@ import java.util.Random;
 import static mod.patrigan.slimierslimes.blocks.GooLayerBlock.LAYERS;
 import static mod.patrigan.slimierslimes.init.ModBlocks.GOO_LAYER_BLOCKS;
 import static mod.patrigan.slimierslimes.init.ModProcessors.GOO_BLOCKS;
+import static mod.patrigan.slimierslimes.util.ColorUtils.DYE_COLOR_CODEC;
 import static mod.patrigan.slimierslimes.world.gen.processors.ProcessorUtil.getBlock;
 import static mod.patrigan.slimierslimes.world.gen.processors.ProcessorUtil.isFaceFull;
 import static net.minecraft.block.Blocks.AIR;
@@ -27,7 +27,7 @@ import static net.minecraft.util.Direction.DOWN;
 import static net.minecraft.util.Direction.UP;
 
 public class GooProcessor extends StructureProcessor {
-    private static final Codec<DyeColor> DYE_COLOR_CODEC = Codec.STRING.flatComapMap(s -> DyeColor.byName(s, null), d -> DataResult.success(d.getName()));
+
     public static final Codec<GooProcessor> CODEC = RecordCodecBuilder.create(builder ->
         builder.group(
                 Codec.FLOAT.fieldOf("rarity").forGetter(processor -> processor.rarity),

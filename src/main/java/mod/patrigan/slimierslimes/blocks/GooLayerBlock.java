@@ -7,6 +7,7 @@ import net.minecraft.block.material.MaterialColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.item.FallingBlockEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.DyeColor;
 import net.minecraft.pathfinding.PathType;
@@ -29,6 +30,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import static mod.patrigan.slimierslimes.init.ModBlocks.GOO_LAYER_BLOCKS;
+import static mod.patrigan.slimierslimes.init.ModTags.Items.ARMOR_SLIME_BOOTS;
+
 public class GooLayerBlock extends FallingBlock {
     public static final Material GOO = (new Material.Builder(MaterialColor.NONE)).noCollider().build();
     public static final IntegerProperty LAYERS = BlockStateProperties.LAYERS;
@@ -40,10 +44,10 @@ public class GooLayerBlock extends FallingBlock {
     }
 
     @Override
-    public boolean isPathfindable(BlockState p_196266_1_, IBlockReader p_196266_2_, BlockPos p_196266_3_, PathType p_196266_4_) {
-        switch(p_196266_4_) {
+    public boolean isPathfindable(BlockState blockState, IBlockReader blockReader, BlockPos blockPos, PathType pathType) {
+        switch(pathType) {
             case LAND:
-                return p_196266_1_.getValue(LAYERS) < 5;
+                return blockState.getValue(LAYERS) < 5;
             case WATER:
                 return false;
             case AIR:
@@ -64,7 +68,6 @@ public class GooLayerBlock extends FallingBlock {
             return VoxelShapes.block();
         }
         return VoxelShapes.empty();
-        //return SHAPE_BY_LAYER[blockState.getValue(LAYERS) - 1];
     }
 
     @Override
@@ -92,7 +95,7 @@ public class GooLayerBlock extends FallingBlock {
                 fallingBlockEntity.remove();
             }
         }
-        if (entity instanceof LivingEntity && !(entity instanceof AbstractSlimeEntity)) {
+        if (entity instanceof LivingEntity && !(entity instanceof AbstractSlimeEntity) && !((LivingEntity) entity).getItemBySlot(EquipmentSlotType.FEET).getItem().is(ARMOR_SLIME_BOOTS)) {
             double modifier = 1.0-(0.1D*blockState.getValue(LAYERS));
             Vector3d stuckSpeedMultiplier = new Vector3d(modifier, 0.75D, modifier);
             if(entity.stuckSpeedMultiplier.equals(Vector3d.ZERO) || entity.stuckSpeedMultiplier.lengthSqr() > stuckSpeedMultiplier.lengthSqr()) {
@@ -113,13 +116,14 @@ public class GooLayerBlock extends FallingBlock {
         if(blockstateBelow.getBlock() == this){
             return true;
         }
-        if (!blockstateBelow.is(Blocks.HONEY_BLOCK) && !blockstateBelow.is(Blocks.SOUL_SAND) && !blockstateBelow.isAir(world, blockPos)) {
+        if (!blockstateBelow.is(Blocks.HONEY_BLOCK) && !blockstateBelow.is(Blocks.SOUL_SAND) && !blockstateBelow.isAir()) {
             return Block.isFaceFull(blockstateBelow.getCollisionShape(world, blockPos.below()), Direction.UP);
         } else {
             return true;
         }
     }
 
+    @Override
     public void onLand(World world, BlockPos blockPos, BlockState blockState, BlockState belowBlockState, FallingBlockEntity fallingBlockEntity) {
         if(belowBlockState.is(blockState.getBlock()) &&  belowBlockState.getValue(LAYERS) < 1){
             world.removeBlock(blockPos, true);
@@ -128,10 +132,11 @@ public class GooLayerBlock extends FallingBlock {
     }
 
     @Override
-    public BlockState updateShape(BlockState blockState, Direction direction, BlockState neighbourState, IWorld world, BlockPos blockPos, BlockPos p_196271_6_) {
-        return !blockState.canSurvive(world, blockPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(blockState, direction, neighbourState, world, blockPos, p_196271_6_);
+    public BlockState updateShape(BlockState blockState, Direction direction, BlockState neighbourState, IWorld world, BlockPos blockPos, BlockPos neighbourBlockPos) {
+        return !blockState.canSurvive(world, blockPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(blockState, direction, neighbourState, world, blockPos, neighbourBlockPos);
     }
 
+    @Override
     public void tick(BlockState blockState, ServerWorld world, BlockPos blockPos, Random random) {
         BlockState blockStateBelow = world.getBlockState(blockPos.below());
         if ((blockStateBelow.is(this) && blockStateBelow.getValue(LAYERS) < 8) || world.isEmptyBlock(blockPos.below()) || isFree(blockStateBelow) && blockPos.getY() >= 0) {
@@ -170,7 +175,7 @@ public class GooLayerBlock extends FallingBlock {
 
     private boolean canFlowTo(BlockState blockState, BlockState blockState1, ServerWorld world, BlockPos blockPos) {
         return (blockState1.is(blockState.getBlock()) && blockState.getValue(LAYERS) - blockState1.getValue(LAYERS) > 1)
-                || blockState1.isAir(world, blockPos);
+                || blockState1.isAir();
     }
 
     @Override
@@ -201,5 +206,16 @@ public class GooLayerBlock extends FallingBlock {
     @Override
     protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> blockStateBuilder) {
         blockStateBuilder.add(LAYERS);
+    }
+
+    public static void spawnAtBlockPos(World world, BlockPos blockPos, DyeColor dyeColor){
+        BlockState blockState = world.getBlockState(blockPos);
+        if(world.isEmptyBlock(blockPos)){
+            world.setBlockAndUpdate(blockPos, GOO_LAYER_BLOCKS.get(dyeColor).get().defaultBlockState());
+        }else{
+            if(blockState.is(GOO_LAYER_BLOCKS.get(dyeColor).get()) && blockState.getValue(LAYERS) < 8){
+                world.setBlockAndUpdate(blockPos, blockState.setValue(LAYERS, blockState.getValue(LAYERS) + 1));
+            }
+        }
     }
 }

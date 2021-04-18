@@ -25,8 +25,8 @@ public class GradientSpotReplaceProcessor extends StructureProcessor {
     public static final Codec<GradientSpotReplaceProcessor> CODEC = RecordCodecBuilder.create(builder ->
             builder.group(
                     Codec.FLOAT.fieldOf("rarity").forGetter(processor -> processor.rarity),
-                    ResourceLocation.CODEC.listOf().fieldOf("gradientList").forGetter(data -> data.gradientList),
-                    ResourceLocation.CODEC.fieldOf("toReplace").forGetter(data -> data.toReplace)
+                    ResourceLocation.CODEC.listOf().fieldOf("gradient_list").forGetter(data -> data.gradientList),
+                    ResourceLocation.CODEC.fieldOf("to_replace").forGetter(data -> data.toReplace)
             ).apply(builder, GradientSpotReplaceProcessor::new));
     private final float rarity;
     private final List<ResourceLocation> gradientList;

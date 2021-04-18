@@ -2,19 +2,20 @@ package mod.patrigan.slimierslimes.init.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import mod.patrigan.slimierslimes.SlimierSlimes;
-import mod.patrigan.slimierslimes.data.CodecJsonDataManager;
 import mod.patrigan.slimierslimes.entities.util.SlimeSizeCalculation;
+import net.minecraft.item.DyeColor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static mod.patrigan.slimierslimes.entities.util.SlimeSizeCalculation.*;
+import static mod.patrigan.slimierslimes.util.ColorUtils.DYE_COLOR_CODEC;
 
 public class SlimeData {
     public static final Codec<SlimeData> CODEC = RecordCodecBuilder.create(builder ->
             builder.group(
+                    DYE_COLOR_CODEC.fieldOf("dyeColor").forGetter(processor -> processor.dyeColor),
                     SlimeSizeCalculation.CODEC.optionalFieldOf("maxHealth", DEFAULT_SIZE_SQUARED).forGetter(data -> data.maxHealth),
                     SlimeSizeCalculation.CODEC.optionalFieldOf("armor", DEFAULT_ZERO).forGetter(data -> data.armor),
                     SlimeSizeCalculation.CODEC.optionalFieldOf("armorToughness", DEFAULT_ZERO).forGetter(data -> data.armorToughness),
@@ -30,6 +31,7 @@ public class SlimeData {
                     SlimeSpawnData.CODEC.listOf().fieldOf("slimeSpawnData").forGetter(data -> data.slimeSpawnData)
             ).apply(builder, SlimeData::new));
 
+    private final DyeColor dyeColor;
     private final SlimeSizeCalculation maxHealth;
     private final SlimeSizeCalculation armor;
     private final SlimeSizeCalculation armorToughness;
@@ -44,7 +46,8 @@ public class SlimeData {
     private SquishParticleData squishParticleData;
     private final List<SlimeSpawnData> slimeSpawnData;
 
-    public SlimeData(SlimeSizeCalculation maxHealth, SlimeSizeCalculation armor, SlimeSizeCalculation armorToughness, SlimeSizeCalculation attackDamage, SlimeSizeCalculation jumpDelay, SlimeSizeCalculation movementSpeed, SlimeSizeCalculation jumpHeightMultiplier, double entityGravity, SlimeSizeCalculation experienceValue, int maxInChunk, boolean spawnOnSurface, SquishParticleData squishParticleData, List<SlimeSpawnData> slimeSpawnData) {
+    public SlimeData(DyeColor dyeColor, SlimeSizeCalculation maxHealth, SlimeSizeCalculation armor, SlimeSizeCalculation armorToughness, SlimeSizeCalculation attackDamage, SlimeSizeCalculation jumpDelay, SlimeSizeCalculation movementSpeed, SlimeSizeCalculation jumpHeightMultiplier, double entityGravity, SlimeSizeCalculation experienceValue, int maxInChunk, boolean spawnOnSurface, SquishParticleData squishParticleData, List<SlimeSpawnData> slimeSpawnData) {
+        this.dyeColor = dyeColor;
         this.maxHealth = maxHealth;
         this.armor = armor;
         this.armorToughness = armorToughness;
@@ -61,6 +64,7 @@ public class SlimeData {
     }
 
     public SlimeData(SquishParticleData squishParticleData){
+        this.dyeColor = DyeColor.LIME;
         this.maxHealth = DEFAULT_SIZE_SQUARED;
         this.armor = DEFAULT_ZERO;
         this.armorToughness = DEFAULT_ZERO;
@@ -74,6 +78,10 @@ public class SlimeData {
         this.spawnOnSurface = true;
         this.squishParticleData = squishParticleData;
         this.slimeSpawnData = new ArrayList<>();
+    }
+
+    public DyeColor getDyeColor() {
+        return dyeColor;
     }
 
     public float getMaxHealth(int size, Random rand) {

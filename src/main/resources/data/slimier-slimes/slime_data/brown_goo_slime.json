@@ -1,4 +1,5 @@
 {
+  "dyeColor": "brown",
   "spawnOnSurface": false,
   "squishParticleData": {
     "typeString": "BLOCK",

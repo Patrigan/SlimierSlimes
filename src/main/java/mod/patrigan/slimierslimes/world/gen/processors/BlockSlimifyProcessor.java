@@ -1,7 +1,8 @@
 package mod.patrigan.slimierslimes.world.gen.processors;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.DyeColor;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.ResourceLocation;
@@ -12,7 +13,6 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.StructureProcessor;
 import net.minecraft.world.gen.feature.template.Template;
 
-import javax.annotation.Nullable;
 import java.util.Random;
 
 import static mod.patrigan.slimierslimes.SlimierSlimes.MOD_ID;
@@ -24,19 +24,13 @@ import static net.minecraftforge.registries.ForgeRegistries.BLOCKS;
 public class BlockSlimifyProcessor extends StructureProcessor {
     public static final Codec<BlockSlimifyProcessor> CODEC = Codec.FLOAT.fieldOf("slimyness").xmap(BlockSlimifyProcessor::new, processor -> processor.slimyness).codec();
     private final float slimyness;
-    //private final String dyeColor;
 
     public BlockSlimifyProcessor(float slimyness) {
         this.slimyness = slimyness;
-        //this.dyeColor = dyeColor;
     }
 
-    @Nullable
-    public Template.BlockInfo processBlock(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings) {
-        /*DyeColor dyeColorObject;
-        if(dyeColor.equals("RANDOM")){
-            DyeColor
-        }*/
+    @Override
+    public Template.BlockInfo process(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings, Template template) {
         Random pieceRandom = settings.getRandom(piecePos);
         DyeColor dyeColor = DyeColor.byId(pieceRandom.nextInt(DyeColor.values().length));
 

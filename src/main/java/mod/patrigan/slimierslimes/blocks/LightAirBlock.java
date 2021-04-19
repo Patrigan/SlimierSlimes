@@ -10,8 +10,6 @@ import javax.annotation.Nullable;
 
 import static mod.patrigan.slimierslimes.init.ModTileEntityTypes.MONSTER_LIGHT_AIR;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class LightAirBlock extends AirBlock {
     public LightAirBlock() {
         super(Properties.of(Material.AIR)

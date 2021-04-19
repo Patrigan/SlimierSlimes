@@ -6,19 +6,14 @@ import net.minecraft.block.Blocks;
 import net.minecraft.tileentity.MobSpawnerTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.ISeedReader;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
-import java.util.BitSet;
 import java.util.Random;
 
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.SPAWNER_ENTITY_TYPES;
-import static net.minecraft.block.Blocks.LAVA;
 
 public class SlimeSpawnerFeature extends Feature<NoFeatureConfig> {
     public SlimeSpawnerFeature(Codec<NoFeatureConfig> codec) {

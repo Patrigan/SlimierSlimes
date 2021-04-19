@@ -12,7 +12,6 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.StructureProcessor;
 import net.minecraft.world.gen.feature.template.Template;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,8 +19,10 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import static mod.patrigan.slimierslimes.init.ModProcessors.VINES;
+import static mod.patrigan.slimierslimes.world.gen.processors.ProcessorUtil.getRandom;
 import static mod.patrigan.slimierslimes.world.gen.processors.ProcessorUtil.*;
-import static net.minecraft.block.Blocks.*;
+import static net.minecraft.block.Blocks.AIR;
+import static net.minecraft.block.Blocks.VINE;
 import static net.minecraft.block.VineBlock.PROPERTY_BY_DIRECTION;
 import static net.minecraft.util.Direction.*;
 
@@ -43,7 +44,7 @@ public class VineProcessor extends StructureProcessor {
         this.attachToCeiling = attachToCeiling;
     }
 
-    @Nullable
+    @Override
     public Template.BlockInfo process(IWorldReader world, BlockPos piecePos, BlockPos seedPos, Template.BlockInfo rawBlockInfo, Template.BlockInfo blockInfo, PlacementSettings settings, Template template) {
         Random random = getRandom(blockInfo.pos, SEED);
         BlockState blockstate = blockInfo.state;

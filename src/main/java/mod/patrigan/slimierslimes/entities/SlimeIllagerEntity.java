@@ -29,10 +29,6 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import net.minecraft.entity.monster.SpellcastingIllagerEntity.CastingASpellGoal;
-import net.minecraft.entity.monster.SpellcastingIllagerEntity.SpellType;
-import net.minecraft.entity.monster.SpellcastingIllagerEntity.UseSpellGoal;
-
 public class SlimeIllagerEntity extends SpellcastingIllagerEntity {
    private SheepEntity wololoTarget;
 

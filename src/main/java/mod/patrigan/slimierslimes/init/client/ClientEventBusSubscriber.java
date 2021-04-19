@@ -5,8 +5,9 @@ import mod.patrigan.slimierslimes.client.entity.render.*;
 import mod.patrigan.slimierslimes.client.renderer.entity.layers.BipedTranslucentArmorLayer;
 import mod.patrigan.slimierslimes.init.ModEntityTypes;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.*;
-import net.minecraft.client.renderer.entity.model.*;
+import net.minecraft.client.renderer.entity.PlayerRenderer;
+import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -15,7 +16,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import java.util.Map;
 
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.SLIME_BALL_PROJECTILE;
-import static net.minecraft.entity.EntityType.*;
 import static net.minecraftforge.api.distmarker.Dist.CLIENT;
 
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = CLIENT)

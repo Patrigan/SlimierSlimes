@@ -1,11 +1,9 @@
 package mod.patrigan.slimierslimes;
 
 import mod.patrigan.slimierslimes.client.packet.SlimeDataSyncPacket;
-import mod.patrigan.slimierslimes.data.CodecJsonDataManager;
-import mod.patrigan.slimierslimes.init.config.CommonConfigs.CommonConfigValues;
 import mod.patrigan.slimierslimes.datagen.DataGenerators;
 import mod.patrigan.slimierslimes.init.*;
-import mod.patrigan.slimierslimes.init.data.SlimeData;
+import mod.patrigan.slimierslimes.init.config.CommonConfigs.CommonConfigValues;
 import mod.patrigan.slimierslimes.init.data.SlimeDatas;
 import mod.patrigan.slimierslimes.util.ConfigHelper;
 import mod.patrigan.slimierslimes.world.gen.ModEntitySpawns;

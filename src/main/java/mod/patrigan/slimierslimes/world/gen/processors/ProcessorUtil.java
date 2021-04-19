@@ -1,6 +1,5 @@
 package mod.patrigan.slimierslimes.world.gen.processors;
 
-import mod.patrigan.slimierslimes.SlimierSlimes;
 import net.minecraft.block.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;

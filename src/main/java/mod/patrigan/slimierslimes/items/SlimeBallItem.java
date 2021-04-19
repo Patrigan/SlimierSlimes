@@ -19,6 +19,7 @@ public class SlimeBallItem extends Item {
       this.dyeColor = dyeColor;
    }
 
+   @Override
    public ActionResult<ItemStack> use(World world, PlayerEntity playerEntity, Hand hand) {
       ItemStack itemstack = playerEntity.getItemInHand(hand);
       world.playSound((PlayerEntity)null, playerEntity.getX(), playerEntity.getY(), playerEntity.getZ(), SoundEvents.SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));

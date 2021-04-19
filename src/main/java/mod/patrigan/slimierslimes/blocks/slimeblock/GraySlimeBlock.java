@@ -1,21 +1,15 @@
 package mod.patrigan.slimierslimes.blocks.slimeblock;
 
-import mod.patrigan.slimierslimes.SlimierSlimes;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SlimeBlock;
 import mod.patrigan.slimierslimes.util.ModBlockColor;
 import mod.patrigan.slimierslimes.util.ModItemColor;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SlimeBlock;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockDisplayReader;
 
 import javax.annotation.Nullable;
-
-import net.minecraft.block.AbstractBlock.Properties;
 
 public class GraySlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
     private static final double BOUNCE_MULTIPLIER = 1.0D;

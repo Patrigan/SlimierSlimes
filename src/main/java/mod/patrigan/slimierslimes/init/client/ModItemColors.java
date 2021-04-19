@@ -15,8 +15,6 @@ import java.util.Arrays;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
 import static mod.patrigan.slimierslimes.init.ModBlocks.GOO_LAYER_BLOCKS;
-import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
-import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
 import static mod.patrigan.slimierslimes.init.ModItems.*;
 
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)

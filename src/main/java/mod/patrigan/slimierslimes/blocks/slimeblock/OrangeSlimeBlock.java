@@ -1,10 +1,10 @@
 package mod.patrigan.slimierslimes.blocks.slimeblock;
 
 import mod.patrigan.slimierslimes.SlimierSlimes;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SlimeBlock;
 import mod.patrigan.slimierslimes.util.ModBlockColor;
 import mod.patrigan.slimierslimes.util.ModItemColor;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SlimeBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.DyeColor;
@@ -15,7 +15,7 @@ import net.minecraft.world.IBlockDisplayReader;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.AbstractBlock.Properties;
+import static java.lang.Boolean.TRUE;
 
 public class OrangeSlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
     private static final double BOUNCE_MULTIPLIER = 1.0D;
@@ -26,7 +26,7 @@ public class OrangeSlimeBlock extends SlimeBlock implements ModBlockColor, ModIt
 
     @Override
     public void bounceUp(Entity entity) {
-        if(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get()) {
+        if(TRUE.equals(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get())) {
             Vector3d vector3d = entity.getDeltaMovement();
             if (vector3d.y < 0.0D) {
                 double d0 = (entity instanceof LivingEntity ? 1.0D : 0.8D)*BOUNCE_MULTIPLIER;

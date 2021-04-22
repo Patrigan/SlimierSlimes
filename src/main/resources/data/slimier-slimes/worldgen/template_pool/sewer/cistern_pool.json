@@ -5,7 +5,7 @@
 
   "elements": [
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "location": "slimier-slimes:sewer/cistern/pool",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -14,7 +14,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "location": "slimier-slimes:sewer/cistern/deep_pool",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -36,6 +36,15 @@
       "element": {
         "location": "slimier-slimes:sewer/cistern/turtle",
         "processors": "slimier-slimes:sewer/turtle_cistern_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/cistern/ruined_portal",
+        "processors": "slimier-slimes:sewer/ruined_portal_cistern_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

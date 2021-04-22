@@ -68,7 +68,7 @@
       }
     },
     {
-      "weight": 30,
+      "weight": 50,
       "element": {
         "location": "slimier-slimes:sewer/cistern/waterway_side",
         "processors": "slimier-slimes:sewer/waterway_processors",

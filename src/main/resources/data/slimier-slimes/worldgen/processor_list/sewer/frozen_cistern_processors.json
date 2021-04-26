@@ -89,6 +89,9 @@
       "rarity": 0.1,
       "maxHeight": 3,
       "dyeColor": "white"
+    },
+    {
+      "processor_type": "slimier-slimes:waterlogging_fix"
     }
   ]
 }

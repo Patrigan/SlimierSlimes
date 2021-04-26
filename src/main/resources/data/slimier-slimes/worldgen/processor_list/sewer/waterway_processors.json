@@ -123,6 +123,9 @@
           "weight": 25
         }
       ]
+    },
+    {
+      "processor_type": "slimier-slimes:waterlogging_fix"
     }
   ]
 }

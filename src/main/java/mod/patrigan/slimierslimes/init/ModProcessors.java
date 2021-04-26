@@ -20,6 +20,8 @@ public class ModProcessors {
     public static IStructureProcessorType<LilyPadProcessor> LILY_PADS;
     public static IStructureProcessorType<GooProcessor> GOO_BLOCKS;
     public static IStructureProcessorType<SpawnerRandomizerProcessor> SPAWNER_RANDOMIZER_PROCESSOR;
+    public static IStructureProcessorType<WaterloggingFixProcessor> WATERLOGGING_FIX_PROCESSOR;
+
 
     public static void init(){
         BLOCK_MOSSIFY = register("block_mossify", BlockMossifyProcessor.CODEC);
@@ -32,6 +34,7 @@ public class ModProcessors {
         LILY_PADS = register("lily_pads", LilyPadProcessor.CODEC);
         GOO_BLOCKS = register("goo_blocks", GooProcessor.CODEC);
         SPAWNER_RANDOMIZER_PROCESSOR = register("spawner_randomizer", SpawnerRandomizerProcessor.CODEC);
+        WATERLOGGING_FIX_PROCESSOR = register("waterlogging_fix", WaterloggingFixProcessor.CODEC);
     }
 
     static <P extends StructureProcessor> IStructureProcessorType<P> register(String name, Codec<P> codec) {

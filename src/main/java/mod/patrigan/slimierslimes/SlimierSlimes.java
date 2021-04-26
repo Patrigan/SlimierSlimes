@@ -26,7 +26,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static mod.patrigan.slimierslimes.init.ModEntityTypes.registerAdditionalEntityInformation;
 import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
 
 @Mod(SlimierSlimes.MOD_ID)
@@ -98,8 +97,6 @@ public class SlimierSlimes {
             ModConfiguredStructures.registerConfiguredStructures();
             //Entity Spawning
             ModEntitySpawns.init();
-            //Register Entities
-            registerAdditionalEntityInformation();
             ModProcessors.init();
         });
     }

@@ -7,12 +7,14 @@ import mod.patrigan.slimierslimes.entities.projectile.SlimeBallEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -22,6 +24,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static net.minecraftforge.api.distmarker.Dist.CLIENT;
+
+@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ModEntityTypes {
 
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITIES, SlimierSlimes.MOD_ID);
@@ -108,24 +113,21 @@ public class ModEntityTypes {
                         .build(new ResourceLocation(SlimierSlimes.MOD_ID, id).toString()));
     }
 
-    public static void registerAdditionalEntityInformation() {
-        registerEntityAttributes();
-    }
-
-    private static void registerEntityAttributes() {
-        GlobalEntityTypeAttributes.put(ModEntityTypes.COMMON_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.SNOW_SLIME.get(), SnowSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.PINK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.CLOUD_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.ROCK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.CRYSTAL_SLIME.get(), CrystalSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.GLOW_SLIME.get(), GlowSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.CREEPER_SLIME.get(), CreeperSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.OBSIDIAN_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
-        GlobalEntityTypeAttributes.put(ModEntityTypes.BROWN_GOO_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+    @SubscribeEvent
+    public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
+        event.put(ModEntityTypes.COMMON_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.SNOW_SLIME.get(), SnowSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.PINK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.CLOUD_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.ROCK_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.CRYSTAL_SLIME.get(), CrystalSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.GLOW_SLIME.get(), GlowSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.CREEPER_SLIME.get(), CreeperSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.CAMO_SLIME.get(), CamoSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.DIAMOND_SLIME.get(), DiamondSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.OBSIDIAN_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.BROWN_GOO_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
     }
 
 }

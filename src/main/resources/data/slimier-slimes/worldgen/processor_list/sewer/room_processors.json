@@ -1,6 +1,9 @@
 {
   "processors": [
     {
+      "processor_type": "slimier-slimes:waterlogging_fix"
+    },
+    {
       "processor_type": "slimier-slimes:gradient_spot_replace",
       "rarity": 1,
       "gradient_list": [
@@ -79,9 +82,6 @@
     {
       "processor_type": "slimier-slimes:vines",
       "rarity": 0.2
-    },
-    {
-      "processor_type": "slimier-slimes:waterlogging_fix"
     }
   ]
 }

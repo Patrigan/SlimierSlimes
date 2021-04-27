@@ -30,7 +30,7 @@ public class ProcessorUtil {
     }
 
     public static BlockState copySlabState(BlockState blockstate, Block newBlock) {
-        return newBlock.defaultBlockState().setValue(SlabBlock.TYPE, blockstate.getValue(SlabBlock.TYPE));
+        return newBlock.defaultBlockState().setValue(SlabBlock.TYPE, blockstate.getValue(SlabBlock.TYPE)).setValue(SlabBlock.WATERLOGGED, blockstate.getValue(SlabBlock.WATERLOGGED));
     }
 
     public static BlockState copyWallState(BlockState blockstate, Block newBlock) {

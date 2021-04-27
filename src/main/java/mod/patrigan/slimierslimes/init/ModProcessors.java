@@ -21,6 +21,7 @@ public class ModProcessors {
     public static IStructureProcessorType<GooProcessor> GOO_BLOCKS;
     public static IStructureProcessorType<SpawnerRandomizerProcessor> SPAWNER_RANDOMIZER_PROCESSOR;
     public static IStructureProcessorType<WaterloggingFixProcessor> WATERLOGGING_FIX_PROCESSOR;
+    public static IStructureProcessorType<WaterflowFixProcessor> WATERFLOW_FIX_PROCESSOR;
 
 
     public static void init(){
@@ -35,6 +36,7 @@ public class ModProcessors {
         GOO_BLOCKS = register("goo_blocks", GooProcessor.CODEC);
         SPAWNER_RANDOMIZER_PROCESSOR = register("spawner_randomizer", SpawnerRandomizerProcessor.CODEC);
         WATERLOGGING_FIX_PROCESSOR = register("waterlogging_fix", WaterloggingFixProcessor.CODEC);
+        WATERFLOW_FIX_PROCESSOR = register("waterflow_fix", WaterflowFixProcessor.CODEC);
     }
 
     static <P extends StructureProcessor> IStructureProcessorType<P> register(String name, Codec<P> codec) {

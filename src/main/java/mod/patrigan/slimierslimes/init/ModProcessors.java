@@ -16,7 +16,8 @@ public class ModProcessors {
     public static IStructureProcessorType<GradientSpotReplaceProcessor> GRADIENT_SPOT_REPLACE;
     public static IStructureProcessorType<CeilingAttachmentProcessor> CEILING_ATTACHMENT;
     public static IStructureProcessorType<VineProcessor> VINES;
-    public static IStructureProcessorType<MushroomProcessor> MUSHROOMS;
+    public static IStructureProcessorType<MushroomProcessor> MUSHROOMS;;
+    public static IStructureProcessorType<FlowerPotProcessor> FLOWER_POT;
     public static IStructureProcessorType<LilyPadProcessor> LILY_PADS;
     public static IStructureProcessorType<GooProcessor> GOO_BLOCKS;
     public static IStructureProcessorType<SpawnerRandomizerProcessor> SPAWNER_RANDOMIZER_PROCESSOR;
@@ -32,6 +33,7 @@ public class ModProcessors {
         CEILING_ATTACHMENT = register("ceiling_attachment", CeilingAttachmentProcessor.CODEC);
         VINES = register("vines", VineProcessor.CODEC);
         MUSHROOMS = register("mushrooms", MushroomProcessor.CODEC);
+        FLOWER_POT = register("flower_pot", FlowerPotProcessor.CODEC);
         LILY_PADS = register("lily_pads", LilyPadProcessor.CODEC);
         GOO_BLOCKS = register("goo_blocks", GooProcessor.CODEC);
         SPAWNER_RANDOMIZER_PROCESSOR = register("spawner_randomizer", SpawnerRandomizerProcessor.CODEC);

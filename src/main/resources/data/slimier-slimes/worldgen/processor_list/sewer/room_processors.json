@@ -82,6 +82,9 @@
     {
       "processor_type": "slimier-slimes:vines",
       "rarity": 0.2
+    },
+    {
+      "processor_type": "slimier-slimes:flower_pot"
     }
   ]
 }

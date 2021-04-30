@@ -1,7 +1,7 @@
 {
   "name": "slimier-slimes:sewer/cistern_pool",
 
-  "fallback": "minecraft:empty",
+  "fallback": "slimier-slimes:sewer/sewer_endcap_pool",
 
   "elements": [
     {
@@ -45,42 +45,6 @@
       "element": {
         "location": "slimier-slimes:sewer/cistern/ruined_portal",
         "processors": "slimier-slimes:sewer/ruined_portal_cistern_processors",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 3,
-      "element": {
-        "location": "slimier-slimes:sewer/cistern/closed_side",
-        "processors": "slimier-slimes:sewer/waterway_processors",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 1,
-      "element": {
-        "location": "slimier-slimes:sewer/cistern/waterway_side",
-        "processors": "slimier-slimes:sewer/waterway_processors",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 1,
-      "element": {
-        "location": "slimier-slimes:sewer/cistern/dome_corner",
-        "processors": "slimier-slimes:sewer/waterway_processors",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 1,
-      "element": {
-        "location": "slimier-slimes:sewer/cistern/dome",
-        "processors": "slimier-slimes:sewer/waterway_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

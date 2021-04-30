@@ -1,7 +1,7 @@
 {
   "name": "slimier-slimes:sewer/waterways_pool",
 
-  "fallback": "slimier-slimes:sewer/waterways_endcap_pool",
+  "fallback": "slimier-slimes:sewer/sewer_endcap_pool",
 
   "elements": [
     {
@@ -68,15 +68,6 @@
       }
     },
     {
-      "weight": 50,
-      "element": {
-        "location": "slimier-slimes:sewer/cistern/waterway_side",
-        "processors": "slimier-slimes:sewer/waterway_processors",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
       "weight": 10,
       "element": {
         "location": "slimier-slimes:sewer/waterway/cross_large",
@@ -116,6 +107,51 @@
       "weight": 10,
       "element": {
         "location": "slimier-slimes:sewer/waterway/junction_secret_door",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 14,
+      "element": {
+        "location": "slimier-slimes:sewer/cistern/dome_1_exit",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 11,
+      "element": {
+        "location": "slimier-slimes:sewer/cistern/dome_2_corner",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 11,
+      "element": {
+        "location": "slimier-slimes:sewer/cistern/dome_2_straight",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 8,
+      "element": {
+        "location": "slimier-slimes:sewer/cistern/dome_3_exit",
+        "processors": "slimier-slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 6,
+      "element": {
+        "location": "slimier-slimes:sewer/cistern/dome_4_exit",
         "processors": "slimier-slimes:sewer/waterway_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

@@ -141,7 +141,7 @@ public class SlimeDungeon extends Structure<NoFeatureConfig> {
              * structure will spawn at terrain height instead. Set that parameter to false to
              * force the structure to spawn at blockpos's Y value instead. You got options here!
              */
-            int heightY = chunkGenerator.getBaseHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
+            int heightY = chunkGenerator.getBaseHeight(x, z, Heightmap.Type.OCEAN_FLOOR_WG);
             int randY = random.nextInt(heightY - 20) + 10;
             BlockPos blockpos = new BlockPos(x, randY, z);
 

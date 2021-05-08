@@ -27,6 +27,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
+import static mod.patrigan.slimierslimes.network.datasync.ModDataSerializers.BLOCK_STATE_LIST;
+import static net.minecraft.network.datasync.DataSerializers.registerSerializer;
 
 @Mod(SlimierSlimes.MOD_ID)
 public class SlimierSlimes {
@@ -98,6 +100,7 @@ public class SlimierSlimes {
             //Entity Spawning
             ModEntitySpawns.init();
             ModProcessors.init();
+            registerSerializer(BLOCK_STATE_LIST);
         });
     }
     private void doClientStuff(final FMLClientSetupEvent event) {

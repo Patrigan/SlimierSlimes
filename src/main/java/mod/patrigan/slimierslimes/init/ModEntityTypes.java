@@ -50,6 +50,7 @@ public class ModEntityTypes {
     public static final RegistryObject<EntityType<CamoSlimeEntity>> CAMO_SLIME = getSlimeRegistryObject("camo_slime", CamoSlimeEntity::new, DyeColor.BROWN.getColorValue(), true);
     public static final RegistryObject<EntityType<LavaSlimeEntity>> LAVA_SLIME = getFireResistantSlimeRegistryObject("lava_slime", LavaSlimeEntity::new, DyeColor.RED.getColorValue(), false);
     public static final RegistryObject<EntityType<AbstractSlimeEntity>> OBSIDIAN_SLIME = getFireResistantSlimeRegistryObject("obsidian_slime", AbstractSlimeEntity::new, DyeColor.BLACK.getColorValue(), false);
+    public static final RegistryObject<EntityType<ShroomSlimeEntity>> SHROOM_SLIME = getSlimeRegistryObject("shroom_slime", ShroomSlimeEntity::new, DyeColor.RED.getColorValue(), true);
     //Projectiles
     public static final RegistryObject<EntityType<AmethystProjectileEntity>> AMETYST_PROJECTILE = getAmethystProjectileRegistryObject("amethyst_projectile", AmethystProjectileEntity::new);
     public static final Map<DyeColor, RegistryObject<EntityType<SlimeBallEntity>>> SLIME_BALL_PROJECTILE = getSlimeballProjectileRegistryObjects("slimeball_projectile", SlimeBallEntity::new);
@@ -128,6 +129,7 @@ public class ModEntityTypes {
         event.put(ModEntityTypes.LAVA_SLIME.get(), LavaSlimeEntity.getMutableAttributes().build());
         event.put(ModEntityTypes.OBSIDIAN_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
         event.put(ModEntityTypes.BROWN_GOO_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
+        event.put(ModEntityTypes.SHROOM_SLIME.get(), AbstractSlimeEntity.getMutableAttributes().build());
     }
 
 }

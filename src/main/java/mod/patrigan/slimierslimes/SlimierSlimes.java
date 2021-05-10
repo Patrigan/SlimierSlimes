@@ -5,6 +5,7 @@ import mod.patrigan.slimierslimes.datagen.DataGenerators;
 import mod.patrigan.slimierslimes.init.*;
 import mod.patrigan.slimierslimes.init.config.CommonConfigs.CommonConfigValues;
 import mod.patrigan.slimierslimes.init.data.SlimeDatas;
+import mod.patrigan.slimierslimes.network.datasync.ModDataSerializers;
 import mod.patrigan.slimierslimes.util.ConfigHelper;
 import mod.patrigan.slimierslimes.world.gen.ModEntitySpawns;
 import mod.patrigan.slimierslimes.world.gen.feature.ModConfiguredFeatures;
@@ -27,8 +28,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
-import static mod.patrigan.slimierslimes.network.datasync.ModDataSerializers.BLOCK_STATE_LIST;
-import static net.minecraft.network.datasync.DataSerializers.registerSerializer;
 
 @Mod(SlimierSlimes.MOD_ID)
 public class SlimierSlimes {
@@ -63,6 +62,7 @@ public class SlimierSlimes {
         ModParticleTypes.PARTICLES.register(modEventBus);
         ModStructures.STRUCTURES.register(modEventBus);
         ModFeatures.FEATURES.register(modEventBus);
+        ModDataSerializers.DATA_SERIALIZERS.register(modEventBus);
 
         this.registerPackets();
 
@@ -100,7 +100,6 @@ public class SlimierSlimes {
             //Entity Spawning
             ModEntitySpawns.init();
             ModProcessors.init();
-            registerSerializer(BLOCK_STATE_LIST);
         });
     }
     private void doClientStuff(final FMLClientSetupEvent event) {

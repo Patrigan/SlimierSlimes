@@ -1,10 +1,16 @@
 package mod.patrigan.slimierslimes.entities;
 
+import mod.patrigan.slimierslimes.entities.ai.goal.AttackGoal;
+import mod.patrigan.slimierslimes.entities.ai.goal.FaceRandomGoal;
+import mod.patrigan.slimierslimes.entities.ai.goal.FloatGoal;
+import mod.patrigan.slimierslimes.entities.ai.goal.HopGoal;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -22,9 +28,9 @@ import net.minecraft.world.server.ServerWorld;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
+import static mod.patrigan.slimierslimes.init.ModTags.Blocks.MUSHROOMS;
 import static mod.patrigan.slimierslimes.network.datasync.ModDataSerializers.BLOCK_STATE_LIST;
 import static net.minecraft.block.Blocks.BROWN_MUSHROOM;
 import static net.minecraft.block.Blocks.RED_MUSHROOM;
@@ -38,13 +44,26 @@ public class ShroomSlimeEntity extends AbstractSlimeEntity implements net.minecr
         super(type, worldIn);
     }
 
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new FloatGoal(this));
+        this.goalSelector.addGoal(2, new AttackGoal(this));
+        this.goalSelector.addGoal(3, new FaceRandomGoal(this));
+        this.goalSelector.addGoal(5, new HopGoal(this));
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false,
+                livingEntity -> Math.abs(livingEntity.getY() - this.getY()) <= 4.0D && this.getMushrooms().isEmpty()));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
+    }
+
     @Nullable
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         ILivingEntityData iLivingEntityData = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        this.addMushroom(BROWN_MUSHROOM.defaultBlockState());
-        if(!this.isTiny()){
-            this.addMushroom(RED_MUSHROOM.defaultBlockState());
+        if(this.isTiny()){
+            this.addMushroom(MUSHROOMS.getRandomElement(this.random).defaultBlockState());
+        }else{
+            this.addMushroom(MUSHROOMS.getRandomElement(this.random).defaultBlockState());
+            this.addMushroom(MUSHROOMS.getRandomElement(this.random).defaultBlockState());
         }
         return iLivingEntityData;
     }
@@ -82,9 +101,8 @@ public class ShroomSlimeEntity extends AbstractSlimeEntity implements net.minecr
         if (!world.isClientSide()) {
             ((ServerWorld)this.level).sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(0.5D), this.getZ(), 1, 0.0D, 0.0D, 0.0D, 0.0D);
             java.util.List<ItemStack> items = new java.util.ArrayList<>();
-            for (int i = 0; i < 5; ++i) {
-                items.add(new ItemStack(RED_MUSHROOM));
-            }
+            this.getMushrooms().forEach(blockState -> items.add(new ItemStack(blockState.getBlock().asItem())));
+            this.clearMushrooms();
             return items;
         }
         return java.util.Collections.emptyList();
@@ -100,25 +118,38 @@ public class ShroomSlimeEntity extends AbstractSlimeEntity implements net.minecr
         this.entityData.set(DATA_MUSHROOMS, mushrooms);
     }
 
+    private void clearMushrooms() {
+        mushrooms.clear();
+        this.entityData.set(DATA_MUSHROOMS, mushrooms);
+    }
+
     public List<BlockState> getMushrooms() {
-        return mushrooms;
+        return this.entityData.get(DATA_MUSHROOMS);
     }
 
     @Override
     public void addAdditionalSaveData(CompoundNBT compound) {
         super.addAdditionalSaveData(compound);
-        compound.putIntArray("mushrooms", mushrooms.stream().map(Block::getId).mapToInt(x -> x).toArray());
+        compound.putIntArray("mushrooms", getMushrooms().stream().map(Block::getId).mapToInt(x -> x).toArray());
     }
 
     @Override
     public void readAdditionalSaveData(CompoundNBT compound) {
         super.readAdditionalSaveData(compound);
-        mushrooms = Collections.emptyList();
-        if (compound.contains("mushrooms", 99)) {
+        mushrooms = new ArrayList<>();
+        if (compound.contains("mushrooms")) {
             int[] intStream = compound.getIntArray("mushrooms");
             Arrays.stream(intStream).boxed().map(Block::stateById).forEach(this::addMushroom);
         }
-
     }
 
+    @Override
+    protected void dropCustomDeathLoot(DamageSource damageSource, int p_213333_2_, boolean p_213333_3_) {
+        super.dropCustomDeathLoot(damageSource, p_213333_2_, p_213333_3_);
+        getMushrooms().forEach(blockState -> {
+            if(this.random.nextFloat() <= 0.5f){
+                this.spawnAtLocation(blockState.getBlock().asItem());
+            }
+        });
+    }
 }

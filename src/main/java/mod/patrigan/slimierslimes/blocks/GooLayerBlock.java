@@ -15,6 +15,7 @@ import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -24,16 +25,20 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.FlowersFeature;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.GOO_LAYER_BLOCKS;
 import static mod.patrigan.slimierslimes.init.ModTags.Items.ARMOR_SLIME_BOOTS;
+import static net.minecraft.block.Blocks.GRASS_BLOCK;
 
-public class GooLayerBlock extends FallingBlock {
+public class GooLayerBlock extends FallingBlock implements IGrowable {
     public static final Material GOO = (new Material.Builder(MaterialColor.NONE)).noCollider().build();
     public static final IntegerProperty LAYERS = BlockStateProperties.LAYERS;
     protected static final VoxelShape[] SHAPE_BY_LAYER = new VoxelShape[]{VoxelShapes.empty(), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 4.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 6.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 8.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 10.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 12.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D), Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D)};
@@ -215,6 +220,63 @@ public class GooLayerBlock extends FallingBlock {
         }else{
             if(blockState.is(GOO_LAYER_BLOCKS.get(dyeColor).get()) && blockState.getValue(LAYERS) < 8){
                 world.setBlockAndUpdate(blockPos, blockState.setValue(LAYERS, blockState.getValue(LAYERS) + 1));
+            }
+        }
+    }
+
+    @Override
+    public boolean isValidBonemealTarget(IBlockReader blockReader, BlockPos blockPos, BlockState blockState, boolean p_176473_4_) {
+        return blockReader.getBlockState(blockPos.below()).is(GRASS_BLOCK);
+    }
+
+    @Override
+    public boolean isBonemealSuccess(World p_180670_1_, Random p_180670_2_, BlockPos p_180670_3_, BlockState p_180670_4_) {
+        return true;
+    }
+
+    @Override
+    public void performBonemeal(ServerWorld serverWorld, Random random, BlockPos blockPos, BlockState blockState) {
+        int range = blockState.getValue(LAYERS)*2 +4;
+        serverWorld.removeBlock(blockPos, true);
+
+        AxisAlignedBB box = new AxisAlignedBB(blockPos).inflate(range);
+        BlockPos.betweenClosedStream(box)
+                .filter(blockPos1 -> shouldAttemptBonemeal(blockPos, blockPos1, range, random, serverWorld))
+                .forEach(blockPos1 -> applyBonemeal(serverWorld, random, blockPos1));
+    }
+
+    private boolean shouldAttemptBonemeal(BlockPos blockPos, BlockPos blockPos1, int range, Random random, ServerWorld serverWorld) {
+        double distSqr = Math.sqrt(blockPos.distSqr(blockPos1.getX(), blockPos1.getY(), blockPos1.getZ(), false));
+        if(random.nextFloat() < (range-distSqr)/range) {
+            return serverWorld.getBlockState(blockPos1.below()).is(GRASS_BLOCK) && !serverWorld.getBlockState(blockPos1).isCollisionShapeFullBlock(serverWorld, blockPos1);
+        }
+        return false;
+    }
+
+    private void applyBonemeal(ServerWorld serverWorld, Random random, BlockPos blockpos1) {
+        BlockState blockstateToCheck = Blocks.GRASS.defaultBlockState();
+        BlockState blockstate2 = serverWorld.getBlockState(blockpos1);
+        if (blockstate2.is(blockstateToCheck.getBlock()) && random.nextInt(10) == 0) {
+            ((IGrowable) blockstateToCheck.getBlock()).performBonemeal(serverWorld, random, blockpos1, blockstate2);
+        }
+
+        if (blockstate2.isAir()) {
+            BlockState blockstate1;
+            if (random.nextInt(8) == 0) {
+                List<ConfiguredFeature<?, ?>> list = serverWorld.getBiome(blockpos1).getGenerationSettings().getFlowerFeatures();
+                if (list.isEmpty()) {
+                    return;
+                }
+
+                ConfiguredFeature<?, ?> configuredfeature = list.get(0);
+                FlowersFeature flowersfeature = (FlowersFeature)configuredfeature.feature;
+                blockstate1 = flowersfeature.getRandomFlower(random, blockpos1, configuredfeature.config());
+            } else {
+                blockstate1 = blockstateToCheck;
+            }
+
+            if (blockstate1.canSurvive(serverWorld, blockpos1)) {
+                serverWorld.setBlock(blockpos1, blockstate1, 3);
             }
         }
     }

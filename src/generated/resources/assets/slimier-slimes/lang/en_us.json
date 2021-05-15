@@ -535,6 +535,7 @@
   "slimier_slimes.config.main.allowSlimeBlockEffects": "Allow Slime Block Effects",
   "slimier_slimes.config.main.allowvanillaslime": "Allow Vanilla Slimes",
   "slimier_slimes.config.main.maintainChunkSpawning": "Maintain Chunk Spawning",
+  "slimier_slimes.config.main.shroomSlimeSuspiciousChance": "Shroom Slime Suspicious Stew Chance",
   "slimier_slimes.config.main.totalSlimeSpawnWeight": "Total Slime Spawn Weight",
   "slimier_slimes.config.main.useTotalSlimeSpawnWeight": "Use Total Slime Spawn Weight"
 }

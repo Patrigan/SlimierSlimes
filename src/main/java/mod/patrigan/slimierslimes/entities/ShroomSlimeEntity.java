@@ -1,5 +1,6 @@
 package mod.patrigan.slimierslimes.entities;
 
+import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.entities.ai.goal.AttackGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FaceRandomGoal;
 import mod.patrigan.slimierslimes.entities.ai.goal.FloatGoal;
@@ -14,16 +15,19 @@ import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.SuspiciousStewItem;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.potion.Effect;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -32,8 +36,6 @@ import java.util.List;
 
 import static mod.patrigan.slimierslimes.init.ModTags.Blocks.MUSHROOMS;
 import static mod.patrigan.slimierslimes.network.datasync.ModDataSerializers.BLOCK_STATE_LIST;
-import static net.minecraft.block.Blocks.BROWN_MUSHROOM;
-import static net.minecraft.block.Blocks.RED_MUSHROOM;
 
 public class ShroomSlimeEntity extends AbstractSlimeEntity implements net.minecraftforge.common.IForgeShearable {
     private static final DataParameter<List<BlockState>> DATA_MUSHROOMS = EntityDataManager.defineId(ShroomSlimeEntity.class, BLOCK_STATE_LIST);
@@ -71,8 +73,15 @@ public class ShroomSlimeEntity extends AbstractSlimeEntity implements net.minecr
     public ActionResultType mobInteract(PlayerEntity p_230254_1_, Hand p_230254_2_) {
         ItemStack itemstack = p_230254_1_.getItemInHand(p_230254_2_);
         if (itemstack.getItem() == Items.BOWL) {
-            boolean flag = false;
-            ItemStack itemstack1 = new ItemStack(Items.MUSHROOM_STEW);
+            boolean flag = this.random.nextFloat() <= SlimierSlimes.MAIN_CONFIG.shroomSlimeSuspiciousChance.get();
+            ItemStack itemstack1;
+            if(flag){
+                itemstack1 = new ItemStack(Items.SUSPICIOUS_STEW);
+                Effect effect = new ArrayList<>(ForgeRegistries.POTIONS.getValues()).get(this.random.nextInt(ForgeRegistries.POTIONS.getKeys().size()));
+                SuspiciousStewItem.saveMobEffect(itemstack1, effect, this.random.nextInt(1500)+500);
+            }else {
+                itemstack1 = new ItemStack(Items.MUSHROOM_STEW);
+            }
 
             ItemStack itemstack2 = DrinkHelper.createFilledResult(itemstack, p_230254_1_, itemstack1, false);
             p_230254_1_.setItemInHand(p_230254_2_, itemstack2);

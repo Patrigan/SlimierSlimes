@@ -125,6 +125,7 @@ dependencies {
 
     //Tools
     runtimeOnly fg.deobf("loadnbtblock:loadnbtblock:1.0")
+    //runtimeOnly fg.deobf("curse.maven:blame-406201:3181314")
 
     //Compat tests
     //runtimeOnly fg.deobf("curse.maven:slimy-boyos-281993:3200342")

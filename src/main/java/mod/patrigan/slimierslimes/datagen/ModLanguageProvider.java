@@ -38,6 +38,7 @@ public class ModLanguageProvider extends LanguageProvider {
         add("slimier_slimes.config.main.maintainChunkSpawning", "Maintain Chunk Spawning");
         add("slimier_slimes.config.main.useTotalSlimeSpawnWeight", "Use Total Slime Spawn Weight");
         add("slimier_slimes.config.main.totalSlimeSpawnWeight", "Total Slime Spawn Weight");
+        add("slimier_slimes.config.main.shroomSlimeSuspiciousChance", "Shroom Slime Suspicious Stew Chance");
         add("slimier_slimes.config.main.allowSlimeBlockEffects", "Allow Slime Block Effects");
     }
 

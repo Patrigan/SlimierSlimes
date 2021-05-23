@@ -1,90 +1,101 @@
 {
   "processors": [
     {
-      "processor_type": "slimier-slimes:waterlogging_fix"
+      "processor_type": "structure_toolkit:waterlogging_fix"
     },
     {
-      "processor_type": "slimier-slimes:gradient_spot_replace",
-      "rarity": 1,
+      "processor_type": "structure_toolkit:gradient_replace",
       "gradient_list": [
-        "minecraft:mossy_cobblestone",
-        "minecraft:cobblestone"
+        {
+          "resource_location": "minecraft:mossy_cobblestone",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:cobblestone",
+          "step_size": 0.1
+        }
       ],
       "to_replace": "minecraft:andesite"
     },
     {
-      "processor_type": "slimier-slimes:gradient_spot_replace",
-      "rarity": 1,
+      "processor_type": "structure_toolkit:gradient_replace",
       "gradient_list": [
-        "minecraft:mossy_cobblestone_stairs",
-        "minecraft:cobblestone_stairs"
+        {
+          "resource_location": "minecraft:mossy_cobblestone_stairs",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:cobblestone_stairs",
+          "step_size": 0.1
+        }
       ],
       "to_replace": "minecraft:andesite_stairs"
     },
     {
-      "processor_type": "slimier-slimes:gradient_spot_replace",
-      "rarity": 1,
+      "processor_type": "structure_toolkit:gradient_replace",
       "gradient_list": [
-        "minecraft:mossy_cobblestone",
-        "minecraft:cobblestone",
-        "minecraft:andesite"
+        {
+          "resource_location": "minecraft:mossy_cobblestone",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:cobblestone",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:andesite",
+          "step_size": 0.1
+        }
       ],
       "to_replace": "minecraft:polished_andesite"
     },
     {
-      "processor_type": "slimier-slimes:gradient_spot_replace",
-      "rarity": 1,
+      "processor_type": "structure_toolkit:gradient_replace",
       "gradient_list": [
-        "minecraft:mossy_stone_bricks",
-        "minecraft:cracked_stone_bricks"
+        {
+          "resource_location": "minecraft:mossy_stone_bricks",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:cracked_stone_bricks",
+          "step_size": 0.1
+        }
       ],
       "to_replace": "minecraft:stone_bricks"
     },
     {
-      "processor_type": "slimier-slimes:gradient_spot_replace",
-      "rarity": 1,
+      "processor_type": "structure_toolkit:gradient_replace",
       "gradient_list": [
-        "minecraft:mossy_stone_bricks",
-        "minecraft:cracked_stone_bricks"
-      ],
-      "to_replace": "minecraft:stone_bricks"
-    },
-    {
-      "processor_type": "slimier-slimes:gradient_spot_replace",
-      "rarity": 1,
-      "gradient_list": [
-        "minecraft:mossy_stone_brick_stairs"
+        {
+          "resource_location": "minecraft:mossy_stone_brick_stairs",
+          "step_size": 0.1
+        }
       ],
       "to_replace": "minecraft:stone_brick_stairs"
     },
     {
-      "processor_type": "slimier-slimes:gradient_spot_replace",
-      "rarity": 1,
+      "processor_type": "structure_toolkit:gradient_replace",
       "gradient_list": [
-        "minecraft:mossy_stone_brick_slab"
+        {
+          "resource_location": "minecraft:mossy_stone_brick_slab",
+          "step_size": 0.1
+        }
       ],
       "to_replace": "minecraft:stone_brick_slab"
     },
     {
-      "processor_type": "slimier-slimes:gradient_spot_replace",
-      "rarity": 1,
-      "gradient_list": [
-        "minecraft:mossy_stone_brick_stairs"
-      ],
-      "to_replace": "minecraft:stone_brick_stairs"
-    },
-    {
-      "processor_type": "slimier-slimes:ceiling_attachment",
+      "processor_type": "structure_toolkit:ceiling_attachment",
       "rarity": 0.1,
       "block": "minecraft:cobweb",
       "needs_wall": true
     },
     {
-      "processor_type": "slimier-slimes:vines",
+      "processor_type": "structure_toolkit:vines",
       "rarity": 0.2
     },
     {
-      "processor_type": "slimier-slimes:flower_pot"
+      "processor_type": "structure_toolkit:armor_stands",
+      "item_tag": "minecraft:saplings"
     }
   ]
 }

@@ -5,7 +5,7 @@
 
   "elements": [
     {
-      "weight": 3,
+      "weight": 5,
       "element": {
         "location": "slimier-slimes:sewer/room/template",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -23,7 +23,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 100,
       "element": {
         "location": "slimier-slimes:sewer/room/smithy",
         "processors": "slimier-slimes:sewer/room_processors",
@@ -32,9 +32,27 @@
       }
     },
     {
-      "weight": 100,
+      "weight": 1,
       "element": {
         "location": "slimier-slimes:sewer/room/greenhouse",
+        "processors": "slimier-slimes:sewer/greenhouse_room_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/room/storage",
+        "processors": "slimier-slimes:sewer/room_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/room/water_pass",
         "processors": "slimier-slimes:sewer/room_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

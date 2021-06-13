@@ -94,11 +94,24 @@
       "rarity": 0.2
     },
     {
-      "processor_type": "structure_toolkit:flower_pots"
+      "processor_type": "structure_toolkit:armor_stands",
+      "helmet_loot_table": "structure_toolkit:processors/helmets",
+      "chest_loot_table": "structure_toolkit:processors/chestplates",
+      "legs_loot_table": "structure_toolkit:processors/leggings",
+      "feet_loot_table": "structure_toolkit:processors/boots",
+      "show_arms": true
     },
     {
       "processor_type": "structure_toolkit:item_frames",
-      "loot_table": "slimier-slimes:processors/saplings"
+      "invisible": true,
+      "random_rotation": true,
+      "loot_table": "structure_toolkit:processors/iron_equipment"
+    },
+    {
+      "processor_type": "structure_toolkit:furnaces",
+      "smeltable_loot_table": "structure_toolkit:processors/ore",
+      "fuel_loot_table": "structure_toolkit:processors/fuel",
+      "result_loot_table": "structure_toolkit:empty"
     }
   ]
 }

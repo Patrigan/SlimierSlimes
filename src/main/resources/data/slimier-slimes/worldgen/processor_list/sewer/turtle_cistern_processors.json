@@ -86,8 +86,14 @@
     {
       "processor_type": "structure_toolkit:gradient_replace",
       "gradient_list": [
-        "minecraft:spruce_slab",
-        "minecraft:jungle_slab"
+        {
+          "resource_location": "minecraft:spruce_slab",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:jungle_slab",
+          "step_size": 0.1
+        }
       ],
       "to_replace": "minecraft:oak_slab"
     },

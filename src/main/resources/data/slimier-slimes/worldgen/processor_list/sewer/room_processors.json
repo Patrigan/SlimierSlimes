@@ -92,10 +92,6 @@
     {
       "processor_type": "structure_toolkit:vines",
       "rarity": 0.2
-    },
-    {
-      "processor_type": "structure_toolkit:armor_stands",
-      "item_tag": "minecraft:saplings"
     }
   ]
 }

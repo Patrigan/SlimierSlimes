@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:set_nbt",
+              "tag": "{pages:[\"This is a success\"],author:\"Patrigan\",title:\"TestSuccess\"}"
+            }
+          ],
+          "name": "minecraft:written_book"
+        }
+      ]
+    }
+  ]
+}

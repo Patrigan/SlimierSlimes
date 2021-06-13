@@ -26,7 +26,7 @@
       "weight": 100,
       "element": {
         "location": "slimier-slimes:sewer/room/smithy",
-        "processors": "slimier-slimes:sewer/room_processors",
+        "processors": "slimier-slimes:sewer/smithy_room_processors",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }

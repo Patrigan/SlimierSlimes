@@ -104,6 +104,12 @@
       "rarity": 0.1,
       "maxHeight": 3,
       "dyeColor": "white"
+    },
+    {
+      "processor_type": "structure_toolkit:chests",
+      "loot_table": "slimier-slimes:chests/simple_dungeon",
+      "rarity": 0.35,
+      "replacer": "minecraft:snow_block"
     }
   ]
 }

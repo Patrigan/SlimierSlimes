@@ -23,7 +23,7 @@
       }
     },
     {
-      "weight": 100,
+      "weight": 1,
       "element": {
         "location": "slimier-slimes:sewer/room/smithy",
         "processors": "slimier-slimes:sewer/smithy_room_processors",

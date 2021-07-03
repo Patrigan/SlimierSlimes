@@ -29,17 +29,35 @@ public class ShroomSlimeMushroomLayer<T extends ShroomSlimeEntity> extends Layer
             }else {
                 if (entity.getMushrooms().size() > 0) {
                     matrixStack.pushPose();
-                    matrixStack.mulPose(Vector3f.YP.rotationDegrees(42.0F)); // spin it
                     matrixStack.scale(-1.0F / entity.getSize(), -1.0F / entity.getSize(), 1.0F / entity.getSize()); // apply entity size and flip it
+                    matrixStack.mulPose(Vector3f.YP.rotationDegrees(42.0F)); // spin it
                     matrixStack.translate(-0.5F + (ADJUSTMENT * entity.getSize()), (-1F * entity.getSize()) - 0.05F, -0.5F + (ADJUSTMENT * entity.getSize())); // move it on top
                     blockrendererdispatcher.renderBlock(entity.getMushrooms().get(0), matrixStack, p_225628_2_, p_225628_3_, i, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
                     matrixStack.popPose();
                 }
                 if (entity.getMushrooms().size() > 1){
                     matrixStack.pushPose();
-                    //matrixStack.mulPose(Vector3f.YP.rotationDegrees(42.0F+entity.getRandom().nextInt(6)-3)); // spin it randomly
+                    //matrixStack.mulPose(Vector3f.YP.rotationDegrees(42.0F)); // spin it randomly
                     matrixStack.scale(-1.0F / entity.getSize(), -1.0F / entity.getSize(), 1.0F / entity.getSize()); // apply entity size and flip it
+                    matrixStack.mulPose(Vector3f.YP.rotationDegrees(80.0F)); // spin it
                     matrixStack.translate(-0.5F - (ADJUSTMENT * entity.getSize()), (-1F * entity.getSize()) - 0.05F, -0.5F - (ADJUSTMENT * entity.getSize())); // move it on top
+                    blockrendererdispatcher.renderBlock(entity.getMushrooms().get(1), matrixStack, p_225628_2_, p_225628_3_, i, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
+                    matrixStack.popPose();
+                }
+                if (entity.getMushrooms().size() > 2){
+                    matrixStack.pushPose();
+                    //matrixStack.mulPose(Vector3f.YP.rotationDegrees(42.0F)); // spin it randomly
+                    matrixStack.scale(-1.0F / entity.getSize(), -1.0F / entity.getSize(), 1.0F / entity.getSize()); // apply entity size and flip it
+                    matrixStack.mulPose(Vector3f.YP.rotationDegrees(121.0F)); // spin it
+                    matrixStack.translate(-0.3F - (ADJUSTMENT * entity.getSize()), (-1F * entity.getSize()) - 0.05F, -0.3F - (ADJUSTMENT * entity.getSize())); // move it on top
+                    blockrendererdispatcher.renderBlock(entity.getMushrooms().get(1), matrixStack, p_225628_2_, p_225628_3_, i, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
+                    matrixStack.popPose();
+                }
+                if (entity.getMushrooms().size() > 3){
+                    matrixStack.pushPose();
+                    //matrixStack.mulPose(Vector3f.YP.rotationDegrees(42.0F)); // spin it randomly
+                    matrixStack.scale(-1.0F / entity.getSize(), -1.0F / entity.getSize(), 1.0F / entity.getSize()); // apply entity size and flip it
+                    matrixStack.translate(-0.62F - (ADJUSTMENT * entity.getSize()), (-1F * entity.getSize()) - 0.05F, -0.62F - (ADJUSTMENT * entity.getSize())); // move it on top
                     blockrendererdispatcher.renderBlock(entity.getMushrooms().get(1), matrixStack, p_225628_2_, p_225628_3_, i, net.minecraftforge.client.model.data.EmptyModelData.INSTANCE);
                     matrixStack.popPose();
                 }

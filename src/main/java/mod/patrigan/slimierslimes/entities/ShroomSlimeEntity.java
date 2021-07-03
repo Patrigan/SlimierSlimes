@@ -61,10 +61,7 @@ public class ShroomSlimeEntity extends AbstractSlimeEntity implements net.minecr
     @Override
     public ILivingEntityData finalizeSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         ILivingEntityData iLivingEntityData = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        if(this.isTiny()){
-            this.addMushroom(MUSHROOMS.getRandomElement(this.random).defaultBlockState());
-        }else{
-            this.addMushroom(MUSHROOMS.getRandomElement(this.random).defaultBlockState());
+        for (int i = 0; i < this.getSize(); i++) {
             this.addMushroom(MUSHROOMS.getRandomElement(this.random).defaultBlockState());
         }
         return iLivingEntityData;

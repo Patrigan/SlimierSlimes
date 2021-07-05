@@ -12,8 +12,7 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 import java.util.Random;
 
-import static net.minecraft.block.Blocks.ANDESITE;
-import static net.minecraft.block.Blocks.LADDER;
+import static net.minecraft.block.Blocks.*;
 import static net.minecraft.block.LadderBlock.FACING;
 
 public class SewerShaftFeature extends Feature<NoFeatureConfig> {
@@ -26,16 +25,15 @@ public class SewerShaftFeature extends Feature<NoFeatureConfig> {
         BlockPos ladderBlockPos = blockPos.relative(ladderDirection);
         int j = world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, ladderBlockPos.getX(), ladderBlockPos.getZ());
         BlockPos.Mutable mutable = new BlockPos.Mutable();
+        world.setBlock(new BlockPos(ladderBlockPos.getX(), j+1, ladderBlockPos.getZ()), IRON_TRAPDOOR.defaultBlockState(), 2);
         while (j >= ladderBlockPos.getY()) {
             mutable.set(new BlockPos(ladderBlockPos.getX(), j, ladderBlockPos.getZ()));
             BlockState blockState = LADDER.defaultBlockState().setValue(FACING, ladderDirection.getOpposite());
             world.setBlock(mutable, blockState, 2);
             for(Direction direction : Direction.Plane.HORIZONTAL){
                 mutable.move(direction);
-                if(!world.getBlockState(mutable).isAir() && !direction.equals(ladderDirection)) {
-                    BlockState blockState1 = ANDESITE.defaultBlockState();
-                    world.setBlock(mutable, blockState1, 2);
-                }
+                BlockState blockState1 = POLISHED_ANDESITE.defaultBlockState();
+                world.setBlock(mutable, blockState1, 2);
                 mutable.move(direction.getOpposite());
             }
             j--;

@@ -5,7 +5,7 @@
 
   "elements": [
     {
-      "weight": 100,
+      "weight": 80,
       "element": {
         "location": "slimier-slimes:sewer/waterway/straight",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -14,7 +14,7 @@
       }
     },
     {
-      "weight": 20,
+      "weight": 45,
       "element": {
         "location": "slimier-slimes:sewer/waterway/straight_spawner",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -41,7 +41,7 @@
       }
     },
     {
-      "weight": 10,
+      "weight": 15,
       "element": {
         "location": "slimier-slimes:sewer/waterway/bars_spawner",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -68,7 +68,7 @@
       }
     },
     {
-      "weight": 40,
+      "weight": 45,
       "element": {
         "location": "slimier-slimes:sewer/waterway/corner",
         "processors": "slimier-slimes:sewer/waterway_processors",

@@ -17,8 +17,7 @@ import static mod.patrigan.slimierslimes.SlimierSlimes.MOD_ID;
 import static mod.patrigan.slimierslimes.datagen.DataGenerators.DYE_ITEMS;
 import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
 import static mod.patrigan.slimierslimes.init.ModBlocks.SLIME_BLOCK_HELPERS;
-import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
-import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
+import static mod.patrigan.slimierslimes.init.ModItems.*;
 import static net.minecraftforge.common.Tags.Items.SLIMEBALLS;
 
 public class ModRecipeProvider extends RecipeProvider {
@@ -59,6 +58,30 @@ public class ModRecipeProvider extends RecipeProvider {
                 .pattern("###")
                 .pattern("###")
                 .pattern("###")
+                .unlockedBy("has_slime_ball", has(SLIMEBALLS))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(SLIME_HELMET.get(dyeColor).get(), 1).define('#', SLIME_BALL.get(dyeColor).get())
+                .pattern("   ")
+                .pattern("###")
+                .pattern("# #")
+                .unlockedBy("has_slime_ball", has(SLIMEBALLS))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(SLIME_CHESTPLATE.get(dyeColor).get(), 1).define('#', SLIME_BALL.get(dyeColor).get())
+                .pattern("# #")
+                .pattern("###")
+                .pattern("###")
+                .unlockedBy("has_slime_ball", has(SLIMEBALLS))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(SLIME_LEGGINGS.get(dyeColor).get(), 1).define('#', SLIME_BALL.get(dyeColor).get())
+                .pattern("###")
+                .pattern("# #")
+                .pattern("# #")
+                .unlockedBy("has_slime_ball", has(SLIMEBALLS))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(SLIME_BOOTS.get(dyeColor).get(), 1).define('#', SLIME_BALL.get(dyeColor).get())
+                .pattern("   ")
+                .pattern("# #")
+                .pattern("# #")
                 .unlockedBy("has_slime_ball", has(SLIMEBALLS))
                 .save(consumer);
     }

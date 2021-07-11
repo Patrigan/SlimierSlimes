@@ -3,46 +3,31 @@
   "pools": [
     {
       "rolls": {
-        "min": 5.0,
-        "max": 8.0,
+        "min": 6.0,
+        "max": 10.0,
         "type": "minecraft:uniform"
       },
       "entries": [
         {
-          "type": "minecraft:tag",
-          "weight": 6,
-          "functions": [
-            {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 2.0,
-                "max": 5.0,
-                "type": "minecraft:uniform"
-              }
-            }
-          ],
-          "name": "slimier-slimes:jellies",
-          "expand": true
+          "type": "minecraft:loot_table",
+          "weight": 45,
+          "name": "slimier-slimes:chests/abstract_slime_table"
         },
         {
-          "type": "minecraft:tag",
-          "weight": 3,
+          "type": "minecraft:loot_table",
+          "weight": 15,
           "functions": [
             {
-              "function": "minecraft:set_count",
-              "count": {
-                "min": 1.0,
-                "max": 5.0,
-                "type": "minecraft:uniform"
-              }
+              "function": "minecraft:enchant_with_levels",
+              "levels": 30,
+              "treasure": true
             }
           ],
-          "name": "forge:slimeballs",
-          "expand": true
+          "name": "slimier-slimes:chests/abstract_slime_table"
         },
         {
           "type": "minecraft:item",
-          "weight": 6,
+          "weight": 25,
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -57,7 +42,7 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
+          "weight": 15,
           "functions": [
             {
               "function": "minecraft:set_count",

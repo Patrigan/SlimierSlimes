@@ -105,7 +105,7 @@
       "processor_type": "structure_toolkit:item_frames",
       "invisible": true,
       "random_rotation": true,
-      "loot_table": "structure_toolkit:processors/iron_equipment"
+      "loot_table": "structure_toolkit:processors/equipment/iron"
     },
     {
       "processor_type": "structure_toolkit:furnaces",

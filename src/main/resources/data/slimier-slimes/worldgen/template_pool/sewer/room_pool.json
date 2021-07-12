@@ -57,6 +57,15 @@
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier-slimes:sewer/room/collapsed",
+        "processors": "slimier-slimes:sewer/room_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
     }
   ]
 }

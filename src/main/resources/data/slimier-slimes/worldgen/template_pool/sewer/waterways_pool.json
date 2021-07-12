@@ -5,7 +5,7 @@
 
   "elements": [
     {
-      "weight": 80,
+      "weight": 75,
       "element": {
         "location": "slimier-slimes:sewer/waterway/straight",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -14,7 +14,7 @@
       }
     },
     {
-      "weight": 45,
+      "weight": 55,
       "element": {
         "location": "slimier-slimes:sewer/waterway/straight_spawner",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -32,7 +32,7 @@
       }
     },
     {
-      "weight": 20,
+      "weight": 25,
       "element": {
         "location": "slimier-slimes:sewer/waterway/bars",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -41,7 +41,7 @@
       }
     },
     {
-      "weight": 15,
+      "weight": 20,
       "element": {
         "location": "slimier-slimes:sewer/waterway/bars_spawner",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -59,7 +59,7 @@
       }
     },
     {
-      "weight": 15,
+      "weight": 10,
       "element": {
         "location": "slimier-slimes:sewer/waterway/doorway",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -68,7 +68,7 @@
       }
     },
     {
-      "weight": 45,
+      "weight": 50,
       "element": {
         "location": "slimier-slimes:sewer/waterway/corner",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -122,7 +122,7 @@
       }
     },
     {
-      "weight": 14,
+      "weight": 15,
       "element": {
         "location": "slimier-slimes:sewer/cistern/dome_1_exit",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -131,7 +131,7 @@
       }
     },
     {
-      "weight": 11,
+      "weight": 12,
       "element": {
         "location": "slimier-slimes:sewer/cistern/dome_2_corner",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -140,7 +140,7 @@
       }
     },
     {
-      "weight": 11,
+      "weight": 12,
       "element": {
         "location": "slimier-slimes:sewer/cistern/dome_2_straight",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -149,7 +149,7 @@
       }
     },
     {
-      "weight": 8,
+      "weight": 9,
       "element": {
         "location": "slimier-slimes:sewer/cistern/dome_3_exit",
         "processors": "slimier-slimes:sewer/waterway_processors",
@@ -158,7 +158,7 @@
       }
     },
     {
-      "weight": 6,
+      "weight": 7,
       "element": {
         "location": "slimier-slimes:sewer/cistern/dome_4_exit",
         "processors": "slimier-slimes:sewer/waterway_processors",

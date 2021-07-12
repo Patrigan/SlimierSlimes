@@ -84,32 +84,40 @@
       "to_replace": "minecraft:stone_brick_slab"
     },
     {
-      "processor_type": "structure_toolkit:gradient_replace",
-      "gradient_list": [
-        {
-          "resource_location": "minecraft:ice",
-          "step_size": 0.1
-        }
-      ],
-      "to_replace": "minecraft:snow_block"
-    },
-    {
       "processor_type": "structure_toolkit:ceiling_attachment",
       "rarity": 0.1,
       "block": "minecraft:cobweb",
       "needs_wall": true
     },
     {
+      "processor_type": "structure_toolkit:vines",
+      "rarity": 0.2
+    },
+    {
+      "processor_type": "structure_toolkit:mushrooms",
+      "rarity": 0.1
+    },
+    {
+      "processor_type": "structure_toolkit:lily_pads",
+      "rarity": 0.2
+    },
+    {
       "processor_type": "slimier-slimes:goo_blocks",
       "rarity": 0.1,
       "maxHeight": 3,
-      "dyeColor": "white"
+      "dyeColor": "brown"
+    },
+    {
+      "processor_type": "structure_toolkit:air_retainer",
+      "to_replace": [
+        "minecraft:mossy_cobblestone"
+      ]
     },
     {
       "processor_type": "structure_toolkit:chests",
-      "loot_table": "slimier-slimes:chests/sewer/frozen_cistern",
-      "rarity": 0.35,
-      "replacer": "minecraft:snow_block"
+      "loot_table": "slimier-slimes:chests/sewer/storage",
+      "rarity": 0.10,
+      "replacer": "minecraft:barrel"
     }
   ]
 }

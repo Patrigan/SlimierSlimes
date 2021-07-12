@@ -10,12 +10,12 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "weight": 45,
+          "weight": 40,
           "name": "slimier-slimes:chests/abstract_slime_table"
         },
         {
           "type": "minecraft:loot_table",
-          "weight": 15,
+          "weight": 20,
           "functions": [
             {
               "function": "minecraft:enchant_with_levels",

@@ -1,0 +1,49 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "min": 7.0,
+        "max": 11.0,
+        "type": "minecraft:uniform"
+      },
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 45,
+          "name": "slimier-slimes:chests/abstract_slime_table"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 30,
+              "treasure": true
+            }
+          ],
+          "name": "slimier-slimes:chests/abstract_slime_table"
+        },
+        {
+          "type": "minecraft:tag",
+          "weight": 15,
+          "name": "minecraft:saplings",
+          "expand": true
+        },
+        {
+          "type": "minecraft:tag",
+          "weight": 15,
+          "name": "minecraft:flowers",
+          "expand": true
+        },
+        {
+          "type": "minecraft:tag",
+          "weight": 15,
+          "name": "forge:seeds",
+          "expand": true
+        }
+      ]
+    }
+  ]
+}

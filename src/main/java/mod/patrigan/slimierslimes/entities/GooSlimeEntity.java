@@ -31,7 +31,6 @@ public class GooSlimeEntity extends AbstractSlimeEntity implements IRangedAttack
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.25D, 20, 10.0F));
         this.goalSelector.addGoal(3, new FaceRandomGoal(this));
         this.goalSelector.addGoal(5, new HopGoal(this));
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true, false,
@@ -42,7 +41,7 @@ public class GooSlimeEntity extends AbstractSlimeEntity implements IRangedAttack
     @Override
     protected void land(){
         super.land();
-        if (!this.level.isClientSide && random.nextFloat() < 0.2F) {
+        if (!this.level.isClientSide && random.nextFloat() < 0.1F && !this.isTiny()) {
             if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
                 return;
             }
@@ -76,4 +75,9 @@ public class GooSlimeEntity extends AbstractSlimeEntity implements IRangedAttack
         this.level.addFreshEntity(slimeBallentity);
     }
 
+    @Override
+    protected void setSize(int size, boolean resetHealth) {
+        super.setSize(size, resetHealth);
+        this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.25D, 40-(getSize()*5), 45-(getSize()*5), 10.0F));
+    }
 }

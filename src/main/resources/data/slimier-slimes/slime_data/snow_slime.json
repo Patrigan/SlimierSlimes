@@ -1,4 +1,5 @@
 {
+  "dyeColor": "white",
   "squishParticleData": {
     "typeString": "BLOCK",
     "resourceLocation": "slimier-slimes:white_slime_block"

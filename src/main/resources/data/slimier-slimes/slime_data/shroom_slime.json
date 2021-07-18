@@ -1,0 +1,17 @@
+{
+  "dyeColor": "red",
+  "squishParticleData": {
+    "typeString": "BLOCK",
+    "resourceLocation": "slimier-slimes:red_slime_block"
+  },
+  "slimeSpawnData": [
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 10,
+      "biomes": [
+        "MUSHROOM"
+      ]
+    }
+  ]
+}

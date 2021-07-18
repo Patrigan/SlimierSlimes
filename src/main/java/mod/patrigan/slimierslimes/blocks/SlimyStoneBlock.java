@@ -38,8 +38,6 @@ import static mod.patrigan.slimierslimes.entities.AbstractSlimeEntity.SLIME_SIZE
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.ROCK_SLIME;
 import static mod.patrigan.slimierslimes.init.ModParticleTypes.DRIPPING_SLIME;
 
-import net.minecraft.block.AbstractBlock.Properties;
-
 public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, ModItemColor {
     private DyeColor dyeColor;
 

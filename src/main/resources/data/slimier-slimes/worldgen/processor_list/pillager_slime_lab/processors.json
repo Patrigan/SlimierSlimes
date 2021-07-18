@@ -5,8 +5,30 @@
       "slimyness": 0.1
     },
     {
-      "processor_type": "slimier-slimes:block_mossify",
+      "processor_type": "structure_toolkit:block_mossify",
       "mossiness": 0.2
+    },
+    {
+      "processor_type": "structure_toolkit:lecterns",
+      "loot_table": "slimier-slimes:processors/books_test"
+    },
+    {
+      "rules": [
+        {
+          "output_state": {
+            "Name": "minecraft:air"
+          },
+          "input_predicate": {
+            "block": "minecraft:iron_bars",
+            "probability": 0.2,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          }
+        }
+      ],
+      "processor_type": "minecraft:rule"
     }
   ]
 }

@@ -1,5 +1,7 @@
 package mod.patrigan.slimierslimes.util;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.DyeColor;
@@ -12,6 +14,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.Arrays;
 
 public class ColorUtils {
+    public static final Codec<DyeColor> DYE_COLOR_CODEC = Codec.STRING.flatComapMap(s -> DyeColor.byName(s, null), d -> DataResult.success(d.getName()));
+
     private enum DyeColorAdjustment {
         WHITE(DyeColor.WHITE, 16580606),
         ORANGE(DyeColor.ORANGE, 16235402),

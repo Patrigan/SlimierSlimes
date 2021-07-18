@@ -1,4 +1,5 @@
 {
+  "dyeColor": "cyan",
   "armor": {"sizeMultiplier": 2},
   "jumpDelay": {
     "sizeMultiplier": 0,

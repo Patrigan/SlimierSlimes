@@ -1,7 +1,11 @@
 package mod.patrigan.slimierslimes.init;
 
 import mod.patrigan.slimierslimes.SlimierSlimes;
+import mod.patrigan.slimierslimes.item.ModArmorMaterial;
+import mod.patrigan.slimierslimes.items.SlimeBallItem;
 import net.minecraft.block.Block;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ArmorItem;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
@@ -23,17 +27,21 @@ public class ModItems {
     public static final List<String> ITEM_IDS = new ArrayList<>();
 
     //DyeColor Items
-    public static final Map<DyeColor, RegistryObject<Item>> JELLY = getDyeColorRegistryObjectHashMap(dyeColor -> registerColoredItem(dyeColor, "_jelly"));
-    public static final Map<DyeColor, RegistryObject<Item>> SLIME_BALL = getDyeColorRegistryObjectHashMap(dyeColor -> registerColoredItem(dyeColor, "_slime_ball"));
+    public static final Map<DyeColor, RegistryObject<Item>> SLIME_CHESTPLATE = getDyeColorRegistryObjectHashMap(dyeColor -> registerColoredItem(dyeColor, "_slime_chestplate", () -> new ArmorItem(ModArmorMaterial.SLIME, EquipmentSlotType.CHEST, (new Item.Properties()).tab(SlimierSlimes.TAB))));
+    public static final Map<DyeColor, RegistryObject<Item>> SLIME_BOOTS = getDyeColorRegistryObjectHashMap(dyeColor -> registerColoredItem(dyeColor, "_slime_boots", () -> new ArmorItem(ModArmorMaterial.SLIME, EquipmentSlotType.FEET, (new Item.Properties()).tab(SlimierSlimes.TAB))));
+    public static final Map<DyeColor, RegistryObject<Item>> SLIME_LEGGINGS = getDyeColorRegistryObjectHashMap(dyeColor -> registerColoredItem(dyeColor, "_slime_leggings", () -> new ArmorItem(ModArmorMaterial.SLIME, EquipmentSlotType.LEGS, (new Item.Properties()).tab(SlimierSlimes.TAB))));
+    public static final Map<DyeColor, RegistryObject<Item>> SLIME_HELMET = getDyeColorRegistryObjectHashMap(dyeColor -> registerColoredItem(dyeColor, "_slime_helmet", () -> new ArmorItem(ModArmorMaterial.SLIME, EquipmentSlotType.HEAD, (new Item.Properties()).tab(SlimierSlimes.TAB))));
+    public static final Map<DyeColor, RegistryObject<Item>> JELLY = getDyeColorRegistryObjectHashMap(dyeColor -> registerColoredItem(dyeColor, "_jelly", () -> new Item(new Item.Properties().tab(SlimierSlimes.TAB))));
+    public static final Map<DyeColor, RegistryObject<Item>> SLIME_BALL = getDyeColorRegistryObjectHashMap(dyeColor -> registerColoredItem(dyeColor, "_slime_ball", () -> new SlimeBallItem(dyeColor, new Item.Properties().tab(SlimierSlimes.TAB))));
 
     private static Map<DyeColor, RegistryObject<Item>> getDyeColorRegistryObjectHashMap(Function<DyeColor, RegistryObject<Item>> registryFunc) {
         return Arrays.stream(DyeColor.values()).collect(Collectors.toMap(dyeColor -> dyeColor, registryFunc));
     }
 
-    private static RegistryObject<Item> registerColoredItem(DyeColor dyeColorin, String itemId){
+    private static RegistryObject<Item> registerColoredItem(DyeColor dyeColorin, String itemId, Supplier<Item> itemSupplier){
         String coloredItemId = dyeColorin.toString() + itemId;
         ITEM_IDS.add(coloredItemId);
-        return ITEMS.register(coloredItemId,  () -> new Item(new Item.Properties().tab(SlimierSlimes.TAB)));
+        return ITEMS.register(coloredItemId, itemSupplier);
     }
 
     public static RegistryObject<BlockItem> registerBlockItem(String id, RegistryObject<Block> block, Function<Supplier<Block>, BlockItem> itemCreatorFunction){

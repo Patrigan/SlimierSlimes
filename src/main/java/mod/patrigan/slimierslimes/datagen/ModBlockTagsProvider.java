@@ -3,11 +3,15 @@ package mod.patrigan.slimierslimes.datagen;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.blocks.BuildingBlockHelper;
 import mod.patrigan.slimierslimes.init.ModBlocks;
+import mod.patrigan.slimierslimes.init.ModTags;
 import net.minecraft.block.material.Material;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
+
+import static net.minecraft.block.Blocks.BROWN_MUSHROOM;
+import static net.minecraft.block.Blocks.RED_MUSHROOM;
 
 public class ModBlockTagsProvider extends BlockTagsProvider {
 
@@ -18,6 +22,12 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     @Override
     protected void addTags() {
         ModBlocks.BLOCK_HELPERS.forEach(this::addBlocksToTags);
+        vanillaMushrooms();
+    }
+
+    private void vanillaMushrooms() {
+        this.tag(ModTags.Blocks.MUSHROOMS).add(RED_MUSHROOM);
+        this.tag(ModTags.Blocks.MUSHROOMS).add(BROWN_MUSHROOM);
     }
 
     private void addBlocksToTags(BuildingBlockHelper blockHelper) {

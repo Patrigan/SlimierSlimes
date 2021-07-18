@@ -23,14 +23,10 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraft.world.gen.settings.StructureSeparationSettings;
-import org.apache.logging.log4j.Level;
 
 import java.util.List;
 
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
-
-import net.minecraft.world.gen.feature.structure.Structure.IStartFactory;
 
 public class SlimeDungeon extends Structure<NoFeatureConfig> {
 
@@ -145,7 +141,7 @@ public class SlimeDungeon extends Structure<NoFeatureConfig> {
              * structure will spawn at terrain height instead. Set that parameter to false to
              * force the structure to spawn at blockpos's Y value instead. You got options here!
              */
-            int heightY = chunkGenerator.getBaseHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
+            int heightY = chunkGenerator.getBaseHeight(x, z, Heightmap.Type.OCEAN_FLOOR_WG);
             int randY = random.nextInt(heightY - 20) + 10;
             BlockPos blockpos = new BlockPos(x, randY, z);
 
@@ -204,10 +200,10 @@ public class SlimeDungeon extends Structure<NoFeatureConfig> {
 
             // I use to debug and quickly find out if the structure is spawning or not and where it is.
             // This is returning the coordinates of the center starting piece.
-            SlimierSlimes.LOGGER.log(Level.DEBUG, "Slime Dungeon at " +
+            /*SlimierSlimes.LOGGER.log(Level.DEBUG, "Slime Dungeon at " +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
-                    this.pieces.get(0).getBoundingBox().z0);
+                    this.pieces.get(0).getBoundingBox().z0);*/
         }
 
     }

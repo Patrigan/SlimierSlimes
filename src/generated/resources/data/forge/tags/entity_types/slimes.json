@@ -8,10 +8,12 @@
     "slimier-slimes:cloud_slime",
     "slimier-slimes:crystal_slime",
     "slimier-slimes:glow_slime",
+    "slimier-slimes:brown_goo_slime",
     "slimier-slimes:creeper_slime",
     "slimier-slimes:snow_slime",
     "slimier-slimes:camo_slime",
     "slimier-slimes:lava_slime",
-    "slimier-slimes:obsidian_slime"
+    "slimier-slimes:obsidian_slime",
+    "slimier-slimes:shroom_slime"
   ]
 }

@@ -10,6 +10,7 @@ public class CommonConfigs {
         public ConfigHelper.ConfigValueListener<Boolean> maintainChunkSpawning;
         public ConfigHelper.ConfigValueListener<Boolean> useTotalSlimeSpawnWeight;
         public ConfigHelper.ConfigValueListener<Integer> totalSlimeSpawnWeight;
+        public ConfigHelper.ConfigValueListener<Float> shroomSlimeSuspiciousChance;
         public ConfigHelper.ConfigValueListener<Boolean> allowSlimeBlockEffects;
 
         public CommonConfigValues(ForgeConfigSpec.Builder builder, ConfigHelper.Subscriber subscriber) {
@@ -53,6 +54,17 @@ public class CommonConfigs {
                             +" Defaults to 150.\n\n")
                     .translation("slimier_slimes.config.mobs.totalSlimeSpawnWeight")
                     .define("totalSlimeSpawnWeight", 150));
+
+            builder.pop();
+
+            builder.push("Slime Entity Options");
+
+            shroomSlimeSuspiciousChance = subscriber.subscribe(builder
+                    .comment(" \r\n-----------------------------------------------------\r\n\r\n"
+                            +" Determines the chance for a shroomslime to create a suspicious stew. \r\n"
+                            +" Defaults to 0.2.\n\n")
+                    .translation("slimier_slimes.config.mobs.shroomSlimeSuspiciousChance")
+                    .define("shroomSlimeSuspiciousChance", 0.2F));
 
             builder.pop();
 

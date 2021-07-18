@@ -24,6 +24,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.*;
+import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
 import static net.minecraft.item.Items.COBBLESTONE;
 import static net.minecraft.item.Items.NETHERRACK;
 
@@ -40,6 +41,9 @@ public class ModBlockLootTables extends BlockLootTables {
         this.add(ModBlocks.LARGE_AMETHYST_BUD.get(), block -> noDrop());
         this.add(STONE_LAVA_SLIME_SPAWNER.get(), block -> dropOtherLootTable(getLootTableIdOf(ModBlocks.SLIMY_COBBLESTONE_BLOCK.get(DyeColor.RED).getBlock().getId())));
         this.add(NETHERRACK_LAVA_SLIME_SPAWNER.get(), block -> dropOtherLootTable(getLootTableIdOf(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getBlock().getId())));
+        GOO_LAYER_BLOCKS.forEach((dyeColor, blockRegistryObject) ->
+                this.add(blockRegistryObject.get(), block -> createSingleItemTableWithSilkTouch(block, SLIME_BALL.get(dyeColor).get(), ConstantRange.exactly(1)))
+        );
     }
 
     private ResourceLocation getLootTableIdOf(ResourceLocation id) {

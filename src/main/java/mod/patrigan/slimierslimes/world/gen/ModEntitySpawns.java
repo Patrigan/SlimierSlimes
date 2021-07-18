@@ -21,8 +21,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.lang.Boolean.TRUE;
-import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
+import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
 import static net.minecraft.entity.EntityClassification.MONSTER;
 import static net.minecraft.entity.EntitySpawnPlacementRegistry.PlacementType.ON_GROUND;
 import static net.minecraft.world.gen.Heightmap.Type.MOTION_BLOCKING;
@@ -44,6 +44,8 @@ public class ModEntitySpawns {
         EntitySpawnPlacementRegistry.register(DIAMOND_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, DiamondSlimeEntity::checkSlimeSpawnRules);
         EntitySpawnPlacementRegistry.register(LAVA_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, LavaSlimeEntity::spawnable);
         EntitySpawnPlacementRegistry.register(OBSIDIAN_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(BROWN_GOO_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::checkSlimeSpawnRules);
+        EntitySpawnPlacementRegistry.register(SHROOM_SLIME.get(), ON_GROUND, MOTION_BLOCKING_NO_LEAVES, AbstractSlimeEntity::checkSlimeSpawnRules);
     }
 
 

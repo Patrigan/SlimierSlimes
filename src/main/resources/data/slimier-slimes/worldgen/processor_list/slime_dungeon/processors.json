@@ -1,7 +1,7 @@
 {
   "processors": [
     {
-      "processor_type": "slimier-slimes:air_retainer"
+      "processor_type": "structure_toolkit:air_retainer"
     },
     {
       "processor_type": "slimier-slimes:block_slimify",

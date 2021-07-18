@@ -1,4 +1,5 @@
 {
+  "dyeColor": "black",
   "maxHealth": {
     "isSizeSquared": true,
     "resultMultiplier": 7

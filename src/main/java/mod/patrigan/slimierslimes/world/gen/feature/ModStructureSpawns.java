@@ -38,6 +38,7 @@ public class ModStructureSpawns {
                 && !types.contains(OCEAN)
                 && types.contains(DENSE)) {
             event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_PILLAGER_SLIME_LAB);
+            event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SEWER);
         }
         if(types.contains(OVERWORLD)){
             event.getGeneration().getStructures().add(() -> ModConfiguredStructures.CONFIGURED_SLIME_DUNGEON);
@@ -72,6 +73,7 @@ public class ModStructureSpawns {
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(serverWorld.getChunkSource().generator.getSettings().structureConfig());
             tempMap.put(ModStructures.PILLAGER_SLIME_LAB.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.PILLAGER_SLIME_LAB.get()));
             tempMap.put(ModStructures.SLIME_DUNGEON.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.SLIME_DUNGEON.get()));
+            tempMap.put(ModStructures.SEWER.get(), DimensionStructuresSettings.DEFAULTS.get(ModStructures.SEWER.get()));
             serverWorld.getChunkSource().generator.getSettings().structureConfig = tempMap;
         }
     }

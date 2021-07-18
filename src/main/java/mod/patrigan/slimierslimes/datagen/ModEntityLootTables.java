@@ -31,6 +31,8 @@ public class ModEntityLootTables extends EntityLootTables {
         this.add(CAMO_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(GREEN)).withPool(getJellyLootPool(GREEN)));
         this.add(LAVA_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(RED)).withPool(getJellyLootPool(RED)));
         this.add(OBSIDIAN_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(BLACK)).withPool(getJellyLootPool(PURPLE)).withPool(LootPool.lootPool().setRolls(ConstantRange.exactly(1)).add(ItemLootEntry.lootTableItem(OBSIDIAN).apply(SetCount.setCount(RandomValueRange.between(0.0F, 1.0F))).apply(LootingEnchantBonus.lootingMultiplier(RandomValueRange.between(0.0F, 1.0F))))));
+        this.add(BROWN_GOO_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(BROWN)));
+        this.add(SHROOM_SLIME.get(), LootTable.lootTable().withPool(getJellyLootPool(RED)));
     }
 
     @Override

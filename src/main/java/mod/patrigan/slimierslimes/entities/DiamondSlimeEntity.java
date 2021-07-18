@@ -1,21 +1,17 @@
 package mod.patrigan.slimierslimes.entities;
 
-import mod.patrigan.slimierslimes.entities.ai.goal.*;
+import mod.patrigan.slimierslimes.entities.ai.goal.FaceRandomGoal;
+import mod.patrigan.slimierslimes.entities.ai.goal.FleeGoal;
+import mod.patrigan.slimierslimes.entities.ai.goal.FloatGoal;
+import mod.patrigan.slimierslimes.entities.ai.goal.HopGoal;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ItemParticleData;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-
-import static net.minecraft.item.Items.DIAMOND;
-import static net.minecraft.particles.ParticleTypes.ITEM;
 
 public class DiamondSlimeEntity extends AbstractSlimeEntity {
     private static final int FLEE_TIME = 100;

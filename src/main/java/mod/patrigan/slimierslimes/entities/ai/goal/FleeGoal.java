@@ -9,8 +9,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
 
-import net.minecraft.entity.ai.goal.Goal.Flag;
-
 public class FleeGoal extends Goal {
     private final AbstractSlimeEntity slime;
 

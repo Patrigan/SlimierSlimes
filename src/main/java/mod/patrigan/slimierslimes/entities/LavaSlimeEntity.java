@@ -7,7 +7,6 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IServerWorld;
@@ -95,19 +94,6 @@ public class LavaSlimeEntity extends AbstractSlimeEntity {
         super.tick();
     }
 
-    private boolean isSurroundingBlockFlammable(IWorldReader worldIn, BlockPos pos) {
-        for(Direction direction : Direction.values()) {
-            if (this.getCanBlockBurn(worldIn, pos.relative(direction))) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean getCanBlockBurn(IWorldReader worldIn, BlockPos pos) {
-        return pos.getY() >= 0 && pos.getY() < 256 && !worldIn.hasChunkAt(pos) ? false : worldIn.getBlockState(pos).getMaterial().isFlammable();
-    }
 
     private void hardenInWater() {
         AbstractSlimeEntity slimeentity = OBSIDIAN_SLIME.get().create(this.level);

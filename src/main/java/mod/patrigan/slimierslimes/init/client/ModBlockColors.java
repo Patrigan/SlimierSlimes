@@ -3,14 +3,14 @@ package mod.patrigan.slimierslimes.init.client;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.util.ColorUtils;
 import mod.patrigan.slimierslimes.util.ModBlockColor;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.BlockColors;
-import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.item.DyeColor;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.Arrays;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.*;
 
@@ -36,5 +36,10 @@ public class ModBlockColors {
                         buildingBlockHelper.getPressurePlate().get());
             }
         });
+        Arrays.stream(DyeColor.values()).forEach(dyeColor ->
+                blockColors.register(
+                        (state, reader, pos, tintIndex) -> tintIndex == 0 ? dyeColor.getColorValue() : 0xFFFFFFFF,
+                        GOO_LAYER_BLOCKS.get(dyeColor).get())
+        );
     }
 }

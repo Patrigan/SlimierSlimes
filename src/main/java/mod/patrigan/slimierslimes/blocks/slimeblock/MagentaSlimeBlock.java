@@ -1,10 +1,10 @@
 package mod.patrigan.slimierslimes.blocks.slimeblock;
 
 import mod.patrigan.slimierslimes.SlimierSlimes;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SlimeBlock;
 import mod.patrigan.slimierslimes.util.ModBlockColor;
 import mod.patrigan.slimierslimes.util.ModItemColor;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.SlimeBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.DyeColor;
@@ -17,7 +17,7 @@ import net.minecraft.world.IBlockDisplayReader;
 
 import javax.annotation.Nullable;
 
-import net.minecraft.block.AbstractBlock.Properties;
+import static java.lang.Boolean.TRUE;
 
 public class MagentaSlimeBlock extends SlimeBlock implements ModBlockColor, ModItemColor {
 
@@ -27,7 +27,7 @@ public class MagentaSlimeBlock extends SlimeBlock implements ModBlockColor, ModI
 
     @Override
     public void bounceUp(Entity entity) {
-        if(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get()) {
+        if(TRUE.equals(SlimierSlimes.MAIN_CONFIG.allowSlimeBlockEffects.get())) {
             Vector3d vector3d = entity.getDeltaMovement();
             entity.setDeltaMovement(vector3d.x, 0, vector3d.z);
             effectEntity(entity);

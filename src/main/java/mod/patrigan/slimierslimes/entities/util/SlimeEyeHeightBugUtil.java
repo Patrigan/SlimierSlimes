@@ -8,10 +8,10 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
+//@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class SlimeEyeHeightBugUtil {
 
-    @SubscribeEvent
+    /*@SubscribeEvent
     public static LivingDamageEvent handleLivingDamageEvent(LivingDamageEvent event){
         if(DamageSource.IN_WALL.equals(event.getSource()) && event.getEntity() instanceof AbstractSlimeEntity){
             AbstractSlimeEntity entity = (AbstractSlimeEntity) event.getEntity();
@@ -22,5 +22,5 @@ public class SlimeEyeHeightBugUtil {
         }else{
             return event;
         }
-    }
+    }*/
 }

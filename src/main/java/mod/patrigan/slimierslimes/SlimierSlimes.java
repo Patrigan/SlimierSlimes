@@ -1,12 +1,11 @@
 package mod.patrigan.slimierslimes;
 
 import mod.patrigan.slimierslimes.client.packet.SlimeDataSyncPacket;
-import mod.patrigan.slimierslimes.data.CodecJsonDataManager;
-import mod.patrigan.slimierslimes.init.config.CommonConfigs.CommonConfigValues;
 import mod.patrigan.slimierslimes.datagen.DataGenerators;
 import mod.patrigan.slimierslimes.init.*;
-import mod.patrigan.slimierslimes.init.data.SlimeData;
+import mod.patrigan.slimierslimes.init.config.CommonConfigs.CommonConfigValues;
 import mod.patrigan.slimierslimes.init.data.SlimeDatas;
+import mod.patrigan.slimierslimes.network.datasync.ModDataSerializers;
 import mod.patrigan.slimierslimes.util.ConfigHelper;
 import mod.patrigan.slimierslimes.world.gen.ModEntitySpawns;
 import mod.patrigan.slimierslimes.world.gen.feature.ModConfiguredFeatures;
@@ -28,7 +27,6 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import static mod.patrigan.slimierslimes.init.ModEntityTypes.registerAdditionalEntityInformation;
 import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
 
 @Mod(SlimierSlimes.MOD_ID)
@@ -64,6 +62,7 @@ public class SlimierSlimes {
         ModParticleTypes.PARTICLES.register(modEventBus);
         ModStructures.STRUCTURES.register(modEventBus);
         ModFeatures.FEATURES.register(modEventBus);
+        ModDataSerializers.DATA_SERIALIZERS.register(modEventBus);
 
         this.registerPackets();
 
@@ -100,8 +99,6 @@ public class SlimierSlimes {
             ModConfiguredStructures.registerConfiguredStructures();
             //Entity Spawning
             ModEntitySpawns.init();
-            //Register Entities
-            registerAdditionalEntityInformation();
             ModProcessors.init();
         });
     }

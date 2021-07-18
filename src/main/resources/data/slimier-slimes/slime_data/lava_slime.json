@@ -1,4 +1,5 @@
 {
+  "dyeColor": "red",
   "squishParticleData": {
     "typeString": "PARTICLE",
     "resourceLocation": "minecraft:lava"

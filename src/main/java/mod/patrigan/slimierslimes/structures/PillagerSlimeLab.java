@@ -29,8 +29,6 @@ import org.apache.logging.log4j.Level;
 
 import java.util.List;
 
-import net.minecraft.world.gen.feature.structure.Structure.IStartFactory;
-
 public class PillagerSlimeLab extends Structure<NoFeatureConfig> {
 
     public static final String STRUCTURE_ID = "pillager_slime_lab";
@@ -207,10 +205,10 @@ public class PillagerSlimeLab extends Structure<NoFeatureConfig> {
 
             // I use to debug and quickly find out if the structure is spawning or not and where it is.
             // This is returning the coordinates of the center starting piece.
-            SlimierSlimes.LOGGER.log(Level.DEBUG, "Pillager Slime Lab at " +
+            /*SlimierSlimes.LOGGER.log(Level.DEBUG, "Pillager Slime Lab at " +
                     this.pieces.get(0).getBoundingBox().x0 + " " +
                     this.pieces.get(0).getBoundingBox().y0 + " " +
-                    this.pieces.get(0).getBoundingBox().z0);
+                    this.pieces.get(0).getBoundingBox().z0);*/
         }
 
     }

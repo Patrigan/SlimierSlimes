@@ -59,6 +59,9 @@ public class ModBlocks {
     public static final BuildingBlockHelper PURPLE_SLIME_BLOCK = registerSlimeBlockBuildingBlock("slime_block", DyeColor.PURPLE, () -> new PurpleSlimeBlock(AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_LIGHT_GREEN).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion()), false, 0.6F, true);
     public static final BuildingBlockHelper MAGENTA_SLIME_BLOCK = registerSlimeBlockBuildingBlock("slime_block", DyeColor.MAGENTA, () -> new MagentaSlimeBlock(AbstractBlock.Properties.of(Material.CLAY, MaterialColor.COLOR_GREEN).friction(0.8F).sound(SoundType.SLIME_BLOCK).noOcclusion()), false, 0.6F, true);
 
+    //Other colored blocks
+    public static final Map<DyeColor, RegistryObject<Block>> GOO_LAYER_BLOCKS = registerColoredBlock("goo_layer_block", GooLayerBlock::new);
+
     //Utility Blocks
     public static final RegistryObject<Block> LIGHT_AIR = registerBlockWithoutItem("light_air",  LightAirBlock::new);
     public static final RegistryObject<Block> AMETHYST_CLUSTER = registerBlockWithoutItem("amethyst_cluster", AmethystClusterBlock::new);
@@ -78,6 +81,15 @@ public class ModBlocks {
     private static RegistryObject<Block> registerBlockWithoutItem(String id, Supplier<Block> sup) {
         BLOCK_IDS.add(id);
         return BLOCKS.register(id, sup);
+    }
+
+    private static Map<DyeColor, RegistryObject<Block>> registerColoredBlock(String id, Function<DyeColor, Block> sup){
+        return Arrays.stream(DyeColor.values()).collect(Collectors.toMap(dyeColor -> dyeColor, dyeColor -> registerDyedBlock(id, dyeColor, () -> sup.apply(dyeColor))));
+    }
+
+    private static RegistryObject<Block> registerDyedBlock(String baseId, DyeColor dyeColor, Supplier<Block> sup) {
+        String colorId = dyeColor + "_" + baseId;
+        return registerBlock(colorId, sup);
     }
 
     private static Map<DyeColor, BuildingBlockHelper> registerColoredBuildingBlock(String id, Function<DyeColor, Block> sup, boolean slimy){
@@ -126,6 +138,9 @@ public class ModBlocks {
                 initBuildingBlockRenderTypes(buildingBlockHelper, RenderType.translucent());
             }
         });
+        GOO_LAYER_BLOCKS.forEach((dyeColor, blockRegistryObject) ->
+                RenderTypeLookup.setRenderLayer(blockRegistryObject.get(), RenderType.translucent())
+        );
         RenderTypeLookup.setRenderLayer(STONE_LAVA_SLIME_SPAWNER.get(), RenderType.translucent());
         RenderTypeLookup.setRenderLayer(NETHERRACK_LAVA_SLIME_SPAWNER.get(), RenderType.translucent());
     }

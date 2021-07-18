@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.structures.PillagerSlimeLab;
+import mod.patrigan.slimierslimes.structures.Sewer;
 import mod.patrigan.slimierslimes.structures.SlimeDungeon;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -35,6 +36,7 @@ public class ModStructures {
      */
     public static final RegistryObject<Structure<NoFeatureConfig>> PILLAGER_SLIME_LAB = registerStructure(PillagerSlimeLab.STRUCTURE_ID, () -> (new PillagerSlimeLab(NoFeatureConfig.CODEC)));
     public static final RegistryObject<Structure<NoFeatureConfig>> SLIME_DUNGEON = registerStructure(SlimeDungeon.STRUCTURE_ID, () -> (new SlimeDungeon(NoFeatureConfig.CODEC)));
+    public static final RegistryObject<Structure<NoFeatureConfig>> SEWER = registerStructure(Sewer.STRUCTURE_ID, () -> (new Sewer(NoFeatureConfig.CODEC)));
 
     /**
      * Helper method for registering all structures
@@ -56,9 +58,15 @@ public class ModStructures {
                 true);
         setupMapSpacingAndLand(
                 SLIME_DUNGEON.get(), /* The instance of the structure */
-                new StructureSeparationSettings(6 /* maximum distance apart in chunks between spawn attempts */,
+                new StructureSeparationSettings(6 /* average distance apart in chunks between spawn attempts */,
                         4 /* minimum distance apart in chunks between spawn attempts */,
                         768149314 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
+                false);
+        setupMapSpacingAndLand(
+                SEWER.get(), /* The instance of the structure */
+                new StructureSeparationSettings(20 /* average distance apart in chunks between spawn attempts */,
+                        10 /* minimum distance apart in chunks between spawn attempts */,
+                        324415360 /* this modifies the seed of the structure so no two structures always spawn over each-other. Make this large and unique. */),
                 false);
     }
 

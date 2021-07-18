@@ -15,6 +15,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import java.util.Arrays;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
+import static mod.patrigan.slimierslimes.init.ModBlocks.GOO_LAYER_BLOCKS;
+import static mod.patrigan.slimierslimes.init.ModItems.*;
 import static net.minecraftforge.registries.ForgeRegistries.ITEMS;
 
 public class ModItemModelProvider extends ItemModelProvider {
@@ -26,8 +28,13 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         Arrays.stream(DyeColor.values()).forEach(dyeColor -> {
-            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColor + "_jelly")).getRegistryName().getPath(), modLoc("item/jelly"));
-            generated(ITEMS.getValue(new ResourceLocation(SlimierSlimes.MOD_ID, dyeColor + "_slime_ball")).getRegistryName().getPath(), modLoc("item/slime_ball"));
+            generated(JELLY.get(dyeColor).getId().getPath(), modLoc("item/jelly"));
+            generated(SLIME_BALL.get(dyeColor).getId().getPath(), modLoc("item/slime_ball"));
+            generated(SLIME_CHESTPLATE.get(dyeColor).getId().getPath(), modLoc("item/slime_chestplate"));
+            generated(SLIME_BOOTS.get(dyeColor).getId().getPath(), modLoc("item/slime_boots"));
+            generated(SLIME_LEGGINGS.get(dyeColor).getId().getPath(), modLoc("item/slime_leggings"));
+            generated(SLIME_HELMET.get(dyeColor).getId().getPath(), modLoc("item/slime_helmet"));
+            getBuilder(GOO_LAYER_BLOCKS.get(dyeColor).getId().getPath()).parent(new ModelFile.UncheckedModelFile(modLoc(BLOCK_FOLDER + "/"+ GOO_LAYER_BLOCKS.get(dyeColor).getId().getPath() + "_height2")));
         });
         registerBlockItems();
         registerSpawnEggItems();

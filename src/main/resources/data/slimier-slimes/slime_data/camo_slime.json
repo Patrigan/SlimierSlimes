@@ -1,4 +1,5 @@
 {
+  "dyeColor": "green",
   "movementSpeed": {
     "resultMultiplier": 0.2,
     "resultModifier": 0.3

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "   ",
+    "###",
+    "# #"
+  ],
+  "key": {
+    "#": {
+      "item": "slimier-slimes:light_gray_slime_ball"
+    }
+  },
+  "result": {
+    "item": "slimier-slimes:light_gray_slime_helmet"
+  }
+}

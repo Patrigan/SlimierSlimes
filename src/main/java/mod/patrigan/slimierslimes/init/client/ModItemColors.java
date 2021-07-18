@@ -14,8 +14,8 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.Arrays;
 
 import static mod.patrigan.slimierslimes.init.ModBlocks.BLOCK_HELPERS;
-import static mod.patrigan.slimierslimes.init.ModItems.JELLY;
-import static mod.patrigan.slimierslimes.init.ModItems.SLIME_BALL;
+import static mod.patrigan.slimierslimes.init.ModBlocks.GOO_LAYER_BLOCKS;
+import static mod.patrigan.slimierslimes.init.ModItems.*;
 
 @Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ModItemColors {
@@ -26,7 +26,12 @@ public class ModItemColors {
             itemColors.register(
                     (stack, tintIndex) -> tintIndex == 0 ? dyeColor.getColorValue() : 0xFFFFFFFF,
                     JELLY.get(dyeColor).get(),
-                    SLIME_BALL.get(dyeColor).get())
+                    SLIME_BALL.get(dyeColor).get(),
+                    SLIME_CHESTPLATE.get(dyeColor).get(),
+                    SLIME_BOOTS.get(dyeColor).get(),
+                    SLIME_LEGGINGS.get(dyeColor).get(),
+                    SLIME_HELMET.get(dyeColor).get(),
+                    GOO_LAYER_BLOCKS.get(dyeColor).get())
         );
         BLOCK_HELPERS.forEach(buildingBlockHelper -> {
             if(buildingBlockHelper.getDyeColor() != null) {

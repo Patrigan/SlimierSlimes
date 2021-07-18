@@ -1,6 +1,5 @@
 package mod.patrigan.slimierslimes.datagen;
 
-import mod.patrigan.slimierslimes.SlimierSlimes;
 import mod.patrigan.slimierslimes.blocks.BuildingBlockHelper;
 import net.minecraft.block.*;
 import net.minecraft.data.DataGenerator;
@@ -12,19 +11,25 @@ import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.RegistryObject;
 
+import static mod.patrigan.slimierslimes.SlimierSlimes.MOD_ID;
+import static mod.patrigan.slimierslimes.blocks.GooLayerBlock.LAYERS;
 import static mod.patrigan.slimierslimes.init.ModBlocks.*;
 import static net.minecraft.block.HorizontalBlock.FACING;
 import static net.minecraft.block.HorizontalFaceBlock.FACE;
+import static net.minecraftforge.client.model.generators.ModelProvider.BLOCK_FOLDER;
 
 public class ModBlockStateProvider extends BlockStateProvider {
 
     public ModBlockStateProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, SlimierSlimes.MOD_ID, existingFileHelper);
+        super(generator, MOD_ID, existingFileHelper);
     }
 
     @Override
     protected void registerStatesAndModels() {
         BLOCK_HELPERS.forEach(this::registerBuildingBlockHelper
+        );
+        GOO_LAYER_BLOCKS.forEach((dyeColor, blockRegistryObject) ->
+                registerLayeredBlock(blockRegistryObject, modBlockLoc("slime_block"))
         );
         registerLavaSlimeSpawnerBlock(STONE_LAVA_SLIME_SPAWNER, modLoc(SLIMY_STONE_BLOCK.get(DyeColor.RED).getId()));
         registerLavaSlimeSpawnerBlock(NETHERRACK_LAVA_SLIME_SPAWNER, modLoc(SLIMY_NETHERRACK_BLOCK.get(DyeColor.RED).getId()));
@@ -32,6 +37,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
         registerCrossBlock(SMALL_AMETHYST_BUD);
         registerCrossBlock(MEDIUM_AMETHYST_BUD);
         registerCrossBlock(LARGE_AMETHYST_BUD);
+    }
+
+    private void registerLayeredBlock(RegistryObject<Block> blockRegistryObject, ResourceLocation slime_block) {
+        ResourceLocation id = blockRegistryObject.getId();
+        VariantBlockStateBuilder variantBuilder = getVariantBuilder(blockRegistryObject.get());
+        for(int height = 2; height <= 16; height += 2) {
+            variantBuilder.partialState()
+                    .with(LAYERS, height / 2)
+                    .addModels(
+                            new ConfiguredModel(
+                                    models().withExistingParent(id.getPath()+"_height" + height, modBlockLoc("layered_block_height" + height))
+                                        .texture("texture", modBlockLoc("slime_block"))
+                                        .texture("particle", modBlockLoc("slime_block"))));
+        }
     }
 
     private void registerBuildingBlockHelper(BuildingBlockHelper buildingBlockHelper){
@@ -60,7 +79,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
     }
 
     public ResourceLocation modBlockLoc(String name) {
-        return modLoc(ModelProvider.BLOCK_FOLDER + "/" + name);
+        return modLoc(BLOCK_FOLDER + "/" + name);
     }
 
     private void registerBuildingBlock(BuildingBlockHelper blockHelper) {

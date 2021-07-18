@@ -8,9 +8,9 @@
     {
       "minPackSize": 1,
       "maxPackSize": 1,
-      "spawnWeight": 40,
+      "spawnWeight": 10,
       "biomes": [
-        "OVERWORLD"
+        "MUSHROOM"
       ]
     }
   ]

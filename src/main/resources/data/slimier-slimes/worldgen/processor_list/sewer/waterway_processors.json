@@ -125,15 +125,19 @@
         },
         {
           "resourcelocation": "slimier-slimes:brown_goo_slime",
-          "weight": 100
+          "weight": 70
         },
         {
           "resourcelocation": "minecraft:zombie",
-          "weight": 25
+          "weight": 30
         },
         {
           "resourcelocation": "minecraft:skeleton",
-          "weight": 25
+          "weight": 30
+        },
+        {
+          "resourcelocation": "slimier-slimes:shroom_slime",
+          "weight": 20
         }
       ]
     }

@@ -68,10 +68,11 @@ public class Sewer extends Structure<NoFeatureConfig> {
      */
     private static final List<MobSpawnInfo.Spawners> STRUCTURE_MONSTERS = ImmutableList.of(
             new MobSpawnInfo.Spawners(COMMON_SLIME.get(), 50, 1, 1),
-            new MobSpawnInfo.Spawners(BROWN_GOO_SLIME.get(), 100, 1, 1),
+            new MobSpawnInfo.Spawners(BROWN_GOO_SLIME.get(), 50, 1, 1),
             new MobSpawnInfo.Spawners(EntityType.ZOMBIE, 20, 4, 4),
             new MobSpawnInfo.Spawners(EntityType.SKELETON, 20, 4, 4),
-            new MobSpawnInfo.Spawners(DIAMOND_SLIME.get(), 2, 1, 1)
+            new MobSpawnInfo.Spawners(SHROOM_SLIME.get(), 20, 4, 4),
+            new MobSpawnInfo.Spawners(DIAMOND_SLIME.get(), 20, 1, 1)
     );
 
     @Override

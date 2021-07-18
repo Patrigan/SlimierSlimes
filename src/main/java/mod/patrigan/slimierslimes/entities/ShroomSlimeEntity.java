@@ -158,4 +158,13 @@ public class ShroomSlimeEntity extends AbstractSlimeEntity implements net.minecr
             }
         });
     }
+
+    @Override
+    public boolean isDealsDamage() {
+        if(this.mushrooms.isEmpty()){
+            return false;
+        }else {
+            return super.isDealsDamage();
+        }
+    }
 }

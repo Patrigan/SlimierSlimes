@@ -2,6 +2,7 @@ package mod.patrigan.slimierslimes.init.data;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import mod.patrigan.slimierslimes.client.packet.SlimeDataSyncDTO;
 import mod.patrigan.slimierslimes.entities.util.SlimeSizeCalculation;
 import net.minecraft.item.DyeColor;
 
@@ -31,7 +32,7 @@ public class SlimeData {
                     SlimeSpawnData.CODEC.listOf().fieldOf("slimeSpawnData").forGetter(data -> data.slimeSpawnData)
             ).apply(builder, SlimeData::new));
 
-    private final DyeColor dyeColor;
+    private DyeColor dyeColor;
     private final SlimeSizeCalculation maxHealth;
     private final SlimeSizeCalculation armor;
     private final SlimeSizeCalculation armorToughness;
@@ -63,8 +64,8 @@ public class SlimeData {
         this.slimeSpawnData = slimeSpawnData;
     }
 
-    public SlimeData(SquishParticleData squishParticleData){
-        this.dyeColor = DyeColor.LIME;
+    public SlimeData(SlimeDataSyncDTO syncDTO){
+        this.dyeColor = syncDTO.getDyeColor();
         this.maxHealth = DEFAULT_SIZE_SQUARED;
         this.armor = DEFAULT_ZERO;
         this.armorToughness = DEFAULT_ZERO;
@@ -76,12 +77,16 @@ public class SlimeData {
         this.experienceValue = DEFAULT_EXPERIENCE;
         this.maxInChunk = 6;
         this.spawnOnSurface = true;
-        this.squishParticleData = squishParticleData;
+        this.squishParticleData = syncDTO.getSquishParticleData();
         this.slimeSpawnData = new ArrayList<>();
     }
 
     public DyeColor getDyeColor() {
         return dyeColor;
+    }
+
+    public void setDyeColor(DyeColor dyeColor) {
+        this.dyeColor = dyeColor;
     }
 
     public float getMaxHealth(int size, Random rand) {
@@ -138,5 +143,9 @@ public class SlimeData {
 
     public void setSquishParticleData(SquishParticleData squishParticleData) {
         this.squishParticleData = squishParticleData;
+    }
+
+    public SlimeDataSyncDTO toSlimeDataSyncDTO(){
+        return new SlimeDataSyncDTO(this.dyeColor, this.squishParticleData);
     }
 }

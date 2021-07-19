@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 import static mod.patrigan.slimierslimes.init.data.SlimeDatas.SLIME_DATA;
 
 public class SlimeDataSyncPacket {
-    private static final Codec<Map<ResourceLocation, SquishParticleData>> MAPPER =
-            Codec.unboundedMap(ResourceLocation.CODEC, SquishParticleData.CODEC);
+    private static final Codec<Map<ResourceLocation, SlimeDataSyncDTO>> MAPPER =
+            Codec.unboundedMap(ResourceLocation.CODEC, SlimeDataSyncDTO.CODEC);
 
-    private final Map<ResourceLocation, SquishParticleData> map;
+    private final Map<ResourceLocation, SlimeDataSyncDTO> map;
 
-    public SlimeDataSyncPacket(Map<ResourceLocation, SquishParticleData> map) {
+    public SlimeDataSyncPacket(Map<ResourceLocation, SlimeDataSyncDTO> map) {
         this.map = map;
     }
 
@@ -46,10 +46,11 @@ public class SlimeDataSyncPacket {
         SLIME_DATA.data = this.map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, this::getSlimeData));
     }
 
-    private SlimeData getSlimeData(Map.Entry<ResourceLocation, SquishParticleData> entry) {
+    private SlimeData getSlimeData(Map.Entry<ResourceLocation, SlimeDataSyncDTO> entry) {
         SlimeData data = SLIME_DATA.getData(entry.getKey());
         if(data != null) {
-            data.setSquishParticleData(entry.getValue());
+            data.setSquishParticleData(entry.getValue().getSquishParticleData());
+            data.setDyeColor(entry.getValue().getDyeColor());
             return data;
         }else{
             return new SlimeData(entry.getValue());

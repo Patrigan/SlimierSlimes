@@ -76,7 +76,7 @@ public class GooSlimeEntity extends AbstractSlimeEntity implements IRangedAttack
     }
 
     @Override
-    protected void setSize(int size, boolean resetHealth) {
+    public void setSize(int size, boolean resetHealth) {
         super.setSize(size, resetHealth);
         this.goalSelector.addGoal(2, new RangedAttackGoal(this, 1.25D, 40-(getSize()*5), 45-(getSize()*5), 10.0F));
     }

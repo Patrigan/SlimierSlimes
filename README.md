@@ -48,3 +48,8 @@ The old slime block has received friends in all colours, but every colour has it
 
 ## Resources for Development
 - [Adding a Slime](doc/AddingSlime.md)
+
+## Patch 1.1.0: The Modpack Patch
+In the latest big version, a lot of backend work has been done to support modpack makers in controlling the spawning and power of the slimes. Feel free to request more changes and data if wanted.  
+Players can also now encounter the Cloud Slime, added because the developer feels in heaven by the super positive feedback he's been getting.  
+By popular request, compatibility is made with Slimy Boyos. This compatibility will eventually be replaced by an even more powerful system. But for now, slimes can absorb those loose items!

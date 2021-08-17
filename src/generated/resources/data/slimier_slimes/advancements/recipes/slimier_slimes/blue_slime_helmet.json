@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "slimier_slimes:blue_slime_helmet"
+    ]
+  },
+  "criteria": {
+    "has_slime_ball": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:slimeballs"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "slimier_slimes:blue_slime_helmet"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_slime_ball",
+      "has_the_recipe"
+    ]
+  ]
+}

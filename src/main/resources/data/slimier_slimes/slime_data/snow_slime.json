@@ -1,0 +1,25 @@
+{
+  "dyeColor": "white",
+  "squishParticleData": {
+    "typeString": "BLOCK",
+    "resourceLocation": "slimier_slimes:white_slime_block"
+  },
+  "slimeSpawnData": [
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 80,
+      "biomes": [
+        "OVERWORLD", "!COLD", "!HOT"
+      ]
+    },
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 160,
+      "biomes": [
+        "OVERWORLD", "COLD"
+      ]
+    }
+  ]
+}

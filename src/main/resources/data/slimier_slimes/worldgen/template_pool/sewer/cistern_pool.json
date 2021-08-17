@@ -1,0 +1,107 @@
+{
+  "name": "slimier_slimes:sewer/cistern_pool",
+
+  "fallback": "slimier_slimes:sewer/sewer_endcap_pool",
+
+  "elements": [
+    {
+      "weight": 5,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/pool",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 5,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/deep_pool",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 3,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/exit_1",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/exit_2_corner",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/exit_2_straight",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/exit_3",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/exit_4",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/frozen",
+        "processors": "slimier_slimes:sewer/frozen_cistern_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/turtle",
+        "processors": "slimier_slimes:sewer/turtle_cistern_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/ruined_portal",
+        "processors": "slimier_slimes:sewer/ruined_portal_cistern_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/mushrooms",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

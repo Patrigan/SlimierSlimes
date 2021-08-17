@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "slimier_slimes:white_slime_boots",
+    "slimier_slimes:orange_slime_boots",
+    "slimier_slimes:magenta_slime_boots",
+    "slimier_slimes:light_blue_slime_boots",
+    "slimier_slimes:yellow_slime_boots",
+    "slimier_slimes:lime_slime_boots",
+    "slimier_slimes:pink_slime_boots",
+    "slimier_slimes:gray_slime_boots",
+    "slimier_slimes:light_gray_slime_boots",
+    "slimier_slimes:cyan_slime_boots",
+    "slimier_slimes:purple_slime_boots",
+    "slimier_slimes:blue_slime_boots",
+    "slimier_slimes:brown_slime_boots",
+    "slimier_slimes:green_slime_boots",
+    "slimier_slimes:red_slime_boots",
+    "slimier_slimes:black_slime_boots"
+  ]
+}

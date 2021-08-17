@@ -1,0 +1,17 @@
+{
+  "name": "slimier_slimes:sewer/sewer_shaft_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element":
+      {
+        "element_type": "minecraft:feature_pool_element",
+        "feature": "slimier_slimes:sewer_shaft_configured_feature",
+        "projection": "rigid"
+      }
+    }
+  ]
+}

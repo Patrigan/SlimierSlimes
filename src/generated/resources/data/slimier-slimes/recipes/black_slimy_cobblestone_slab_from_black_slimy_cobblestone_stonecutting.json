@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "slimier-slimes:black_slimy_cobblestone"
-  },
-  "result": "slimier-slimes:black_slimy_cobblestone_slab",
-  "count": 2
-}

@@ -1,6 +1,0 @@
-{
-  "parent": "slimier-slimes:block/colored_wall_inventory",
-  "textures": {
-    "wall": "slimier-slimes:block/slime_block"
-  }
-}

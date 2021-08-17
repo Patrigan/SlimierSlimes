@@ -1,0 +1,6 @@
+{
+  "parent": "slimier_slimes:block/slimy_pressure_plate_up",
+  "textures": {
+    "texture": "slimier_slimes:block/slimy_stone"
+  }
+}

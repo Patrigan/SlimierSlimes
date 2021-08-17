@@ -1,0 +1,17 @@
+{
+  "name": "slimier_slimes:sewer/start_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/entrance",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

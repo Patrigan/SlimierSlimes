@@ -1,0 +1,26 @@
+{
+  "name": "slimier_slimes:slime_dungeon/start_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:slime_dungeon",
+        "processors": "slimier_slimes:slime_dungeon/processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element":
+      {
+        "element_type": "minecraft:feature_pool_element",
+        "feature": "minecraft:patch_red_mushroom",
+        "projection": "rigid"
+      }
+    }
+  ]
+}

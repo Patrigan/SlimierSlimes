@@ -1,7 +1,0 @@
-{
-  "parent": "slimier-slimes:block/slime_block",
-  "textures": {
-    "particle": "slimier-slimes:block/slime_block",
-    "texture": "slimier-slimes:block/slime_block"
-  }
-}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "slimier_slimes:pink_slimy_cobblestone_slab"
+    ]
+  },
+  "criteria": {
+    "has_pink_slimy_cobblestone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "slimier_slimes:pink_slimy_cobblestone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "slimier_slimes:pink_slimy_cobblestone_slab"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_pink_slimy_cobblestone",
+      "has_the_recipe"
+    ]
+  ]
+}

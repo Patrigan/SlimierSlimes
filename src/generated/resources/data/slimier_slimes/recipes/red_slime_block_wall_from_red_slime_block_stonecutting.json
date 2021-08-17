@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "slimier_slimes:red_slime_block"
+  },
+  "result": "slimier_slimes:red_slime_block_wall",
+  "count": 1
+}

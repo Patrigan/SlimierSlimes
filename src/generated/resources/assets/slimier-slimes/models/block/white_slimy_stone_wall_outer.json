@@ -1,6 +1,0 @@
-{
-  "parent": "slimier-slimes:block/slimy_wall_side_tall",
-  "textures": {
-    "wall": "slimier-slimes:block/slimy_stone"
-  }
-}

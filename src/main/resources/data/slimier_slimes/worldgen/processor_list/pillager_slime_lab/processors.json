@@ -1,0 +1,63 @@
+{
+  "processors": [
+    {
+      "processor_type": "slimier_slimes:block_slimify",
+      "slimyness": 0.1
+    },
+    {
+      "processor_type": "structure_toolkit:block_mossify",
+      "mossiness": 0.2
+    },
+    {
+      "rules": [
+        {
+          "output_state": {
+            "Name": "minecraft:air"
+          },
+          "input_predicate": {
+            "block": "minecraft:iron_bars",
+            "probability": 0.2,
+            "predicate_type": "minecraft:random_block_match"
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          }
+        }
+      ],
+      "processor_type": "minecraft:rule"
+    },
+    {
+      "processor_type": "structure_toolkit:spawner_randomizer",
+      "spawner_mob_entries": [
+        {
+          "resourcelocation": "slimier_slimes:common_slime",
+          "weight": 50
+        },
+        {
+          "resourcelocation": "slimier_slimes:pink_slime",
+          "weight": 5
+        },
+        {
+          "resourcelocation": "slimier_slimes:cloud_slime",
+          "weight": 20
+        },
+        {
+          "resourcelocation": "slimier_slimes:rock_slime",
+          "weight": 25
+        },
+        {
+          "resourcelocation": "slimier_slimes:creeper_slime",
+          "weight": 25
+        },
+        {
+          "resourcelocation": "slimier_slimes:snow_slime",
+          "weight": 25
+        },
+        {
+          "resourcelocation": "slimier_slimes:camo_slime",
+          "weight": 20
+        }
+      ]
+    }
+  ]
+}

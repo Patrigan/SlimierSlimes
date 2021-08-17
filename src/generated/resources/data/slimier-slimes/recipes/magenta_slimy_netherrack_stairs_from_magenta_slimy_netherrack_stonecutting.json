@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "slimier-slimes:magenta_slimy_netherrack"
-  },
-  "result": "slimier-slimes:magenta_slimy_netherrack_stairs",
-  "count": 1
-}

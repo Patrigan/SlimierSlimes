@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": {
+        "type": "minecraft:uniform",
+        "min": 6.0,
+        "max": 10.0
+      },
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 50,
+          "name": "slimier_slimes:chests/abstract_slime_table"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "minecraft:enchant_with_levels",
+              "levels": 30.0,
+              "treasure": true
+            }
+          ],
+          "name": "slimier_slimes:chests/abstract_slime_table"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 25,
+          "name": "minecraft:chests/simple_dungeon"
+        }
+      ]
+    }
+  ]
+}

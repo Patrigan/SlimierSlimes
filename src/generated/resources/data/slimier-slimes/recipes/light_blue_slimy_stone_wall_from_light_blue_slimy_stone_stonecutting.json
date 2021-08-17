@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "slimier-slimes:light_blue_slimy_stone"
-  },
-  "result": "slimier-slimes:light_blue_slimy_stone_wall",
-  "count": 1
-}

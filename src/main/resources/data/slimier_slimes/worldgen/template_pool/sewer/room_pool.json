@@ -1,0 +1,71 @@
+{
+  "name": "slimier_slimes:sewer/room_pool",
+
+  "fallback": "slimier_slimes:sewer/sewer_endcap_pool",
+
+  "elements": [
+    {
+      "weight": 5,
+      "element": {
+        "location": "slimier_slimes:sewer/room/template",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/room/bar",
+        "processors": "slimier_slimes:sewer/room_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/room/smithy",
+        "processors": "slimier_slimes:sewer/smithy_room_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/room/greenhouse",
+        "processors": "slimier_slimes:sewer/greenhouse_room_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/room/storage",
+        "processors": "slimier_slimes:sewer/storage_room_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/room/water_pass",
+        "processors": "slimier_slimes:sewer/room_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/room/collapsed",
+        "processors": "slimier_slimes:sewer/room_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

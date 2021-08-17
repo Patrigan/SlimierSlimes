@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "slimier_slimes:blue_slimy_cobblestone"
+    }
+  },
+  "result": {
+    "item": "slimier_slimes:blue_slimy_cobblestone_slab",
+    "count": 6
+  }
+}

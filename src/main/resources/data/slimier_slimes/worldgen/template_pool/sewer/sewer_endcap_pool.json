@@ -1,0 +1,44 @@
+{
+  "name": "slimier_slimes:sewer/sewer_endcap_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/waterway/endcap",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "slimier_slimes:sewer/waterway/endcap_spawner",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/room/template",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "slimier_slimes:sewer/cistern/pool",
+        "processors": "slimier_slimes:sewer/waterway_processors",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

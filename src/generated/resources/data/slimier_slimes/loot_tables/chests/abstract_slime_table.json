@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 2.0,
+                "max": 5.0
+              },
+              "add": false
+            }
+          ],
+          "name": "slimier_slimes:chests/abstract_slime_table/jelly"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1.0,
+                "max": 5.0
+              },
+              "add": false
+            }
+          ],
+          "name": "slimier_slimes:chests/abstract_slime_table/slimeball"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "weight": 20,
+          "name": "slimier_slimes:chests/abstract_slime_table/armor"
+        }
+      ]
+    }
+  ]
+}

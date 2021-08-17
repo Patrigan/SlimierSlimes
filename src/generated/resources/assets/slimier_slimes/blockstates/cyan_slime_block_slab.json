@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "slimier_slimes:block/cyan_slime_block_slab_top"
+    },
+    "type=bottom": {
+      "model": "slimier_slimes:block/cyan_slime_block_slab"
+    },
+    "type=double": {
+      "model": "slimier_slimes:block/cyan_slime_block"
+    }
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "slimier_slimes:cyan_slimy_cobblestone_button"
+    ]
+  },
+  "criteria": {
+    "has_cyan_slimy_cobblestone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "slimier_slimes:cyan_slimy_cobblestone"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "slimier_slimes:cyan_slimy_cobblestone_button"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_cyan_slimy_cobblestone",
+      "has_the_recipe"
+    ]
+  ]
+}

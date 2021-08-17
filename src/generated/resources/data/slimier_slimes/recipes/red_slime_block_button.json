@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "slimier_slimes:red_slime_block"
+    }
+  ],
+  "result": {
+    "item": "slimier_slimes:red_slime_block_button"
+  }
+}

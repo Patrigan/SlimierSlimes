@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "slimier_slimes:white_jelly",
+    "slimier_slimes:orange_jelly",
+    "slimier_slimes:magenta_jelly",
+    "slimier_slimes:light_blue_jelly",
+    "slimier_slimes:yellow_jelly",
+    "slimier_slimes:lime_jelly",
+    "slimier_slimes:pink_jelly",
+    "slimier_slimes:gray_jelly",
+    "slimier_slimes:light_gray_jelly",
+    "slimier_slimes:cyan_jelly",
+    "slimier_slimes:purple_jelly",
+    "slimier_slimes:blue_jelly",
+    "slimier_slimes:brown_jelly",
+    "slimier_slimes:green_jelly",
+    "slimier_slimes:red_jelly",
+    "slimier_slimes:black_jelly"
+  ]
+}

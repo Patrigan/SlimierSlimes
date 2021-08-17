@@ -1,0 +1,7 @@
+{
+  "parent": "slimier_slimes:block/layered_block_height16",
+  "textures": {
+    "texture": "slimier_slimes:block/slime_block",
+    "particle": "slimier_slimes:block/slime_block"
+  }
+}

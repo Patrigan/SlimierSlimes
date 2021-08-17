@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=top": {
+      "model": "slimier_slimes:block/pink_slimy_netherrack_slab_top"
+    },
+    "type=bottom": {
+      "model": "slimier_slimes:block/pink_slimy_netherrack_slab"
+    },
+    "type=double": {
+      "model": "slimier_slimes:block/pink_slimy_netherrack"
+    }
+  }
+}

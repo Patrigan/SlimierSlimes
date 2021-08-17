@@ -5,7 +5,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1+', changing: true
     }
 }
 
@@ -29,12 +29,13 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
+apply from: 'https://raw.githubusercontent.com/SizableShrimp/Forge-Class-Remapper/main/classremapper.gradle'
 
 version = "${mc_version}-${mod_version}"
-group = 'mod.patrigan.slimierslimes' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'slimierslimes'
+group = 'mod.patrigan.slimier_slimes' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'slimier_slimes'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '16' // Need this here so eclipse task generates correctly.
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -63,7 +64,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                slimierslimes {
+                slimier_slimes {
                     source sourceSets.main
                 }
             }
@@ -81,7 +82,7 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                slimierslimes {
+                slimier_slimes {
                     source sourceSets.main
                 }
             }
@@ -99,10 +100,10 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', 'slimier-slimes', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'slimier_slimes', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                slimierslimes {
+                slimier_slimes {
                     source sourceSets.main
                 }
             }
@@ -126,14 +127,14 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 
-    compileOnly fg.deobf("mezz.jei:jei-1.16.3:7.6.0.49:api")
-    runtimeOnly fg.deobf("mezz.jei:jei-1.16.3:7.6.0.49")
+    //compileOnly fg.deobf("mezz.jei:jei-1.16.3:7.6.0.49:api")
+    //runtimeOnly fg.deobf("mezz.jei:jei-1.16.3:7.6.0.49")
 
     //Tools
-    runtimeOnly fg.deobf("loadnbtblock:loadnbtblock:1.0")
+    //runtimeOnly fg.deobf("loadnbtblock:loadnbtblock:1.0")
     //runtimeOnly fg.deobf("blame:blame:1.16.5-3.0.2-forge")
-    //runtimeOnly fg.deobf("structure_toolkit:structure_toolkit:1.16.5-0.0.1")
-    runtimeOnly fg.deobf("curse.maven:structure-toolkit-484907:3393035")
+    runtimeOnly fg.deobf("structure_toolkit:structure_toolkit:1.17.1-2.0.0")
+    //runtimeOnly fg.deobf("curse.maven:structure-toolkit-484907:3393035")
 
     //Compat tests
     //runtimeOnly fg.deobf("curse.maven:slimy-boyos-281993:3200342")
@@ -148,7 +149,7 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "slimier-slimes",
+            "Specification-Title": "slimier_slimes",
             "Specification-Vendor": "Patrigan",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,

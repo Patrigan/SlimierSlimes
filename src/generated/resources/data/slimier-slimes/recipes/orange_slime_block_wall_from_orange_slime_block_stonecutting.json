@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "slimier-slimes:orange_slime_block"
-  },
-  "result": "slimier-slimes:orange_slime_block_wall",
-  "count": 1
-}

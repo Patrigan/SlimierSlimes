@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "slimier_slimes:black_jelly"
+    }
+  ],
+  "result": {
+    "item": "minecraft:black_dye"
+  }
+}

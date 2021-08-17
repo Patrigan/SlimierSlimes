@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "slimier_slimes:purple_slimy_stone"
+    }
+  ],
+  "result": {
+    "item": "slimier_slimes:purple_slimy_stone_button"
+  }
+}

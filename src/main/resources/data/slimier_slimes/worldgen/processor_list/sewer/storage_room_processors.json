@@ -1,0 +1,123 @@
+{
+  "processors": [
+    {
+      "processor_type": "structure_toolkit:waterlogging_fix"
+    },
+    {
+      "processor_type": "structure_toolkit:gradient_replace",
+      "gradient_list": [
+        {
+          "resource_location": "minecraft:mossy_cobblestone",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:cobblestone",
+          "step_size": 0.1
+        }
+      ],
+      "to_replace": "minecraft:andesite"
+    },
+    {
+      "processor_type": "structure_toolkit:gradient_replace",
+      "gradient_list": [
+        {
+          "resource_location": "minecraft:mossy_cobblestone_stairs",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:cobblestone_stairs",
+          "step_size": 0.1
+        }
+      ],
+      "to_replace": "minecraft:andesite_stairs"
+    },
+    {
+      "processor_type": "structure_toolkit:gradient_replace",
+      "gradient_list": [
+        {
+          "resource_location": "minecraft:mossy_cobblestone",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:cobblestone",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:andesite",
+          "step_size": 0.1
+        }
+      ],
+      "to_replace": "minecraft:polished_andesite"
+    },
+    {
+      "processor_type": "structure_toolkit:gradient_replace",
+      "gradient_list": [
+        {
+          "resource_location": "minecraft:mossy_stone_bricks",
+          "step_size": 0.1
+        },
+        {
+          "resource_location": "minecraft:cracked_stone_bricks",
+          "step_size": 0.1
+        }
+      ],
+      "to_replace": "minecraft:stone_bricks"
+    },
+    {
+      "processor_type": "structure_toolkit:gradient_replace",
+      "gradient_list": [
+        {
+          "resource_location": "minecraft:mossy_stone_brick_stairs",
+          "step_size": 0.1
+        }
+      ],
+      "to_replace": "minecraft:stone_brick_stairs"
+    },
+    {
+      "processor_type": "structure_toolkit:gradient_replace",
+      "gradient_list": [
+        {
+          "resource_location": "minecraft:mossy_stone_brick_slab",
+          "step_size": 0.1
+        }
+      ],
+      "to_replace": "minecraft:stone_brick_slab"
+    },
+    {
+      "processor_type": "structure_toolkit:ceiling_attachment",
+      "rarity": 0.1,
+      "block": "minecraft:cobweb",
+      "needs_wall": true
+    },
+    {
+      "processor_type": "structure_toolkit:vines",
+      "rarity": 0.2
+    },
+    {
+      "processor_type": "structure_toolkit:mushrooms",
+      "rarity": 0.1
+    },
+    {
+      "processor_type": "structure_toolkit:lily_pads",
+      "rarity": 0.2
+    },
+    {
+      "processor_type": "slimier_slimes:goo_blocks",
+      "rarity": 0.1,
+      "maxHeight": 3,
+      "dyeColor": "brown"
+    },
+    {
+      "processor_type": "structure_toolkit:air_retainer",
+      "to_replace": [
+        "minecraft:mossy_cobblestone"
+      ]
+    },
+    {
+      "processor_type": "structure_toolkit:chests",
+      "loot_table": "slimier_slimes:chests/sewer/storage",
+      "rarity": 0.10,
+      "replacer": "minecraft:barrel"
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "slimier_slimes:blue_dye"
+    ]
+  },
+  "criteria": {
+    "has_jelly": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "tag": "slimier_slimes:jellies"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "slimier_slimes:blue_dye"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_jelly",
+      "has_the_recipe"
+    ]
+  ]
+}

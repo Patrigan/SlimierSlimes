@@ -1,0 +1,17 @@
+{
+  "name": "slimier_slimes:util/slime_spawner_pool",
+
+  "fallback": "minecraft:empty",
+
+  "elements": [
+    {
+      "weight": 1,
+      "element":
+      {
+        "element_type": "minecraft:feature_pool_element",
+        "feature": "slimier_slimes:slime_spawner_configured_feature",
+        "projection": "rigid"
+      }
+    }
+  ]
+}

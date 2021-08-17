@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:stonecutting",
-  "ingredient": {
-    "item": "slimier-slimes:white_slimy_netherrack"
-  },
-  "result": "slimier-slimes:white_slimy_netherrack_wall",
-  "count": 1
-}

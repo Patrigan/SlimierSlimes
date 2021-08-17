@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "slimier_slimes:white_slime_leggings",
+    "slimier_slimes:orange_slime_leggings",
+    "slimier_slimes:magenta_slime_leggings",
+    "slimier_slimes:light_blue_slime_leggings",
+    "slimier_slimes:yellow_slime_leggings",
+    "slimier_slimes:lime_slime_leggings",
+    "slimier_slimes:pink_slime_leggings",
+    "slimier_slimes:gray_slime_leggings",
+    "slimier_slimes:light_gray_slime_leggings",
+    "slimier_slimes:cyan_slime_leggings",
+    "slimier_slimes:purple_slime_leggings",
+    "slimier_slimes:blue_slime_leggings",
+    "slimier_slimes:brown_slime_leggings",
+    "slimier_slimes:green_slime_leggings",
+    "slimier_slimes:red_slime_leggings",
+    "slimier_slimes:black_slime_leggings"
+  ]
+}

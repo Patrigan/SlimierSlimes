@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "slimier_slimes:orange_slimy_stone"
+    }
+  },
+  "result": {
+    "item": "slimier_slimes:orange_slimy_stone_wall",
+    "count": 6
+  }
+}

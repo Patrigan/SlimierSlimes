@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "slimier_slimes:white_slimy_netherrack"
+    }
+  },
+  "result": {
+    "item": "slimier_slimes:white_slimy_netherrack_slab",
+    "count": 6
+  }
+}

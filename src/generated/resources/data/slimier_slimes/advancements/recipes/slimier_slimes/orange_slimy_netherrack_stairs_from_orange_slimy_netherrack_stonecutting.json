@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "slimier_slimes:orange_slimy_netherrack_stairs_from_orange_slimy_netherrack_stonecutting"
+    ]
+  },
+  "criteria": {
+    "has_orange_slimy_netherrack": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "slimier_slimes:orange_slimy_netherrack"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "slimier_slimes:orange_slimy_netherrack_stairs_from_orange_slimy_netherrack_stonecutting"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_orange_slimy_netherrack",
+      "has_the_recipe"
+    ]
+  ]
+}

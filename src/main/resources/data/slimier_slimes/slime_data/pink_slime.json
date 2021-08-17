@@ -1,0 +1,30 @@
+{
+  "dyeColor": "pink",
+  "maxHealth": {
+    "isSizeSquared": true,
+    "sizeMultiplier": 2,
+    "resultModifier": 1
+  },
+  "squishParticleData": {
+    "typeString": "BLOCK",
+    "resourceLocation": "slimier_slimes:pink_slime_block"
+  },
+  "slimeSpawnData": [
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 10,
+      "biomes": [
+        "OVERWORLD"
+      ]
+    },
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 10,
+      "biomes": [
+        "SWAMP"
+      ]
+    }
+  ]
+}

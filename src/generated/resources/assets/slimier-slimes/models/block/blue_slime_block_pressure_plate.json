@@ -1,6 +1,0 @@
-{
-  "parent": "slimier-slimes:block/colored_pressure_plate_up",
-  "textures": {
-    "texture": "slimier-slimes:block/slime_block"
-  }
-}

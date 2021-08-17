@@ -1,0 +1,6 @@
+{
+  "parent": "slimier_slimes:block/slimy_stairs",
+  "textures": {
+    "texture": "slimier_slimes:block/slimy_netherrack"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "slimier_slimes:black_slimy_netherrack"
+  },
+  "result": "slimier_slimes:black_slimy_netherrack_slab",
+  "count": 2
+}

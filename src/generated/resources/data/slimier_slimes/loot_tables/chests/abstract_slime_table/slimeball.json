@@ -1,0 +1,75 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "rolls": 1.0,
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:light_blue_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:pink_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:blue_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:cyan_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:green_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:magenta_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:lime_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:black_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:gray_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:purple_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:red_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:orange_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:white_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:yellow_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:light_gray_slime_ball"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:brown_slime_ball"
+        }
+      ]
+    }
+  ]
+}

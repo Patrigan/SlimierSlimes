@@ -1,0 +1,41 @@
+{
+  "dyeColor": "green",
+  "movementSpeed": {
+    "resultMultiplier": 0.2,
+    "resultModifier": 0.3
+  },
+  "experienceValue": {},
+  "squishParticleData": {
+    "typeString": "BLOCK",
+    "resourceLocation": "slimier_slimes:green_slime_block"
+  },
+  "attackDamage": {
+    "resultModifier": 1
+  },
+  "slimeSpawnData": [
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 50,
+      "biomes": [
+        "OVERWORLD", "FOREST"
+      ]
+    },
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 50,
+      "biomes": [
+        "OVERWORLD", "JUNGLE"
+      ]
+    },
+    {
+      "minPackSize": 1,
+      "maxPackSize": 1,
+      "spawnWeight": 50,
+      "biomes": [
+        "SWAMP"
+      ]
+    }
+  ]
+}

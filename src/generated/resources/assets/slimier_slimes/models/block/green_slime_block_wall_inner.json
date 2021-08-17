@@ -1,0 +1,6 @@
+{
+  "parent": "slimier_slimes:block/colored_wall_side",
+  "textures": {
+    "wall": "slimier_slimes:block/slime_block"
+  }
+}

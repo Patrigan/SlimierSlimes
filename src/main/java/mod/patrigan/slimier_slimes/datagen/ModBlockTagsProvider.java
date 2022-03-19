@@ -8,6 +8,7 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.data.tags.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.BlockTags;
+import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 import static net.minecraft.world.level.block.Blocks.BROWN_MUSHROOM;
@@ -37,10 +38,29 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         this.tag(BlockTags.BUTTONS).add(blockHelper.getButton().get());
         this.tag(BlockTags.PRESSURE_PLATES).add(blockHelper.getPressurePlate().get());
         this.tag(BlockTags.WALLS).add(blockHelper.getWall().get());
+        this.tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(blockHelper.getBlock().get());
+        this.tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(blockHelper.getSlab().get());
+        this.tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(blockHelper.getStairs().get());
+        this.tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(blockHelper.getWall().get());
+        this.tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(blockHelper.getButton().get());
+        this.tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(blockHelper.getPressurePlate().get());
         if(Material.STONE.equals(blockHelper.getBlock().get().defaultBlockState().getMaterial())) {
+            this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(blockHelper.getBlock().get());
             this.tag(BlockTags.STONE_PRESSURE_PLATES).add(blockHelper.getPressurePlate().get());
+            this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(blockHelper.getSlab().get());
+            this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(blockHelper.getStairs().get());
+            this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(blockHelper.getWall().get());
+            this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(blockHelper.getButton().get());
+            this.tag(BlockTags.MINEABLE_WITH_PICKAXE).add(blockHelper.getPressurePlate().get());
         }else{
+            this.tag(BlockTags.MINEABLE_WITH_AXE).add(blockHelper.getBlock().get());
+            this.tag(Tags.Blocks.NEEDS_WOOD_TOOL).add(blockHelper.getBlock().get());
             this.tag(BlockTags.WOODEN_PRESSURE_PLATES).add(blockHelper.getPressurePlate().get());
+            this.tag(BlockTags.MINEABLE_WITH_AXE).add(blockHelper.getSlab().get());
+            this.tag(BlockTags.MINEABLE_WITH_AXE).add(blockHelper.getStairs().get());
+            this.tag(BlockTags.MINEABLE_WITH_AXE).add(blockHelper.getWall().get());
+            this.tag(BlockTags.MINEABLE_WITH_AXE).add(blockHelper.getButton().get());
+            this.tag(BlockTags.MINEABLE_WITH_AXE).add(blockHelper.getPressurePlate().get());
         }
     }
 }

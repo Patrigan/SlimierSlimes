@@ -4,34 +4,32 @@ import mod.patrigan.slimier_slimes.entities.AbstractSlimeEntity;
 import mod.patrigan.slimier_slimes.util.ColorUtils;
 import mod.patrigan.slimier_slimes.util.ModBlockColor;
 import mod.patrigan.slimier_slimes.util.ModItemColor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.HalfTransparentBlock;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.core.Direction;
-import net.minecraft.core.BlockPos;
-
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.level.GameRules;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraftforge.common.ToolType;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.HalfTransparentBlock;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -49,11 +47,9 @@ public class SlimyStoneBlock extends HalfTransparentBlock implements ModBlockCol
     public SlimyStoneBlock(DyeColor dyeColor) {
         super(Properties.of(Material.STONE)
                 .requiresCorrectToolForDrops()
-                .harvestLevel(1)
-                .harvestTool(ToolType.PICKAXE)
                 .friction(0.7F)
                 .sound(SoundType.SLIME_BLOCK)
-                .requiresCorrectToolForDrops().strength(3.0F, 4.0F)
+                .strength(3.0F, 4.0F)
                 .noOcclusion()
         );
         this.registerDefaultState(this.stateDefinition.any().setValue(CAN_SPAWN, Boolean.TRUE));

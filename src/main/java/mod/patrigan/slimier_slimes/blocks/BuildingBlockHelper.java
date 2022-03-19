@@ -3,7 +3,7 @@ package mod.patrigan.slimier_slimes.blocks;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import static mod.patrigan.slimier_slimes.SlimierSlimes.MOD_ID;
 

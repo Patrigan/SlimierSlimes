@@ -1,34 +1,37 @@
 package mod.patrigan.slimier_slimes.blocks;
 
 import mod.patrigan.slimier_slimes.entities.AbstractSlimeEntity;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.pathfinder.PathComputationType;
-import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.core.Direction;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.EntityCollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-import net.minecraft.world.level.levelgen.feature.AbstractFlowerFeature;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.levelgen.feature.configurations.RandomPatchConfiguration;
+import net.minecraft.world.level.levelgen.placement.PlacedFeature;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.material.MaterialColor;
+import net.minecraft.world.level.pathfinder.PathComputationType;
+import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,9 +41,6 @@ import java.util.Random;
 import static mod.patrigan.slimier_slimes.init.ModBlocks.GOO_LAYER_BLOCKS;
 import static mod.patrigan.slimier_slimes.init.ModTags.Items.ARMOR_SLIME_BOOTS;
 import static net.minecraft.world.level.block.Blocks.GRASS_BLOCK;
-
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
 
 public class GooLayerBlock extends FallingBlock implements BonemealableBlock {
     public static final Material GOO = (new Material.Builder(MaterialColor.NONE)).noCollider().build();
@@ -75,7 +75,7 @@ public class GooLayerBlock extends FallingBlock implements BonemealableBlock {
     public VoxelShape getCollisionShape(BlockState blockState, BlockGetter blockReader, BlockPos blockPos, CollisionContext collisionContext) {
         if (collisionContext instanceof EntityCollisionContext) {
             EntityCollisionContext entitycollisioncontext = (EntityCollisionContext) collisionContext;
-            if (blockState.getValue(LAYERS) == 8 && entitycollisioncontext.getEntity().isPresent() && entitycollisioncontext.getEntity().get() instanceof FallingBlockEntity) {
+            if (blockState.getValue(LAYERS) == 8 && entitycollisioncontext.getEntity() != null && entitycollisioncontext.getEntity() instanceof FallingBlockEntity) {
                 return Shapes.block();
             }
         }
@@ -260,30 +260,23 @@ public class GooLayerBlock extends FallingBlock implements BonemealableBlock {
         return false;
     }
 
-    private void applyBonemeal(ServerLevel serverWorld, Random random, BlockPos blockpos1) {
+    private void applyBonemeal(ServerLevel serverLevel, Random random, BlockPos blockpos1) {
         BlockState blockstateToCheck = Blocks.GRASS.defaultBlockState();
-        BlockState blockstate2 = serverWorld.getBlockState(blockpos1);
+        BlockState blockstate2 = serverLevel.getBlockState(blockpos1);
         if (blockstate2.is(blockstateToCheck.getBlock()) && random.nextInt(10) == 0) {
-            ((BonemealableBlock) blockstateToCheck.getBlock()).performBonemeal(serverWorld, random, blockpos1, blockstate2);
+            ((BonemealableBlock) blockstateToCheck.getBlock()).performBonemeal(serverLevel, random, blockpos1, blockstate2);
         }
 
         if (blockstate2.isAir()) {
-            BlockState blockstate1;
+            PlacedFeature placedfeature;
             if (random.nextInt(8) == 0) {
-                List<ConfiguredFeature<?, ?>> list = serverWorld.getBiome(blockpos1).getGenerationSettings().getFlowerFeatures();
+                List<ConfiguredFeature<?, ?>> list = serverLevel.getBiome(blockpos1).getGenerationSettings().getFlowerFeatures();
                 if (list.isEmpty()) {
                     return;
                 }
 
-                ConfiguredFeature<?, ?> configuredfeature = list.get(0);
-                AbstractFlowerFeature flowersfeature = (AbstractFlowerFeature)configuredfeature.feature;
-                blockstate1 = flowersfeature.getRandomFlower(random, blockpos1, configuredfeature.config());
-            } else {
-                blockstate1 = blockstateToCheck;
-            }
-
-            if (blockstate1.canSurvive(serverWorld, blockpos1)) {
-                serverWorld.setBlock(blockpos1, blockstate1, 3);
+                placedfeature = ((RandomPatchConfiguration)list.get(0).config()).feature().get();
+                placedfeature.place(serverLevel, serverLevel.getChunkSource().getGenerator(), random, blockpos1);
             }
         }
     }

@@ -22,7 +22,7 @@ public class SnowSlimeEntity extends AbstractSlimeEntity {
             int i = (int) Math.floor(this.getX());
             int j = (int) Math.floor(this.getY());
             int k = (int) Math.floor(this.getZ());
-            if (this.level.getBiome(new BlockPos(i, 0, k)).getTemperature(new BlockPos(i, j, k)) > 1.0F) {
+            if (this.level.getBiome(new BlockPos(i, j, k)).shouldSnowGolemBurn(new BlockPos(i, j, k))) {
                 this.hurt(DamageSource.ON_FIRE, 1.0F);
             }
             fireSnowballs();
@@ -38,7 +38,7 @@ public class SnowSlimeEntity extends AbstractSlimeEntity {
                 j = (int) Math.floor(this.getY());
                 k = (int) Math.floor(this.getZ() + (double) ((l / 2F % 2 * 2 - 1) * 0.25F));
                 BlockPos blockpos = new BlockPos(i, j, k);
-                if (this.level.isEmptyBlock(blockpos) && this.level.getBiome(blockpos).getTemperature(blockpos) < 0.8F && blockstate.canSurvive(this.level, blockpos)) {
+                if (this.level.isEmptyBlock(blockpos) && blockstate.canSurvive(this.level, blockpos)) {
                     this.level.setBlockAndUpdate(blockpos, blockstate);
                 }
             }

@@ -57,7 +57,7 @@ public class VanillaSlimeCleanup {
                 if (itemEntity.getItem().getItem().equals(SLIME_BALL)) {
                     itemEntity.setItem(new ItemStack(ModItems.SLIME_BALL.get(DyeColor.LIME).get(), itemEntity.getItem().getCount()));
                 }
-            }else if(event.getEntity() instanceof Slime) {
+            }else if(SLIME.equals(event.getEntity().getType())) {
                 Slime eventEntity = (Slime) event.getEntity();
                 AbstractSlimeEntity slimeEntity = COMMON_SLIME.get().create(event.getWorld());
                 if (eventEntity.isPersistenceRequired()) {
@@ -69,7 +69,7 @@ public class VanillaSlimeCleanup {
                 slimeEntity.setSize(eventEntity.getSize(), true);
                 slimeEntity.moveTo(eventEntity.getX(), eventEntity.getY(), eventEntity.getZ(), eventEntity.getYRot(), eventEntity.getXRot());
                 event.getWorld().addFreshEntity(slimeEntity);
-                eventEntity.remove(false);
+                event.setCanceled(true);
             }
         }
     }

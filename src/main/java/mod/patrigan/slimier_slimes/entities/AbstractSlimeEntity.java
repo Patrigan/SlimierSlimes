@@ -240,7 +240,7 @@ public class AbstractSlimeEntity extends Mob implements Enemy {
     }
 
     @Override
-    public void remove(boolean keepData) {
+    public void remove(Entity.RemovalReason removalReason) {
         int i = this.getSize();
         if (!this.level.isClientSide && i > 1 && this.isDeadOrDying() && !this.isRemoved()) {
             Component itextcomponent = this.getCustomName();
@@ -265,7 +265,7 @@ public class AbstractSlimeEntity extends Mob implements Enemy {
                 this.level.addFreshEntity(slimeentity);
             }
         }
-        super.remove(keepData);
+        super.remove(removalReason);
     }
 
     protected void spawnSwarm(){
@@ -546,7 +546,7 @@ public class AbstractSlimeEntity extends Mob implements Enemy {
                 if(entity.isTiny()) {
                     GooLayerBlock.spawnAtBlockPos(entity.level, entity.blockPosition(), entity.getDyeColor());
                 }
-                event.getEntity().remove(false);
+                event.getEntity().remove(RemovalReason.KILLED);
             }
         }
     }

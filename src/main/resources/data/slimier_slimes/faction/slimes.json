@@ -1,0 +1,277 @@
+{
+  "name": "slimier_slimes:slimes",
+  "replace": false,
+  "banner": {"id":"minecraft:lime_banner","Count":1,"tag":{"HideFlags":32,"BlockEntityTag":{"Patterns":[{"Pattern":"hhb","Color":13},{"Pattern":"rs","Color":5},{"Pattern":"vh","Color":5},{"Pattern":"hh","Color":13},{"Pattern":"sc","Color":5},{"Pattern":"bo","Color":5},{"Pattern":"ts","Color":5},{"Pattern":"bs","Color":5}]},"display":{"Name":{"color":"gold","translate":"block.faction_raid.undead_banner"}}}},
+  "boosts": {
+    "mandatory": ["minecraft:attribute/generic.movement_speed", "minecraft:attribute/generic.movement_speed"]
+  },
+  "raid_config": {
+    "mobs_fraction": 0.9
+  },
+  "entities": [
+    {
+      "entity_type": "slimier_slimes:common_slime",
+      "tag": {
+        "Size": 1,
+        "CustomName": "Hordeling"
+      },
+      "weight": 50,
+      "strength": 1,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 1
+    },
+    {
+      "entity_type": "slimier_slimes:rock_slime",
+      "tag": {
+        "Size": 1,
+        "CustomName": "Hordeling"
+      },
+      "weight": 30,
+      "strength": 2,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 1
+    },
+    {
+      "entity_type": "slimier_slimes:snow_slime",
+      "tag": {
+        "Size": 1,
+        "CustomName": "Hordeling"
+      },
+      "weight": 10,
+      "strength": 2,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 1
+    },
+    {
+      "entity_type": "slimier_slimes:cloud_slime",
+      "tag": {
+        "Size": 1,
+        "CustomName": "Hordeling"
+      },
+      "weight": 10,
+      "strength": 1,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 1
+    },
+    {
+      "entity_type": "slimier_slimes:shroom_slime",
+      "tag": {
+        "Size": 1,
+        "CustomName": "Hordeling"
+      },
+      "weight": 10,
+      "strength": 1,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 1
+    },
+    {
+      "entity_type": "slimier_slimes:pink_slime",
+      "tag": {
+        "Size": 1,
+        "CustomName": "Hordeling"
+      },
+      "weight": 5,
+      "strength": 2,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 1
+    },
+    {
+      "entity_type": "slimier_slimes:crystal_slime",
+      "tag": {
+        "Size": 1,
+        "CustomName": "Hordeling"
+      },
+      "weight": 4,
+      "strength": 5,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 1
+    },
+    {
+      "entity_type": "slimier_slimes:common_slime",
+      "tag": {
+        "Size": 2,
+        "CustomName": "Hordeling"
+      },
+      "weight": 50,
+      "strength": 2,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 2
+    },
+    {
+      "entity_type": "slimier_slimes:rock_slime",
+      "tag": {
+        "Size": 2,
+        "CustomName": "Hordeling"
+      },
+      "weight": 30,
+      "strength": 3,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 2
+    },
+    {
+      "entity_type": "slimier_slimes:snow_slime",
+      "tag": {
+        "Size": 2,
+        "CustomName": "Hordeling"
+      },
+      "weight": 10,
+      "strength": 3,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 2
+    },
+    {
+      "entity_type": "slimier_slimes:cloud_slime",
+      "tag": {
+        "Size": 2,
+        "CustomName": "Hordeling"
+      },
+      "weight": 10,
+      "strength": 2,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 2
+    },
+    {
+      "entity_type": "slimier_slimes:shroom_slime",
+      "tag": {
+        "Size": 2,
+        "CustomName": "Hordeling"
+      },
+      "weight": 10,
+      "strength": 2,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 2
+    },
+    {
+      "entity_type": "slimier_slimes:pink_slime",
+      "tag": {
+        "Size": 2,
+        "CustomName": "Hordeling"
+      },
+      "weight": 5,
+      "strength": 3,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 2
+    },
+    {
+      "entity_type": "slimier_slimes:crystal_slime",
+      "tag": {
+        "Size": 3,
+        "CustomName": "Hordeling"
+      },
+      "weight": 4,
+      "strength": 5,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 2
+    },
+    {
+      "entity_type": "slimier_slimes:common_slime",
+      "tag": {
+        "Size": 4,
+        "CustomName": "Hordeling"
+      },
+      "weight": 50,
+      "strength": 3,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 3
+    },
+    {
+      "entity_type": "slimier_slimes:rock_slime",
+      "tag": {
+        "Size": 4,
+        "CustomName": "Hordeling"
+      },
+      "weight": 30,
+      "strength": 4,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 3
+    },
+    {
+      "entity_type": "slimier_slimes:snow_slime",
+      "tag": {
+        "Size": 4,
+        "CustomName": "Hordeling"
+      },
+      "weight": 10,
+      "strength": 4,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 3
+    },
+    {
+      "entity_type": "slimier_slimes:cloud_slime",
+      "tag": {
+        "Size": 4,
+        "CustomName": "Hordeling"
+      },
+      "weight": 10,
+      "strength": 3,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 3
+    },
+    {
+      "entity_type": "slimier_slimes:shroom_slime",
+      "tag": {
+        "Size": 4,
+        "CustomName": "Hordeling"
+      },
+      "weight": 10,
+      "strength": 3,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 3
+    },
+    {
+      "entity_type": "slimier_slimes:pink_slime",
+      "tag": {
+        "Size": 4,
+        "CustomName": "Hordeling"
+      },
+      "weight": 5,
+      "strength": 4,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 3
+    },
+    {
+      "entity_type": "slimier_slimes:crystal_slime",
+      "tag": {
+        "Size": 3,
+        "CustomName": "Hordeling"
+      },
+      "weight": 4,
+      "strength": 7,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 3
+    },
+    {
+      "entity_type": "slimier_slimes:common_slime",
+      "tag": {
+        "Size": 8,
+        "CustomName": "Hordeling"
+      },
+      "weight": 10,
+      "strength": 8,
+      "rank": "soldier",
+      "maximum_rank": "leader",
+      "minimum_wave": 4
+    }
+  ]
+}

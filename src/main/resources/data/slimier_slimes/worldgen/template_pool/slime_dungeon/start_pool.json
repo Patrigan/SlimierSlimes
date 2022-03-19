@@ -18,7 +18,7 @@
       "element":
       {
         "element_type": "minecraft:feature_pool_element",
-        "feature": "minecraft:patch_red_mushroom",
+        "feature": "minecraft:red_mushroom_normal",
         "projection": "rigid"
       }
     }

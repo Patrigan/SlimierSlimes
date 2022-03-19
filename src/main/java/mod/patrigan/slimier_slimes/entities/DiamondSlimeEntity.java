@@ -45,6 +45,6 @@ public class DiamondSlimeEntity extends AbstractSlimeEntity {
 
     public void split() {
         this.setHealth(0F);
-        this.remove(false);
+        this.discard();
     }
 }

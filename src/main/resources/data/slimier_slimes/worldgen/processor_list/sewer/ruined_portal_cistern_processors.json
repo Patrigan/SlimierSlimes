@@ -4,6 +4,9 @@
       "processor_type": "structure_toolkit:waterlogging_fix"
     },
     {
+      "processor_type": "structure_toolkit:waterflow_fix"
+    },
+    {
       "processor_type": "structure_toolkit:gradient_replace",
       "gradient_list": [
         {

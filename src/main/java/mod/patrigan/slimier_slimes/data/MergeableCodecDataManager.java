@@ -26,35 +26,45 @@ SOFTWARE.
 
 package mod.patrigan.slimier_slimes.data;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+import javax.annotation.Nonnull;
+
+import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.server.ServerLifecycleHooks;
+import org.apache.commons.io.IOUtils;
+import org.apache.logging.log4j.Logger;
+
 import com.google.common.collect.Maps;
+import com.google.common.util.concurrent.Runnables;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
-import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
-import net.minecraft.world.entity.player.Player;
+
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.profiling.ProfilerFiller;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fmllegacy.LogicalSidedProvider;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
-import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
-import org.apache.commons.io.IOUtils;
-import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nonnull;
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 /**
  * Generic data loader for Codec-parsable data.
@@ -79,7 +89,7 @@ public class MergeableCodecDataManager<RAW, FINE> extends SimplePreparableReload
     private final Codec<RAW> codec;
     private final Function<List<RAW>, FINE> merger;
     private final Gson gson;
-    private Optional<Runnable> syncOnReloadCallback = Optional.empty();
+    private Runnable syncOnReloadCallback = Runnables.doNothing();
 
     /**
      * Initialize a data manager with the given folder name, codec, and merger
@@ -212,20 +222,10 @@ public class MergeableCodecDataManager<RAW, FINE> extends SimplePreparableReload
         this.data = processedData;
         this.logger.info("Data loader for {} loaded {} finalized objects", this.folderName, this.data.size());
 
-        // hacky server test until we can find a better way to do this
-        boolean isServer = true;
-        try
-        {
-            LogicalSidedProvider.INSTANCE.get(LogicalSide.SERVER);
-        }
-        catch(Exception e)
-        {
-            isServer = false;
-        }
-        if (isServer)
+        if (ServerLifecycleHooks.getCurrentServer() != null)
         {
             // if we're on the server and we are configured to send syncing packets, send syncing packets
-            this.syncOnReloadCallback.ifPresent(Runnable::run);
+            this.syncOnReloadCallback.run();
         }
     }
 
@@ -244,7 +244,7 @@ public class MergeableCodecDataManager<RAW, FINE> extends SimplePreparableReload
                                                                              final Function<Map<ResourceLocation, FINE>, PACKET> packetFactory)
     {
         MinecraftForge.EVENT_BUS.addListener(this.getLoginListener(channel, packetFactory));
-        this.syncOnReloadCallback = Optional.of(() -> channel.send(PacketDistributor.ALL.noArg(), packetFactory.apply(this.data)));
+        this.syncOnReloadCallback = () -> channel.send(PacketDistributor.ALL.noArg(), packetFactory.apply(this.data));
         return this;
     }
 
@@ -254,9 +254,9 @@ public class MergeableCodecDataManager<RAW, FINE> extends SimplePreparableReload
     {
         return event -> {
             Player player = event.getPlayer();
-            if (player instanceof ServerPlayer)
+            if (player instanceof ServerPlayer serverPlayer)
             {
-                channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer)player), packetFactory.apply(this.data));
+                channel.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packetFactory.apply(this.data));
             }
         };
     }

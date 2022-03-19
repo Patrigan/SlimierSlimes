@@ -7,27 +7,11 @@
       "entries": [
         {
           "type": "minecraft:item",
+          "name": "slimier_slimes:black_jelly"
+        },
+        {
+          "type": "minecraft:item",
           "name": "slimier_slimes:light_blue_jelly"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "slimier_slimes:pink_jelly"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "slimier_slimes:blue_jelly"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "slimier_slimes:cyan_jelly"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "slimier_slimes:green_jelly"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "slimier_slimes:magenta_jelly"
         },
         {
           "type": "minecraft:item",
@@ -35,15 +19,11 @@
         },
         {
           "type": "minecraft:item",
-          "name": "slimier_slimes:black_jelly"
+          "name": "slimier_slimes:white_jelly"
         },
         {
           "type": "minecraft:item",
-          "name": "slimier_slimes:gray_jelly"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "slimier_slimes:purple_jelly"
+          "name": "slimier_slimes:brown_jelly"
         },
         {
           "type": "minecraft:item",
@@ -51,11 +31,7 @@
         },
         {
           "type": "minecraft:item",
-          "name": "slimier_slimes:orange_jelly"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "slimier_slimes:white_jelly"
+          "name": "slimier_slimes:light_gray_jelly"
         },
         {
           "type": "minecraft:item",
@@ -63,11 +39,35 @@
         },
         {
           "type": "minecraft:item",
-          "name": "slimier_slimes:light_gray_jelly"
+          "name": "slimier_slimes:green_jelly"
         },
         {
           "type": "minecraft:item",
-          "name": "slimier_slimes:brown_jelly"
+          "name": "slimier_slimes:purple_jelly"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:magenta_jelly"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:pink_jelly"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:cyan_jelly"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:gray_jelly"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:orange_jelly"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "slimier_slimes:blue_jelly"
         }
       ]
     }

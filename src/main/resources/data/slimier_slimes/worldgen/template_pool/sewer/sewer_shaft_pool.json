@@ -9,7 +9,7 @@
       "element":
       {
         "element_type": "minecraft:feature_pool_element",
-        "feature": "slimier_slimes:sewer_shaft_configured_feature",
+        "feature": "slimier_slimes:sewer_shaft_placed_feature",
         "projection": "rigid"
       }
     }

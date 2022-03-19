@@ -26,10 +26,23 @@ SOFTWARE.
 
 package mod.patrigan.slimier_slimes.data;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Consumer;
+import java.util.function.Function;
+
+import javax.annotation.Nullable;
+
+import net.minecraftforge.server.ServerLifecycleHooks;
+import org.apache.logging.log4j.Logger;
+
+import com.google.common.util.concurrent.Runnables;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -38,19 +51,8 @@ import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fmllegacy.LogicalSidedProvider;
-import net.minecraftforge.fmllegacy.network.PacketDistributor;
-import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
-import org.apache.logging.log4j.Logger;
-
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import net.minecraftforge.network.PacketDistributor;
+import net.minecraftforge.network.simple.SimpleChannel;
 
 /**
  * <p>See drullkus's primer on what codecs are and how to assemble them:<br>
@@ -121,7 +123,7 @@ public class CodecJsonDataManager<T> extends SimpleJsonResourceReloadListener
 
     /** The raw data that we parsed from json last time resources were reloaded **/
     public Map<ResourceLocation, T> data = new HashMap<>();
-    private Optional<Runnable> syncOnReloadCallback = Optional.empty();
+    private Runnable syncOnReloadCallback = Runnables.doNothing();
 
     /**
      * Creates a data manager with a standard gson parser
@@ -171,25 +173,10 @@ public class CodecJsonDataManager<T> extends SimpleJsonResourceReloadListener
         this.logger.info("Beginning loading of data for data loader: {}", this.folderName);
         this.data = this.mapValues(jsons);
         this.logger.info("Data loader for {} loaded {} jsons", this.folderName, this.data.size());
-
-        // hacky server test until we can find a better way to do this
-        boolean isServer = true;
-        try
-        {
-            LogicalSidedProvider.INSTANCE.get(LogicalSide.SERVER);
-        }
-        catch(IllegalStateException e)
-        {
-            isServer = false;
-        }
-        catch(NullPointerException e)
-        {
-            isServer = false;
-        }
-        if (isServer)
+        if (ServerLifecycleHooks.getCurrentServer() != null)
         {
             // if we're on the server and we are configured to send syncing packets, send syncing packets
-            this.syncOnReloadCallback.ifPresent(Runnable::run);
+            this.syncOnReloadCallback.run();
         }
     }
 
@@ -227,7 +214,7 @@ public class CodecJsonDataManager<T> extends SimpleJsonResourceReloadListener
                                                                 final Function<Map<ResourceLocation, T>, PACKET> packetFactory)
     {
         MinecraftForge.EVENT_BUS.addListener(this.getLoginListener(channel, packetFactory));
-        this.syncOnReloadCallback = Optional.of(() -> channel.send(PacketDistributor.ALL.noArg(), packetFactory.apply(this.data)));
+        this.syncOnReloadCallback = () -> channel.send(PacketDistributor.ALL.noArg(), packetFactory.apply(this.data));
         return this;
     }
 
@@ -237,14 +224,14 @@ public class CodecJsonDataManager<T> extends SimpleJsonResourceReloadListener
     {
         return event -> {
             Player player = event.getPlayer();
-            if (player instanceof ServerPlayer)
+            if (player instanceof ServerPlayer serverPlayer)
             {
-                channel.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer)player), packetFactory.apply(this.data));
+                channel.send(PacketDistributor.PLAYER.with(() -> serverPlayer), packetFactory.apply(this.data));
             }
         };
     }
 
-    public boolean hasData(){
-        return !data.isEmpty();
+    public boolean hasData() {
+        return data.size() > 0;
     }
 }

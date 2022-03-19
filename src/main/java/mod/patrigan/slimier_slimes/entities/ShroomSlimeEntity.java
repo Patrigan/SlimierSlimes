@@ -81,7 +81,7 @@ public class ShroomSlimeEntity extends AbstractSlimeEntity implements net.minecr
             ItemStack itemstack1;
             if(flag){
                 itemstack1 = new ItemStack(Items.SUSPICIOUS_STEW);
-                MobEffect effect = new ArrayList<>(ForgeRegistries.POTIONS.getValues()).get(this.random.nextInt(ForgeRegistries.POTIONS.getKeys().size()));
+                MobEffect effect = new ArrayList<>(ForgeRegistries.MOB_EFFECTS.getValues()).get(this.random.nextInt(ForgeRegistries.MOB_EFFECTS.getKeys().size()));
                 SuspiciousStewItem.saveMobEffect(itemstack1, effect, this.random.nextInt(1500)+500);
             }else {
                 itemstack1 = new ItemStack(Items.MUSHROOM_STEW);

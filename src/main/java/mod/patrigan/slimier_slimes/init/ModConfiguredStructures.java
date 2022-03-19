@@ -1,22 +1,41 @@
 package mod.patrigan.slimier_slimes.init;
+
 import mod.patrigan.slimier_slimes.SlimierSlimes;
-import mod.patrigan.slimier_slimes.structures.PillagerSlimeLab;
-import mod.patrigan.slimier_slimes.structures.Sewer;
-import mod.patrigan.slimier_slimes.structures.SlimeDungeon;
-import net.minecraft.resources.ResourceLocation;
+import mod.patrigan.slimier_slimes.world.gen.structure.PillagerSlimeLab;
+import mod.patrigan.slimier_slimes.world.gen.structure.Sewer;
+import mod.patrigan.slimier_slimes.world.gen.structure.SlimeDungeon;
 import net.minecraft.core.Registry;
 import net.minecraft.data.BuiltinRegistries;
-import net.minecraft.world.level.levelgen.flat.FlatLevelGeneratorSettings;
-import net.minecraft.world.level.levelgen.feature.configurations.FeatureConfiguration;
+import net.minecraft.data.worldgen.PlainVillagePools;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.JigsawConfiguration;
 
 public class ModConfiguredStructures {
     /**
      * Static instance of our structure so we can reference it and add it to biomes easily.
      */
-    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_PILLAGER_SLIME_LAB = ModStructures.PILLAGER_SLIME_LAB.get().configured(FeatureConfiguration.NONE);
-    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_SLIME_DUNGEON = ModStructures.SLIME_DUNGEON.get().configured(FeatureConfiguration.NONE);
-    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_SEWER = ModStructures.SEWER.get().configured(FeatureConfiguration.NONE);
+    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_PILLAGER_SLIME_LAB = ModStructures.PILLAGER_SLIME_LAB.get().configured(new JigsawConfiguration(
+            // Dummy values for now. We will modify the pool at runtime since we cannot get json pool files here at mod init.
+            // You can create and register your pools in code, pass in the code create pool here, and delete line 137 in RunDownHouseStructure
+            () -> PlainVillagePools.START,
+
+            // We will set size at runtime too as JigsawConfiguration will not handle sizes above 7.
+            // If your size is below 7, you can set the size here and delete line 153 in RunDownHouseStructure
+            0
+
+            /*
+             * The only reason we are using JigsawConfiguration here is because in RunDownHouseStructure's createPiecesGenerator method,
+             * we are using JigsawPlacement.addPieces which requires JigsawConfiguration. However, if you create your own
+             * JigsawPlacement.addPieces, you could reduce the amount of workarounds like above that you need and give yourself more
+             * opportunities and control over your structures.
+             *
+             * An example of a custom JigsawPlacement.addPieces in action can be found here:
+             * https://github.com/TelepathicGrunt/RepurposedStructures/blob/1.18/src/main/java/com/telepathicgrunt/repurposedstructures/world/structures/pieces/PieceLimitedJigsawManager.java
+             */
+    ));
+    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_SLIME_DUNGEON = ModStructures.SLIME_DUNGEON.get().configured(new JigsawConfiguration(() -> PlainVillagePools.START,0));
+    public static final ConfiguredStructureFeature<?, ?> CONFIGURED_SEWER = ModStructures.SEWER.get().configured(new JigsawConfiguration(() -> PlainVillagePools.START,0));
 
     /**
      * Registers the configured structure which is what gets added to the biomes.
@@ -30,21 +49,5 @@ public class ModConfiguredStructures {
         Registry.register(registry, new ResourceLocation(SlimierSlimes.MOD_ID, "configured_"+ PillagerSlimeLab.STRUCTURE_ID), CONFIGURED_PILLAGER_SLIME_LAB);
         Registry.register(registry, new ResourceLocation(SlimierSlimes.MOD_ID, "configured_"+ SlimeDungeon.STRUCTURE_ID), CONFIGURED_SLIME_DUNGEON);
         Registry.register(registry, new ResourceLocation(SlimierSlimes.MOD_ID, "configured_"+ Sewer.STRUCTURE_ID), CONFIGURED_SEWER);
-
-        // Ok so, this part may be hard to grasp but basically, just add your structure to this to
-        // prevent any sort of crash or issue with other mod's custom ChunkGenerators. If they use
-        // FlatGenerationSettings.STRUCTURES in it and you don't add your structure to it, the game
-        // could crash later when you attempt to add the StructureSeparationSettings to the dimension.
-        //
-        // (It would also crash with superflat worldtype if you omit the below line
-        //  and attempt to add the structure's StructureSeparationSettings to the world)
-        //
-        // Note: If you want your structure to spawn in superflat, remove the FlatChunkGenerator check
-        // in StructureTutorialMain.addDimensionalSpacing and then create a superflat world, exit it,
-        // and re-enter it and your structures will be spawning. I could not figure out why it needs
-        // the restart but honestly, superflat is really buggy and shouldn't be your main focus in my opinion.
-        FlatLevelGeneratorSettings.STRUCTURE_FEATURES.put(ModStructures.PILLAGER_SLIME_LAB.get(), CONFIGURED_PILLAGER_SLIME_LAB);
-        FlatLevelGeneratorSettings.STRUCTURE_FEATURES.put(ModStructures.SLIME_DUNGEON.get(), CONFIGURED_SLIME_DUNGEON);
-        FlatLevelGeneratorSettings.STRUCTURE_FEATURES.put(ModStructures.SEWER.get(), CONFIGURED_SEWER);
     }
 }

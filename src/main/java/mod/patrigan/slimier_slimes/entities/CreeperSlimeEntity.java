@@ -132,7 +132,7 @@ public class CreeperSlimeEntity extends AbstractSlimeEntity {
             this.dead = true;
             this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float)this.explosionRadius, explosionMode);
             this.setHealth(0F);
-            this.remove(false);
+            this.discard();
             this.spawnLingeringCloud();
         }
     }

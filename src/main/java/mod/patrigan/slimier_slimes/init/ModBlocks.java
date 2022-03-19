@@ -13,10 +13,9 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 import java.util.*;
 import java.util.function.Function;
@@ -103,11 +102,11 @@ public class ModBlocks {
         BuildingBlockHelper buildingBlockHelper = new BuildingBlockHelper.Builder()
                 .withBlockId(baseId).withDyeColor(dyeColor)
                 .withBlock(registerBlock(colorId, sup))
-                .withSlab(registerBlock(colorId + SLAB_ID, () -> new SlabBlock(BlockBehaviour.Properties.copy(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).friction(slipperiness))))
-                .withStairs(registerBlock(colorId + STAIRS_ID, () -> new StairBlock(() -> sup.get().defaultBlockState(), BlockBehaviour.Properties.copy(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).friction(slipperiness))))
-                .withButton(registerBlock(colorId + BUTTON_ID, () -> new StoneButtonBlock(BlockBehaviour.Properties.copy(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).noCollission().strength(0.5F))))
-                .withPressurePlate(registerBlock(colorId + PLATE_ID, () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, BlockBehaviour.Properties.copy(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).noCollission().strength(0.5F).friction(1F))))
-                .withWall(registerBlock(colorId + WALL_ID, () -> new WallBlock(BlockBehaviour.Properties.copy(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).friction(slipperiness))))
+                .withSlab(registerBlock(colorId + SLAB_ID, () -> new SlabBlock(BlockBehaviour.Properties.copy(sup.get()).friction(slipperiness))))
+                .withStairs(registerBlock(colorId + STAIRS_ID, () -> new StairBlock(() -> sup.get().defaultBlockState(), BlockBehaviour.Properties.copy(sup.get()).friction(slipperiness))))
+                .withButton(registerBlock(colorId + BUTTON_ID, () -> new StoneButtonBlock(BlockBehaviour.Properties.copy(sup.get()).noCollission().strength(0.5F))))
+                .withPressurePlate(registerBlock(colorId + PLATE_ID, () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, BlockBehaviour.Properties.copy(sup.get()).noCollission().strength(0.5F).friction(1F))))
+                .withWall(registerBlock(colorId + WALL_ID, () -> new WallBlock(BlockBehaviour.Properties.copy(sup.get()).friction(slipperiness))))
                 .withSlimy(slimy)
                 .withTranslucent(translucent)
                 .createBuildingBlockHelper();
@@ -124,11 +123,11 @@ public class ModBlocks {
     private static BuildingBlockHelper registerBuildingBlock(String id, Supplier<Block> sup, boolean slimy, float slipperiness) {
         BuildingBlockHelper buildingBlockHelper = new BuildingBlockHelper.Builder()
                 .withBlockId(id).withBlock(registerBlock(id, sup))
-                .withSlab(registerBlock(id + SLAB_ID, () -> new SlabBlock(BlockBehaviour.Properties.copy(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).friction(slipperiness))))
-                .withStairs(registerBlock(id + STAIRS_ID, () -> new StairBlock(() -> sup.get().defaultBlockState(), BlockBehaviour.Properties.copy(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).friction(slipperiness))))
-                .withButton(registerBlock(id + BUTTON_ID, () -> new StoneButtonBlock(BlockBehaviour.Properties.copy(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).noCollission().strength(0.5F))))
-                .withPressurePlate(registerBlock(id + PLATE_ID, () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, BlockBehaviour.Properties.copy(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE).noCollission().strength(0.5F).friction(slipperiness))))
-                .withWall(registerBlock(id + WALL_ID, () -> new WallBlock(BlockBehaviour.Properties.copy(sup.get()).harvestLevel(0).harvestTool(ToolType.PICKAXE))))
+                .withSlab(registerBlock(id + SLAB_ID, () -> new SlabBlock(BlockBehaviour.Properties.copy(sup.get()).friction(slipperiness))))
+                .withStairs(registerBlock(id + STAIRS_ID, () -> new StairBlock(() -> sup.get().defaultBlockState(), BlockBehaviour.Properties.copy(sup.get()).friction(slipperiness))))
+                .withButton(registerBlock(id + BUTTON_ID, () -> new StoneButtonBlock(BlockBehaviour.Properties.copy(sup.get()).noCollission().strength(0.5F))))
+                .withPressurePlate(registerBlock(id + PLATE_ID, () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.MOBS, BlockBehaviour.Properties.copy(sup.get()).noCollission().strength(0.5F).friction(slipperiness))))
+                .withWall(registerBlock(id + WALL_ID, () -> new WallBlock(BlockBehaviour.Properties.copy(sup.get()))))
                 .withSlimy(slimy).createBuildingBlockHelper();
         BLOCK_HELPERS.add(buildingBlockHelper);
         return buildingBlockHelper;

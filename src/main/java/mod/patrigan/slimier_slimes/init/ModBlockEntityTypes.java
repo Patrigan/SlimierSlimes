@@ -4,7 +4,7 @@ import mod.patrigan.slimier_slimes.SlimierSlimes;
 import mod.patrigan.slimier_slimes.tileentities.LavaSlimeSpawnerBlockEntity;
 import mod.patrigan.slimier_slimes.tileentities.LightAirBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 

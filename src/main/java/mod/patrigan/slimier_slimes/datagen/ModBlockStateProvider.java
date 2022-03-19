@@ -8,7 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.*;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 import static mod.patrigan.slimier_slimes.SlimierSlimes.MOD_ID;
 import static mod.patrigan.slimier_slimes.blocks.GooLayerBlock.LAYERS;

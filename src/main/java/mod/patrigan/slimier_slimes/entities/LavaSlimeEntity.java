@@ -1,6 +1,7 @@
 package mod.patrigan.slimier_slimes.entities;
 
 import mod.patrigan.slimier_slimes.entities.ai.goal.*;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
@@ -16,6 +17,7 @@ import net.minecraft.world.level.Level;
 import java.util.Random;
 
 import static mod.patrigan.slimier_slimes.init.ModEntityTypes.OBSIDIAN_SLIME;
+import static net.minecraft.world.entity.Entity.RemovalReason.KILLED;
 
 public class LavaSlimeEntity extends AbstractSlimeEntity {
 
@@ -41,11 +43,11 @@ public class LavaSlimeEntity extends AbstractSlimeEntity {
     }
 
     @Override
-    public void remove(boolean keepData) {
+    public void remove(Entity.RemovalReason removalReason) {
         if (!this.level.isClientSide) {
-            super.remove(keepData);
+            super.remove(removalReason);
             BlockPos position = blockPosition();
-            if (this.isDeadOrDying() && this.getSize() > 1 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && level.getBlockState(position).isAir()) {
+            if (removalReason == KILLED && this.isDeadOrDying() && this.getSize() > 1 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) && level.getBlockState(position).isAir()) {
                 level.setBlock(position, Blocks.LAVA.defaultBlockState(), 3);
             }
         }
@@ -107,7 +109,7 @@ public class LavaSlimeEntity extends AbstractSlimeEntity {
         slimeentity.setSize(this.getSize(), true);
         slimeentity.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), this.getXRot());
         this.level.addFreshEntity(slimeentity);
-        this.remove(false);
+        this.discard();
     }
 
     @Override

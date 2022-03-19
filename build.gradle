@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         maven { url = 'https://maven.minecraftforge.net/' }
-        jcenter()
         mavenCentral()
     }
     dependencies {
@@ -35,7 +34,7 @@ version = "${mc_version}-${mod_version}"
 group = 'mod.patrigan.slimier_slimes' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'slimier_slimes'
 
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '16' // Need this here so eclipse task generates correctly.
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -131,9 +130,9 @@ dependencies {
     //runtimeOnly fg.deobf("mezz.jei:jei-1.16.3:7.6.0.49")
 
     //Tools
-    //runtimeOnly fg.deobf("loadnbtblock:loadnbtblock:1.0")
+    runtimeOnly fg.deobf("loadnbtblock:loadnbtblock:1.18.1-2.0.0")
     //runtimeOnly fg.deobf("blame:blame:1.16.5-3.0.2-forge")
-    runtimeOnly fg.deobf("structure_toolkit:structure_toolkit:1.17.1-2.0.0")
+    runtimeOnly fg.deobf("structure_toolkit:structure_toolkit:1.18.1-2.0.0")
     //runtimeOnly fg.deobf("curse.maven:structure-toolkit-484907:3393035")
 
     //Compat tests

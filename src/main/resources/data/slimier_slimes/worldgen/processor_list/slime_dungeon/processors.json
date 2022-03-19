@@ -6,6 +6,10 @@
     {
       "processor_type": "slimier_slimes:block_slimify",
       "slimyness": 0.8
+    },
+    {
+      "processor_type": "structure_toolkit:mushrooms",
+      "rarity": 0.1
     }
   ]
 }

@@ -9,8 +9,8 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.RegistryObject;
@@ -62,7 +62,7 @@ public class ModEntityTypes {
                 .sized(2.04f, 2.04f) // Hitbox Size
                 .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString());
 
-        SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 5349438, secondaryColor, new Item.Properties().tab(SlimierSlimes.TAB)));
+        SPAWN_EGGS.register(key + "_spawn_egg" , () -> new ForgeSpawnEggItem(() -> entityType, 5349438, secondaryColor, new Item.Properties().tab(SlimierSlimes.TAB)));
         addToSpawnerEntities(entityType, isSpawnerEntity);
         SLIMES.add(entityType);
 
@@ -77,7 +77,7 @@ public class ModEntityTypes {
                 .sized(2.04f, 2.04f) // Hitbox Size
                 .build(new ResourceLocation(SlimierSlimes.MOD_ID, key).toString());
 
-        SPAWN_EGGS.register(key + "_spawn_egg" , () -> new SpawnEggItem(entityType, 5349438, secondaryColor, new Item.Properties().tab(SlimierSlimes.TAB)));
+        SPAWN_EGGS.register(key + "_spawn_egg" , () -> new ForgeSpawnEggItem(() -> entityType, 5349438, secondaryColor, new Item.Properties().tab(SlimierSlimes.TAB)));
         addToSpawnerEntities(entityType, isSpawnerEntity);
         SLIMES.add(entityType);
 

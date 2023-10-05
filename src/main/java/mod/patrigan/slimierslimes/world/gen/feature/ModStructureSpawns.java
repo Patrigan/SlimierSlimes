@@ -58,6 +58,7 @@ public class ModStructureSpawns {
      * can or cannot spawn your structure.
      */
     @SubscribeEvent
+    @SuppressWarnings("resource")
     public static void addDimensionalSpacing(final WorldEvent.Load event) {
         if(event.getWorld() instanceof ServerWorld){
             ServerWorld serverWorld = (ServerWorld)event.getWorld();

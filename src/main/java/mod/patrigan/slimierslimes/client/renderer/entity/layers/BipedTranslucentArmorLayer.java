@@ -52,7 +52,7 @@ public class BipedTranslucentArmorLayer<T extends LivingEntity, M extends BipedM
             p_241739_6_ = getArmorModelHook(p_241739_3_, itemstack, p_241739_4_, p_241739_6_);
             this.getParentModel().copyPropertiesTo(p_241739_6_);
             this.setPartVisibility(p_241739_6_, p_241739_4_);
-            boolean flag = this.usesInnerModel(p_241739_4_);
+            // boolean flag = this.usesInnerModel(p_241739_4_);
             boolean flag1 = itemstack.hasFoil();
             if(isSlime(itemstack.getItem())){
                int i = Minecraft.getInstance().getItemColors().getColor(itemstack, 0);
@@ -100,6 +100,9 @@ public class BipedTranslucentArmorLayer<T extends LivingEntity, M extends BipedM
       case FEET:
          p_188359_1_.rightLeg.visible = true;
          p_188359_1_.leftLeg.visible = true;
+         break;
+      default:
+         break;
       }
 
    }

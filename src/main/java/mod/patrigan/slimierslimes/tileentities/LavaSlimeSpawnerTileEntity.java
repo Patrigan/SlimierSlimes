@@ -84,6 +84,7 @@ public class LavaSlimeSpawnerTileEntity extends TileEntity implements ITickableT
         }
     }
 
+    @SuppressWarnings("resource")
     private void resetTimer() {
         if (this.maxSpawnDelay <= this.minSpawnDelay) {
             this.spawnDelay = this.minSpawnDelay;

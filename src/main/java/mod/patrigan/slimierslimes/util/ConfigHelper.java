@@ -335,6 +335,7 @@ public class ConfigHelper
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public DataResult<Object> mergeToList(Object list, Object value)
         {
             if (!(list instanceof Collection) && list != this.empty())
@@ -364,7 +365,7 @@ public class ConfigHelper
             {
                 return DataResult.error("key is not a string: " + key, map);
             }
-            Optional<String> result = stringResult.result();
+            // Optional<String> result = stringResult.result();
             return stringResult.flatMap(s ->{
 
                 final Config output = TomlFormat.newConfig();
@@ -398,6 +399,7 @@ public class ConfigHelper
         }
 
         @Override
+        @SuppressWarnings("unchecked")
         public DataResult<Stream<Object>> getStream(Object input)
         {
             if (input instanceof Collection)

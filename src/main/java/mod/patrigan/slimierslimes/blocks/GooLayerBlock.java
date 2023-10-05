@@ -116,12 +116,13 @@ public class GooLayerBlock extends FallingBlock implements IGrowable {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean canSurvive(BlockState blockState, IWorldReader world, BlockPos blockPos) {
         BlockState blockstateBelow = world.getBlockState(blockPos.below());
         if(blockstateBelow.getBlock() == this){
             return true;
         }
-        if (!blockstateBelow.is(Blocks.HONEY_BLOCK) && !blockstateBelow.is(Blocks.SOUL_SAND) && !blockstateBelow.isAir()) {
+        if (!blockstateBelow.is(Blocks.HONEY_BLOCK) && !blockstateBelow.is(Blocks.SOUL_SAND) && !blockstateBelow.isAir(world, blockPos)) {
             return Block.isFaceFull(blockstateBelow.getCollisionShape(world, blockPos.below()), Direction.UP);
         } else {
             return true;
@@ -178,9 +179,10 @@ public class GooLayerBlock extends FallingBlock implements IGrowable {
         }
     }
 
+    @SuppressWarnings("deprecation")
     private boolean canFlowTo(BlockState blockState, BlockState blockState1, ServerWorld world, BlockPos blockPos) {
         return (blockState1.is(blockState.getBlock()) && blockState.getValue(LAYERS) - blockState1.getValue(LAYERS) > 1)
-                || blockState1.isAir();
+                || blockState1.isAir(world, blockPos);
     }
 
     @Override
@@ -253,6 +255,7 @@ public class GooLayerBlock extends FallingBlock implements IGrowable {
         return false;
     }
 
+    @SuppressWarnings("all")
     private void applyBonemeal(ServerWorld serverWorld, Random random, BlockPos blockpos1) {
         BlockState blockstateToCheck = Blocks.GRASS.defaultBlockState();
         BlockState blockstate2 = serverWorld.getBlockState(blockpos1);
@@ -260,7 +263,7 @@ public class GooLayerBlock extends FallingBlock implements IGrowable {
             ((IGrowable) blockstateToCheck.getBlock()).performBonemeal(serverWorld, random, blockpos1, blockstate2);
         }
 
-        if (blockstate2.isAir()) {
+        if (blockstate2.isAir(serverWorld, blockpos1)) {
             BlockState blockstate1;
             if (random.nextInt(8) == 0) {
                 List<ConfiguredFeature<?, ?>> list = serverWorld.getBiome(blockpos1).getGenerationSettings().getFlowerFeatures();

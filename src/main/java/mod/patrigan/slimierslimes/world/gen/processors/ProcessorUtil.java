@@ -65,6 +65,7 @@ public class ProcessorUtil {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public static boolean isFaceFull(Template.BlockInfo blockinfo, Direction direction){
         if(blockinfo != null && blockinfo.state.is(JIGSAW)){
             Block block = BLOCKS.getValue(new ResourceLocation(blockinfo.nbt.getString(NBT_FINAL_STATE)));

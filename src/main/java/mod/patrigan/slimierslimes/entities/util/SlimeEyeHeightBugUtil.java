@@ -1,12 +1,12 @@
 package mod.patrigan.slimierslimes.entities.util;
 
-import mod.patrigan.slimierslimes.SlimierSlimes;
-import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
-import net.minecraft.util.DamageSource;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+// import mod.patrigan.slimierslimes.SlimierSlimes;
+// import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
+// import net.minecraft.util.DamageSource;
+// import net.minecraftforge.api.distmarker.Dist;
+// import net.minecraftforge.event.entity.living.LivingDamageEvent;
+// import net.minecraftforge.eventbus.api.SubscribeEvent;
+// import net.minecraftforge.fml.common.Mod;
 
 //@Mod.EventBusSubscriber(modid = SlimierSlimes.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE, value = Dist.CLIENT)
 public class SlimeEyeHeightBugUtil {

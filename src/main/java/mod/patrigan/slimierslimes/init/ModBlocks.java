@@ -119,6 +119,7 @@ public class ModBlocks {
         return helper;
     }
 
+    @SuppressWarnings("unused")
     private static BuildingBlockHelper registerBuildingBlock(String id, Supplier<Block> sup, boolean slimy, float slipperiness) {
         BuildingBlockHelper buildingBlockHelper = new BuildingBlockHelper.Builder()
                 .withBlockId(id).withBlock(registerBlock(id, sup))

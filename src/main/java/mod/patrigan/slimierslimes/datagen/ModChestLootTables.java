@@ -1,6 +1,5 @@
 package mod.patrigan.slimierslimes.datagen;
 
-import mod.patrigan.slimierslimes.init.ModTags;
 import net.minecraft.data.loot.ChestLootTables;
 import net.minecraft.item.Items;
 import net.minecraft.loot.*;
@@ -8,13 +7,9 @@ import net.minecraft.loot.functions.EnchantWithLevels;
 import net.minecraft.loot.functions.SetCount;
 import net.minecraft.loot.functions.SetNBT;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.common.Tags;
 
 import java.util.function.BiConsumer;
 
@@ -23,7 +18,6 @@ import static mod.patrigan.slimierslimes.init.ModItems.*;
 import static net.minecraft.tags.ItemTags.FLOWERS;
 import static net.minecraft.tags.ItemTags.SAPLINGS;
 import static net.minecraftforge.common.Tags.Items.SEEDS;
-import static net.minecraftforge.common.Tags.Items.SLIMEBALLS;
 
 public class ModChestLootTables extends ChestLootTables {
 

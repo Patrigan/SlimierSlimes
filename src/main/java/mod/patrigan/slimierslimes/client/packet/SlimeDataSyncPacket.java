@@ -2,7 +2,6 @@ package mod.patrigan.slimierslimes.client.packet;
 
 import com.mojang.serialization.Codec;
 import mod.patrigan.slimierslimes.init.data.SlimeData;
-import mod.patrigan.slimierslimes.init.data.SquishParticleData;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.network.PacketBuffer;

@@ -226,11 +226,13 @@ public class AbstractSlimeEntity extends MobEntity implements IMob {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public EntityType<? extends AbstractSlimeEntity> getType() {
         return (EntityType<? extends AbstractSlimeEntity>) super.getType();
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void remove(boolean keepData) {
         int i = this.getSize();
         if (!this.level.isClientSide && i > 1 && this.isDeadOrDying() && !this.removed) {

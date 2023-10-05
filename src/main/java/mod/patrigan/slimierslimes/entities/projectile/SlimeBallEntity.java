@@ -48,7 +48,9 @@ public class SlimeBallEntity extends ProjectileItemEntity {
     }
 
     private IParticleData makeParticle() {
-        ItemStack itemstack = this.getItemRaw();
+        // Use getItem to handle the default item case automatically
+        ItemStack itemstack = this.getItem();
+        // itemstack should never be empty, but check anyway
         return itemstack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleData(ParticleTypes.ITEM, itemstack);
     }
 
@@ -115,14 +117,19 @@ public class SlimeBallEntity extends ProjectileItemEntity {
     }
 
     private void placeGooBlock(BlockPos blockpos) {
-        BlockState blockState = GOO_LAYER_BLOCKS.get(((SlimeBallItem) getItemRaw().getItem()).getDyeColor()).get().defaultBlockState();
+        // When setItem is called with the default item, the item is left as air, so this
+        // emulates the getItem() logic to return the default item without creating a new ItemStack
+        ItemStack rawProjStack = getItemRaw();
+        Item projectileItem = rawProjStack.isEmpty() ? this.getDefaultItem() : rawProjStack.getItem();
+
+        BlockState blockState = GOO_LAYER_BLOCKS.get(((SlimeBallItem) projectileItem).getDyeColor()).get().defaultBlockState();
         if (this.level.isEmptyBlock(blockpos)) {
             this.level.setBlockAndUpdate(blockpos, blockState);
-        }else if(this.level.getBlockState(blockpos).is(blockState.getBlock())){
+        } else if (this.level.getBlockState(blockpos).is(blockState.getBlock())) {
             BlockState gooLayerBlock = this.level.getBlockState(blockpos);
-            if(gooLayerBlock.getValue(LAYERS) < 8){
+            if (gooLayerBlock.getValue(LAYERS) < 8) {
                 this.level.setBlockAndUpdate(blockpos, gooLayerBlock.setValue(LAYERS, gooLayerBlock.getValue(LAYERS)+1));
-            }else{
+            } else {
                 placeGooBlock(blockpos.above());
             }
         }

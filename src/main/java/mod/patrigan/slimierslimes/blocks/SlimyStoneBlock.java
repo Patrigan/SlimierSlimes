@@ -82,6 +82,7 @@ public class SlimyStoneBlock extends BreakableBlock implements ModBlockColor, Mo
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void spawnAfterBreak(BlockState state, ServerWorld worldIn, BlockPos pos, ItemStack stack) {
         super.spawnAfterBreak(state, worldIn, pos, stack);
         if (Boolean.TRUE.equals(state.getValue(CAN_SPAWN)) && worldIn.getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS) && EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, stack) == 0 && worldIn.random.nextFloat() <= SPAWN_CHANCE) {

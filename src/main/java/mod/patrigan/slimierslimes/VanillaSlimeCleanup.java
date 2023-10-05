@@ -2,16 +2,12 @@ package mod.patrigan.slimierslimes;
 
 import mod.patrigan.slimierslimes.entities.AbstractSlimeEntity;
 import mod.patrigan.slimierslimes.init.ModItems;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.entity.monster.SlimeEntity;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
 import net.minecraftforge.event.village.WandererTradesEvent;
@@ -24,7 +20,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static mod.patrigan.slimierslimes.SlimierSlimes.MAIN_CONFIG;
-import static mod.patrigan.slimierslimes.entities.AbstractSlimeEntity.SLIME_SIZE_KEY;
 import static mod.patrigan.slimierslimes.init.ModEntityTypes.*;
 import static net.minecraft.entity.EntityType.SLIME;
 import static net.minecraft.item.Items.SLIME_BALL;
